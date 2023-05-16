@@ -26,31 +26,13 @@ final class FlexFormParsingModifyEventListener
     {
         $identifier = $event->getIdentifier();
 
-        if (($identifier['type'] ?? '') === 'powermail_pi1') {
+        if (($identifier['dataStructureKey'] ?? '') === '*,powermail_pi1') {
             $parsedDataStructure = $event->getDataStructure();
             foreach ($this->getFieldConfiguration() as $key => $fieldConfiguration) {
                 $sheet = $this->getSheetNameAndRemoveFromConfiguration($fieldConfiguration);
                 $parsedDataStructure['sheets'][$sheet]['ROOT']['el'][$key] = $fieldConfiguration;
             }
             $event->setDataStructure($parsedDataStructure);
-        }
-    }
-
-    public function setDataStructure(BeforeFlexFormDataStructureParsedEvent $event): void
-    {
-        $identifier = $event->getIdentifier();
-        if (($identifier['type'] ?? '') === 'powermail_pi1') {
-            $event->setDataStructure('FILE:EXT:powermail/Configuration/FlexForms/FlexformPi1.xml');
-        }
-    }
-
-    public function setDataStructureIdentifier(BeforeFlexFormDataStructureIdentifierInitializedEvent $event): void
-    {
-        $row = $event->getRow();
-        if ($event->getTableName() === 'tt_content' && $row['CType'] === 'powermail_pi1') {
-            $event->setIdentifier([
-                'type' => 'powermail_pi1',
-            ]);
         }
     }
 
