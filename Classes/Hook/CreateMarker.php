@@ -333,7 +333,7 @@ class CreateMarker
             ->where('p.uid = ' . (int)$pageUid)
             ->setMaxResults(1)
             ->executeQuery()
-            ->fetchColumn();
+            ->fetchOne();
     }
 
     /**
