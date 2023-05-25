@@ -466,7 +466,7 @@ class FormController extends AbstractController
     protected function forwardIfMailParamEmpty(): ?ForwardResponse
     {
         $arguments = $this->request->getArguments();
-        if (empty($arguments['mail'])) {
+        if (!isset($arguments['mail']) || empty($arguments['mail'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->warning('Redirect (mail empty)', $arguments);
 
