@@ -158,7 +158,7 @@
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form.error.2">
 				<source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
-				<target state="translated">Dies sollte in powermail nicht auftreten. Bitte Formular erneut speicher. Falls das Probelm weiterhint besteht, bitte alle Marker-Namen von Hand überprüfen und korrigieren.</target>
+				<target state="translated">Dies sollte in powermail nicht auftreten. Bitte Formular erneut speichern. Falls das Problem weiterhin besteht, bitte alle Marker-Namen von Hand überprüfen und korrigieren.</target>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form.css">
 				<source>Layout</source>
