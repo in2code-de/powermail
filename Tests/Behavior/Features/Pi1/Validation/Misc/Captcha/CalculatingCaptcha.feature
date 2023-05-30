@@ -158,7 +158,7 @@ Feature: CaptchaValidation
     Then I should see "Sind diese Eingaben korrekt"
 
     When I fill in "tx_powermail_pi1[field][captcha2]" with "1"
-    And I press "Submit"
+    And I press "Submit2"
 
     Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should see "1"

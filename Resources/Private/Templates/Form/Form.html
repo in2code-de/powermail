@@ -40,8 +40,7 @@ Render Powermail Form
                     <f:for each="{form.pages}" as="page" iteration="iterationPages">
                         <f:render partial="Form/Page" arguments="{_all}"/>
                     </f:for>
-
-                    <f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid"/>
+                    <f:form.hidden name="mail[form]" value="{form.uid}" class="powermail_form_uid" respectSubmittedDataValue="false" />
                     <f:render partial="Misc/HoneyPod" arguments="{form:form}"/>
                 </f:form>
             </div>
