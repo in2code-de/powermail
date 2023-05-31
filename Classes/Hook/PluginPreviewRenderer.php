@@ -13,6 +13,7 @@ use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -37,44 +38,44 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     protected string $templatePathAndFile = 'EXT:powermail/Resources/Private/Templates/Hook/PluginPreview.html';
 
+    /**
+     * @throws InvalidConfigurationTypeException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     */
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {
         $row = $item->getRecord();
 
-        $flexforms = GeneralUtility::xml2array($row['pi_flexform']);
-        if (is_string($flexforms)) {
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+
+        $flexforms = $flexFormService->convertFlexFormContentToArray($row['pi_flexform']);
+
+        if (!is_array($flexforms)) {
             return 'ERROR: ' . htmlspecialchars($flexforms);
         }
-        $this->flexFormData = (array)$flexforms;
+        $this->flexFormData = $flexforms;
 
         $preview = '';
         if (!ConfigurationUtility::isDisablePluginInformationActive() && !empty($this->flexFormData)) {
-            switch ($row['CType']) {
-                case 'powermail_pi1':
-                    $preview = $this->getPluginInformation('Pi1', $row);
-                    break;
-                case 'powermail_pi2':
-                    $preview = $this->getPluginInformation('Pi2', $row);
-                    break;
-                case 'powermail_pi3':
-                    $preview = $this->getPluginInformation('Pi3', $row);
-                    break;
-                case 'powermail_pi4':
-                    $preview = $this->getPluginInformation('Pi4', $row);
-                    break;
-                default:
-                    $preview = '';
-            }
+            $preview = match ($row['CType']) {
+                'powermail_pi1' => $this->getPluginInformation('Pi1', $row),
+                'powermail_pi2' => $this->getPluginInformation('Pi2', $row),
+                'powermail_pi3' => $this->getPluginInformation('Pi3', $row),
+                'powermail_pi4' => $this->getPluginInformation('Pi4', $row),
+                default => '',
+            };
         }
         return $preview;
     }
 
     /**
-     * @param string @pluginName
+     * @param string $pluginName @pluginName
+     * @param array $row
      * @return string
-     * @throws InvalidConfigurationTypeException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws InvalidConfigurationTypeException
      */
     protected function getPluginInformation(string $pluginName, array $row): string
     {
@@ -85,7 +86,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 'row' => $row,
                 'flexFormData' => $this->flexFormData,
                 'formUid' => $this->getLocalizedFormUid(
-                    (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main'),
+                    (int)$this->flexFormData['settings']['flexform']['main']['form'],
                     $row['sys_language_uid']
                 ),
                 'receiverEmail' => $this->getReceiverEmail(),
@@ -94,7 +95,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
-                    (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main')
+                    (int)$this->flexFormData['settings']['flexform']['main']['form'],
                 ),
             ]
         );
@@ -104,6 +105,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
     /**
      * Get latest three emails to this form
      *
+     * @param $row
      * @return QueryResultInterface
      */
     protected function getLatestMails($row): QueryResultInterface
@@ -111,7 +113,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
         /** @var MailRepository $mailRepository */
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         return $mailRepository->findLatestByFormAndPage(
-            (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main'),
+            (int)$this->flexFormData['settings']['flexform']['main']['form'],
             (int)$row['pid']
         );
     }
@@ -123,14 +125,14 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     protected function getReceiverEmail(): string
     {
-        $receiver = $this->getFieldFromFlexform('settings.flexform.receiver.email', 'receiver');
-        if ((int)$this->getFieldFromFlexform('settings.flexform.receiver.type', 'receiver') === 1) {
+        $receiver = $this->flexFormData['settings']['flexform']['receiver']['email'];
+        if ((int)$this->flexFormData['settings']['flexform']['receiver']['type'] === 1) {
             $receiver = 'Frontenduser Group '
-                . (int)$this->getFieldFromFlexform('settings.flexform.receiver.fe_group', 'receiver');
+                . (int)$this->flexFormData['settings']['flexform']['receiver']['fe_group'];
         }
-        if ((int)$this->getFieldFromFlexform('settings.flexform.receiver.type', 'receiver') === 2) {
-            $receiver = 'Predefined "' .
-                (int)$this->getFieldFromFlexform('settings.flexform.receiver.predefinedemail', 'receiver') . '"';
+        if ((int)$this->flexFormData['settings']['flexform']['receiver']['type'] === 2) {
+            $receiver = 'Predefined "'
+                . (int)$this->flexFormData['settings']['flexform']['receiver']['predefinedemail'] . '"';
         }
         return $receiver ?? '';
     }
@@ -160,8 +162,8 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
         if ($sysLanguageUid > 0) {
             $row = BackendUtilityCore::getRecordLocalization(
                 Form::TABLE_NAME,
-                (int)$uid,
-                (int)$sysLanguageUid
+                $uid,
+                $sysLanguageUid
             );
             if ($row && !empty($row[0]['uid'])) {
                 $uid = (int)$row[0]['uid'];
@@ -181,18 +183,5 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
             return (int)$this->row['sys_language_uid'];
         }
         return 0;
-    }
-
-    public function getFieldFromFlexform(string $key, string $sheet = 'sDEF'): ?string
-    {
-        $flexform = $this->flexFormData;
-        if (isset($flexform['data'])) {
-            $flexform = $flexform['data'];
-            if (isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
-            ) {
-                return $flexform[$sheet]['lDEF'][$key]['vDEF'];
-            }
-        }
-        return null;
     }
 }
