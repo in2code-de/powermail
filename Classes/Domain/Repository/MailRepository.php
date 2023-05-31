@@ -308,6 +308,17 @@ class MailRepository extends AbstractRepository
         return $query->execute();
     }
 
+    public function findLatestByFormAndPage(int $formUid, int $pageUid, int $limit = 3): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $constraints[] = $query->equals('form', $formUid);
+        $constraints[] = $query->equals('pid', $pageUid);
+        $query->matching($query->logicalAnd(...$constraints));
+        $query->setOrderings($this->getSorting('crdate', 'desc'));
+        $query->setLimit($limit);
+        return $query->execute();
+    }
+
     /**
      * Generate a new array with labels
      *        label_firstname => Firstname

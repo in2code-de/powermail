@@ -90,7 +90,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 ),
                 'receiverEmail' => $this->getReceiverEmail(),
                 'receiverEmailDevelopmentContext' => ConfigurationUtility::getDevelopmentContextEmail(),
-                'mails' => $this->getLatestMails(),
+                'mails' => $this->getLatestMails($row),
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
@@ -106,12 +106,13 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      *
      * @return QueryResultInterface
      */
-    protected function getLatestMails(): QueryResultInterface
+    protected function getLatestMails($row): QueryResultInterface
     {
         /** @var MailRepository $mailRepository */
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
-        return $mailRepository->findLatestByForm(
-            (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main')
+        return $mailRepository->findLatestByFormAndPage(
+            (int)$this->getFieldFromFlexform('settings.flexform.main.form', 'main'),
+            (int)$row['pid']
         );
     }
 
