@@ -64,11 +64,11 @@ Show Confirmation Page
 		<f:if condition="{vh:condition.isArray(val:answer.value)}">
 			<f:then>
 				<f:for each="{answer.value}" as="subvalue" iteration="i">
-					<f:form.hidden property="{answer.field.marker}.{i.index}" value="{subvalue}" />
+					<f:form.hidden property="{answer.field.marker}.{i.index}" value="{subvalue}" respectSubmittedDataValue="false"  />
 				</f:for>
 			</f:then>
 			<f:else>
-				<f:form.hidden property="{answer.field.marker}" value="{answer.value}" />
+				<f:form.hidden property="{answer.field.marker}" value="{answer.value}" respectSubmittedDataValue="false"  />
 			</f:else>
 		</f:if>
 	</f:for>
