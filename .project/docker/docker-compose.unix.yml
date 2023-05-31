@@ -46,7 +46,7 @@ services:
     working_dir: /home/node/app/Resources/Private
 
   chrome:
-    image: seleniarm/standalone-chromium
+    image: seleniarm/standalone-chromium:111.0
     volumes:
       - /dev/shm:/dev/shm
     ports:
