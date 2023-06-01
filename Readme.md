@@ -4,21 +4,6 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-## Powermail 9 and 10
-
-Changes for powermail 10 with TYPO3 11:
-
-* Remove jQuery from all frontend renderings
-
-Changes done for powermail 9 with TYPO3 11:
-
-* Update for TYPO3 11 ()
-* Remove code dependencies to former TYPO3 versions
-* Add Responses to Actions
-* Update unit tests
-* Update behaviour tests
-* Manual tests (especially in backend context)
-
 ### Early Access Programm
 
 From now on an Early Access Programm is available for Powermail. You can get access for 12 month by donating any ammount >100 € net.
@@ -28,15 +13,7 @@ You will receive:
 * Early access to new releases
 * guaranteed paid support options
 
-Get member of the programm at: https://www.in2code.de/en/agency/typo3-extensions/#c3643
-
-### Supporters for TYPO3 11
-
-* B13.com
-* Studio Mitte Digital Media GmbH
-* SKALM GmbH
-* mexan AG
-* Wittkiel Gruppe GmbH
+Get member of the programm at: https://www.in2code.de/en/agency/typo3-extensions/early-access-program/
 
 ## 1. Documentation overview
 
@@ -62,18 +39,19 @@ Quick guide:
 
 ### 3.1. Versions and Support
 
-| Powermail           | TYPO3      | PHP       | Support/Development                             |
-| ------------------- | ---------- | ----------|------------------------------------------------ |
-| 10.x                | 11.x       | >= 7.4    | Features, Bugfixes, Security Updates            |
-| 9.x                 | 11.x       | >= 7.4    | Support dropped                                 |
-| 8.x                 | 10.x       | >= 7.2    | Security Updates (paid backports are possible)  |
-| 7.x                 | 8.7 - 9.x  | 7.0 - 7.x | Security Updates (paid backports are possible)  |
-| 6.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
-| 5.x                 | 8.7 - 9.x  | 7.0 - 7.x | Support dropped                                 |
-| 4.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Security Updates (paid backports are possible)  |
-| 3.x                 | 7.6 - 8.7  | 5.5 - 7.2 | Support dropped                                 |
-| 2.18 - 2.25         | 6.2 - 7.6  | 5.5 - 7.0 | Support dropped                                 |
-| 2.2 - 2.17          | 6.2 - 7.6  | 5.3 - 7.0 | Support dropped                                 |
+| Powermail   | TYPO3     | PHP       | Support/Development                            |
+|-------------|-----------|-----------|------------------------------------------------|
+| 11.x        | 12.x      | >= 8.1    | Features, Bugfixes, Security Updates           |
+| 10.x        | 11.x      | 7.4 - 8.1 | Bugfixes, Security Updates                     |
+| 9.x         | 11.x      | 7.4       | Support dropped                                |
+| 8.x         | 10.x      | 7.2 - 7.4 | Security Updates (paid backports are possible) |
+| 7.x         | 8.7 - 9.x | 7.0 - 7.4 | Security Updates (paid backports are possible) |
+| 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
+| 5.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
+| 4.x         | 7.6 - 8.7 | 5.5 - 7.2 | Security Updates (paid backports are possible) |
+| 3.x         | 7.6 - 8.7 | 5.5 - 7.2 | Support dropped                                |
+| 2.18 - 2.25 | 6.2 - 7.6 | 5.5 - 7.0 | Support dropped                                |
+| 2.2 - 2.17  | 6.2 - 7.6 | 5.3 - 7.0 | Support dropped                                |
 
 Do you need free support? There is a kind TYPO3 community that could help you.
 You can ask questions at https://stackoverflow.com and tag your question with `TYPO3` and `Powermail`.
