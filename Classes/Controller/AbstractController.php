@@ -106,10 +106,10 @@ abstract class AbstractController extends ActionController
     {
         $this->settings = $settings;
     }
-    
+
     /**
      * Make $this->view accessible when extending the controller with signals
-     * 
+     *
      * @param string $key
      * @param mixed $value
      */
