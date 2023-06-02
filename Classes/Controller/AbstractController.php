@@ -106,6 +106,17 @@ abstract class AbstractController extends ActionController
     {
         $this->settings = $settings;
     }
+    
+    /**
+     * Make $this->view accessible when extending the controller with signals
+     * 
+     * @param string $key
+     * @param mixed $value
+     */
+    public function assignView(string $key, $value): void
+    {
+        $this->view->assign($key, $value);
+    }
 
     /**
      * Reformat array for createAction
