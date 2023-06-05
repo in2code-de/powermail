@@ -277,6 +277,9 @@ This is easy to handle, just add this line of TypoScript to your **Constants**:
 
 `plugin.tx_powermail.settings.misc.addQueryString = 1`
 
+You need also set `$GLOBALS['TYPO3_CONF_VARS']['FE]['cacheHash']['enforceValidation'] = false`
+
+
 
 ## I have a problem, what can I do?
 
