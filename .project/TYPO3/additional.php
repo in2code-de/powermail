@@ -1,11 +1,16 @@
 <?php
 
-return [
+$changeSettings = [
     'BE' => [
         'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$RmZtaE5LQU1rSGw2NUZiWQ$YdU5on+xJ4lI6Gwd4LWpbddeAEu88cctS2dnO+r9ty0',
         'lockSSL' => '0',
         'compressionLevel' => '0',
         'debug' => true,
+    ],
+    'FE' => [
+        'cacheHash' => [
+            'enforceValidation' => false,
+        ],
     ],
     'DB' => [
         'Connections' => [
@@ -49,3 +54,5 @@ return [
         'exceptionalErrors' => '28674'
     ]
 ];
+
+$GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive($GLOBALS['TYPO3_CONF_VARS'], $changeSettings);
