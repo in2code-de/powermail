@@ -75,7 +75,7 @@ final class FlexFormParsingModifyEventListener
     {
         $request = $this->getRequest();
         $queryParams = $request->getQueryParams();
-        $uid = array_keys($queryParams['edit']['tt_content'])[0];
+        $uid = array_keys($queryParams['data']['tt_content'] ?? [0])[0];
         return DatabaseUtility::getPidForRecord($uid, 'tt_content');
     }
 
