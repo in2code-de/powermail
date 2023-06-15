@@ -143,7 +143,7 @@ class ModuleController extends AbstractController
             ]
         );
 
-        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
+        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
         return $this->htmlResponse()
             ->withHeader('Content-Type', 'application/vnd.ms-excel')
             ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
