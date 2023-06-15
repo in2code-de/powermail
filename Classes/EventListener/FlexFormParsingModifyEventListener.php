@@ -8,8 +8,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Configuration\Event\AfterFlexFormDataStructureParsedEvent;
-use TYPO3\CMS\Core\Configuration\Event\BeforeFlexFormDataStructureIdentifierInitializedEvent;
-use TYPO3\CMS\Core\Configuration\Event\BeforeFlexFormDataStructureParsedEvent;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 

@@ -36,7 +36,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
         unset($this->createMarkerMock);
     }
 
-    public static function makeUniqueValueInArrayReturnsVoidDataProvider():array
+    public static function makeUniqueValueInArrayReturnsVoidDataProvider(): array
     {
         return [
             [
