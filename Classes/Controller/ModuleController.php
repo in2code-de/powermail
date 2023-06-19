@@ -132,7 +132,7 @@ class ModuleController extends AbstractController
      */
     public function exportXlsAction(): ResponseInterface
     {
-        $this->moduleTemplate->assignMultiple(
+        $this->view->assignMultiple(
             [
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
