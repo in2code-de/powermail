@@ -197,7 +197,6 @@ class OutputController extends AbstractController
             return (new ForwardResponse('exportXls'))->withArguments(['mails' => $mails, 'fields' => $fields]);
         }
         return (new ForwardResponse('exportCsv'))->withArguments(['mails' => $mails, 'fields' => $fields]);
-        return $this->htmlResponse();
     }
 
     /**
