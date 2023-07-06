@@ -15,11 +15,14 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
+use PhpOffice\PhpSpreadsheet\Reader\Html;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -29,6 +32,7 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Class ModuleController for backend modules
@@ -120,6 +124,7 @@ class ModuleController extends AbstractController
             'perPage' => $this->settings['perPage'] ?? 10,
             'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
+            'activateXlsxExport' => class_exists(IOFactory::class)
         ]);
 
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
@@ -133,23 +138,34 @@ class ModuleController extends AbstractController
      */
     public function exportXlsAction(): ResponseInterface
     {
-        $this->view->assignMultiple(
-            [
-                'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
-                'fieldUids' => GeneralUtility::trimExplode(
-                    ',',
-                    StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
-                    true
-                ),
-            ]
-        );
+        if (class_exists(IOFactory::class)) {
+            $this->view->assignMultiple(
+                [
+                    'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
+                    'fieldUids' => GeneralUtility::trimExplode(
+                        ',',
+                        StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+                        true
+                    ),
+                ]
+            );
 
-        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
-        return $this->htmlResponse()
-            ->withHeader('Content-Type', 'application/vnd.ms-excel')
-            ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
-            ->withAddedHeader('Pragma', 'no-cache')
-        ;
+            $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
+            $tmpFilename = GeneralUtility::tempnam('export_');
+
+            $reader = new Html();
+            $spreadsheet = $reader->loadFromString($this->view->render());
+
+            $writer = IOFactory::createWriter($spreadsheet,'Xls');
+            $writer->save($tmpFilename);
+
+            return $this->responseFactory->createResponse()
+                ->withHeader('Content-Type', 'application/x-www-form-urlencoded')
+                ->withAddedHeader('Content-Transfer-Encoding', 'Binary')
+                ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                ->withAddedHeader('Pragma', 'no-cache')
+                ->withBody($this->streamFactory->createStreamFromFile($tmpFilename));
+        }
     }
 
     /**
