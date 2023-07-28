@@ -125,14 +125,14 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      */
     protected function getReceiverEmail(): string
     {
-        $receiver = $this->flexFormData['settings']['flexform']['receiver']['email'];
+        $receiver = $this->flexFormData['settings']['flexform']['receiver']['email'] ?? '';
         if (
             isset($this->flexFormData['settings']['flexform']['receiver']['type']) &&
             isset($this->flexFormData['settings']['flexform']['receiver']['fe_group']) &&
             (int)$this->flexFormData['settings']['flexform']['receiver']['type'] === 1
         ) {
             $receiver = 'Frontenduser Group '
-                . (int)$this->flexFormData['settings']['flexform']['receiver']['fe_group'];
+                . (int)$this->flexFormData['settings']['flexform']['receiver']['fe_group'] ?? 0;
         }
         if (
             isset($this->flexFormData['settings']['flexform']['receiver']['type']) &&
