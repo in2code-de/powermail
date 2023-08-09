@@ -167,7 +167,7 @@
 							<config>
 								<type>check</type>
 								<items type="array">
-									<numIndex index="1" type="array">
+									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.showownonly.0</numIndex>
 										<numIndex index="1">1</numIndex>
 									</numIndex>
@@ -211,7 +211,7 @@
 							<config>
 								<type>check</type>
 								<items type="array">
-									<numIndex index="1" type="array">
+									<numIndex index="0" type="array">
 										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink.0</numIndex>
 										<numIndex index="1">1</numIndex>
 									</numIndex>
