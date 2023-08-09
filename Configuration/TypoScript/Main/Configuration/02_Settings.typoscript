@@ -49,7 +49,10 @@ lib.parseFunc_powermail {
   }
 }
 
-module.tx_powermail.settings.setup {
-  # Don't touch this (this is just to let the extension know, that there is TypoScript included)
-  staticTemplate = 1
+module.tx_powermail.settings {
+  setup {
+    # Don't touch this (this is just to let the extension know, that there is TypoScript included)
+    staticTemplate = 1
+  }
+  uploadPath = {$plugin.tx_powermail.settings.misc.uploadFolder}
 }

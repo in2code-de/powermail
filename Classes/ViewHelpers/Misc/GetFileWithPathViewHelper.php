@@ -51,7 +51,8 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
                     if ($thisStorage->hasFolder($subPath)) {
                         $folder = $thisStorage->getFolder($subPath);
                         $file = $thisStorage->getFileInFolder($fileName, $folder);
-                        return (string)$file->getPublicUrl();
+                        $filePath = (string)$file->getPublicUrl();
+                        return ltrim($filePath, '/');
                     }
                 }
             } catch (Throwable $e) {
