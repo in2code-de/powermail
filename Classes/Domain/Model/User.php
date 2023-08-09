@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\Domain\Model;
 
-use TYPO3\CMS\Core\Resource\FileReference;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
