@@ -38,6 +38,9 @@
 		"ext-fileinfo": "*",
 		"ext-curl": "*"
 	},
+	"suggest": {
+		"phpoffice/phpspreadsheet": "^1.29"
+	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
 	},
@@ -74,7 +77,8 @@
 		"typo3/cms-dashboard": "^12.4",
 		"friends-of-behat/mink-browserkit-driver": "^1.5",
 		"drevops/behat-screenshot": "^1.1",
-		"typo3/testing-framework": "^8.0"
+		"typo3/testing-framework": "^8.0",
+		"phpoffice/phpspreadsheet": "^1.29"
 	},
 	"autoload": {
 		"psr-4": {

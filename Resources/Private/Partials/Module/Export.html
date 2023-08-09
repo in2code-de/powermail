@@ -9,7 +9,9 @@
 			<f:translate key="BackendListFilterExtendedExport">extended export</f:translate>
 		</f:form.button>
 		<button type="button" class="export_icon export_icon_csv btn btn-info">CSV</button>
-		<button type="button" class="export_icon export_icon_xls btn btn-info">XLS</button>
+        <f:if condition="{activateXlsxExport}">
+            <button type="button" class="export_icon export_icon_xls btn btn-info">XLS</button>
+        </f:if>
 	</div>
 </div>
 
