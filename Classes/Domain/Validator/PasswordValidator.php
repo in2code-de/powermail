@@ -70,7 +70,17 @@ class PasswordValidator extends AbstractValidator
      */
     protected function ignoreValidationIfConfirmation(): bool
     {
-        return FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'create';
+        return (
+                !empty(FrontendUtility::getArguments()['__referrer'])
+                && !empty(FrontendUtility::getArguments()['action'])
+                && FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
+                && FrontendUtility::getArguments()['action'] === 'create'
+            )
+            || (
+                !empty(FrontendUtility::getArguments()['controller'])
+                && !empty(FrontendUtility::getArguments()['action'])
+                && FrontendUtility::getArguments()['controller'] === 'Form'
+                && FrontendUtility::getArguments()['action'] === 'optinConfirm'
+            );
     }
 }
