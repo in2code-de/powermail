@@ -39,7 +39,8 @@
 		"ext-curl": "*"
 	},
 	"suggest": {
-		"phpoffice/phpspreadsheet": "^1.29"
+		"phpoffice/phpspreadsheet": "^1.29",
+		"sjbr/static-info-tables": "*"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
