@@ -33,7 +33,7 @@ Quick guide:
 
 | Powermail   | TYPO3     | PHP       | Support/Development                            |
 |-------------|-----------|-----------|------------------------------------------------|
-| 11.x        | 12.x      | >= 8.1    | Features, Bugfixes, Security Updates           |
+| 11.x        | 12.x      | 8.1 - 8.2 | Features, Bugfixes, Security Updates           |
 | 10.x        | 11.x      | 7.4 - 8.1 | Bugfixes, Security Updates                     |
 | 9.x         | 11.x      | 7.4       | Support dropped                                |
 | 8.x         | 10.x      | 7.2 - 7.4 | Security Updates (paid backports are possible) |
