@@ -51,9 +51,11 @@ class FieldSelectorUserFunc
     protected function getFormUidFromTtContentUid(int $ttContentUid): int
     {
         $row = BackendUtilityCore::getRecord('tt_content', (int)$ttContentUid, 'pi_flexform', '', false);
-        $flexform = GeneralUtility::xml2array($row['pi_flexform']);
-        if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-            return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+        if (isset($row['pi_flexform'])) {
+            $flexform = GeneralUtility::xml2array($row['pi_flexform']);
+            if (isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
+                return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+            }
         }
         return 0;
     }
