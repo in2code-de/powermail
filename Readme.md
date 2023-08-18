@@ -7,29 +7,6 @@ and easy to use mailform extension for TYPO3 with a lots of features
 > :warning: **TYPO3 12 compatibility**\
 > See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
 
-## Powermail 9 and 10
-
-Changes for powermail 10 with TYPO3 11:
-
-* Remove jQuery from all frontend renderings
-
-Changes done for powermail 9 with TYPO3 11:
-
-* Update for TYPO3 11 ()
-* Remove code dependencies to former TYPO3 versions
-* Add Responses to Actions
-* Update unit tests
-* Update behaviour tests
-* Manual tests (especially in backend context)
-
-### Supporters for TYPO3 11
-
-* B13.com
-* Studio Mitte Digital Media GmbH
-* SKALM GmbH
-* mexan AG
-* Wittkiel Gruppe GmbH
-
 ## 1. Documentation overview
 
 * [Introduction](/Documentation/Readme.md)
@@ -56,10 +33,11 @@ Quick guide:
 
 | Powermail   | TYPO3     | PHP       | Support/Development                            |
 |-------------|-----------|-----------|------------------------------------------------|
-| 10.x        | 11.x      | >= 7.4    | Features, Bugfixes, Security Updates           |
-| 9.x         | 11.x      | >= 7.4    | Support dropped                                |
-| 8.x         | 10.x      | >= 7.2    | Security Updates (paid backports are possible) |
-| 7.x         | 8.7 - 9.x | 7.0 - 7.x | Security Updates (paid backports are possible) |
+| 11.x        | 12.x      | 8.1 - 8.2 | Features, Bugfixes, Security Updates           |
+| 10.x        | 11.x      | 7.4 - 8.1 | Bugfixes, Security Updates                     |
+| 9.x         | 11.x      | 7.4       | Support dropped                                |
+| 8.x         | 10.x      | 7.2 - 7.4 | Security Updates (paid backports are possible) |
+| 7.x         | 8.7 - 9.x | 7.0 - 7.4 | Security Updates (paid backports are possible) |
 | 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
 | 5.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
 | 4.x         | 7.6 - 8.7 | 5.5 - 7.2 | Security Updates (paid backports are possible) |
