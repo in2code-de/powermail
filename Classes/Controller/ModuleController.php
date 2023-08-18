@@ -118,6 +118,7 @@ class ModuleController extends AbstractController
                 'pagination' => $pagination,
                 'paginator' => $paginator,
             ],
+            'settings' => $this->settings,
             'perPage' => $this->settings['perPage'] ?? 10,
             'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
