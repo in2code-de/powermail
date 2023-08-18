@@ -157,7 +157,11 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
                 $queryBuilder->expr()->eq(
                     'list_type',
                     $queryBuilder->createNamedParameter($list_type)
-                )
+                ),
+                $queryBuilder->expr()->eq(
+                    'CType',
+                    $queryBuilder->createNamedParameter('list')
+                ),
             )
             ->executeQuery()
             ->fetchAllAssociative();
