@@ -3,14 +3,18 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Factory;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use In2code\Powermail\Events\MailFactoryBeforePasswordIsHashedEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Utility\DebugUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -19,6 +23,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailFactory
 {
+    public function __construct(
+        private readonly EventDispatcherInterface $eventDispatcher
+    ) {
+    }
+
     /**
      * @param Mail $mail
      * @param array $settings
@@ -52,6 +61,32 @@ class MailFactory
         $this->setSenderIp($mail);
         $this->setHidden($mail, $settings);
         $this->setAnswersPid($mail, $settings);
+        $this->sanitizePasswordsInAnswers($mail);
+    }
+
+    protected function sanitizePasswordsInAnswers(Mail $mail)
+    {
+        foreach ($mail->getAnswers() as $answer) {
+            /**
+             * @var $answer Answer
+             */
+            if ($answer->getValueType() === Answer::VALUE_TYPE_PASSWORD) {
+                /**
+                 * @var MailFactoryBeforePasswordIsHashedEvent $event
+                 */
+                $event = $this->eventDispatcher->dispatch(
+                    GeneralUtility::makeInstance(MailFactoryBeforePasswordIsHashedEvent::class, $answer)
+                );
+                if ($event->isPasswordShouldBeHashed()) {
+                    $answer->setOriginalValue($answer->getValue());
+                    $answer->setValue(
+                        GeneralUtility::makeInstance(PasswordHashFactory::class)
+                            ->getDefaultHashInstance('FE')
+                            ->getHashedPassword($answer->getValue())
+                    );
+                }
+            }
+        }
     }
 
     /**

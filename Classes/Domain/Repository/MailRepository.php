@@ -349,6 +349,9 @@ class MailRepository extends AbstractRepository
     {
         $variables = [];
         foreach ($mail->getAnswers() as $answer) {
+            /**
+             * @var $answer Answer
+             */
             if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
                 continue;
             }
@@ -357,6 +360,9 @@ class MailRepository extends AbstractRepository
                 $value = implode(', ', $value);
             }
             $variables[$answer->getField()->getMarker()] = $value;
+            if ($answer->getOriginalValue() !== $answer->getStringValue()) {
+                $variables[$answer->getField()->getMarker() . '_originalValue'] = $answer->getOriginalValue();
+            }
         }
         if ($htmlSpecialChars) {
             $variables = ArrayUtility::htmlspecialcharsOnArray($variables);

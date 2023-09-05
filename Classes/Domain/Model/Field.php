@@ -741,7 +741,7 @@ class Field extends AbstractEntity
                 'html' => Answer::VALUE_TYPE_TEXT,
                 'input' => Answer::VALUE_TYPE_TEXT,
                 'location' => Answer::VALUE_TYPE_TEXT,
-                'password' => Answer::VALUE_TYPE_TEXT,
+                'password' => Answer::VALUE_TYPE_PASSWORD,
                 'radio' => Answer::VALUE_TYPE_TEXT,
                 'reset' => Answer::VALUE_TYPE_TEXT,
                 'select' => Answer::VALUE_TYPE_TEXT,

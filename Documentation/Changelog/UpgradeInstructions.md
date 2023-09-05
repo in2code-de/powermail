@@ -1,5 +1,9 @@
 # Upgrade Instructions and breaking changes
 
+## Version 11.0
+
+In Version 11 the default behaviour for password fields is hashing the value with the default hashing algorithm before storing it in the database.
+
 ## Version 10.0
 
 In version 10 we completely removed jQuery, jQuery UI, Datetimepicker, Parsley.js and other old JS stuff from frontend

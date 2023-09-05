@@ -20,6 +20,7 @@ class Answer extends AbstractEntity
     const VALUE_TYPE_ARRAY = 1;
     const VALUE_TYPE_DATE = 2;
     const VALUE_TYPE_UPLOAD = 3;
+    const VALUE_TYPE_PASSWORD = 4;
 
     /**
      * @var string
@@ -27,11 +28,19 @@ class Answer extends AbstractEntity
     protected $value = '';
 
     /**
+     * Use when password is hashed so that the originally entered value is available in the finishers
+     *
+     * @var string
+     */
+    protected $originalValue = '';
+
+    /**
      * valueType
      *      0 => text
      *      1 => array
      *      2 => date
      *      3 => upload
+     *      4 => password
      *
      * @var int
      */
@@ -97,6 +106,22 @@ class Answer extends AbstractEntity
         $value = $this->convertToTimestamp($value);
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * @return array|false|mixed|string|string[]
+     */
+    public function getOriginalValue()
+    {
+        if ($this->originalValue !== '' && $this->originalValue !== $this->value) {
+            return $this->originalValue;
+        }
+        return $this->value;
+    }
+
+    public function setOriginalValue(string $originalValue): void
+    {
+        $this->originalValue = $originalValue;
     }
 
     /**
