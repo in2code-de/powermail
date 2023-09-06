@@ -303,9 +303,9 @@ class Form {
     let pattern = '^(https?:\\/\\/)?'+ // protocol
       '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
       '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
-      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
-      '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
-      '(\\#[-a-z\\d_]*)?$'
+      '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*'+ // port and path
+      '(\\?[;&a-zA-Z\\d%_.~+=-]*)?'+ // query string
+      '(\\#[-a-zA-Z\\d_]*)?$'
     let constraint = new RegExp(pattern, '');
     return constraint.test(this.#getFieldValue(field));
   };
