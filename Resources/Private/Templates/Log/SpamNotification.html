@@ -1,4 +1,4 @@
-
+{namespace vh=In2code\Powermail\ViewHelpers}
 ----------------------------------------------------
 
 <f:format.date format="Y-m-d H:i:s">{time}</f:format.date>
@@ -9,8 +9,11 @@ Failed Spamchecks:
 <f:for each="{messages}" as="message">- {message}
 </f:for>
 Given Form variables:
-<f:for each="{mail.answers}" as="answer">- {answer.field.title}: {answer.value}
-</f:for>
+<f:for each="{mail.answers}" as="answer"><f:if condition="{vh:condition.isArray(val:answer.value)}">
+<f:then>{answer.field.title}: <f:for each="{answer.value}" as="subValue" iteration="index"><f:if condition="{subValue}"><vh:misc.manipulateValueWithTypoScript answer="{answer}" type="{type}">{subValue}</vh:misc.manipulateValueWithTypoScript><f:if condition="{index.isLast}"><f:else>, </f:else></f:if>
+</f:if></f:for></f:then>
+<f:else>{answer.field.title}: {answer.value}
+</f:else></f:if></f:for>
 <f:if condition="{ipAddress}">Senders IP addess: {ipAddress}</f:if>
 
 Complete request array:
