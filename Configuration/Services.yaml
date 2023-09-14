@@ -43,5 +43,5 @@ services:
   In2code\Powermail\EventListener\FlexFormParsingModifyEventListener:
     tags:
       - name: 'event.listener'
-        identifier: 'form-framework/modify-data-structure'
+        identifier: 'powermail/modify-data-structure'
         method: 'modifyDataStructure'
