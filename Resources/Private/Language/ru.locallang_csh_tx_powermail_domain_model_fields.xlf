@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_fields.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ru">
+    <header/>
+    <body>
+      <trans-unit id="title.description" resname="title.description" approved="yes">
+        <source>Enter a label for your Field</source>
+        <target state="final">Введите метку для поля</target>
+      </trans-unit>
+      <trans-unit id="type.description" resname="type.description" approved="yes">
+        <source>Choose the type of your Field</source>
+        <target state="final">Выберете тип поля</target>
+      </trans-unit>
+      <trans-unit id="settings.description" resname="settings.description" approved="yes">
+        <source>One option per line. If you want to split value and label, use a | symbol. Preselect with *</source>
+        <target state="final">По одному параметру на строку. Если нужно разделить значение и метку, используйте символ |. Обозначьте предварительный выбор *.</target>
+      </trans-unit>
+      <trans-unit id="path.description" resname="path.description" approved="yes">
+        <source>Add a path to the TypoScript that should be rendered (e.g. lib.showsometext)</source>
+        <target state="final">Добавьте путь TypoScript, который должен быть выведен (например, lib.showsometext)</target>
+      </trans-unit>
+      <trans-unit id="content_element.description" resname="content_element.description" approved="yes">
+        <source>Choose a content element that should be renderen within your form</source>
+        <target state="final">Выберите элемент содержимого, который должен быть выведен в вашей форме</target>
+      </trans-unit>
+      <trans-unit id="text.description" resname="text.description" approved="yes">
+        <source>Save a text for a frontend output</source>
+        <target state="final">Сохраните текст для вывода на сайте</target>
+      </trans-unit>
+      <trans-unit id="sender_email.description" resname="sender_email.description" approved="yes">
+        <source>Will this field contain the Email of the user?</source>
+        <target state="final">Это поле будет содержать email пользователя?</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>Will this field contain the Name or a part of the Name of the user?</source>
+        <target state="final">Это поле будет содержать Имя пользователя?</target>
+      </trans-unit>
+      <trans-unit id="validation_title.description" resname="validation_title.description" approved="yes">
+        <source>Validation Settings</source>
+        <target state="final">Настройки проверки</target>
+      </trans-unit>
+      <trans-unit id="mandatory.description" resname="mandatory.description" approved="yes">
+        <source>Should this field be a mandatory field?</source>
+        <target state="final">Это поле должно быть обязательным?</target>
+      </trans-unit>
+      <trans-unit id="validation.description" resname="validation.description" approved="yes">
+        <source>Validate the field value (url, email, etc...)</source>
+        <target state="final">Проверить значение этого поля (url, email и т.п...)</target>
+      </trans-unit>
+      <trans-unit id="validation_configuration.description" resname="validation_configuration.description" approved="yes">
+        <source>This value influences the validation (if you choose range, you can use e.g. 1,10 to have a range field from 1 to 10) (if you choose pattern validation, you can use regular expressions e.g. like https?://.+ to validate for a beginning https-link)</source>
+        <target state="final">Это значение влияет на проверку (если выбрать диапазон, можно использовать, например, 1,10, чтобы диапазон значений для поля был от 1 до 10) (если вы выбираете проверку по шаблону, можно воспользоваться регулярными выражениями, например, https?: //.+ для проверки https в начале ссылки)</target>
+      </trans-unit>
+      <trans-unit id="prefill_title.description" resname="prefill_title.description" approved="yes">
+        <source>Prefill Settings</source>
+        <target state="final">Настройки предварительного заполнения</target>
+      </trans-unit>
+      <trans-unit id="prefill_value.description" resname="prefill_value.description" approved="yes">
+        <source>Prefill this field with a static text. The related field wil be prefilled (If you use a prefill value for a country-field, add the wanted code - e.g. DEU or USA)</source>
+        <target state="final">Заполнить это поле обычным текстом</target>
+      </trans-unit>
+      <trans-unit id="placeholder.description" resname="placeholder.description" approved="yes">
+        <source>A placeholder text is an example, that should help the user to fill out an input field. This text is shown in bright grey within the input field. If you have a name field, you could use the placeholder "John Doe"</source>
+        <target state="final">Текст заполнителя служит примером, призванным помочь пользователю в заполнении поля. Этот текст отображается ярко-серым цветом в поле ввода. Для поля Имя можно использовать заполнитель "Иван"</target>
+      </trans-unit>
+      <trans-unit id="feuser_value.description" resname="feuser_value.description" approved="yes">
+        <source>Prefill this field with value of a logged in fe_user (overwrites the static prefill text)</source>
+        <target state="final">Заполнить это поле значениями из сведений о fe_user (предварительно настроенный статический текст будет заменен)</target>
+      </trans-unit>
+      <trans-unit id="create_from_typoscript.description" resname="create_from_typoscript.description" approved="yes">
+        <source>Options can be dynamicly generated by TypoScript (e.g. lib.options=TEXT lib.options.value=red[\n]blue[\n]pink). Add the path to the TypoScript object.</source>
+        <target state="final">Параметры можно создавать динамически с помощью TypoScript (например, lib.options=TEXT lib.options.value=red[\n]blue[\n]pink). Добавьте путь к объекту TypoScript.</target>
+      </trans-unit>
+      <trans-unit id="css.description" resname="css.description" approved="yes">
+        <source>Choose a Layout (This may change the Frontend Rendering - please ask your administrator for more information)</source>
+        <target state="final">Выбор шаблона (изменение классов во внешнем интерфейсе)</target>
+      </trans-unit>
+      <trans-unit id="datepicker_settings.description" resname="datepicker_settings.description" approved="yes">
+        <source>Choose the type of the datepicker (date only or date and time or time only)</source>
+        <target state="final">Выберите тип выбора даты (только дата, дата и время либо только время)</target>
+      </trans-unit>
+      <trans-unit id="marker_title.description" resname="marker_title.description" approved="yes">
+        <source>Variables Settings</source>
+        <target state="final">Настройки переменных</target>
+      </trans-unit>
+      <trans-unit id="auto_marker.description" resname="auto_marker.description" approved="yes">
+        <source>This variable was automaticly generated by the system</source>
+        <target state="final">Эти переменные были автоматически сформированы системой</target>
+      </trans-unit>
+      <trans-unit id="marker.description" resname="marker.description" approved="yes">
+        <source>Use your own variable in a Rich Text Editor (e.g.)</source>
+        <target state="final">Используйте свои переменные в Rich Text Editor (например)</target>
+      </trans-unit>
+      <trans-unit id="own_marker_select.description" resname="own_marker_select.description" approved="yes">
+        <source>Check this if you want to change the automaticly generated variable</source>
+        <target state="final">Включите, если нужно изменить автоматически сформированную переменную</target>
+      </trans-unit>
+      <trans-unit id="pages.description" resname="pages.description" approved="yes">
+        <source>Add the related page to this field</source>
+        <target state="final">Добавьте соответствующую страницу в это поле</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
