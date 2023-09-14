@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mails</source>
+        <target state="final">メール</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings" resname="tx_powermail_domain_model_field.datepicker_settings" approved="yes">
+        <source>Datepicker Mode</source>
+        <target state="final">Datepickerモード</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1" approved="yes">
+        <source>Date</source>
+        <target state="final">日付</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.2" resname="tx_powermail_domain_model_field.datepicker_settings.2" approved="yes">
+        <source>Date and Time</source>
+        <target state="final">日付と時間</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3" approved="yes">
+        <source>Time</source>
+        <target state="final">時間</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
