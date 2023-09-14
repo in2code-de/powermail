@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="nl">
+    <header/>
+    <body>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mails</source>
+        <target state="final">E-mails</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_mail" resname="tx_powermail_domain_model_mail.sender_mail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">E-mailadres afzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_name" resname="tx_powermail_domain_model_mail.sender_name" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Naam afzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.subject" resname="tx_powermail_domain_model_mail.subject" approved="yes">
+        <source>Mail Subject</source>
+        <target state="final">Onderwerp e-mail</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.body" resname="tx_powermail_domain_model_mail.body" approved="yes">
+        <source>Email Body</source>
+        <target state="final">Parameter</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.receiver_mail" resname="tx_powermail_domain_model_mail.receiver_mail" approved="yes">
+        <source>Receivers Mail</source>
+        <target state="final">E-mailadres ontvanger</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.form" resname="tx_powermail_domain_model_mail.form" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Gerelateerd formulier</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.answers" resname="tx_powermail_domain_model_mail.answers" approved="yes">
+        <source>Answers</source>
+        <target state="final">Antwoorden</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.feuser" resname="tx_powermail_domain_model_mail.feuser" approved="yes">
+        <source>FE_User</source>
+        <target state="final">FE_User</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.spam_factor" resname="tx_powermail_domain_model_mail.spam_factor" approved="yes">
+        <source>Spam Factor</source>
+        <target state="final">Spam score</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.time" resname="tx_powermail_domain_model_mail.time" approved="yes">
+        <source>Time for submitting form (in seconds)</source>
+        <target state="final">Tijd om het formulier in te vullen en te versturen (in seconden)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_ip" resname="tx_powermail_domain_model_mail.sender_ip" approved="yes">
+        <source>Senders IP address</source>
+        <target state="final">IP-adres verzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.user_agent" resname="tx_powermail_domain_model_mail.user_agent" approved="yes">
+        <source>Senders User Agent</source>
+        <target state="final">User-agent verzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.crdate" resname="tx_powermail_domain_model_mail.crdate" approved="yes">
+        <source>Creation Date</source>
+        <target state="final">Aanmaakdatum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer" resname="tx_powermail_domain_model_mail.marketing_referer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">Laatste externe pagina</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_browser_language" resname="tx_powermail_domain_model_mail.marketing_browser_language" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">Taal browser</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Forms</source>
+        <target state="final">Formulieren</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Lay-out</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.1" resname="tx_powermail_domain_model_form.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Lay-out1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.2" resname="tx_powermail_domain_model_form.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Lay-out2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Lay-out3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pagina's</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pagina's</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css" resname="tx_powermail_domain_model_page.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Lay-out</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.1" resname="tx_powermail_domain_model_page.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">Lay-out1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.2" resname="tx_powermail_domain_model_page.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">Lay-out2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.3" resname="tx_powermail_domain_model_page.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">Lay-out3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.fields" resname="tx_powermail_domain_model_page.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Velden</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Gerelateerd formulier</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Fields</source>
+        <target state="final">Velden</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
+        <source>Title</source>
+        <target state="final">Titel</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type" resname="tx_powermail_domain_model_field.type" approved="yes">
+        <source>Type</source>
+        <target state="final">Type</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1" approved="yes">
+        <source>Standard</source>
+        <target state="final">Standaard</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2" approved="yes">
+        <source>Extra</source>
+        <target state="final">Extra</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3" approved="yes">
+        <source>Extensions</source>
+        <target state="final">Extensies</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0" approved="yes">
+        <source>Textfield (Input)</source>
+        <target state="final">Tekstveld (invoer)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.1" resname="tx_powermail_domain_model_field.type.1" approved="yes">
+        <source>Textfield with more Rows (Textarea)</source>
+        <target state="final">Tekstveld met meerdere rijen (Textarea)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.2" resname="tx_powermail_domain_model_field.type.2" approved="yes">
+        <source>Selectfield</source>
+        <target state="final">Keuzeveld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.3" resname="tx_powermail_domain_model_field.type.3" approved="yes">
+        <source>Checkboxes</source>
+        <target state="final">Selectievakje</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.4" resname="tx_powermail_domain_model_field.type.4" approved="yes">
+        <source>Radiobuttons</source>
+        <target state="final">Optieknoppen</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.5" resname="tx_powermail_domain_model_field.type.5" approved="yes">
+        <source>Submit</source>
+        <target state="final">Verzendknop</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.6" resname="tx_powermail_domain_model_field.type.6" approved="yes">
+        <source>Captcha Field</source>
+        <target state="final">Captcha veld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.7" resname="tx_powermail_domain_model_field.type.7" approved="yes">
+        <source>Reset</source>
+        <target state="final">Herstellen</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.8" resname="tx_powermail_domain_model_field.type.8" approved="yes">
+        <source>Show some Text</source>
+        <target state="final">Tekst weergeven</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.9" resname="tx_powermail_domain_model_field.type.9" approved="yes">
+        <source>Content Element</source>
+        <target state="final">Inhoudselement</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.10" resname="tx_powermail_domain_model_field.type.10" approved="yes">
+        <source>Show HTML</source>
+        <target state="final">HTML weergeven</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.11" resname="tx_powermail_domain_model_field.type.11" approved="yes">
+        <source>Password Field</source>
+        <target state="final">Wachtwoordveld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.12" resname="tx_powermail_domain_model_field.type.12" approved="yes">
+        <source>File Upload</source>
+        <target state="final">Bestand uploaden</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.13" resname="tx_powermail_domain_model_field.type.13" approved="yes">
+        <source>Hidden Field</source>
+        <target state="final">Verborgen veld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.14" resname="tx_powermail_domain_model_field.type.14" approved="yes">
+        <source>Date</source>
+        <target state="final">Datum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.15" resname="tx_powermail_domain_model_field.type.15" approved="yes">
+        <source>Location</source>
+        <target state="final">Locatie</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.16" resname="tx_powermail_domain_model_field.type.16" approved="yes">
+        <source>TypoScript</source>
+        <target state="final">TypoScript</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.settings" resname="tx_powermail_domain_model_field.settings" approved="yes">
+        <source>Options</source>
+        <target state="final">Opties</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.path" resname="tx_powermail_domain_model_field.path" approved="yes">
+        <source>TypoScript Path (e.g. lib.test)</source>
+        <target state="final">TypoScript pad (bijv. lib.test)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.content_element" resname="tx_powermail_domain_model_field.content_element" approved="yes">
+        <source>Select Content Element</source>
+        <target state="final">Inhoudselement kiezen</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.text" resname="tx_powermail_domain_model_field.text" approved="yes">
+        <source>Add some text</source>
+        <target state="final">Voeg tekst toe</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation_title" resname="tx_powermail_domain_model_field.validation_title" approved="yes">
+        <source>Validation</source>
+        <target state="final">Validatie</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory" approved="yes">
+        <source>Mandatory Field</source>
+        <target state="final">Verplicht veld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
+        <source>Validation</source>
+        <target state="final">Validatie</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.1" resname="tx_powermail_domain_model_field.validation.1" approved="yes">
+        <source>Email</source>
+        <target state="final">E-mailadres</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.2" resname="tx_powermail_domain_model_field.validation.2" approved="yes">
+        <source>URL</source>
+        <target state="final">URL</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.3" resname="tx_powermail_domain_model_field.validation.3" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.4" resname="tx_powermail_domain_model_field.validation.4" approved="yes">
+        <source>Numbers Only</source>
+        <target state="final">Alleen getallen</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.5" resname="tx_powermail_domain_model_field.validation.5" approved="yes">
+        <source>Letters Only</source>
+        <target state="final">Alleen letters</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css" resname="tx_powermail_domain_model_field.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">Lay-out</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.1" resname="tx_powermail_domain_model_field.css.1" approved="yes">
+        <source>Layout 1</source>
+        <target state="final">Lay-out1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.2" resname="tx_powermail_domain_model_field.css.2" approved="yes">
+        <source>Layout 2</source>
+        <target state="final">Lay-out2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.3" resname="tx_powermail_domain_model_field.css.3" approved="yes">
+        <source>Layout 3</source>
+        <target state="final">Lay-out3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1" approved="yes">
+        <source>Date</source>
+        <target state="final">Datum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_title" resname="tx_powermail_domain_model_field.prefill_title" approved="yes">
+        <source>Prefill Field</source>
+        <target state="final">Voor-ingevuld veld</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_value" resname="tx_powermail_domain_model_field.prefill_value" approved="yes">
+        <source>With Value</source>
+        <target state="final">Met waarde</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
+        <source>Name</source>
+        <target state="final">Naam</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.address" resname="tx_powermail_domain_model_field.feuser_value.address" approved="yes">
+        <source>Address</source>
+        <target state="final">Adres</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.phone" resname="tx_powermail_domain_model_field.feuser_value.phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">Telefoon</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.fax" resname="tx_powermail_domain_model_field.feuser_value.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.email" resname="tx_powermail_domain_model_field.feuser_value.email" approved="yes">
+        <source>Email</source>
+        <target state="final">E-mailadres</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.zip" resname="tx_powermail_domain_model_field.feuser_value.zip" approved="yes">
+        <source>ZIP</source>
+        <target state="final">Postcode</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.city" resname="tx_powermail_domain_model_field.feuser_value.city" approved="yes">
+        <source>City</source>
+        <target state="final">Plaats</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.country" resname="tx_powermail_domain_model_field.feuser_value.country" approved="yes">
+        <source>Country</source>
+        <target state="final">Land</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.www" resname="tx_powermail_domain_model_field.feuser_value.www" approved="yes">
+        <source>Website</source>
+        <target state="final">Website</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.company" resname="tx_powermail_domain_model_field.feuser_value.company" approved="yes">
+        <source>Company</source>
+        <target state="final">Bedrijf</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_email" resname="tx_powermail_domain_model_field.sender_email" approved="yes">
+        <source>This field contains the Email of the sender</source>
+        <target state="final">Dit veld bevat het e-mailadres van de afzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_name" resname="tx_powermail_domain_model_field.sender_name" approved="yes">
+        <source>This field contains the Name of the sender</source>
+        <target state="final">Dit veld bevat de naam van de afzender</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.marker_title" resname="tx_powermail_domain_model_field.marker_title" approved="yes">
+        <source>Variables</source>
+        <target state="final">Variabelen</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker" resname="tx_powermail_domain_model_field.own_marker" approved="yes">
+        <source>Enter your own Variable Name</source>
+        <target state="final">Vul hier een eigen variabele naam in</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.auto_marker" resname="tx_powermail_domain_model_field.auto_marker" approved="yes">
+        <source>Individual Fieldname to use as Variable (automaticly wrapped with {})</source>
+        <target state="final">Enkele veldnaam te gebruiken als variabele (wordt automatisch tussen {} gezet)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker_select" resname="tx_powermail_domain_model_field.own_marker_select" approved="yes">
+        <source>Add my own Variable Name</source>
+        <target state="final">Voeg een eigen variabele naam toe</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet1" resname="tx_powermail_domain_model_field.sheet1" approved="yes">
+        <source>Extended</source>
+        <target state="final">Uitgebreid</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2" approved="yes">
+        <source>Marketing</source>
+        <target state="final">Marketing</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
+        <source>Email or Name</source>
+        <target state="final">E-mailadres of naam</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answers</source>
+        <target state="final">Antwoorden</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
+        <source>The transferred value</source>
+        <target state="final">De verstuurde waarde</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2" approved="yes">
+        <source>Date</source>
+        <target state="final">Datum</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">E-mail</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field" approved="yes">
+        <source>Field</source>
+        <target state="final">Veld</target>
+      </trans-unit>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Selecteer...</target>
+      </trans-unit>
+      <trans-unit id="flexform.main" resname="flexform.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Algemene instellingen</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
+        <source>Choose a Powermail Form</source>
+        <target state="final">Kies een Powermail formulier</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.pages" resname="flexform.main.formnote.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">Pagina's</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.fields" resname="flexform.main.formnote.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">Velden</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.pid" resname="flexform.main.pid" approved="yes">
+        <source>Where to save Mails (empty = same page)</source>
+        <target state="final">Waar dienen de e-mails opgeslagen te worden (leeg = huidige pagina)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.optin" resname="flexform.main.optin" approved="yes">
+        <source>Mail must be confirmed (Double Opt-In)</source>
+        <target state="final">E-mail dient bevestigd te worden (Double Opt-In)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.confirmation" resname="flexform.main.confirmation" approved="yes">
+        <source>Do you want a confirmation page?</source>
+        <target state="final">Wil je een bevestigingspagina</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.moresteps" resname="flexform.main.moresteps" approved="yes">
+        <source>Do you want to split each page (step by step)?</source>
+        <target state="final">Wil je iedere pagina opsplitsen (stap voor stap)?</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver" resname="flexform.receiver" approved="yes">
+        <source>Mail to Receiver</source>
+        <target state="final">Ontvanger</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.name" resname="flexform.receiver.name" approved="yes">
+        <source>Receivers Name</source>
+        <target state="final">Naam ontvanger</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type" resname="flexform.receiver.type" approved="yes">
+        <source>Receiver type</source>
+        <target state="final">Soort ontvanger</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">E-mailadres ontvanger</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group" approved="yes">
+        <source>Send Email to Frontend User Group</source>
+        <target state="final">E-mail naar frontend gebruikers groep versturen</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject" approved="yes">
+        <source>Subject for Email to Receiver (Empty subject disables mail)</source>
+        <target state="final">Onderwerp voor e-mail ontvanger (geen onderwerp deactiveert het versturen)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.body" resname="flexform.receiver.body" approved="yes">
+        <source>Bodytext for Email to Receiver</source>
+        <target state="final">Inhoud van e-mail naar ontvanger</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
+        <source>Mail to User</source>
+        <target state="final">E-mail naar gebruiker</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
+        <source>Sender Email (For Confirmation Mail to User)</source>
+        <target state="final">E-mailadres afzender (voor bevestigingsmail naar gebruiker)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name" approved="yes">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target state="final">Naam afzender (voor bevestigingsmail naar gebruiker)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target state="final">Onderwerp voor e-mail naar afzender (leeg onderwerp deactiveert versturen)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
+        <source>Bodytext for Email to Sender</source>
+        <target state="final">Inhoud van e-mail naar de afzender</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
+        <source>Submit Page</source>
+        <target state="final">Antwoordpagina</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body" approved="yes">
+        <source>Text on submit page</source>
+        <target state="final">Tekst op antwoordpagina</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
+        <source>Redirect to any other Page after submit</source>
+        <target state="final">Doorsturen naar een pagina na versturen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">LET OP: Selecteer eerst een formulier bij de instellingen!</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Algemene instellingen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions" approved="yes">
+        <source>Choose your view</source>
+        <target state="final">Kies je weergave</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.0" resname="flexform_pi2.main.switchableControllerActions.0" approved="yes">
+        <source>List or Detail View</source>
+        <target state="final">Lijstweergave</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1" approved="yes">
+        <source>Detail View</source>
+        <target state="final">Detailweergave</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2" approved="yes">
+        <source>Edit View</source>
+        <target state="final">Weergave bewerken</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">Kies een formulier</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">Selecteer een pagina met e-mails (optioneel)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">Lijstweergave</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Selecteer een veld om te tonen (leeg: alle velden)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">Toon de invoer van de laatste X seconden (leeg: functie uitgeschakeld)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">Toon max. X items (leeg: geen limiet)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">Pagina met plug-in voor lijstweergave (leeg: huidige pagina)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">Eigen items</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">Toon alleen items van ingelogde frontend gebruikers</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export" approved="yes">
+        <source>Export Formats</source>
+        <target state="final">Export formaten</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0" approved="yes">
+        <source>XLS Export</source>
+        <target state="final">XLS-export</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1" approved="yes">
+        <source>CSV Export</source>
+        <target state="final">CSV-export</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2" approved="yes">
+        <source>RSS Feed</source>
+        <target state="final">RSS-feed</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
+        <source>Detailview</source>
+        <target state="final">Detailweergave</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Kies de te tonen velden (leeg: alle velden)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid" approved="yes">
+        <source>Page with Plugin for detail view (Empty: Same page)</source>
+        <target state="final">Pagina met detailweergave plug-in (leeg: huidige pagina)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search" approved="yes">
+        <source>Searchsettings</source>
+        <target state="final">Zoekinstellingen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields" approved="yes">
+        <source>Add searchfield</source>
+        <target state="final">Zoekveld toevoegen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all" approved="yes">
+        <source>[Fulltext Search]</source>
+        <target state="final">[In volledige tekst zoeken]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator" approved="yes">
+        <source>search fields operator (AND / OR)</source>
+        <target state="final">Operator zoekvelden (AND /OR)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0" approved="yes">
+        <source>OR (Find keyword in Field1 OR Field2)</source>
+        <target state="final">OR (vind trefwoord in veld1 OF veld2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1" approved="yes">
+        <source>AND (Find keyword in Field1 AND Field2)</source>
+        <target state="final">AND (vind trefwoord in veld1 EN veld2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc" approved="yes">
+        <source>Add ABC filter</source>
+        <target state="final">ABC filter toevoegen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off" approved="yes">
+        <source>[Deactivated]</source>
+        <target state="final">[Gedeactiveerd]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit" approved="yes">
+        <source>Editview</source>
+        <target state="final">Weergave voor bewerken</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields" approved="yes">
+        <source>Choose Fields to edit (Empty: All fields)</source>
+        <target state="final">Kies de velden om te bewerken (leeg: alle velden)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser" approved="yes">
+        <source>Choose one or more Frontend-Users with permission to change</source>
+        <target state="final">Kies een of meerdere frontend gebruikers met de rechten tot wijzigen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner" approved="yes">
+        <source>[Owner]</source>
+        <target state="final">[Eigenaar]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup" approved="yes">
+        <source>Choose one or more Frontend-Groups with permission to change</source>
+        <target state="final">Kies een of meerdere frontend groepen met de rechten tot wijzigen</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid" approved="yes">
+        <source>Page with Plugin for edit view (Empty: Same page)</source>
+        <target state="final">Pagina met de plug-in om formulier te bewerken (leeg: huidige pagina)</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.savePid" resname="pluginInfo.savePid" approved="yes">
+        <source>Storage Location for Mails</source>
+        <target state="final">Locatie waar de e-mails worden opgeslagen</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
