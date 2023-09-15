@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_fields.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="datepicker_settings.description" resname="datepicker_settings.description" approved="yes">
+        <source>Choose the type of the datepicker (date only or date and time or time only)</source>
+        <target state="final">datepickerの種類を選択します（日付のみ、または日付と時間か時間のみ）</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
