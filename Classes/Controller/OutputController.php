@@ -10,7 +10,9 @@ use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use In2code\Powermail\Utility\ObjectUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
@@ -43,6 +45,10 @@ class OutputController extends AbstractController
      */
     public function listAction(): ResponseInterface
     {
+        // Add powermail cache tag in frontend; this is required in case the powermail mails are updated in the frontend
+        if (null !== $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController()) {
+            $typoScriptFrontend->addCacheTags(['tx_powermail']);
+        }
         $searchSettings = $this->settings['search'] ?? [];
         $listSettings = $this->settings['list'] ?? [];
         $this->prepareFilterPluginVariables($this->piVars, (array)($searchSettings['staticPluginsVariables'] ?? []));
@@ -71,6 +77,10 @@ class OutputController extends AbstractController
      */
     public function showAction(Mail $mail): ResponseInterface
     {
+        // Add powermail cache tag in frontend; this is required in case the powermail mails are updated in the frontend
+        if (null !== $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController()) {
+            $typoScriptFrontend->addCacheTags(['tx_powermail']);
+        }
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
             [
@@ -146,6 +156,9 @@ class OutputController extends AbstractController
     {
         $this->uploadService->uploadAllFiles();
         $this->mailRepository->update($mail);
+        /** @var CacheManager $cacheManager */
+        $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $cacheManager->getCache('pages')->flushByTag('tx_powermail');
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
         $this->redirect('edit', null, null, ['mail' => $mail]);
     }
