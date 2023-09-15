@@ -173,7 +173,7 @@
       </trans-unit>
       <trans-unit id="error_no_sender_email" resname="error_no_sender_email" approved="yes">
         <source>noreply</source>
-        <target state="final">no@email.de</target>
+        <target state="final">noreply</target>
       </trans-unit>
       <trans-unit id="error_no_form" resname="error_no_form" approved="yes">
         <source>No form to show</source>
