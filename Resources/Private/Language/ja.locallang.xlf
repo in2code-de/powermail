@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ja">
+    <header/>
+    <body>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
+        <source>Time</source>
+        <target state="final">時間</target>
+      </trans-unit>
+      <trans-unit id="confirmation_message" resname="confirmation_message" approved="yes">
+        <source>Are these values correct?</source>
+        <target state="final">入力内容をご確認後、「上記内容で送信する」を押して下さい</target>
+      </trans-unit>
+      <trans-unit id="confirmation_next" resname="confirmation_next" approved="yes">
+        <source>Next</source>
+        <target state="final">上記内容で送信する</target>
+      </trans-unit>
+      <trans-unit id="confirmation_prev" resname="confirmation_prev" approved="yes">
+        <source>Previous</source>
+        <target state="final">入力に戻る</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mail_deleted" resname="disclaimer_mail_deleted" approved="yes">
+        <source>Mail was successfully deleted</source>
+        <target state="final">メールは正常に削除されました</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
+        <source>Was this email a mistake and you want to delete your request?</source>
+        <target state="final">このメールは間違いで、リクエストを削除しますか？</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link" approved="yes">
+        <source>Delete all email data.</source>
+        <target state="final">全てのメールデータを削除します。</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Email could not be sent correctly!</source>
+        <target state="final">【エラー】メールを正しく送信できませんでした。</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory_multi" resname="validationerror_mandatory_multi" approved="yes">
+        <source>One of these fields must be filled!</source>
+        <target state="final">必ず１つは選択して下さい</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.1" resname="validationerror_validation.1" approved="yes">
+        <source>This is not a valid email address!</source>
+        <target state="final">これは有効なメールアドレスではありません</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
+        <source>Y-m-d</source>
+        <target state="final">Y-m-d</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime" approved="yes">
+        <source>Y-m-d H:i</source>
+        <target state="final">Y-m-d H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_time" resname="datepicker_format_time" approved="yes">
+        <source>H:i</source>
+        <target state="final">H:i</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_so" resname="datepicker_day_so" approved="yes">
+        <source>So</source>
+        <target state="final">日</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_mo" resname="datepicker_day_mo" approved="yes">
+        <source>Mo</source>
+        <target state="final">月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_tu" resname="datepicker_day_tu" approved="yes">
+        <source>Tu</source>
+        <target state="final">火</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_we" resname="datepicker_day_we" approved="yes">
+        <source>We</source>
+        <target state="final">水</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_th" resname="datepicker_day_th" approved="yes">
+        <source>Th</source>
+        <target state="final">木</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_fr" resname="datepicker_day_fr" approved="yes">
+        <source>Fr</source>
+        <target state="final">金</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_sa" resname="datepicker_day_sa" approved="yes">
+        <source>Sa</source>
+        <target state="final">土</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jan" resname="datepicker_month_jan" approved="yes">
+        <source>January</source>
+        <target state="final">1月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_feb" resname="datepicker_month_feb" approved="yes">
+        <source>February</source>
+        <target state="final">2月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_mar" resname="datepicker_month_mar" approved="yes">
+        <source>March</source>
+        <target state="final">3月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_apr" resname="datepicker_month_apr" approved="yes">
+        <source>April</source>
+        <target state="final">4月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_may" resname="datepicker_month_may" approved="yes">
+        <source>May</source>
+        <target state="final">5月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jun" resname="datepicker_month_jun" approved="yes">
+        <source>June</source>
+        <target state="final">6月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jul" resname="datepicker_month_jul" approved="yes">
+        <source>July</source>
+        <target state="final">7月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug" approved="yes">
+        <source>August</source>
+        <target state="final">8月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep" approved="yes">
+        <source>September</source>
+        <target state="final">9月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_oct" resname="datepicker_month_oct" approved="yes">
+        <source>October</source>
+        <target state="final">10月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_nov" resname="datepicker_month_nov" approved="yes">
+        <source>November</source>
+        <target state="final">11月</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec" approved="yes">
+        <source>December</source>
+        <target state="final">12月</target>
+      </trans-unit>
+      <trans-unit id="BackendListTitle" resname="BackendListTitle" approved="yes">
+        <source>Mail Listings</source>
+        <target state="final">メール一覧</target>
+      </trans-unit>
+      <trans-unit id="BackendListMails" resname="BackendListMails" approved="yes">
+        <source>Mails</source>
+        <target state="final">メール</target>
+      </trans-unit>
+      <trans-unit id="Emails" resname="Emails" approved="yes">
+        <source>Emails</source>
+        <target state="final">メールアドレス</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
