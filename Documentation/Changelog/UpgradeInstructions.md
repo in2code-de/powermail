@@ -1,8 +1,9 @@
 # Upgrade Instructions and breaking changes
 
-## Version 11.0
+## Version 11.1
 
-In Version 11 the default behaviour for password fields is hashing the value with the default hashing algorithm before storing it in the database.
+In Version 11.1 the default behaviour for password fields is hashing the value with the default hashing algorithm before storing it in the database.
+If you want to restore the old behaviour you have to apply the changes described [here](/ForAdministrators/BestPractice/PasswordField.md).
 
 ## Version 10.0
 
