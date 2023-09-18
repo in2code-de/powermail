@@ -69,7 +69,12 @@ class FrontendUtility
         $pluginName = 'tx_powermail_pi1';
         if (self::isArgumentExisting('tx_powermail_pi2')) {
             $pluginName = 'tx_powermail_pi2';
+        } elseif (self::isArgumentExisting('tx_powermail_pi3')) {
+            $pluginName = 'tx_powermail_pi3';
+        } elseif (self::isArgumentExisting('tx_powermail_pi4')) {
+            $pluginName = 'tx_powermail_pi4';
         }
+
         if (self::isArgumentExisting('tx_powermail_web_powermailm1')) {
             $pluginName = 'tx_powermail_web_powermailm1';
         }
