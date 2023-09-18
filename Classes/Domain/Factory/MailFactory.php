@@ -23,9 +23,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailFactory
 {
-    public function __construct(
-        private readonly EventDispatcherInterface $eventDispatcher
-    ) {
+    private readonly EventDispatcherInterface $eventDispatcher;
+
+    public function injectEventDispatcherInterface(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
