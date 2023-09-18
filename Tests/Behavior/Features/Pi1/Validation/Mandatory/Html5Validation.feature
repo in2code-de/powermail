@@ -16,5 +16,5 @@ Feature: Html5Validation
     And I press "Submit"
 
     Then I should not see "Dieses Feld muss ausgefüllt werden!"
-    Then I should not see "Sind diese Eingaben korrekt?"
+    Then I should not see "Sind diese Werte richtig?"
     Then I should not see "Danke, Ihre Angaben:"

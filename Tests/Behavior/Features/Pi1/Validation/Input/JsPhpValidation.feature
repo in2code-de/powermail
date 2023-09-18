@@ -120,38 +120,38 @@ Feature: Html5JsPhpValidation
     ####
     Then I fill in "tx_powermail_pi1[field][limit10]" with "12345678910"
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10]" with "äbcdefghijk"
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10]" with "1234567891"
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10]" with "äbcdefghij"
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     ####
     # Length Textarea
     ####
     Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "12345678910"
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "äbcdefghijk"
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "1234567891"
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     Then I fill in "tx_powermail_pi1[field][limit10textarea]" with "äbcdefghij"
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
         """
@@ -159,7 +159,7 @@ Feature: Html5JsPhpValidation
         91
         """
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
         """
@@ -167,7 +167,7 @@ Feature: Html5JsPhpValidation
         9
         """
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
         """
@@ -175,7 +175,7 @@ Feature: Html5JsPhpValidation
         91
         """
     And I press "Submit"
-    Then I should see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"
 
     When I fill in "tx_powermail_pi1[field][limit10textarea]" with:
         """
@@ -183,4 +183,4 @@ Feature: Html5JsPhpValidation
         9
         """
     And I press "Submit"
-    Then I should not see "Der Wert ist nicht zulässig (zu viele oder zu wenig Zeichen)"
+    Then I should not see "Ihre Eingabe ist ungültig (Zu viele oder zu wenig Zeichen)"

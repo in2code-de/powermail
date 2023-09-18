@@ -32,16 +32,16 @@ Feature: List
     Given I am on "/powermail/pi2/standard/list"
     When I fill in "tx_powermail_pi2[filter][_all]" with "öoijasd908püuß980asdöijo"
     And I press "Jetzt Filtern"
-    Then I should see "Keine Mails gefunden"
-    Then I should see "Bitte passen Sie Ihre Filtereinstellungen an"
+    Then I should see "Keine Mails vorhanden"
+    Then I should see "Bitte bearbeiten Sie Ihre Filter-Einstellungen."
 
   @Pi2ListFilter
   Scenario: Check empty Filter over List View
     Given I am on "/powermail/pi2/standard/list"
     When I fill in "tx_powermail_pi2[filter][_all]" with "Daniel"
     And I press "Jetzt Filtern"
-    Then I should not see "Keine Mails gefunden"
-    Then I should not see "Bitte passen Sie Ihre Filtereinstellungen an"
+    Then I should not see "Keine Mails vorhanden"
+    Then I should not see "Bitte bearbeiten Sie Ihre Filter-Einstellungen."
     Then I should see "Daniel Boxhammer"
     Then I should see "Das ist ein Test"
     Then I should see "Olli"

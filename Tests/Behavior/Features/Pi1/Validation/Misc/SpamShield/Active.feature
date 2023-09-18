@@ -13,14 +13,14 @@ Feature: Active
 
     And I press "Submit"
 
-    Then I should see "Spam-Wahrscheinlichkeit in dieser Nachricht!"
-    Then I should see "Spam in Nachricht vermutet: 92%"
+    Then I should see "In dieser Nachricht könnte sich Spam befinden!"
+    Then I should see "Als Spam erkannt: 92%"
 
     When I fill in "tx_powermail_pi1[field][e_mail]" with "test"
     And I press "Submit"
 
-    Then I should see "Spam-Wahrscheinlichkeit in dieser Nachricht!"
-    Then I should see "Spam in Nachricht vermutet: 90%"
+    Then I should see "In dieser Nachricht könnte sich Spam befinden!"
+    Then I should see "Als Spam erkannt: 90%"
 
     When I fill in "tx_powermail_pi1[field][text]" with "This is a text"
     When I fill in "tx_powermail_pi1[field][name]" with "Barbapappa"
