@@ -182,6 +182,7 @@ class MailRepository extends AbstractRepository
         // FILTER: showownonly
         if ($listSettings['showownonly'] ?? false) {
             $and[] = $query->equals('feuser', FrontendUtility::getPropertyFromLoggedInFrontendUser());
+            $and[] = $query->greaterThan('feuser', 0);
         }
 
         // FILTER: abc
