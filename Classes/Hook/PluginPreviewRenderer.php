@@ -6,8 +6,10 @@ namespace In2code\Powermail\Hook;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Events\BackendPageModulePreviewContentEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Backend\Preview\StandardContentPreviewRenderer;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Backend\View\BackendLayout\Grid\GridColumnItem;
@@ -66,7 +68,12 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 default => '',
             };
         }
-        return $preview;
+
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+        $event = $eventDispatcher->dispatch(
+            new BackendPageModulePreviewContentEvent($preview, $item)
+        );
+        return $event->getPreview();
     }
 
     /**
