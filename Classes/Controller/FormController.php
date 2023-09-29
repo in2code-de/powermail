@@ -416,16 +416,18 @@ class FormController extends AbstractController
     public function disclaimerAction(int $mail, string $hash): ResponseInterface
     {
         $mail = $this->mailRepository->findByUid($mail);
-        $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(
-                FormControllerDisclaimerActionBeforeRenderViewEvent::class,
-                $mail,
-                $hash,
-                $this
-            )
-        );
         $status = false;
+
         if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
+            $this->eventDispatcher->dispatch(
+                GeneralUtility::makeInstance(
+                    FormControllerDisclaimerActionBeforeRenderViewEvent::class,
+                    $mail,
+                    $hash,
+                    $this
+                )
+            );
+
             $mailService = GeneralUtility::makeInstance(
                 SendDisclaimedMailPreflight::class,
                 $this->settings,
