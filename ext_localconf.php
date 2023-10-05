@@ -128,4 +128,6 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailPluginUpdater::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionUpdater']
         = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
+        = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
 });

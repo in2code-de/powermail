@@ -12,7 +12,6 @@ use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
@@ -66,6 +65,7 @@ class ModuleController extends AbstractController
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
         $this->moduleTemplate->setTitle('Powermail');
         $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
     }
 
     /**
@@ -122,7 +122,7 @@ class ModuleController extends AbstractController
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
         ]);
 
-        $this->addDefaultMenu('list');
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
         return $this->moduleTemplate->renderResponse('List');
     }
 
@@ -201,7 +201,6 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        $this->addDefaultMenu('reportingFormBe');
         return $this->moduleTemplate->renderResponse('ReportingFormBe');
     }
 
@@ -229,7 +228,6 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        $this->addDefaultMenu('reportingMarketingBe');
         return $this->moduleTemplate->renderResponse('ReportingMarketingBe');
     }
 
@@ -244,7 +242,7 @@ class ModuleController extends AbstractController
         $forms = $this->formRepository->findAllInPidAndRootline($this->id);
         $this->moduleTemplate->assign('forms', $forms);
         $this->moduleTemplate->assign('pid', $this->id);
-        $this->addDefaultMenu('overviewBe');
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
         return $this->moduleTemplate->renderResponse('OverviewBe');
     }
 
@@ -264,7 +262,6 @@ class ModuleController extends AbstractController
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
         $this->sendTestEmail(null);
-        $this->addDefaultMenu('checkBe');
         return $this->moduleTemplate->renderResponse('CheckBe');
     }
 
@@ -361,47 +358,8 @@ class ModuleController extends AbstractController
     protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
-            $this->controllerContext = $this->buildControllerContext();
             return new ForwardResponse('toolsBe');
         }
         return null;
-    }
-
-    protected function addDefaultMenu(string $currentAction): void
-    {
-        $this->uriBuilder->setRequest($this->request);
-        $menu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
-        $menu->setIdentifier('Powermail');
-        $menu->addMenuItem(
-            $menu->makeMenuItem()
-                ->setTitle(LocalizationUtility::translate('BackendSelectionList'))
-                ->setHref($this->uriBuilder->uriFor('list'))
-                ->setActive($currentAction === 'list')
-        );
-        $menu->addMenuItem(
-            $menu->makeMenuItem()
-                ->setTitle(LocalizationUtility::translate('BackendSelectionOverview'))
-                ->setHref($this->uriBuilder->uriFor('overviewBe'))
-                ->setActive($currentAction === 'overviewBe')
-        );
-        $menu->addMenuItem(
-            $menu->makeMenuItem()
-                ->setTitle(LocalizationUtility::translate('BackendSelectionReportingForm'))
-                ->setHref($this->uriBuilder->uriFor('reportingFormBe'))
-                ->setActive($currentAction === 'reportingFormBe')
-        );
-        $menu->addMenuItem(
-            $menu->makeMenuItem()
-                ->setTitle(LocalizationUtility::translate('BackendSelectionReportingMarketing'))
-                ->setHref($this->uriBuilder->uriFor('reportingMarketingBe'))
-                ->setActive($currentAction === 'reportingMarketingBe')
-        );
-        $menu->addMenuItem(
-            $menu->makeMenuItem()
-                ->setTitle(LocalizationUtility::translate('BackendSelectionCheck'))
-                ->setHref($this->uriBuilder->uriFor('checkBe'))
-                ->setActive($currentAction === 'checkBe')
-        );
-        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($menu);
     }
 }
