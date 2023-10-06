@@ -111,4 +111,29 @@ class DatabaseUtility
         }
         return false;
     }
+
+    public static function deleteMailAndAnswersFromDatabase(int $mailUid): void
+    {
+        $queryBuilderAnswer = DatabaseUtility::getQueryBuilderForTable('tx_powermail_domain_model_answer');
+        $queryBuilderAnswer
+            ->delete('tx_powermail_domain_model_answer')
+            ->where(
+                $queryBuilderAnswer->expr()->eq(
+                    'mail',
+                    $queryBuilderAnswer->createNamedParameter($mailUid)
+                )
+            )
+            ->executeStatement();
+
+        $queryBuilderMail = DatabaseUtility::getQueryBuilderForTable('tx_powermail_domain_model_mail');
+        $queryBuilderMail
+            ->delete('tx_powermail_domain_model_mail')
+            ->where(
+                $queryBuilderMail->expr()->eq(
+                    'uid',
+                    $queryBuilderMail->createNamedParameter($mailUid)
+                )
+            )
+            ->executeStatement();
+    }
 }

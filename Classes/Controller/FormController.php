@@ -25,6 +25,7 @@ use In2code\Powermail\Events\FormControllerOptinConfirmActionBeforeRenderViewEve
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\HashUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
@@ -385,7 +386,7 @@ class FormController extends AbstractController
 
         /** @noinspection PhpUnhandledExceptionInspection */
         if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
-            if ($mail->getHidden()) {
+            if ($mail->getHidden() && $this->isPersistActive()) {
                 $mail->setHidden(false);
                 $this->mailRepository->update($mail);
                 $this->persistenceManager->persistAll();
@@ -397,6 +398,11 @@ class FormController extends AbstractController
                         $this
                     )
                 );
+                return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
+            }
+            if ($mail->getHidden() && !$this->isPersistActive()) {
+                $this->prepareOutput($mail);
+                DatabaseUtility::deleteMailAndAnswersFromDatabase($mail->getUid());
                 return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
             }
             $labelKey = 'done';
