@@ -8,7 +8,7 @@ change. There are now five submodules, instead of a single big one.
 That means, permissions for backend usergroups must be changed in order to use the new modules.
 
 The new version provides an upgrade wizard to migrate the old permission to the new submodules. Please visit
-the upgrade wizard in the backend oder run ist via cli.
+the upgrade wizard in the backend oder run it via cli.
 
 
 ## Version 11.1
