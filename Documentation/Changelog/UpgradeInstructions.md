@@ -1,5 +1,16 @@
 # Upgrade Instructions and breaking changes
 
+## Version 12.0.0
+
+Unfortunately the bugfix for https://github.com/in2code-pro/powermail/issues/56 introduced a breaking
+change. There are now five submodules, instead of a single big one.
+
+That means, permissions for backend usergroups must be changed in order to use the new modules.
+
+The new version provides an upgrade wizard to migrate the old permission to the new submodules. Please visit
+the upgrade wizard in the backend or run it via cli.
+
+
 ## Version 11.1
 
 In Version 11.1 the default behaviour for password fields is hashing the value with the default hashing algorithm before storing it in the database.

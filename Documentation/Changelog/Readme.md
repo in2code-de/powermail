@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 12.0.0 (!!!) | 2023-10-06   | Bugfix / feature release for Powermail V12 / TYPO3 12. Please see commit history for changes.                                                                                                                         |
 | 11.2.0       | 2023-09-29   | Bugfix / feature release for Powermail V11 / TYPO3 12. Please see commit history for changes.                                                                                                                         |
 | 11.1.0       | 2023-09-18   | Bugfix / feature release for Powermail V11 / TYPO3 12. Please see commit history for changes.                                                                                                                         |
 | 11.0.1       | 2023-08-18   | Bugfix release for Powermail V11 / TYPO3 12. Please see commit history for changes.                                                                                                                                   |
