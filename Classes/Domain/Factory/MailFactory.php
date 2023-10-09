@@ -15,7 +15,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
-use TYPO3\CMS\Core\Utility\DebugUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -47,7 +47,7 @@ class MailFactory
             ->setSenderName($mailRepository->getSenderNameFromArguments($mail))
             ->setSubject($settings['receiver']['subject'])
             ->setReceiverMail($settings['receiver']['email'])
-            ->setBody(DebugUtility::viewArray($mailRepository->getVariablesWithMarkersFromMail($mail)))
+            ->setBody(ArrayUtility::arrayExport($mailRepository->getVariablesWithMarkersFromMail($mail)))
             ->setSpamFactor(SessionUtility::getSpamFactorFromSession())
             ->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $settings)))
             ->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
