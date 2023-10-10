@@ -35,6 +35,11 @@ final class FormControllerDisclaimerActionBeforeRenderViewEvent
         $this->formController = $formController;
     }
 
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
+    }
+
     /**
      * @return Mail
      */
@@ -53,12 +58,10 @@ final class FormControllerDisclaimerActionBeforeRenderViewEvent
 
     /**
      * @param string $hash
-     * @return FormControllerDisclaimerActionBeforeRenderViewEvent
      */
-    public function setHash(string $hash): FormControllerDisclaimerActionBeforeRenderViewEvent
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
-        return $this;
     }
 
     /**

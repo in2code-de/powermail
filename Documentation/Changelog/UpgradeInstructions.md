@@ -2,6 +2,8 @@
 
 ## Version 12.0.0
 
+### Upgrade - Wizards
+
 Unfortunately the bugfix for https://github.com/in2code-pro/powermail/issues/56 introduced a breaking
 change. There are now five submodules, instead of a single big one.
 
@@ -10,6 +12,15 @@ That means, permissions for backend usergroups must be changed in order to use t
 The new version provides an upgrade wizard to migrate the old permission to the new submodules. Please visit
 the upgrade wizard in the backend or run it via cli.
 
+### Events
+
+Many events can now modify the transferred mail object.
+
+If you use events, please check the following ones for changed signatures
+
+* FormControllerCreateActionAfterMailDbSavedEvent got the additional argument hash
+* FormControllerOptinConfirmActionBeforeRenderViewEvent uses the mail object instead of the mail uid
+* all setters in events do not return the event object (as stated in the official documenation)
 
 ## Version 11.1
 

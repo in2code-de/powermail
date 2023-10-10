@@ -14,18 +14,30 @@ final class FormControllerCreateActionAfterMailDbSavedEvent
     protected Mail $mail;
 
     /**
+     * @var string
+     */
+    protected string $hash;
+
+    /**
      * @var FormController
      */
     protected FormController $formController;
 
     /**
      * @param Mail $mail
+     * @param string $hash
      * @param FormController $formController
      */
-    public function __construct(Mail $mail, FormController $formController)
+    public function __construct(Mail $mail, FormController $formController, string $hash = '')
     {
         $this->mail = $mail;
+        $this->hash = $hash;
         $this->formController = $formController;
+    }
+
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
     }
 
     /**
@@ -34,6 +46,16 @@ final class FormControllerCreateActionAfterMailDbSavedEvent
     public function getMail(): Mail
     {
         return $this->mail;
+    }
+
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    public function setHash(string $hash): void
+    {
+        $this->hash = $hash;
     }
 
     /**

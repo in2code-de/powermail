@@ -37,6 +37,11 @@ final class FormControllerOptinConfirmActionAfterPersistEvent
         $this->formController = $formController;
     }
 
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
+    }
+
     /**
      * @return Mail
      */
@@ -55,12 +60,10 @@ final class FormControllerOptinConfirmActionAfterPersistEvent
 
     /**
      * @param string $hash
-     * @return FormControllerOptinConfirmActionAfterPersistEvent
      */
-    public function setHash(string $hash): FormControllerOptinConfirmActionAfterPersistEvent
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
-        return $this;
     }
 
     /**

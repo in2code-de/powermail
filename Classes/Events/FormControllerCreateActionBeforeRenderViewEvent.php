@@ -35,6 +35,11 @@ final class FormControllerCreateActionBeforeRenderViewEvent
         $this->formController = $formController;
     }
 
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
+    }
+
     /**
      * @return Mail
      */
@@ -53,12 +58,10 @@ final class FormControllerCreateActionBeforeRenderViewEvent
 
     /**
      * @param string $hash
-     * @return FormControllerCreateActionBeforeRenderViewEvent
      */
-    public function setHash(string $hash): FormControllerCreateActionBeforeRenderViewEvent
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
-        return $this;
     }
 
     /**
