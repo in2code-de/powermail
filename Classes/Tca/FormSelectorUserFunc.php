@@ -165,7 +165,9 @@ class FormSelectorUserFunc
     {
         if (!$this->hasFullAccess()) {
             $properties = $this->pageRepository->getPropertiesFromUid($pageIdentifier);
-            return BackendUtility::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1);
+            if ($properties !== []) {
+                return BackendUtility::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1);
+            }
         }
         return true;
     }
