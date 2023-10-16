@@ -37,6 +37,11 @@ final class FormControllerCreateActionAfterSubmitViewEvent
         $this->formController = $formController;
     }
 
+    public function setMail(Mail $mail): void
+    {
+        $this->mail = $mail;
+    }
+
     /**
      * @return Mail
      */
@@ -55,12 +60,10 @@ final class FormControllerCreateActionAfterSubmitViewEvent
 
     /**
      * @param string $hash
-     * @return FormControllerCreateActionAfterSubmitViewEvent
      */
-    public function setHash(string $hash): FormControllerCreateActionAfterSubmitViewEvent
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
-        return $this;
     }
 
     /**

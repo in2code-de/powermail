@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace In2code\Powermail\Events;
 
 use In2code\Powermail\Controller\FormController;
+use In2code\Powermail\Domain\Model\Mail;
 
 final class FormControllerOptinConfirmActionBeforeRenderViewEvent
 {
     /**
-     * @var int
+     * @var Mail
      */
-    protected int $mailIdentifier;
+    protected Mail $mail;
 
     /**
      * @var string
@@ -23,33 +24,31 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
     protected FormController $formController;
 
     /**
-     * @param int $mailIdentifier
+     * @param Mail $mail
      * @param string $hash
      * @param FormController $formController
      */
-    public function __construct(int $mailIdentifier, string $hash, FormController $formController)
+    public function __construct(Mail $mail, string $hash, FormController $formController)
     {
-        $this->mailIdentifier = $mailIdentifier;
+        $this->mail = $mail;
         $this->hash = $hash;
         $this->formController = $formController;
     }
 
     /**
-     * @return int
+     * @return Mail
      */
-    public function getMailIdentifier(): int
+    public function getMail(): Mail
     {
-        return $this->mailIdentifier;
+        return $this->mail;
     }
 
     /**
-     * @param int $mailIdentifier
-     * @return FormControllerOptinConfirmActionBeforeRenderViewEvent
+     * @param int $mail
      */
-    public function setMailIdentifier(int $mailIdentifier): FormControllerOptinConfirmActionBeforeRenderViewEvent
+    public function setMail(Mail $mail): void
     {
-        $this->mailIdentifier = $mailIdentifier;
-        return $this;
+        $this->mail = $mail;
     }
 
     /**
@@ -62,12 +61,10 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
 
     /**
      * @param string $hash
-     * @return FormControllerOptinConfirmActionBeforeRenderViewEvent
      */
-    public function setHash(string $hash): FormControllerOptinConfirmActionBeforeRenderViewEvent
+    public function setHash(string $hash): void
     {
         $this->hash = $hash;
-        return $this;
     }
 
     /**

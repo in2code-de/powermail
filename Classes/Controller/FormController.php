@@ -150,9 +150,10 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail): ResponseInterface
     {
-        $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerConfirmationActionEvent::class, $mail, $this)
-        );
+        $event = GeneralUtility::makeInstance(FormControllerConfirmationActionEvent::class, $mail, $this);
+        $this->eventDispatcher->dispatch($event);
+        $mail = $event->getMail();
+
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
@@ -225,9 +226,11 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
-        $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this)
-        );
+        $event = GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this);
+        $this->eventDispatcher->dispatch($event);
+        $mail = $event->getMail();
+        $hash = $event->getHash();
+
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
             $mail,
@@ -237,10 +240,12 @@ class FormController extends AbstractController
         );
         if ($this->isMailPersistActive($hash)) {
             $this->saveMail($mail);
-            $this->eventDispatcher->dispatch(
-                GeneralUtility::makeInstance(FormControllerCreateActionAfterMailDbSavedEvent::class, $mail, $this)
-            );
+            $event = GeneralUtility::makeInstance(FormControllerCreateActionAfterMailDbSavedEvent::class, $mail, $this, $hash);
+            $this->eventDispatcher->dispatch($event);
+            $mail = $event->getMail();
+            $hash = $event->getHash();
         }
+
         if ($this->isNoOptin($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
         } else {
@@ -258,9 +263,11 @@ class FormController extends AbstractController
             $this->persistenceManager->persistAll();
         }
 
-        $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerCreateActionAfterSubmitViewEvent::class, $mail, $hash, $this)
-        );
+        $event = GeneralUtility::makeInstance(FormControllerCreateActionAfterSubmitViewEvent::class, $mail, $hash, $this);
+        $this->eventDispatcher->dispatch($event);
+        $mail = $event->getMail();
+        $hash = $event->getHash();
+
         $this->prepareOutput($mail);
 
         $finisherRunner = GeneralUtility::makeInstance(FinisherRunner::class);
@@ -359,7 +366,7 @@ class FormController extends AbstractController
     /**
      * Confirm Double Optin
      *
-     * @param int $mail mail uid
+     * @param int $mailUid
      * @param string $hash Given Hash String
      * @return ResponseInterface
      * @throws IllegalObjectTypeException
@@ -369,35 +376,43 @@ class FormController extends AbstractController
      */
     public function optinConfirmAction(int $mail, string $hash): ResponseInterface
     {
-        $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(
-                FormControllerOptinConfirmActionBeforeRenderViewEvent::class,
-                $mail,
-                $hash,
-                $this
-            )
-        );
         $mail = $this->mailRepository->findByUid($mail);
-        $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
-        if ($response !== null) {
-            return $response;
-        }
         $labelKey = 'failed';
 
         /** @noinspection PhpUnhandledExceptionInspection */
         if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
+            $event = GeneralUtility::makeInstance(
+                FormControllerOptinConfirmActionBeforeRenderViewEvent::class,
+                $mail,
+                $hash,
+                $this
+            );
+
+            $this->eventDispatcher->dispatch($event);
+            $mail = $event->getMail();
+            $hash = $event->getHash();
+
+            $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
+            if ($response !== null) {
+                return $response;
+            }
+
             if ($mail->getHidden() && $this->isPersistActive()) {
                 $mail->setHidden(false);
                 $this->mailRepository->update($mail);
                 $this->persistenceManager->persistAll();
-                $this->eventDispatcher->dispatch(
-                    GeneralUtility::makeInstance(
-                        FormControllerOptinConfirmActionAfterPersistEvent::class,
-                        $mail,
-                        $hash,
-                        $this
-                    )
+                $event = GeneralUtility::makeInstance(
+                    FormControllerOptinConfirmActionAfterPersistEvent::class,
+                    $mail,
+                    $hash,
+                    $this
                 );
+
+                $this->eventDispatcher->dispatch($event);
+
+                $mail = $event->getMail();
+                $hash = $event->getHash();
+
                 return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
             }
             if ($mail->getHidden() && !$this->isPersistActive()) {
@@ -425,14 +440,15 @@ class FormController extends AbstractController
         $status = false;
 
         if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
-            $this->eventDispatcher->dispatch(
-                GeneralUtility::makeInstance(
-                    FormControllerDisclaimerActionBeforeRenderViewEvent::class,
-                    $mail,
-                    $hash,
-                    $this
-                )
+            $event = GeneralUtility::makeInstance(
+                FormControllerDisclaimerActionBeforeRenderViewEvent::class,
+                $mail,
+                $hash,
+                $this
             );
+            $this->eventDispatcher->dispatch($event);
+
+            $mail = $event->getMail();
 
             $mailService = GeneralUtility::makeInstance(
                 SendDisclaimedMailPreflight::class,
