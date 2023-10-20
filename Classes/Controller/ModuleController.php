@@ -261,7 +261,7 @@ class ModuleController extends AbstractController
     {
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
-        $this->sendTestEmail(null);
+        $this->sendTestEmail($this->piVars['email'] ?? null);
         return $this->moduleTemplate->renderResponse('CheckBe');
     }
 
