@@ -99,7 +99,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected function writeToDevelopmentLog(): void
     {
-        if ($this->configuration['debug']) {
+        if (!empty($this->configuration['debug'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('SendPost Values', $this->getCurlSettings());
         }
@@ -112,8 +112,8 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     {
         return [
             'url' => $this->configuration['targetUrl'],
-            'username' => $this->configuration['username'],
-            'password' => $this->configuration['password'],
+            'username' => $this->configuration['username'] ?? '',
+            'password' => $this->configuration['password'] ?? '',
             'params' => $this->getValues(),
         ];
     }
