@@ -1,8 +1,8 @@
-base: 'https://local.powermail.de/'
+base: 'https://local.powermail-v11.de/'
 errorHandling: {  }
 baseVariants:
   -
-    base: 'https://powermail.ddev.site/'
+    base: 'https://powermail-v11.ddev.site/'
     condition: 'applicationContext == "Development/DDEV"'
 languages:
   -

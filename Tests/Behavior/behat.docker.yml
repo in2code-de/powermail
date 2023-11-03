@@ -16,7 +16,7 @@ default:
       fail_prefix: 'failed_'
       purge: true
     Behat\MinkExtension:
-      base_url: https://local.powermail.de
+      base_url: https://local.powermail-v11.de
       files_path: /app/Tests/Behavior/Assets
       selenium2: ~
       browser_name: 'chrome'

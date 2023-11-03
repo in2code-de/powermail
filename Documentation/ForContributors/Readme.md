@@ -21,8 +21,8 @@ use.
 
 Now you will be able to work with the website
 
-Frontend: https://powermail.ddev.site/ \
-Backend: https://powermail.ddev.site/typo3
+Frontend: https://powermail-<TYPO3-version>.ddev.site/ \
+Backend: https://powermail-<TYPO3-version>.ddev.site/typo3
 
 
 Username: admin \
@@ -40,8 +40,8 @@ Password: password
 - open a console in the project root
 - run `make install-project`
 
-Frontend https://local.powermail.de/ \
-Backend: https://local.powermail.de/typo3
+Frontend https://local-<TYPO3-version>.powermail.de/ \
+Backend: https://local-<TYPO3-version>.powermail.de/typo3
 
 Username: admin \
 Password: password
