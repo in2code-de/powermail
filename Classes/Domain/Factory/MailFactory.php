@@ -42,12 +42,12 @@ class MailFactory
     {
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $marketingInfos = SessionUtility::getMarketingInfos();
+
         $mail
             ->setSenderMail($mailRepository->getSenderMailFromArguments($mail))
             ->setSenderName($mailRepository->getSenderNameFromArguments($mail))
             ->setSubject($settings['receiver']['subject'])
             ->setReceiverMail($settings['receiver']['email'])
-            ->setBody(ArrayUtility::arrayExport($mailRepository->getVariablesWithMarkersFromMail($mail)))
             ->setSpamFactor(SessionUtility::getSpamFactorFromSession())
             ->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $settings)))
             ->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
@@ -57,8 +57,13 @@ class MailFactory
             ->setMarketingMobileDevice((bool)$marketingInfos['mobileDevice'])
             ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
             ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
-            ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-        $mail->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
+            ->setMarketingPageFunnel($marketingInfos['pageFunnel'])
+            ->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
+
+        if ($mail->getBody() === '') {
+            $mail->setBody(ArrayUtility::arrayExport($mailRepository->getVariablesWithMarkersFromMail($mail)));
+        }
+
         $this->setFeuser($mail);
         $this->setSenderIp($mail);
         $this->setHidden($mail, $settings);

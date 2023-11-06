@@ -27,7 +27,7 @@ class StringUtility
             if (isset($value) && strlen((string)$value)) {
                 return true;
             }
-            // array (checkboxes)
+        // array (checkboxes)
         } else {
             foreach ($value as $subValue) {
                 if (isset($value) && strlen((string)$subValue)) {
