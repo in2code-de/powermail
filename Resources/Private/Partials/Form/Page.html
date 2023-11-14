@@ -13,10 +13,10 @@
     <f:if condition="{settings.main.moresteps}">
         <div class="powermail_fieldwrap powermail_tab_navigation">
             <f:if condition="!{iterationPages.isLast}">
-                <button type="button" class="btn btn-primary pull-right" data-powermail-morestep-validate="{settings.validation.morestep.fieldset}" data-powermail-morestep-show="{iterationPages.cycle}">&gt;</button>
+                <button type="button" class="btn btn-primary pull-right" data-powermail-morestep-scroll="true" data-powermail-morestep-validate="{settings.validation.morestep.fieldset}" data-powermail-morestep-show="{iterationPages.cycle}">&gt;</button>
             </f:if>
             <f:if condition="!{iterationPages.isFirst}">
-                <button type="button" class="btn btn-warning" data-powermail-morestep-show="{iterationPages.index - 1}">&lt;</button>
+                <button type="button" class="btn btn-warning" data-powermail-morestep-scroll="true" data-powermail-morestep-show="{iterationPages.index - 1}">&lt;</button>
             </f:if>
         </div>
     </f:if>

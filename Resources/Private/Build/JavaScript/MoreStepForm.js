@@ -42,6 +42,7 @@ export default function MoreStepForm() {
       moreButtons[i].addEventListener('click', function(event) {
         let targetFieldset = event.target.getAttribute('data-powermail-morestep-show');
         let validateVisibleFields = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-validate'));
+        let scrollIntoView = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-scroll'));
         let form = event.target.closest('form');
 
         // validate visible fields if set before proceed
@@ -55,7 +56,9 @@ export default function MoreStepForm() {
         }
 
         that.showFieldset(targetFieldset, form);
-        getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior:'smooth'});
+        if (scrollIntoView) {
+          getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior:'smooth'});
+        }
       });
     }
   }
