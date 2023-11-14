@@ -39,6 +39,11 @@ plugin.tx_powermail {
 
       # cat=powermail_additional//0120; type=boolean; label= PHP Server Validation: Validate User Input with PHP on serverside
       server = 1
+
+      morestep {
+        # cat=powermail_additional//0130; type=boolean; label= Validate User Fieldset Input on Multistep Forms with JavaScript on step change
+        fieldset = 0
+      }
     }
 
     receiver {

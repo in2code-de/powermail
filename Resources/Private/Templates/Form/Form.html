@@ -32,7 +32,7 @@ Render Powermail Form
                     <f:if condition="{settings.main.moresteps}">
                         <div class="btn-group">
                             <f:for each="{form.pages}" as="page" iteration="iterationPages">
-                                <button class="btn btn-default{f:if(condition:iterationPages.isFirst,then:' btn-primary')}" type="button" data-powermail-morestep-current="{iterationPages.index}" data-powermail-morestep-show="{iterationPages.index}">{page.title}</button>
+                                <button class="btn btn-default{f:if(condition:iterationPages.isFirst,then:' btn-primary')}" type="button" data-powermail-morestep-validate="{settings.validation.morestep.fieldset}" data-powermail-morestep-current="{iterationPages.index}" data-powermail-morestep-show="{iterationPages.index}">{page.title}</button>
                             </f:for>
                         </div>
                     </f:if>
