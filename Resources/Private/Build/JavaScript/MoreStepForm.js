@@ -55,6 +55,7 @@ export default function MoreStepForm() {
         }
 
         that.showFieldset(targetFieldset, form);
+        getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior: 'smooth'});
       });
     }
   }
