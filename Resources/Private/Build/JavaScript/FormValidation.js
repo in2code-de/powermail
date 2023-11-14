@@ -151,6 +151,13 @@ class Form {
   validateVisibleFields() {
     const that = this;
     let fields = that.#getFieldsFromForm();
+    // reset errors
+    this.#error = false;
+    for (let i = 0; i < fields.length; i++) {
+      that.#updateErrorClassesForFormAndFieldsets(fields[i]);
+      this.#addFieldErrorStatus(fields[i], false);
+    }
+    // validate
     for (let i = 0; i < fields.length; i++) {
       if (Utility.isElementVisible(fields[i])) {
         that.#validateField(fields[i]);
