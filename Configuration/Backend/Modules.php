@@ -28,7 +28,7 @@ return [
         'access' => 'user',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => [
-            'title' => LocalizationUtility::translate('BackendSelectionList'),
+            'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionList',
         ],
         'extensionName' => 'Powermail',
         'path' => '/module/powermail/list',
@@ -43,7 +43,7 @@ return [
         'access' => 'user',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => [
-            'title' => LocalizationUtility::translate('BackendSelectionOverview'),
+            'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionOverview',
         ],
         'extensionName' => 'Powermail',
         'path' => '/module/powermail/overviewbe',
@@ -57,7 +57,7 @@ return [
         'access' => 'user',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => [
-            'title' => LocalizationUtility::translate('BackendSelectionReportingForm'),
+            'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionReportingForm',
         ],
         'extensionName' => 'Powermail',
         'path' => '/module/powermail/reporting-form',
@@ -71,7 +71,7 @@ return [
         'access' => 'user',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => [
-            'title' => LocalizationUtility::translate('BackendSelectionReportingMarketing'),
+            'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionReportingMarketing',
         ],
         'extensionName' => 'Powermail',
         'path' => '/module/powermail/reporting-marketing',
@@ -85,7 +85,7 @@ return [
         'access' => 'admin',
         'iconIdentifier' => 'extension-powermail-main',
         'labels' => [
-            'title' => LocalizationUtility::translate('BackendSelectionCheck'),
+            'title' => 'LLL:EXT:powermail/Resources/Private/Language/locallang.xlf:BackendSelectionCheck',
         ],
         'extensionName' => 'Powermail',
         'path' => '/module/powermail/check-be',
