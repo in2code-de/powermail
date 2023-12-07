@@ -1,7 +1,5 @@
 <?php
 
-use In2code\Powermail\Utility\LocalizationUtility;
-
 return [
     'web_powermail' => [
         'parent' => 'web',
