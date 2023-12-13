@@ -98,6 +98,16 @@ plugin.tx_powermail.settings.setup.optin.overwrite.senderName = TEXT
 plugin.tx_powermail.settings.setup.optin.overwrite.senderName.value = Server from domain.org
 ```
 
+
+To set a sender email address for the disclaimer email (to sender), you could use this TypoScript:
+
+```
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderEmail = TEXT
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderEmail.value = server@domain.org
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderName = TEXT
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderName.value = Server from domain.org
+```
+
 Please ask your server administrator for a valid email address.
 
 
