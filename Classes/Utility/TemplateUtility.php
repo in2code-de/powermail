@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -143,8 +144,11 @@ class TemplateUtility
      */
     public static function fluidParseString(string $string, array $variables = []): string
     {
-        if (empty($string) || ConfigurationUtility::isDatabaseConnectionAvailable() === false
-            || BackendUtility::isBackendContext()) {
+        if (empty($string)
+            || ConfigurationUtility::isDatabaseConnectionAvailable() === false
+            || BackendUtility::isBackendContext()
+            || Environment::isCli()
+        ) {
             return $string;
         }
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
