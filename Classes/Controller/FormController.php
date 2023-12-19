@@ -13,6 +13,7 @@ use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
+use In2code\Powermail\Events\CheckIfMailIsAllowedToSaveEvent;
 use In2code\Powermail\Events\FormControllerConfirmationActionEvent;
 use In2code\Powermail\Events\FormControllerCreateActionAfterMailDbSavedEvent;
 use In2code\Powermail\Events\FormControllerCreateActionAfterSubmitViewEvent;
@@ -239,7 +240,13 @@ class FormController extends AbstractController
             $this->contentObject
         );
         if ($this->isMailPersistActive($hash)) {
-            $this->saveMail($mail);
+            $event = GeneralUtility::makeInstance(CheckIfMailIsAllowedToSaveEvent::class, $mail);
+            $this->eventDispatcher->dispatch($event);
+            $isSavingOfMailAllowed = $event->isSavingOfMailAllowed();
+            if ($isSavingOfMailAllowed) {
+                $this->saveMail($mail);
+            }
+
             $event = GeneralUtility::makeInstance(FormControllerCreateActionAfterMailDbSavedEvent::class, $mail, $this, $hash);
             $this->eventDispatcher->dispatch($event);
             $mail = $event->getMail();
@@ -258,7 +265,7 @@ class FormController extends AbstractController
             $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
         }
-        if ($this->isPersistActive()) {
+        if ($this->isPersistActive() && $isSavingOfMailAllowed) {
             $this->mailRepository->update($mail);
             $this->persistenceManager->persistAll();
         }
