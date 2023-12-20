@@ -148,7 +148,7 @@ class ArrayUtility
                             $firstArray[$key] = $value;
                         }
                     }
-                // @codeCoverageIgnoreEnd
+                    // @codeCoverageIgnoreEnd
                 } else {
                     if ($emptyValuesOverride || !empty($value)) {
                         $firstArray[$key] = $value;
