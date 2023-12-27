@@ -6,7 +6,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\NameMethod;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class NameMethodTest
@@ -15,7 +15,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class NameMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+     * @var NameMethod
      */
     protected $generalValidatorMock;
 
@@ -26,7 +26,7 @@ class NameMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             NameMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
@@ -48,7 +48,7 @@ class NameMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -100,6 +100,6 @@ class NameMethodTest extends UnitTestCase
         }
 
         $this->generalValidatorMock->_set('mail', $mail);
-        self::assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

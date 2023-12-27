@@ -115,7 +115,7 @@ function PowermailBackend($) {
         if (page > 0) {
           const form = document.querySelector('#powermail_module_search');
           const paginationHiddenField = document.createElement('input');
-          paginationHiddenField.setAttribute('type', 'text');
+          paginationHiddenField.setAttribute('type', 'hidden');
           paginationHiddenField.setAttribute('name', 'tx_powermail_web_powermailm1[currentPage]');
           paginationHiddenField.setAttribute('value', page.toString());
           form.appendChild(paginationHiddenField);
@@ -408,22 +408,17 @@ function PowermailBackend($) {
    * @private
    */
   var visibilityToggleLine = function ($tr) {
-    var $visibilityButton = $tr.find('.visibilityButton');
+    var $hideMailButton = $tr.find('.hideMail');
+    var $unhideMailButton = $tr.find('.unhideMail');
     var hidden = 0;
-    if ($visibilityButton.hasClass('unhideMail')) {
-      $visibilityButton
-        .removeClass('unhideMail')
-        .removeClass('fa-toggle-off')
-        .addClass('hideMail')
-        .addClass('fa-toggle-on');
+    if ($hideMailButton.hasClass('hide')) {
+      $hideMailButton.removeClass('hide');
+      $unhideMailButton.addClass('hide');
       $tr.find('.powermailRecordIcon').children(':first').removeClass('hide');
       $tr.find('.powermailRecordIcon').children(':last').addClass('hide');
     } else {
-      $visibilityButton
-        .removeClass('hideMail')
-        .removeClass('fa-toggle-on')
-        .addClass('unhideMail')
-        .addClass('fa-toggle-off');
+      $hideMailButton.addClass('hide');
+      $unhideMailButton.removeClass('hide');
       $tr.find('.powermailRecordIcon').children().last().removeClass('hide');
       $tr.find('.powermailRecordIcon').children().first().addClass('hide');
       hidden = 1;

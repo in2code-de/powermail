@@ -1,12 +1,18 @@
-{namespace vh=In2code\Powermail\ViewHelpers}
-<f:layout name="Backend" />
+<html
+    xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+    xmlns:core="http://typo3.org/ns/TYPO3/CMS/Core/ViewHelpers"
+    xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+    data-namespace-typo3-fluid="true">
 
+<f:layout name="Module" />
 
 	Show Backend Module: Powermail List
 
-<f:section name="content">
+<f:section name="Content">
 
-	<h1><f:translate key="BackendListTitle" /></h1>
+    <f:render partial="Module/JsAndCssImport" arguments="{_all}" />
+
+    <h1><f:translate key="BackendListTitle" /></h1>
 
 	<f:comment>
 		Filter Area
@@ -30,3 +36,5 @@
 	</div>
 
 </f:section>
+
+</html>

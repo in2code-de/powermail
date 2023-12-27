@@ -11,19 +11,17 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Exception\DeprecatedException;
-use In2code\Powermail\Signal\SignalTrait;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Property\TypeConverter\PersistentObjectConverter;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -31,63 +29,87 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractController extends ActionController
 {
-    use SignalTrait;
-
-    /**
-     * @var FormRepository
-     */
-    protected $formRepository;
-
-    /**
-     * @var FieldRepository
-     */
-    protected $fieldRepository;
-
-    /**
-     * @var MailRepository
-     */
-    protected $mailRepository;
-
-    /**
-     * @var UploadService
-     */
-    protected $uploadService;
-
-    /**
-     * @var ContentObjectRenderer
-     */
-    protected $contentObject;
-
     /**
      * TypoScript configuration
      *
      * @var array
      */
-    protected $conf;
+    protected array $conf;
 
     /**
      * Plugin variables
      *
      * @var array
      */
-    protected $piVars;
+    protected array $piVars;
 
     /**
      * message Class
      *
      * @var string
      */
-    protected $messageClass = 'error';
+    protected string $messageClass = 'error';
 
     /**
      * selected page Uid
      *
      * @var int
      */
-    protected $id = 0;
+    protected int $id = 0;
 
     /**
-     * Make $this->settings accessible when extending the controller with signals
+     * @var FormRepository
+     */
+    protected FormRepository $formRepository;
+
+    /**
+     * @var FieldRepository
+     */
+    protected FieldRepository $fieldRepository;
+
+    /**
+     * @var MailRepository
+     */
+    protected MailRepository $mailRepository;
+
+    /**
+     * @var UploadService
+     */
+    protected UploadService $uploadService;
+
+    /**
+     * @var ContentObjectRenderer
+     */
+    protected ContentObjectRenderer $contentObject;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    /**
+     * @param FormRepository $formRepository
+     * @param FieldRepository $fieldRepository
+     * @param MailRepository $mailRepository
+     * @param UploadService $uploadService
+     * @param EventDispatcher $eventDispatcher
+     */
+    public function __construct(
+        FormRepository $formRepository,
+        FieldRepository $fieldRepository,
+        MailRepository $mailRepository,
+        UploadService $uploadService,
+        EventDispatcher $eventDispatcher
+    ) {
+        $this->formRepository = $formRepository;
+        $this->fieldRepository = $fieldRepository;
+        $this->mailRepository = $mailRepository;
+        $this->uploadService = $uploadService;
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * Make $this->settings accessible when extending the controller with events
      *
      * @return array
      */
@@ -97,7 +119,7 @@ abstract class AbstractController extends ActionController
     }
 
     /**
-     * Make $this->settings writable when extending the controller with signals
+     * Make $this->settings writable when extending the controller with events
      *
      * @param array $settings
      * @return void
@@ -111,20 +133,17 @@ abstract class AbstractController extends ActionController
      * Reformat array for createAction
      *
      * @return void
-     * @throws InvalidArgumentNameException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws NoSuchArgumentException
+     * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws Exception
      * @throws InvalidQueryException
-     * @throws DeprecatedException
+     * @throws NoSuchArgumentException
+     * @throws ExceptionExtbaseObject
      */
     protected function reformatParamsForAction(): void
     {
         $this->uploadService->preflight($this->settings);
-        $arguments = $this->request->getArguments();
+        $arguments = array_merge_recursive($this->request->getArguments(), $this->request->getUploadedFiles());
         if (!isset($arguments['field'])) {
             return;
         }
@@ -206,8 +225,8 @@ abstract class AbstractController extends ActionController
             $newArguments['mail']['__identity'] = $arguments['field']['__identity'];
         }
 
-        $this->request->setArguments($newArguments);
-        $this->request->setArgument('field', null);
+        $this->request = $this->request->withArguments($newArguments);
+        $this->request = $this->request->withArgument('field', null);
     }
 
     /**
@@ -219,46 +238,6 @@ abstract class AbstractController extends ActionController
     {
         $this->piVars = $this->request->getArguments();
         $this->id = (int)GeneralUtility::_GP('id');
-    }
-
-    /**
-     * @param FormRepository $formRepository
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function injectFormRepository(FormRepository $formRepository): void
-    {
-        $this->formRepository = $formRepository;
-    }
-
-    /**
-     * @param FieldRepository $fieldRepository
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function injectFieldRepository(FieldRepository $fieldRepository): void
-    {
-        $this->fieldRepository = $fieldRepository;
-    }
-
-    /**
-     * @param MailRepository $mailRepository
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function injectMailRepository(MailRepository $mailRepository): void
-    {
-        $this->mailRepository = $mailRepository;
-    }
-
-    /**
-     * @param UploadService $uploadService
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function injectUploadService(UploadService $uploadService): void
-    {
-        $this->uploadService = $uploadService;
     }
 
     /**

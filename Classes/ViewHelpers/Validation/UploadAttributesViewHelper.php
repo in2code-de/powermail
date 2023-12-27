@@ -3,10 +3,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class UploadAttributesViewHelper
@@ -27,7 +27,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * Array for multiple upload
      *
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     public function render(): array
     {

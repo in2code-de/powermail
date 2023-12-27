@@ -4,8 +4,8 @@ namespace In2code\Powermail\Tests\Unit\Eid;
 
 use In2code\Powermail\Eid\GetLocationEid;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetLocationEidTest
@@ -18,13 +18,14 @@ class GetLocationEidTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 
     /**
      * @return array
      */
-    public function mainDataProvider(): array
+    public static function mainDataProvider(): array
     {
         return [
             'in2code GmbH, Rosenheim, Germany' => [
@@ -32,7 +33,7 @@ class GetLocationEidTest extends UnitTestCase
                 12.113768,
                 'Kunstmühlstraße',
             ],
-            'Eisweiherweg, Pfaffing, Germany' => [
+            'Eisweiherweg, Forsting, Germany' => [
                 48.0796126,
                 12.0898908,
                 'Eisweiherweg',

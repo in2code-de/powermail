@@ -18,7 +18,7 @@ Feature: AllFields
     Then I should see "Content Element (Sally Dalmatiner)"
     Then the sourcecode should contain '<b>Fett</b> Mager'
     Then I should see "Password"
-    Then I should see "Bitte erneut eintragen"
+    Then I should see "Bitte wiederholen"
     Then I should see "Upload"
     Then I should see "Date"
     Then I should see "Location"
@@ -43,7 +43,7 @@ Feature: AllFields
     And I scroll "$[type='submit']" into view
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "email@email.org"
     Then I should see "Test for Textarea äöß"
     Then I should see "green"
@@ -70,7 +70,7 @@ Feature: AllFields
     And I scroll "$[type='submit']" into view
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "new@email.org"
     Then I should see "Test for Textarea."
     Then I should see "green"

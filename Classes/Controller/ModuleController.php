@@ -1,9 +1,9 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Controller;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -16,12 +16,16 @@ use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
-use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
@@ -31,16 +35,48 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ModuleController extends AbstractController
 {
+    protected ?ModuleData $moduleData = null;
+    protected ModuleTemplate $moduleTemplate;
+    protected ModuleTemplateFactory $moduleTemplateFactory;
+    protected IconFactory $iconFactory;
+    protected PageRenderer $pageRenderer;
+
+    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
+    {
+        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    }
+
+    public function injectIconFactory(IconFactory $iconFactory)
+    {
+        $this->iconFactory = $iconFactory;
+    }
+
+    public function injectPageRenderer(PageRenderer $pageRenderer)
+    {
+        $this->pageRenderer = $pageRenderer;
+    }
+
+    public function initializeAction(): void
+    {
+        $this->piVars = $this->request->getArguments();
+        $this->id = (int)GeneralUtility::_GP('id');
+
+        $this->moduleData = $this->request->getAttribute('moduleData');
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->moduleTemplate->setTitle('Powermail');
+        $this->moduleTemplate->setFlashMessageQueue($this->getFlashMessageQueue());
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
+    }
+
     /**
-     * @param string $forwardToAction
-     * @throws StopActionException
      * @return void
      * @noinspection PhpUnused
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
     {
-        $this->forward($forwardToAction);
-        return $this->htmlResponse();
+        return (new ForwardResponse($forwardToAction))
+            ->withControllerName('Module')
+            ->withExtensionName('Powermail');
     }
 
     /**
@@ -56,33 +92,38 @@ class ModuleController extends AbstractController
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
         $currentPage = 1;
-        if ($this->request->hasArgument('currentPage')) {
-            $currentPage =  $this->request->getArgument('currentPage');
+        if ($this->request->hasArgument('tx_powermail_web_powermailm1')) {
+            $moduleArguments = $this->request->getArgument('tx_powermail_web_powermailm1');
+            if (array_key_exists('currentPage', $moduleArguments)) {
+                $currentPage =  (int)$moduleArguments['currentPage'];
+            }
         }
+
         $itemsPerPage = $this->settings['perPage'] ?? 10;
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
         $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);
 
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
-        $this->view->assignMultiple(
-            [
-                'mails' => $mails,
-                'formUids' => $formUids,
-                'firstForm' => $this->formRepository->findByUid($firstFormUid),
-                'piVars' => $this->piVars,
-                'pid' => $this->id,
-                'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'pagination' => [
-                    'pagination' => $pagination,
-                    'paginator' => $paginator,
-                ],
-                'perPage' => $this->settings['perPage'] ?? 10,
-                'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
-                    && $beUser->check('tables_modify', Mail::TABLE_NAME),
-            ]
-        );
-        return $this->htmlResponse();
+        $this->moduleTemplate->assignMultiple([
+            'mails' => $mails,
+            'formUids' => $formUids,
+            'firstForm' => $this->formRepository->findByUid((int)$firstFormUid),
+            'piVars' => $this->piVars,
+            'pid' => $this->id,
+            'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
+            'pagination' => [
+                'pagination' => $pagination,
+                'paginator' => $paginator,
+            ],
+            'settings' => $this->settings,
+            'perPage' => $this->settings['perPage'] ?? 10,
+            'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
+                && $beUser->check('tables_modify', Mail::TABLE_NAME),
+        ]);
+
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
+        return $this->moduleTemplate->renderResponse('List');
     }
 
     /**
@@ -103,7 +144,7 @@ class ModuleController extends AbstractController
             ]
         );
 
-        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'], 'export.xls');
+        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
         return $this->htmlResponse()
             ->withHeader('Content-Type', 'application/vnd.ms-excel')
             ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
@@ -123,13 +164,13 @@ class ModuleController extends AbstractController
                 'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                 'fieldUids' => GeneralUtility::trimExplode(
                     ',',
-                    StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+                    StringUtility::conditionalVariable($this->piVars['export']['fields'] ?? '', ''),
                     true
                 ),
             ]
         );
 
-        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'], 'export.csv');
+        $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameCsv'] ?? '', 'export.csv');
         return $this->htmlResponse()
             ->withHeader('Content-Type', 'text/x-csv')
             ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
@@ -149,7 +190,7 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedAnswers = ReportingUtility::getGroupedAnswersFromMails($mails);
 
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'groupedAnswers' => $groupedAnswers,
                 'mails' => $mails,
@@ -157,10 +198,10 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->htmlResponse();
+        return $this->moduleTemplate->renderResponse('ReportingFormBe');
     }
 
     /**
@@ -176,7 +217,7 @@ class ModuleController extends AbstractController
         $firstMail = $this->mailRepository->findFirstInPid($this->id);
         $groupedMarketing = ReportingUtility::getGroupedMarketingPropertiesFromMails($mails);
 
-        $this->view->assignMultiple(
+        $this->moduleTemplate->assignMultiple(
             [
                 'groupedMarketingStuff' => $groupedMarketing,
                 'mails' => $mails,
@@ -184,24 +225,25 @@ class ModuleController extends AbstractController
                 'piVars' => $this->piVars,
                 'pid' => $this->id,
                 'moduleUri' => BackendUtility::getRoute('ajax_record_process'),
-                'perPage' => ($this->settings['perPage'] ? $this->settings['perPage'] : 10),
+                'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->htmlResponse();
+        return $this->moduleTemplate->renderResponse('ReportingMarketingBe');
     }
 
     /**
      * @return void
      * @throws InvalidQueryException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
     public function overviewBeAction(): ResponseInterface
     {
         $forms = $this->formRepository->findAllInPidAndRootline($this->id);
-        $this->view->assign('forms', $forms);
-        $this->view->assign('pid', $this->id);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('forms', $forms);
+        $this->moduleTemplate->assign('pid', $this->id);
+        $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
+        return $this->moduleTemplate->renderResponse('OverviewBe');
     }
 
     /**
@@ -213,14 +255,14 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @param string|null $email
      * @return ResponseInterface
      */
-    public function checkBeAction(string $email = null): ResponseInterface
+    public function checkBeAction(): ResponseInterface
     {
-        $this->view->assign('pid', $this->id);
-        $this->sendTestEmail($email);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('pid', $this->id);
+        $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
+        $this->sendTestEmail($this->piVars['email'] ?? null);
+        return $this->moduleTemplate->renderResponse('CheckBe');
     }
 
     /**
@@ -261,15 +303,13 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
      * @throws FileCannotBeCreatedException
      * @noinspection PhpUnused
      */
-    public function fixUploadFolderAction(): void
+    public function fixUploadFolderAction(): ResponseInterface
     {
         BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
-        $this->redirect('checkBe');
+        return new ForwardResponse('checkBe');
     }
 
     /**
@@ -282,15 +322,12 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
-     * @throws DBALException
      * @noinspection PhpUnused
      */
-    public function fixWrongLocalizedFormsAction(): void
+    public function fixWrongLocalizedFormsAction(): ResponseInterface
     {
         $this->formRepository->fixWrongLocalizedForms();
-        $this->redirect('checkBe');
+        return new ForwardResponse('checkBe');
     }
 
     /**
@@ -303,15 +340,13 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
-    public function fixWrongLocalizedPagesAction(): void
+    public function fixWrongLocalizedPagesAction(): ResponseInterface
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         $pageRepository->fixWrongLocalizedPages();
-        $this->redirect('checkBe');
+        return new ForwardResponse('checkBe');
     }
 
     /**
@@ -323,7 +358,6 @@ class ModuleController extends AbstractController
     protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
-            $this->controllerContext = $this->buildControllerContext();
             return new ForwardResponse('toolsBe');
         }
         return null;

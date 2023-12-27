@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ConfigurationUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ConfigurationUtilityTest
@@ -11,11 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class ConfigurationUtilityTest extends UnitTestCase
 {
-    /**
-     * @var array
-     */
-    protected $testFilesToDelete = [];
-
     /**
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -90,7 +85,7 @@ class ConfigurationUtilityTest extends UnitTestCase
     /**
      * @return array
      */
-    public function mergeTypoScript2FlexFormReturnsVoidDataProvider()
+    public static function mergeTypoScript2FlexFormReturnsVoidDataProvider(): array
     {
         return [
             'empty' => [

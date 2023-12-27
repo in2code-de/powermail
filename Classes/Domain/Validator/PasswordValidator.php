@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Result;
 
 /**
  * Class PasswordValidator
@@ -19,14 +20,19 @@ class PasswordValidator extends AbstractValidator
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return bool
+     * @return Result
      */
-    public function isValid($mail)
+    public function validate($mail): Result
     {
-        if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
-            return true;
+        $this->result = new Result();
+        if ($this->formHasPassword($mail->getForm()) && !$this->ignoreValidationIfConfirmation()) {
+            $this->isValid($mail);
         }
+        return $this->result;
+    }
 
+    protected function isValid($mail): void
+    {
         foreach ($mail->getAnswers() as $answer) {
             if ($answer->getField()->getType() !== 'password') {
                 continue;
@@ -35,8 +41,6 @@ class PasswordValidator extends AbstractValidator
                 $this->setErrorAndMessage($answer->getField(), 'password');
             }
         }
-
-        return $this->isValidState();
     }
 
     /**
@@ -47,7 +51,7 @@ class PasswordValidator extends AbstractValidator
      */
     protected function getMirroredValueOfPasswordField(Field $field): string
     {
-        return (string)FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'];
+        return FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'] ?? '';
     }
 
     /**
@@ -74,7 +78,7 @@ class PasswordValidator extends AbstractValidator
             !empty(FrontendUtility::getArguments()['__referrer'])
             && !empty(FrontendUtility::getArguments()['action'])
             && FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'create'
+            && FrontendUtility::getArguments()['action'] === 'checkCreate'
         )
             || (
                 !empty(FrontendUtility::getArguments()['controller'])

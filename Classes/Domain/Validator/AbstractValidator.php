@@ -1,15 +1,16 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
 
@@ -48,7 +49,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     public function setErrorAndMessage(Field $field, string $label): void
     {
         $this->setValidState(false);
-        $this->addError($label, 1580681677, ['marker' => $field->getMarker()]);
+        $this->result->addError(new Error($label, 1580681677, ['marker' => $field->getMarker()]));
     }
 
     /**
@@ -66,15 +67,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function initialize(): void
     {
-    }
-
-    /**
-     * @param Mail $mail
-     * @return bool
-     */
-    public function isValid($mail)
-    {
-        return true;
     }
 
     /**
@@ -133,12 +125,10 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * @param array $options Options for the validator
      * @throws InvalidValidationOptionsException
      */
-    public function __construct(array $options = [])
+    public function __construct()
     {
-        parent::__construct($options);
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManager::class);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
-
         $this->settings = $configurationService->getTypoScriptSettings();
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         $this->flexForm = $flexFormService->convertFlexFormContentToArray(

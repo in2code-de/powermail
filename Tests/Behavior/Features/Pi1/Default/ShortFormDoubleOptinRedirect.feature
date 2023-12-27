@@ -10,9 +10,9 @@ Feature: ShortFormDoubleOptinRedirect
     Then I should see "E-Mail"
     And I press "Jetzt Absenden"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel"
     Then I should see "Boxhammer"
     Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     And I press "Weiter"
-    Then I should see "Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion."
+    Then I should see "Bitte schauen Sie in Ihrem Posteingang nach und bestätigen Sie diese Aktion."

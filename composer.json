@@ -31,7 +31,8 @@
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0-or-later",
 	"require": {
-		"typo3/cms-core": "^11.5.6",
+		"php": "^8.1",
+		"typo3/cms-core": "^12.4",
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
@@ -44,39 +45,39 @@
 		"typo3-ter/powermail": "self.version"
 	},
 	"require-dev": {
-		"typo3/cms-extbase": "^11.5.6",
-		"typo3/cms-extensionmanager": "^11.5.6",
-		"typo3/cms-felogin": "^11.5.6",
-		"typo3/cms-filelist": "^11.5.6",
-		"typo3/cms-fluid-styled-content": "^11.5.6",
-		"typo3/cms-frontend": "^11.5.6",
-		"typo3/cms-info": "^11.5.6",
-		"typo3/cms-install": "^11.5.6",
-		"typo3/cms-recordlist": "^11.5.6",
-		"typo3/cms-rte-ckeditor": "^11.5.6",
-		"typo3/cms-scheduler": "^11.5.6",
-		"typo3/cms-setup": "^11.5.6",
-		"typo3/cms-t3editor": "^11.5.6",
-		"typo3/cms-tstemplate": "^11.5.6",
-		"typo3/cms-lowlevel": "^11.5.6",
-		"helmich/typo3-typoscript-lint": "^2.5",
+		"typo3/cms-extbase": "^12.4",
+		"typo3/cms-extensionmanager": "^12.4",
+		"typo3/cms-felogin": "^12.4",
+		"typo3/cms-filelist": "^12.4",
+		"typo3/cms-fluid-styled-content": "^12.4",
+		"typo3/cms-frontend": "^12.4",
+		"typo3/cms-info": "^12.4",
+		"typo3/cms-install": "^12.4",
+		"typo3/cms-recordlist": "^12.4",
+		"typo3/cms-rte-ckeditor": "^12.4",
+		"typo3/cms-scheduler": "^12.4",
+		"typo3/cms-setup": "^12.4",
+		"typo3/cms-t3editor": "^12.4",
+		"typo3/cms-tstemplate": "^12.4",
+		"typo3/cms-lowlevel": "^12.4",
+		"helmich/typo3-typoscript-lint": "^3.1",
 		"mikey179/vfsstream": "^1.6",
 		"friendsofphp/php-cs-fixer": "^3.10",
 		"squizlabs/php_codesniffer": "^3.5",
 		"phpmd/phpmd": "^2.8",
 		"behat/behat": "^3.8",
-		"helhum/typo3-console": "^7.0",
+		"helhum/typo3-console": "^8.0.x-dev",
 		"se/selenium-server-standalone": "^3.141",
-		"symfony/config": "^5.3",
-		"nimut/testing-framework": "6.x-dev",
+		"symfony/config": "^6.2",
 		"friends-of-behat/mink-extension": "^2.5",
 		"behat/mink-selenium2-driver": "^1.5",
-		"typo3/cms-adminpanel": "^11.5.6",
-		"typo3/cms-belog": "^11.5.6",
-		"typo3/cms-beuser": "^11.5.6",
-		"typo3/cms-dashboard": "^11.5.6",
+		"typo3/cms-adminpanel": "^12.4",
+		"typo3/cms-belog": "^12.4",
+		"typo3/cms-beuser": "^12.4",
+		"typo3/cms-dashboard": "^12.4",
 		"friends-of-behat/mink-browserkit-driver": "^1.5",
-		"drevops/behat-screenshot": "^1.1"
+		"drevops/behat-screenshot": "^1.1",
+		"typo3/testing-framework": "^8.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -99,15 +100,6 @@
 		}
 	},
 	"scripts": {
-		"post-autoload-dump": [
-			"mkdir -p .Build/Web/typo3conf/ext/",
-			"[ -L .Build/Web/typo3conf/ext/powermail ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/powermail",
-			"@package-states",
-			"TYPO3\\TestingFramework\\Composer\\ExtensionTestEnvironment::prepare"
-		],
-		"package-states": [
-			".Build/bin/typo3cms install:fixfolderstructure"
-		],
 		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
 		"test:behaviour:ddev:tag": "behat --config Tests/Behavior/behat.ddev.yml --tags",
 		"test:behaviour:ddev:stop": "behat --config Tests/Behavior/behat.ddev.yml --stop-on-failure",
@@ -125,9 +117,6 @@
 			"web-dir": ".Build/Web",
 			"extension-key": "powermail",
 			"ignore-as-root": false
-		},
-		"branch-alias": {
-			"dev-feature/typo3_11": "9.0.x-dev"
 		}
 	}
 }

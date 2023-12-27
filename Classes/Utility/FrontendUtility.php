@@ -7,11 +7,11 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FrontendUtility
@@ -69,7 +69,12 @@ class FrontendUtility
         $pluginName = 'tx_powermail_pi1';
         if (self::isArgumentExisting('tx_powermail_pi2')) {
             $pluginName = 'tx_powermail_pi2';
+        } elseif (self::isArgumentExisting('tx_powermail_pi3')) {
+            $pluginName = 'tx_powermail_pi3';
+        } elseif (self::isArgumentExisting('tx_powermail_pi4')) {
+            $pluginName = 'tx_powermail_pi4';
         }
+
         if (self::isArgumentExisting('tx_powermail_web_powermailm1')) {
             $pluginName = 'tx_powermail_web_powermailm1';
         }
@@ -90,23 +95,12 @@ class FrontendUtility
     }
 
     /**
-     * Get charset for frontend rendering
-     *
-     * @return string
-     */
-    public static function getCharset(): string
-    {
-        return ObjectUtility::getTyposcriptFrontendController()->metaCharset;
-    }
-
-    /**
      * Check if logged in user is allowed to make changes in Pi2
      *
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
      * @return bool
      * @throws DBALException
-     * @throws Exception
      * @codeCoverageIgnore
      */
     public static function isAllowedToEdit(array $settings, $mail): bool
@@ -135,9 +129,9 @@ class FrontendUtility
         }
 
         // add owner groups to allowed groups (if "_owner")
-        if (is_numeric(array_search('_owner', $usergroupsSettings))) {
+        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usergroupsSettings))) {
             $userRepository = GeneralUtility::makeInstance(UserRepository::class);
-            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
+            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser()->getUid());
             $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }
 
@@ -205,7 +199,8 @@ class FrontendUtility
             // @codeCoverageIgnoreEnd
         }
         $country = '';
-        $json = GeneralUtility::makeInstance(RequestFactory::class)
+        $guzzleFactory = GeneralUtility::makeInstance(GuzzleClientFactory::class);
+        $json = GeneralUtility::makeInstance(RequestFactory::class, $guzzleFactory)
             ->request('http://ip-api.com/json/' . $ipAddress)
             ->getBody()
             ->getContents();

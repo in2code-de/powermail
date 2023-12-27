@@ -1,13 +1,40 @@
-mod.wizards.newContentElement.wizardItems.plugins {
+mod.wizards.newContentElement.wizardItems.ext-powermail {
+  header = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardTitle
+  after = plugins,common,forms,menu
+  before = special
   elements {
-    powermail {
+    powermail-form {
       iconIdentifier = extension-powermail-main
-      title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardTitle
-      description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardDescription
+      title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi1.title
+      description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi1.description
       tt_content_defValues {
-        CType = list
-        list_type = powermail_pi1
+        CType = powermail_pi1
+      }
+    }
+    powermail-frontend-pi2 {
+      iconIdentifier = extension-powermail-main
+      title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi2.title
+      description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi2.description
+      tt_content_defValues {
+        CType = powermail_pi2
+      }
+    }
+    powermail-frontend-pi3 {
+      iconIdentifier = extension-powermail-main
+      title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi3.title
+      description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi3.description
+      tt_content_defValues {
+        CType = powermail_pi3
+      }
+    }
+    powermail-frontend-pi4 {
+      iconIdentifier = extension-powermail-main
+      title = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi4.title
+      description = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:powermail_pi4.description
+      tt_content_defValues {
+        CType = powermail_pi4
       }
     }
   }
+  show = *
 }

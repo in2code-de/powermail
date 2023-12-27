@@ -16,7 +16,9 @@ services:
           - ${HOST}
 
   php:
-    image: in2code/php-dev:8.0-fpm
+    build:
+      context: .project/docker/php/
+      dockerfile: Dockerfile
     volumes:
       - ./:/app/:cached
       - $HOME/.composer/auth.json:/tmp/composer/auth.json
@@ -44,7 +46,7 @@ services:
     working_dir: /home/node/app/Resources/Private
 
   chrome:
-    image: selenium/standalone-chrome-debug:3.141
+    image: seleniarm/standalone-chromium:111.0
     volumes:
       - /dev/shm:/dev/shm
     ports:

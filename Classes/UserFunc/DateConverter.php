@@ -188,4 +188,9 @@ class DateConverter
     {
         return $this->date;
     }
+
+    public function setContentObjectRenderer(ContentObjectRenderer $cObj): void
+    {
+        $this->cObj = $cObj;
+    }
 }

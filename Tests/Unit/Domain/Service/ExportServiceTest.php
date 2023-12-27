@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Service\ExportService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ExportServiceTest
@@ -12,7 +12,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class ExportServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\ExportService
+     * @var ExportService
      */
     protected $generalValidatorMock;
 
@@ -23,7 +23,7 @@ class ExportServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             ExportService::class,
-            ['dummy']
+            null
         );
     }
 
@@ -35,12 +35,7 @@ class ExportServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getRelativeTemplatePathAndFileNameReturnsString()
-     *
-     * @return array
-     */
-    public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider()
+    public static function getRelativeTemplatePathAndFileNameReturnsStringDataProvider(): array
     {
         return [
             [
@@ -76,12 +71,7 @@ class ExportServiceTest extends UnitTestCase
         self::assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
     }
 
-    /**
-     * Data Provider for getFormatReturnsString()
-     *
-     * @return array
-     */
-    public function getFormatReturnsStringDataProvider()
+    public static function getFormatReturnsStringDataProvider(): array
     {
         return [
             [

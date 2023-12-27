@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
+use Throwable;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
 
@@ -50,7 +51,7 @@ class BasicFileUtility
         if (is_dir($path) === false) {
             try {
                 GeneralUtility::mkdir_deep($path);
-            } catch (\Exception $exception) {
+            } catch (Throwable $exception) {
                 throw new FileCannotBeCreatedException(
                     'Folder ' . self::getRelativeFolder($path) . ' could not be created',
                     1514817474234

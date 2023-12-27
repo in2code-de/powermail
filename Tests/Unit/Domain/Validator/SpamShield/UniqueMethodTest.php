@@ -5,7 +5,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class UniqueMethodTest
@@ -14,7 +14,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class UniqueMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod
+     * @var UniqueMethod
      */
     protected $generalValidatorMock;
 
@@ -25,7 +25,7 @@ class UniqueMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             UniqueMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
@@ -47,7 +47,7 @@ class UniqueMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -94,6 +94,6 @@ class UniqueMethodTest extends UnitTestCase
         }
 
         $this->generalValidatorMock->_set('mail', $mail);
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

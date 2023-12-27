@@ -5,7 +5,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\LinkMethod;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class LinkMethodTest
@@ -14,7 +14,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class LinkMethodTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+     * @var LinkMethod
      */
     protected $generalValidatorMock;
 
@@ -25,7 +25,7 @@ class LinkMethodTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             LinkMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
@@ -47,7 +47,7 @@ class LinkMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             'links allowed 1, 2 links given' => [
@@ -92,6 +92,6 @@ class LinkMethodTest extends UnitTestCase
 
         $this->generalValidatorMock->_set('mail', $mail);
         $this->generalValidatorMock->_set('configuration', ['linkLimit' => $allowedLinks]);
-        self::assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

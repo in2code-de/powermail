@@ -1,17 +1,17 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
+use In2code\Powermail\Database\QueryGenerator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -32,7 +32,9 @@ class FormRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
         $query->matching($query->equals('pages.uid', $uid));
-        return $query->execute()->getFirst();
+        /** @var Form $form */
+        $form = $query->execute()->getFirst();
+        return $form;
     }
 
     /**
@@ -49,7 +51,7 @@ class FormRepository extends AbstractRepository
             $query->equals('uid', $form->getUid()),
             $query->equals('pages.fields.type', 'captcha'),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -67,7 +69,7 @@ class FormRepository extends AbstractRepository
             $query->equals('uid', $form->getUid()),
             $query->equals('pages.fields.type', 'password'),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -110,7 +112,6 @@ class FormRepository extends AbstractRepository
      *
      * @param int $pid start page identifier
      * @return QueryResultInterface
-     * @throws Exception
      * @throws InvalidQueryException
      */
     public function findAllInPidAndRootline(int $pid): QueryResultInterface
@@ -160,7 +161,6 @@ class FormRepository extends AbstractRepository
      * Fix wrong localized forms
      *
      * @return void
-     * @throws DBALException
      */
     public function fixWrongLocalizedForms(): void
     {
@@ -169,7 +169,7 @@ class FormRepository extends AbstractRepository
             ->update(Form::TABLE_NAME)
             ->where('sys_language_uid > 0 and deleted = 0 and pages = ""')
             ->set('pages', 0)
-            ->execute();
+            ->executeStatement();
     }
 
     /**
@@ -177,7 +177,7 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid Form UID
      * @return array
-     * @throws DBALException
+     * @throws Exception
      */
     public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {
@@ -192,8 +192,8 @@ class FormRepository extends AbstractRepository
             ->where($where)
             ->orderBy('f.sorting', 'asc')
             ->setMaxResults(10000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**

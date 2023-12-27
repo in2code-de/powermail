@@ -3,8 +3,11 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use DateTime;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
+use Throwable;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /**
@@ -17,6 +20,7 @@ class Answer extends AbstractEntity
     const VALUE_TYPE_ARRAY = 1;
     const VALUE_TYPE_DATE = 2;
     const VALUE_TYPE_UPLOAD = 3;
+    const VALUE_TYPE_PASSWORD = 4;
 
     /**
      * @var string
@@ -24,23 +28,31 @@ class Answer extends AbstractEntity
     protected $value = '';
 
     /**
+     * Use when password is hashed so that the originally entered value is available in the finishers
+     *
+     * @var string
+     */
+    protected $originalValue = '';
+
+    /**
      * valueType
      *      0 => text
      *      1 => array
      *      2 => date
      *      3 => upload
+     *      4 => password
      *
      * @var int
      */
     protected $valueType = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Mail
+     * @var Mail
      */
     protected $mail = null;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Field
+     * @var Field
      */
     protected $field = null;
 
@@ -50,10 +62,11 @@ class Answer extends AbstractEntity
      *
      * @var int
      */
-    protected $_languageUid = -1;
+    protected ?int $_languageUid = -1;
 
     /**
-     * @return mixed $value
+     * @return array|false|mixed|string|string[]
+     * @throws DeprecatedException
      */
     public function getValue()
     {
@@ -93,6 +106,22 @@ class Answer extends AbstractEntity
         $value = $this->convertToTimestamp($value);
         $this->value = $value;
         return $this;
+    }
+
+    /**
+     * @return array|false|mixed|string|string[]
+     */
+    public function getOriginalValue()
+    {
+        if ($this->originalValue !== '' && $this->originalValue !== $this->value) {
+            return $this->originalValue;
+        }
+        return $this->value;
+    }
+
+    public function setOriginalValue(string $originalValue): void
+    {
+        $this->originalValue = $originalValue;
     }
 
     /**
@@ -136,6 +165,7 @@ class Answer extends AbstractEntity
 
     /**
      * @return int
+     * @throws DeprecatedException
      */
     public function getValueType(): int
     {
@@ -250,23 +280,23 @@ class Answer extends AbstractEntity
             } else {
                 $format = $this->translateFormat;
             }
-            $date = \DateTime::createFromFormat($format, $value);
+            $date = DateTime::createFromFormat($format, $value);
             if ($date) {
                 if ($this->getField()->getDatepickerSettings() === 'date') {
-                    $date->setTime(0, 0, 0);
+                    $date->setTime(0, 0);
                 }
                 $value = $date->getTimestamp();
             } else {
                 try {
                     // fallback html5 date field - always Y-m-d H:i
-                    $date = new \DateTime($value);
-                } catch (\Exception $e) {
+                    $date = new DateTime($value);
+                } catch (Throwable $e) {
                     // clean value if string could not be converted
                     $value = '';
                 }
                 if ($date) {
                     if ($this->getField()->getDatepickerSettings() === 'date') {
-                        $date->setTime(0, 0, 0);
+                        $date->setTime(0, 0);
                     }
                     $value = $date->getTimestamp();
                 }

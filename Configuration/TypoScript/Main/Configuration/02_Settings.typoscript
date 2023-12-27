@@ -42,7 +42,17 @@ plugin.tx_powermail.settings.setup {
 
 # ParseFunc Configuration for using FAL links in receiver and sender mail
 lib.parseFunc_powermail < lib.parseFunc_RTE
-lib.parseFunc_powermail.tags {
-  link.typolink.forceAbsoluteUrl = 1
-  a.typolink.forceAbsoluteUrl = 1
+lib.parseFunc_powermail {
+  tags {
+    link.typolink.forceAbsoluteUrl = 1
+    a.typolink.forceAbsoluteUrl = 1
+  }
+}
+
+module.tx_powermail.settings {
+  setup {
+    # Don't touch this (this is just to let the extension know, that there is TypoScript included)
+    staticTemplate = 1
+  }
+  uploadPath = {$plugin.tx_powermail.settings.misc.uploadFolder}
 }

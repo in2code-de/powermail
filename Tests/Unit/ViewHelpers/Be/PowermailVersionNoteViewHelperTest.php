@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Be;
 
 use In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PowermailVersionNoteViewHelperTest
@@ -23,7 +23,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     {
         $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
             PowermailVersionNoteViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
@@ -40,7 +40,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsIntDataProvider()
+    public static function renderReturnsIntDataProvider(): array
     {
         return [
             [
@@ -108,14 +108,14 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     ) {
         $this->powermailVersionNoteViewHelperMock->setVersion('1.0.0');
         $this->powermailVersionNoteViewHelperMock->_set('checkFromDatabase', false);
-        $this->powermailVersionNoteViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
-        $this->powermailVersionNoteViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
-        $this->powermailVersionNoteViewHelperMock->_callRef(
+        $this->powermailVersionNoteViewHelperMock->_call('setExtensionTableExists', $extensionTableExists);
+        $this->powermailVersionNoteViewHelperMock->_call('setIsNewerVersionAvailable', $isNewerVersionAvailable);
+        $this->powermailVersionNoteViewHelperMock->_call(
             'setCurrentVersionInExtensionTableExists',
             $currentVersionInExtensionTableExists
         );
-        $this->powermailVersionNoteViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
-        $result = $this->powermailVersionNoteViewHelperMock->_callRef('render');
+        $this->powermailVersionNoteViewHelperMock->_call('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
+        $result = $this->powermailVersionNoteViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 }

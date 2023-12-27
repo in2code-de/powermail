@@ -4,8 +4,11 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\ListenerProviderInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PrefillFieldViewHelperTest
@@ -13,36 +16,25 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class PrefillFieldViewHelperTest extends UnitTestCase
 {
-    /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-     */
-    protected $abstractValidationViewHelperMock;
+    protected MockObject $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
+        $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
+        $eventDispatcher = new EventDispatcher($listenerProviderMock);
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             PrefillFieldViewHelper::class,
-            ['dummy']
+            null,
+            [$eventDispatcher]
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider for getDefaultValueReturnsString()
-     *
-     * @return array
-     */
-    public function getDefaultValueReturnsStringDataProvider()
+    public static function getDefaultValueReturnsStringDataProvider(): array
     {
         return [
             [
@@ -215,16 +207,11 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
-        $this->abstractValidationViewHelperMock->_callRef('buildValue');
-        self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getValue'));
+        $this->abstractValidationViewHelperMock->_call('buildValue');
+        self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_call('getValue'));
     }
 
-    /**
-     * Dataprovider for getFromTypoScriptRawReturnsString()
-     *
-     * @return array
-     */
-    public function getFromTypoScriptRawReturnsStringDataProvider()
+    public static function getFromTypoScriptRawReturnsStringDataProvider(): array
     {
         return [
             [
@@ -276,7 +263,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $value = '';
         self::assertSame(
             $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw', $value)
+            $this->abstractValidationViewHelperMock->_call('getFromTypoScriptRaw', $value)
         );
     }
 }

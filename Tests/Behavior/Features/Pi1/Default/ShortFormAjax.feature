@@ -19,7 +19,7 @@ Feature: ShortFormAjax
     And I press "Jetzt Absenden"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel"
     Then I should see "Daniel_Boxhammer@fake-yahoo-10000.com"
     Then I should not see "Error, this text is only viewable if AJAX"
@@ -33,7 +33,7 @@ Feature: ShortFormAjax
     And I press "Jetzt Absenden"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel"
     Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should not see "Error, this text is only viewable if AJAX"

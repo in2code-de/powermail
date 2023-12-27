@@ -47,7 +47,7 @@ class DatabaseUtility
     {
         $existing = false;
         $connection = self::getConnectionForTable($tableName);
-        $queryResult = $connection->query('show tables;')->fetchAll();
+        $queryResult = $connection->executeQuery('show tables;')->fetchAllAssociative();
         foreach ($queryResult as $tableProperties) {
             if (in_array($tableName, array_values($tableProperties))) {
                 $existing = true;
@@ -55,6 +55,19 @@ class DatabaseUtility
             }
         }
         return $existing;
+    }
+
+    public static function getPidForRecord(int $uid, string $tableName): int
+    {
+        $queryBuilder = self::getQueryBuilderForTable($tableName);
+        $pid = $queryBuilder
+            ->select('pid')
+            ->from($tableName)
+            ->where('uid = ' . $uid)
+            ->executeQuery()
+            ->fetchOne();
+
+        return (int)$pid;
     }
 
     /**
@@ -67,7 +80,7 @@ class DatabaseUtility
     {
         $found = false;
         $connection = self::getConnectionForTable($tableName);
-        $queryResult = $connection->query('describe ' . $tableName . ';')->fetchAll();
+        $queryResult = $connection->executeQuery('describe ' . $tableName . ';')->fetchAllAssociative();
         foreach ($queryResult as $fieldProperties) {
             if ($fieldProperties['Field'] === $fieldName) {
                 $found = true;
@@ -93,9 +106,34 @@ class DatabaseUtility
                     ->count($fieldName)
                     ->from($tableName)
                     ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
-                    ->execute()
-                    ->fetchColumn() > 0;
+                    ->executeQuery()
+                    ->rowCount() > 0;
         }
         return false;
+    }
+
+    public static function deleteMailAndAnswersFromDatabase(int $mailUid): void
+    {
+        $queryBuilderAnswer = DatabaseUtility::getQueryBuilderForTable('tx_powermail_domain_model_answer');
+        $queryBuilderAnswer
+            ->delete('tx_powermail_domain_model_answer')
+            ->where(
+                $queryBuilderAnswer->expr()->eq(
+                    'mail',
+                    $queryBuilderAnswer->createNamedParameter($mailUid)
+                )
+            )
+            ->executeStatement();
+
+        $queryBuilderMail = DatabaseUtility::getQueryBuilderForTable('tx_powermail_domain_model_mail');
+        $queryBuilderMail
+            ->delete('tx_powermail_domain_model_mail')
+            ->where(
+                $queryBuilderMail->expr()->eq(
+                    'uid',
+                    $queryBuilderMail->createNamedParameter($mailUid)
+                )
+            )
+            ->executeStatement();
     }
 }

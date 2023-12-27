@@ -27,6 +27,8 @@ services:
       - $HOME/.composer/cache/:/tmp/composer/cache/
     env_file:
       - .env
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
   mysql:
     image: in2code/mysql:5.7
@@ -47,7 +49,7 @@ services:
     working_dir: /home/node/app/Resources/Private
 
   chrome:
-    image: seleniarm/standalone-chromium
+    image: seleniarm/standalone-chromium:111.0
     environment:
       HTTP_EXPOSE: 4444
     volumes:

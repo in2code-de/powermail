@@ -10,31 +10,6 @@
 				</TCEforms>
 				<type>array</type>
 				<el>
-					<switchableControllerActions>
-						<TCEforms>
-							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions</label>
-							<config>
-								<type>select</type>
-								<renderType>selectSingle</renderType>
-								<items type="array">
-									<numIndex index="0" type="array">
-										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions.0</numIndex>
-										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;</numIndex>
-									</numIndex>
-									<numIndex index="2" type="array">
-										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions.2</numIndex>
-										<numIndex index="1">Output->edit;Output->update;Output->delete;</numIndex>
-									</numIndex>
-									<numIndex index="3" type="array">
-										<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.switchableControllerActions.3</numIndex>
-										<numIndex index="1">Output->list;Output->show;Output->export;Output->rss;Output->edit;Output->update;Output->delete;</numIndex>
-									</numIndex>
-								</items>
-								<maxitems>1</maxitems>
-								<size>1</size>
-							</config>
-						</TCEforms>
-					</switchableControllerActions>
 					<settings.flexform.main.form>
 						<TCEforms>
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.main.form</label>
@@ -172,7 +147,7 @@
 										<numIndex index="1">1</numIndex>
 									</numIndex>
 								</items>
-								<default>0</default>
+								<default>1</default>
 							</config>
 						</TCEforms>
 					</settings.flexform.list.showownonly>
@@ -335,6 +310,7 @@
 								<foreign_table>fe_users</foreign_table>
 								<foreign_table_where>AND fe_users.disable = 0 AND fe_users.deleted = 0 order by fe_users.username</foreign_table_where>
 								<allowNonIdValues>1</allowNonIdValues>
+                                <default>_owner</default>
 							</config>
 						</TCEforms>
 					</settings.flexform.edit.feuser>

@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception;
+use In2code\Powermail\Database\QueryGenerator;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -112,19 +113,19 @@ class FormSelectorUserFunc
      * @param int $startPid
      * @param int $language
      * @return array
-     * @throws DBALException
+     * @throws Exception
      */
     protected function getAllForms(int $startPid, int $language): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
-        $result = $queryBuilder
+        return $queryBuilder
             ->select('*')
             ->from(Form::TABLE_NAME)
             ->where($this->getWhereStatement($startPid, $language))
             ->orderBy('title')
             ->setMaxResults(10000)
-            ->execute();
-        return $result->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -146,6 +147,7 @@ class FormSelectorUserFunc
      *
      * @param int $startPid
      * @return string
+     * @throws Exception
      */
     protected function getPidListFromStartingPoint(int $startPid = 0): string
     {

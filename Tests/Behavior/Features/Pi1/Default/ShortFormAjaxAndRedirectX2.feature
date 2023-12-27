@@ -22,7 +22,7 @@ Feature: AllFields
     When I fill in "tx_powermail_pi1[field][marker_01]" with "3"
     And I press "Submit2"
     And I wait "a few" seconds
-    Then I should see "Sind diese Eingaben korrekt"
+    Then I should see "Sind diese Werte richtig?"
     And I press "Weiter"
     And I wait "a few" seconds
 

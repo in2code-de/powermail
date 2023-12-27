@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -95,14 +96,10 @@ class TemplateUtility
      * @throws InvalidConfigurationTypeException
      */
     public static function getDefaultStandAloneView(
-        string $extensionName = 'Powermail',
-        string $pluginName = 'Pi1',
         string $format = 'html'
     ): StandaloneView {
         /** @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
-        $standaloneView->getRequest()->setControllerExtensionName($extensionName);
-        $standaloneView->getRequest()->setPluginName($pluginName);
         $standaloneView->setFormat($format);
         $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
         $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
@@ -147,11 +144,15 @@ class TemplateUtility
      */
     public static function fluidParseString(string $string, array $variables = []): string
     {
-        if (empty($string) || ConfigurationUtility::isDatabaseConnectionAvailable() === false
-            || BackendUtility::isBackendContext()) {
+        if (empty($string)
+            || ConfigurationUtility::isDatabaseConnectionAvailable() === false
+            || BackendUtility::isBackendContext()
+            || Environment::isCli()
+        ) {
             return $string;
         }
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render() ?? '';

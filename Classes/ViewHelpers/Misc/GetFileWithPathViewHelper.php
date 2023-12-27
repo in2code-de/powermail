@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use Throwable;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
@@ -36,10 +37,10 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
      */
     public function render(): string
     {
-        $fileName = $this->arguments['fileName'];
-        $path = $this->arguments['path'];
+        $fileName = $this->arguments['fileName'] ?? '';
+        $path = $this->arguments['path'] ?? '';
 
-        // using FAL although plain path/file is supplied to trigger all hooks and signals
+        // using FAL although plain path/file is supplied to trigger all hooks and evemts
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $allStorages = $storageRepository->findAll();
         foreach ($allStorages as $thisStorage) {
@@ -50,10 +51,11 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
                     if ($thisStorage->hasFolder($subPath)) {
                         $folder = $thisStorage->getFolder($subPath);
                         $file = $thisStorage->getFileInFolder($fileName, $folder);
-                        return (string)$file->getPublicUrl();
+                        $filePath = (string)$file->getPublicUrl();
+                        return ltrim($filePath, '/');
                     }
                 }
-            } catch (\Exception $e) {
+            } catch (Throwable $e) {
                 unset($e);
             }
         }

@@ -5,7 +5,6 @@ namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class TypoScriptUtility
@@ -20,7 +19,6 @@ class TypoScriptUtility
      * @param string $key Key for TypoScript Configuration
      * @return string
      * @codeCoverageIgnore
-     * @throws Exception
      */
     public static function overwriteValueFromTypoScript(
         string $string = '',
@@ -36,10 +34,9 @@ class TypoScriptUtility
     /**
      * Parse TypoScript from path like lib.blabla
      *
-     * @param $typoScriptObjectPath
+     * @param string $typoScriptObjectPath
      * @return string
      * @codeCoverageIgnore
-     * @throws Exception
      */
     public static function parseTypoScriptFromTypoScriptPath(string $typoScriptObjectPath): string
     {

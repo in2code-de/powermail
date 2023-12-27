@@ -47,7 +47,7 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
             $additionalAttributes['data-validate'] = 'html5';
         }
 
-        if ($this->settings['misc']['ajaxSubmit'] === '1') {
+        if (($this->settings['misc']['ajaxSubmit'] ?? '0') === '1') {
             $additionalAttributes['data-powermail-ajax'] = 'true';
             $additionalAttributes['data-powermail-form'] = $form->getUid();
 

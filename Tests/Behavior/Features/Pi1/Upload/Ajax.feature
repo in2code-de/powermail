@@ -15,7 +15,7 @@ Feature: AJAX Upload
     And I press "Submit"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     And I press "Zurück"
@@ -26,7 +26,7 @@ Feature: AJAX Upload
     And I press "Submit"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     Then I should see text matching "logo2_\d+.png|logo2.png"

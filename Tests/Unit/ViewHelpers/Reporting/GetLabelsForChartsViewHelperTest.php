@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetLabelsForChartsViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetLabelsForChartsViewHelperTest
@@ -23,7 +23,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             GetLabelsForChartsViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
@@ -40,7 +40,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             [
@@ -129,7 +129,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
             'urlEncode' => $urlEncode,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $result = $this->abstractValidationViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 }

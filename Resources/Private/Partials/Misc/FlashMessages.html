@@ -1,10 +1,4 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 <vh:misc.checkForTypoScript settings="{settings}" />
 
-<f:flashMessages as="flashMessages">
-    <ul class="powermail_message {flashMessageClass}">
-        <f:for each="{flashMessages}" as="flashMessage">
-            <li>{flashMessage.message}</li>
-        </f:for>
-    </ul>
-</f:flashMessages>
+<f:flashMessages queueIdentifier="powermail"/>

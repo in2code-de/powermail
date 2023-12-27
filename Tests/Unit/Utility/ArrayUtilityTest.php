@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ArrayUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ArrayUtilityTest
@@ -56,7 +56,7 @@ class ArrayUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function isJsonArrayReturnsBoolDataProvider()
+    public static function isJsonArrayReturnsBoolDataProvider(): array
     {
         return [
             [
@@ -104,7 +104,7 @@ class ArrayUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function htmlspecialcharsOnArrayReturnsArrayDataProvider()
+    public static function htmlspecialcharsOnArrayReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -165,7 +165,7 @@ class ArrayUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function flattenDataProvider()
+    public static function flattenDataProvider(): array
     {
         return [
             'simple' => [

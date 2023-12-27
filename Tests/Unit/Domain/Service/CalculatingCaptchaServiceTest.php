@@ -5,8 +5,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class CalculatingCaptchaServiceTest
@@ -15,7 +14,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class CalculatingCaptchaServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\CalculatingCaptchaService
+     * @var CalculatingCaptchaService
      */
     protected $generalValidatorMock;
 
@@ -27,7 +26,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         TestingHelper::setDefaultConstants();
         $this->generalValidatorMock = $this->getAccessibleMock(
             CalculatingCaptchaService::class,
-            ['dummy'],
+            null,
             [true]
         );
         $this->generalValidatorMock->_set(
@@ -51,12 +50,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getColorForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getColorForCaptchaReturnIntDataProvider()
+    public static function getColorForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -81,7 +75,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
     public function getColorForCaptchaReturnInt($hexColorString, $expectedResult)
     {
         $imageResource = imagecreatefrompng(
-            GeneralUtility::getFileAbsFileName('typo3conf/ext/powermail/Resources/Private/Image/captcha_bg.png')
+            __DIR__ . '/../../../../Resources/Private/Image/captcha_bg.png'
         );
         $this->generalValidatorMock->_set(
             'configuration',
@@ -94,12 +88,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Data Provider for getFontAngleForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getFontAngleForCaptchaReturnIntDataProvider()
+    public static function getFontAngleForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -154,12 +143,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getHorizontalDistanceForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getHorizontalDistanceForCaptchaReturnIntDataProvider()
+    public static function getHorizontalDistanceForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -214,12 +198,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getVerticalDistanceForCaptchaReturnInt()
-     *
-     * @return array
-     */
-    public function getVerticalDistanceForCaptchaReturnIntDataProvider()
+    public static function getVerticalDistanceForCaptchaReturnIntDataProvider(): array
     {
         return [
             [
@@ -274,12 +253,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         }
     }
 
-    /**
-     * Data Provider for getStringAndResultForCaptchaReturnsArray()
-     *
-     * @return array
-     */
-    public function getStringAndResultForCaptchaReturnsArrayDataProvider()
+    public static function getStringAndResultForCaptchaReturnsArrayDataProvider(): array
     {
         return [
             [

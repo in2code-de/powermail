@@ -5,20 +5,21 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BasicFileUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class BasicFileUtiltyTest
  * @coversDefaultClass \In2code\Powermail\Utility\BasicFileUtility
  */
-class BasicFileUtiltyTest extends UnitTestCase
+class BasicFileUtilityTest extends UnitTestCase
 {
     /**
      * @return void
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 

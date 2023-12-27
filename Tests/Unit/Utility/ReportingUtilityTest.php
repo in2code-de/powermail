@@ -6,8 +6,8 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\ReportingUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ReportingUtilityTest
@@ -15,6 +15,11 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ReportingUtilityTest extends UnitTestCase
 {
+    /**
+     * @var bool
+     */
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @return void
      * @test
@@ -90,7 +95,7 @@ class ReportingUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function sortReportingArrayDescendingReturnsVoidDataProvider()
+    public static function sortReportingArrayDescendingReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -151,7 +156,7 @@ class ReportingUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider()
+    public static function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider(): array
     {
         return [
             [

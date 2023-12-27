@@ -1,5 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace be=TYPO3\CMS\Backend\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -12,24 +13,17 @@
 				<tr>
 					<th nowrap="nowrap" class="col-icon"></th>
 					<th nowrap="nowrap">
-						<f:if condition="{piVars.sorting.crdate}">
+						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.crdate} && {0 : piVars.tx_powermail_web_powermailm1.sorting.crdate} == {0 : 'asc'}">
 							<f:then>
-								<f:if condition="{0 : piVars.sorting.crdate} == {0 : 'desc'}">
-									<f:then>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting sorting_desc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
-										</f:link.action>
-									</f:then>
-									<f:else>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting sorting_asc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
-										</f:link.action>
-									</f:else>
-								</f:if>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+									<core:Icon identifier="actions-move-up" />
+								</f:link.action>
 							</f:then>
 							<f:else>
 								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
+									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
 							</f:else>
 						</f:if>
@@ -50,32 +44,25 @@
 						</strong>
 					</th>
 					<th nowrap="nowrap">
-						<f:if condition="{piVars.sorting.subject}">
+						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.subject} && {0 : piVars.tx_powermail_web_powermailm1.sorting.subject} == {0 : 'asc'}">
 							<f:then>
-								<f:if condition="{0 : piVars.sorting.subject} == {0 : 'desc'}">
-									<f:then>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting sorting_desc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
-										</f:link.action>
-									</f:then>
-									<f:else>
-										<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting sorting_asc">
-											<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
-										</f:link.action>
-									</f:else>
-								</f:if>
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting">
+									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+									<core:Icon identifier="actions-move-up" />
+								</f:link.action>
 							</f:then>
 							<f:else>
 								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
+									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
 							</f:else>
 						</f:if>
 					</th>
 					<th nowrap="nowrap" class="col-control">
 						<f:if condition="{writeAccess}">
-							<span class="btn">
-								<span class="t3-icon fa fa-plus addPowermailSelectionAll" title="add all">&nbsp;</span>
+							<span class="btn addPowermailSelectionAll">
+								<core:Icon identifier="actions-variable-add"/>
 							</span>
 						</f:if>
 					</th>
@@ -125,44 +112,49 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<span class="btn">
-									<span class="t3-icon fa fa-desktop" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">&nbsp;</span>
+								<span class="btn" data-action="openPowermailDetails" title="{f:translate(key: 'BackendListHelpDetails')}">
+									<core:Icon identifier="actions-device-desktop"/>
 								</span>
 
 								<f:if condition="{writeAccess}">
 									<f:comment>
 										Edit
 									</f:comment>
-									<a class="btn" title="{f:translate(key: 'BackendListHelpEdit')}" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_mail',identifier:mail.uid)}">
-										<span class="t3-icon fa fa-pencil">&nbsp;</span>
-									</a>
-
+									<span class="btn">
+										<be:link.editRecord
+												returnUrl="{f:be.uri(route: 'web_powermail', parameters: '{id: pid}')}"
+												table="tx_powermail_domain_model_mail"
+												title="{f:translate(key: 'BackendListHelpEdit')}"
+												uid="{mail.uid}">
+											<core:Icon identifier="actions-open"/>
+										</be:link.editRecord>
+									</span>
 									<f:comment>
 										Delete
 									</f:comment>
-									<span class="btn">
-										<span class="t3-icon fa fa-trash" data-action="deleteMail" title="{f:translate(key:'BackendListMailDelete')}">&nbsp;</span>
+									<span class="btn" data-action="deleteMail"
+										  title="{f:translate(key:'BackendListMailDelete')}">
+										<core:Icon identifier="actions-delete"/>
 									</span>
 
 									<f:comment>
 										Hide/Show
 									</f:comment>
 									<span class="btn">
-										<f:if condition="{mail.hidden}">
-											<f:then>
-												<span title="{f:translate(key: 'BackendListHelpUnhide')}" class="t3-icon fa fa-toggle-off unhideMail visibilityButton">&nbsp;</span>
-											</f:then>
-											<f:else>
-												<span title="{f:translate(key: 'BackendListHelpHide')}" class="t3-icon fa fa-toggle-on hideMail visibilityButton">&nbsp;</span>
-											</f:else>
-										</f:if>
+										<span class="unhideMail visibilityButton {f:if(condition:mail.hidden, else:' hide')}"
+											  title="{f:translate(key:'BackendListHelpUnhide')}">
+											<core:Icon identifier="actions-toggle-off"/>
+										</span>
+										<span class="hideMail visibilityButton {f:if(condition:mail.hidden, then: 'hide')}"
+											  title="{f:translate(key:'BackendListHelpHide')}">
+											<core:Icon identifier="actions-toggle-on"/>
+										</span>
 									</span>
-
 									<f:comment>
 										Select
 									</f:comment>
-									<span class="btn">
-										<span class="t3-icon fa fa-plus addPowermailSelection" title="add">&nbsp;</span>
+									<span class="btn addPowermailSelection">
+										<core:Icon identifier="actions-variable-add"/>
 									</span>
 								</f:if>
 

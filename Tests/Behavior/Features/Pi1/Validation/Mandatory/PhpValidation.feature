@@ -38,7 +38,7 @@ Feature: PhpValidation
     Then I select "Deutschland" from "tx_powermail_pi1[field][marker02]"
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "17.10.2014"
     Then I should see "Daniel"
     Then I should see "Boxhammer"

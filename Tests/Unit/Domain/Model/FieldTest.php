@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Model\FieldFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FieldTest
@@ -21,10 +21,7 @@ class FieldTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            FieldFixture::class,
-            ['dummy']
-        );
+        $this->generalValidatorMock = $this->getAccessibleMock(FieldFixture::class, null);
     }
 
     /**
@@ -35,12 +32,7 @@ class FieldTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider optionArrayReturnsArray()
-     *
-     * @return array
-     */
-    public function optionArrayReturnsArrayDataProvider()
+    public static function optionArrayReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -145,12 +137,7 @@ class FieldTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider dataTypeFromFieldTypeReturnsString()
-     *
-     * @return array
-     */
-    public function dataTypeFromFieldTypeReturnsStringDataProvider()
+    public static function dataTypeFromFieldTypeReturnsStringDataProvider(): array
     {
         return [
             [

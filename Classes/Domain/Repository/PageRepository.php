@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
 use Doctrine\DBAL\Driver\Exception;
@@ -68,6 +69,7 @@ class PageRepository extends AbstractRepository
      *        tx_powermail_domain_model_page.form = "0"
      *
      * @return array
+     * @throws ExceptionDbal
      */
     public function findAllWrongLocalizedPages(): array
     {
@@ -76,8 +78,8 @@ class PageRepository extends AbstractRepository
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
             ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -96,7 +98,7 @@ class PageRepository extends AbstractRepository
                 ->update(Page::TABLE_NAME)
                 ->where('uid = ' . (int)$page['uid'])
                 ->set('form', $localizedFormUid)
-                ->execute();
+                ->executeStatement();
         }
     }
 
@@ -104,11 +106,12 @@ class PageRepository extends AbstractRepository
      * Get all not deleted pages
      *
      * @return int[]
+     * @throws ExceptionDbal
      */
     public function getAllPages(): array
     {
         $querybuilder = DatabaseUtility::getQueryBuilderForTable('pages', true);
-        $rows = $querybuilder->select('uid')->from('pages')->execute()->fetchAll();
+        $rows = $querybuilder->select('uid')->from('pages')->executeQuery()->fetchAllAssociative();
         $pids = [];
         foreach ($rows as $row) {
             $pids[] = (int)$row['uid'];

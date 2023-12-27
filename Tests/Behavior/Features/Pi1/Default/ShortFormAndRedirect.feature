@@ -16,7 +16,7 @@ Feature: ShortFormAndRedirect
     When I fill in "tx_powermail_pi1[field][lastname]" with "Koehler"
     When I fill in "tx_powermail_pi1[field][email]" with "Tuana.Koehler20@fake-yahoo.com"
     And I press "Jetzt Absenden"
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     And I press "Weiter"
     Then I should see "Willkommen zum powermail Testparcour"
 

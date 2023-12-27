@@ -1,12 +1,13 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Mvc\Request;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -26,13 +27,13 @@ class ErrorClassViewHelper extends AbstractViewHelper
 
     /**
      * @return string
-     * @throws Exception
+     * @throws DBALException
      */
     public function render(): string
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
-        $validationResults = $this->getRequest()->getOriginalRequestMappingResults();
+        $validationResults = $this->getRequest()->getAttribute('extbase')->getOriginalRequestMappingResults();
         $errors = $validationResults->getFlattenedErrors();
         foreach ($errors as $error) {
             /** @var Error $singleError */
@@ -53,6 +54,6 @@ class ErrorClassViewHelper extends AbstractViewHelper
      */
     protected function getRequest()
     {
-        return $this->renderingContext->getControllerContext()->getRequest();
+        return $this->renderingContext->getRequest();
     }
 }

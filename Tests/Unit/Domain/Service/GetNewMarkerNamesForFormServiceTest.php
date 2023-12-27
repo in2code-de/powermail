@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetNewMarkerNamesForFormServiceTest
@@ -13,7 +13,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService
+     * @var GetNewMarkerNamesForFormService
      */
     protected $createMarkerMock;
 
@@ -36,12 +36,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
         unset($this->createMarkerMock);
     }
 
-    /**
-     * Dataprovider makeUniqueValueInArrayReturnsVoid()
-     *
-     * @return array
-     */
-    public function makeUniqueValueInArrayReturnsVoidDataProvider()
+    public static function makeUniqueValueInArrayReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -190,7 +185,7 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
         }
         self::assertSame(
             $expectedResult,
-            $this->createMarkerMock->_callRef('makeUniqueValueInArray', $fieldArray, $forceReset)
+            $this->createMarkerMock->_call('makeUniqueValueInArray', $fieldArray, $forceReset)
         );
     }
 }

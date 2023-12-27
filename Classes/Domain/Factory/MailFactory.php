@@ -3,46 +3,51 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Factory;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use In2code\Powermail\Events\MailFactoryBeforePasswordIsHashedEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Crypto\PasswordHashing\PasswordHashFactory;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class MailFactory
  */
 class MailFactory
 {
+    private readonly EventDispatcherInterface $eventDispatcher;
+
+    public function injectEventDispatcherInterface(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     /**
      * @param Mail $mail
      * @param array $settings
      * @return void
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @codeCoverageIgnore
      */
     public function prepareMailForPersistence(Mail $mail, array $settings): void
     {
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $marketingInfos = SessionUtility::getMarketingInfos();
+
         $mail
             ->setSenderMail($mailRepository->getSenderMailFromArguments($mail))
             ->setSenderName($mailRepository->getSenderNameFromArguments($mail))
             ->setSubject($settings['receiver']['subject'])
             ->setReceiverMail($settings['receiver']['email'])
-            ->setBody(ArrayUtility::arrayExport($mailRepository->getVariablesWithMarkersFromMail($mail)))
             ->setSpamFactor(SessionUtility::getSpamFactorFromSession())
             ->setTime((time() - SessionUtility::getFormStartFromSession($mail->getForm()->getUid(), $settings)))
             ->setUserAgent(GeneralUtility::getIndpEnv('HTTP_USER_AGENT'))
@@ -52,12 +57,43 @@ class MailFactory
             ->setMarketingMobileDevice((bool)$marketingInfos['mobileDevice'])
             ->setMarketingFrontendLanguage($marketingInfos['frontendLanguage'])
             ->setMarketingBrowserLanguage($marketingInfos['browserLanguage'])
-            ->setMarketingPageFunnel($marketingInfos['pageFunnel']);
-        $mail->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
+            ->setMarketingPageFunnel($marketingInfos['pageFunnel'])
+            ->setPid(FrontendUtility::getStoragePage((int)$settings['main']['pid']));
+
+        if ($mail->getBody() === '') {
+            $mail->setBody(ArrayUtility::arrayExport($mailRepository->getVariablesWithMarkersFromMail($mail)));
+        }
+
         $this->setFeuser($mail);
         $this->setSenderIp($mail);
         $this->setHidden($mail, $settings);
         $this->setAnswersPid($mail, $settings);
+        $this->sanitizePasswordsInAnswers($mail);
+    }
+
+    protected function sanitizePasswordsInAnswers(Mail $mail)
+    {
+        foreach ($mail->getAnswers() as $answer) {
+            /**
+             * @var $answer Answer
+             */
+            if ($answer->getValueType() === Answer::VALUE_TYPE_PASSWORD) {
+                /**
+                 * @var MailFactoryBeforePasswordIsHashedEvent $event
+                 */
+                $event = $this->eventDispatcher->dispatch(
+                    GeneralUtility::makeInstance(MailFactoryBeforePasswordIsHashedEvent::class, $answer)
+                );
+                if ($event->isPasswordShouldBeHashed()) {
+                    $answer->setOriginalValue($answer->getValue());
+                    $answer->setValue(
+                        GeneralUtility::makeInstance(PasswordHashFactory::class)
+                            ->getDefaultHashInstance('FE')
+                            ->getHashedPassword($answer->getValue())
+                    );
+                }
+            }
+        }
     }
 
     /**

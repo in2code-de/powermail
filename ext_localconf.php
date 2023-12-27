@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing, disclaimer';
+    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -22,21 +22,48 @@ call_user_func(function () {
         'Pi1',
         [
             \In2code\Powermail\Controller\FormController::class =>
-                'form, create, confirmation, optinConfirm, marketing, disclaimer'
+                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer'
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
+
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Powermail',
         'Pi2',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, export, rss'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, export, rss'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi3',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi4',
         [
             \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
         ],
         [
             \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     /**
@@ -54,24 +81,10 @@ call_user_func(function () {
     );
 
     /**
-     * Hook to show PluginInformation under a tt_content element in page module of type powermail
-     */
-    $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
-        \In2code\Powermail\Hook\PluginPreview::class;
-
-    /**
      * Hook for initially filling the marker field in backend
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
         \In2code\Powermail\Hook\CreateMarker::class;
-
-    /**
-     * Hook to extend the FlexForm
-     */
-    $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
-        In2code\Powermail\Hook\FlexFormManipulationHook::class;
 
     /**
      * JavaScript evaluation of TCA fields
@@ -111,4 +124,10 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
         = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPluginUpdater']
+        = \In2code\Powermail\Update\PowermailPluginUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionUpdater']
+        = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
+        = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
 });

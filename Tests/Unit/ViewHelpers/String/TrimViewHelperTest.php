@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\String;
 
 use In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String\TrimViewHelperFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class TrimViewHelperTest
@@ -23,7 +23,7 @@ class TrimViewHelperTest extends UnitTestCase
     {
         $this->trimViewHelperMock = $this->getAccessibleMock(
             TrimViewHelperFixture::class,
-            ['dummy']
+            null
         );
     }
 
@@ -40,7 +40,7 @@ class TrimViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             [
@@ -93,7 +93,7 @@ class TrimViewHelperTest extends UnitTestCase
     public function renderReturnsString($string, $expectedResult)
     {
         $this->trimViewHelperMock->_set('renderChildrenString', $string);
-        self::assertSame($expectedResult, $this->trimViewHelperMock->_callRef('render'));
+        self::assertSame($expectedResult, $this->trimViewHelperMock->_call('render'));
     }
 
     /**
@@ -101,7 +101,7 @@ class TrimViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function removeDuplicatedWhitespaceReturnsStringDataProvider()
+    public static function removeDuplicatedWhitespaceReturnsStringDataProvider(): array
     {
         return [
             [
@@ -129,6 +129,6 @@ class TrimViewHelperTest extends UnitTestCase
      */
     public function removeDuplicatedWhitespaceReturnsString($string, $expectedResult)
     {
-        self::assertSame($expectedResult, $this->trimViewHelperMock->_callRef('removeDuplicatedWhitespace', $string));
+        self::assertSame($expectedResult, $this->trimViewHelperMock->_call('removeDuplicatedWhitespace', $string));
     }
 }

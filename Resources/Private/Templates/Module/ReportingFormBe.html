@@ -1,10 +1,12 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:layout name="Backend"/>
+<f:layout name="Module"/>
 
 
 	Show Backend Module: Powermail Reporting Form
 
-<f:section name="content">
+<f:section name="Content">
+
+    <f:render partial="Module/JsAndCssImport" arguments="{_all}" />
 
 	<h1><f:translate key="BackendReportingFormTitle" /></h1>
 
