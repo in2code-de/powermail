@@ -4,8 +4,33 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-> :warning: **TYPO3 12 compatibility**\
-> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 12 version
+> :warning: **TYPO3 13 compatibility**\
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 13 version
+
+## :warning: Deprecations, planned breaking changes for V13 and features
+
+### Double OptIn and TypoScript setting "Do not save to DB"
+
+This combination will not work anymore in V13. If the person responsible for data security desides not to save anything
+into the database, no data may be saved to the database, even not in the double opt-in process.
+
+If you need this earlier than the next major (public) release, please contact us for the extension
+`EXT:powermail_cleaner`. With this extension it is possible to set that for each plugin individually.
+
+### Plugins / content elements pi2 - pi4
+
+The content elements for frontend editing will be moved to a separate paid extension.
+
+### Future: Powermail Powerpack
+
+Next to extensions `EXT:powermail_cleaner`, `EXT:powermail_ratelimiter` and the frontend editing stuff, there will be
+another paid extension `EXT:powermail_powerpack`. This extension will contain additional features, we developed
+throughout the last years and want to make available to the broader public, for example:
+
+* use an email address only once per plugins
+* maximum "seats" per plugin (like a very, very basic registration)
+* ...
+
 
 ## 1. Documentation overview
 
