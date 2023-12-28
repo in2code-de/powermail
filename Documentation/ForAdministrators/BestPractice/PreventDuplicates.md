@@ -100,7 +100,7 @@ See a possible solution for an inline JavaScript in the Submit-Partial of powerm
             elements.forEach(function(element) {
                 element.addEventListener('click', function(event) {
                     submitAmount++;
-                    if (submitAmount > 1) {
+                    if (submitAmount >= 1) {
                         event.target.disabled = true;
                         setTimeout(
                             function() {
