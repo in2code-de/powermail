@@ -39,7 +39,8 @@ class PageRepository extends AbstractRepository
     public function getPropertiesFromUid(int $uid): array
     {
         $connection = DatabaseUtility::getConnectionForTable('pages');
-        return $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        $properties = $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        return $properties ?: [];
     }
 
     /**
