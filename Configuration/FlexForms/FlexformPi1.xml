@@ -15,11 +15,10 @@
 							<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.main.form</label>
 							<config>
 								<type>select</type>
-								<renderType>selectSingle</renderType>
+								<renderType>selectMultipleSideBySide</renderType>
 								<items type="array">
 
 								</items>
-								<size>1</size>
 								<minitems>1</minitems>
 								<maxitems>1</maxitems>
 								<wizards>
