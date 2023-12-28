@@ -10,7 +10,7 @@ Render Powermail CSV Export
 	<f:for each="{mails}" as="mail" iteration="index">
 		<f:if condition="{index.isFirst}">
 			<f:for each="{fields}" as="field">
-				"<vh:string.removeQuote>{field.title}</vh:string.removeQuote>";
+				<vh:string.csvFieldDelimiter>{field.title}</vh:string.csvFieldDelimiter>
 			</f:for>
 			<br />
 		</f:if>
@@ -22,10 +22,10 @@ Render Powermail CSV Export
 
 					<f:if condition="{vh:condition.isArray(val: '{answer.value}')}">
 						<f:else>
-							"<vh:string.removeQuote><vh:string.sanitizeCsvCell>{answer.value}</vh:string.sanitizeCsvCell></vh:string.removeQuote>";
+							<vh:string.csvFieldDelimiter><vh:string.sanitizeCsvCell>{answer.value}</vh:string.sanitizeCsvCell></vh:string.csvFieldDelimiter>
 						</f:else>
 						<f:then>
-							"<vh:string.removeQuote>
+							<vh:string.csvFieldDelimiter>
                                 <vh:string.sanitizeCsvCell>
                                     <f:for each="{answer.value}" as="singleValue">
                                         <f:if condition="{singleValue}">
@@ -33,7 +33,7 @@ Render Powermail CSV Export
                                         </f:if>
                                     </f:for>
                                 </vh:string.sanitizeCsvCell>
-							</vh:string.removeQuote>";
+							</vh:string.csvFieldDelimiter>
 						</f:then>
 					</f:if>
 
