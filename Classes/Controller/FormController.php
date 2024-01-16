@@ -203,8 +203,13 @@ class FormController extends AbstractController
             $this->contentObject
         );
         if ($this->isMailPersistActive($hash)) {
-            $this->saveMail($mail);
-            $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
+            $isSavingOfMailAllowed = true;
+            $signalArguments = [&$isSavingOfMailAllowed, $mail, $this];
+            $this->signalDispatch(__CLASS__, 'checkIfMailIsAllowedToSave', $signalArguments );
+            if ($isSavingOfMailAllowed){
+                $this->saveMail($mail);
+                $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
+            }
         }
         if ($this->isNoOptin($mail, $hash)) {
             $this->sendMailPreflight($mail, $hash);
@@ -217,7 +222,7 @@ class FormController extends AbstractController
             $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
         }
-        if ($this->isPersistActive()) {
+        if ($this->isPersistActive() && $isSavingOfMailAllowed) {
             $this->mailRepository->update($mail);
             $this->persistenceManager->persistAll();
         }
