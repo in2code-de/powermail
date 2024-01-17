@@ -11,7 +11,7 @@ Feature: Basic
     When I fill in "p_field" with "editor"
     And I press "t3-login-submit"
 
-    And I wait "3" seconds
-    Given I am on "/typo3/module/web/Powermail"
+    And I wait "5" seconds
+    Given I am on "/typo3/module/web/powermail"
 
-      Then the response should contain "typo3-backend-module-router"
+      Then the sourcecode should contain 'module="web_powermail"'
