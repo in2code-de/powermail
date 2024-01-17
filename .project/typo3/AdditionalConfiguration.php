@@ -14,6 +14,7 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
                 'Connections' => [
                     'Default' => [
                         'dbname' => 'db',
+                        'driver' => 'mysqli',
                         'host' => 'db',
                         'password' => 'db',
                         'port' => '3306',
@@ -27,9 +28,10 @@ if (getenv('IS_DDEV_PROJECT') == 'true') {
                 'processor_path' => '/usr/bin/',
                 'processor_path_lzw' => '/usr/bin/',
             ],
-            // This mail configuration sends all emails to mailhog
+            // This mail configuration sends all emails to mailpit
             'MAIL' => [
                 'transport' => 'smtp',
+                'transport_smtp_encrypt' => false,
                 'transport_smtp_server' => 'localhost:1025',
             ],
             'SYS' => [

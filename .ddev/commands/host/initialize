@@ -12,9 +12,29 @@ then
 fi
 
 git lfs pull
-ddev import-db --src=.project/data/db.sql.gz
-mkdir -p config/sites/main && cp .project/TYPO3/config.yaml config/sites/main/
-cp .ddev/typo3/AdditionalConfiguration.php .Build/Web/typo3conf/
-ddev typo3cms install:setup
-mkdir -p .Build/Web/fileadmin
-cd .Build/Web && tar xf ../../.project/data/fileadmin.tar.gz
+
+echo "Symlink configuration"
+mkdir -p .Build/config/sites/main
+ln -snf ../../../../.project/typo3/config.yaml .Build/config/sites/main/config.yaml
+mkdir -p .Build/config/system
+ln -snf ../../../.project/typo3/LocalConfiguration.php .Build/Web/typo3conf/LocalConfiguration.php
+ln -snf ../../../.project/typo3/AdditionalConfiguration.php .Build/Web/typo3conf/AdditionalConfiguration.php
+
+echo "Importing database"
+ddev import-db --file=.project/data/db.sql.gz
+
+echo "Run 'composer install'"
+ddev composer install
+
+echo "Extracting fileadmin"
+tar xf .project/data/fileadmin.tar.gz -C .Build/Web/
+
+echo "Copy .htaccess"
+cp .Build/Web/typo3/sysext/install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .Build/Web/.htaccess
+
+echo "Update Languages (needed for behaviour tests)"
+ddev typo3 language:update
+
+ddev describe
+
+echo "Thanks for supporting 'EXT:powermail"
