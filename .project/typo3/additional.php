@@ -35,7 +35,7 @@ $changeSettings = [
         'verify' => '0',
     ],
     'MAIL' => [
-        'transport_smtp_server' => 'mail:1025',
+        'transport_smtp_server' => getenv('MAIL_HOST'),
         'transport_smtp_encrypt' => '',
         'transport_smtp_password' => '',
         'transport_smtp_username' => '',
@@ -51,7 +51,8 @@ $changeSettings = [
         'devIPmask' => '*',
         'clearCacheSystem' => 1,
         'curlUse' => 1,
-        'exceptionalErrors' => '28674'
+        'exceptionalErrors' => '28674',
+        'trustedHostsPattern' => '.*.*',
     ]
 ];
 

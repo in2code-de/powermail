@@ -8,6 +8,7 @@ services:
       VIRTUAL_HOST: ${HOST}
       VIRTUAL_PORT: 443
       VIRTUAL_PROTO: https
+      TYPO3_PATH_APP: ${TYPO3_PATH_APP}
     volumes:
       - ./:/app/:cached
       - typo3var:/app/${TYPO3_CACHE_DIR}/:nocopy
@@ -58,7 +59,7 @@ services:
       - ${CHROMEPORT}:5900
 
   mail:
-    image: mailhog/mailhog
+    image: axllent/mailpit
     environment:
       VIRTUAL_PORT: 8025
       VIRTUAL_HOST: ${MAIL}

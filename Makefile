@@ -124,19 +124,25 @@ init-docker: create-dirs create-certificate
 ## Copies the TYPO3 site configuration
 typo3-add-site:
 	echo "$(EMOJI_triangular_flag) Copying the TYPO3 site configuration"
-	mkdir -p config/sites/main/
-	cp -f .project/TYPO3/config.yaml config/sites/main/config.yaml
+	mkdir -p .Build/config/sites/main/
+	ln -snf ../../../../.project/typo3/config.yaml .Build/config/sites/main/config.yaml
 
 ## Copies the Additional/DockerConfiguration.php to the correct directory
 typo3-add-dockerconfig:
 	echo "$(EMOJI_plug) Copying the docker specific configuration for TYPO3"
-	mkdir -p ./config/system
-	cp -f .project/TYPO3/additional.php ./config/system/additional.php
+	mkdir -p .Build/config/system
+	ln -snf ../../../.project/typo3/settings.php .Build/config/system/settings.php
+	ln -snf ../../../.project/typo3/additional.php .Build/config/system/additional.php
 
 ## Runs the TYPO3 Database Compare
 typo3-comparedb:
 	echo "$(EMOJI_leftright) Running database:updateschema"
 	docker-compose exec php ./.Build/bin/typo3 database:updateschema
+
+## Runs the TYPO3 Language Update
+typo3-updatelanguages:
+	echo "$(EMOJI_leftright) Running language:update"
+	docker-compose exec php ./.Build/bin/typo3 language:update
 
 ## Starts the TYPO3 setup process
 typo3-setupinstall:
@@ -148,10 +154,9 @@ typo3-clearcache:
 	echo "$(EMOJI_broom) Clearing TYPO3 caches"
 	docker-compose exec php ./.Build/bin/typo3 cache:flush
 
-## Downloads the dynamicReturnTypeMeta.json for the PhpStorm dynamic return type plugin
-typo3-install-autocomplete:
-	echo "$(EMOJI_crystal_ball) Installing TYPO3 autocompletion"
-	curl -sLO https://raw.githubusercontent.com/TYPO3/TYPO3.CMS/master/dynamicReturnTypeMeta.json
+add-htaccess:
+	echo "$(EMOJI_leftright) Add .htaccess"
+	cp .Build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .Build/Web/.htaccess
 
 ## Checkout LFS files
 lfs-fetch:
@@ -166,7 +171,7 @@ provision-fileadmin:
 	tar xvfz ../../.project/data/fileadmin.tar.gz
 
 ## To start an existing project incl. rsync from fileadmin, uploads and database dump
-install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker .fix-mount-perms composer-install typo3-add-site typo3-add-dockerconfig typo3-install-autocomplete typo3-setupinstall provision-fileadmin mysql-restore typo3-clearcache typo3-comparedb
+install-project: lfs-fetch link-compose-file destroy add-hosts-entry init-docker .fix-mount-perms composer-install typo3-add-site typo3-add-dockerconfig provision-fileadmin mysql-restore add-htaccess typo3-clearcache typo3-comparedb typo3-updatelanguages
 	echo "---------------------"
 	echo ""
 	echo "The project is online $(EMOJI_thumbsup)"

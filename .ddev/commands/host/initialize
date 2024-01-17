@@ -12,9 +12,30 @@ then
 fi
 
 git lfs pull
-ddev import-db --file=.project/data/db.sql.gz
-ddev composer install
+
+echo "Symlink configuration"
 cp .Build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .Build/Web/.htaccess
-mkdir -p config/sites/main && cp .project/TYPO3/config.yaml config/sites/main/
-mkdir -p config/system && cp .ddev/typo3/*.php config/system
-mkdir -p .Build/Web/fileadmin && cd .Build/Web && tar xf ../../.project/data/fileadmin.tar.gz
+mkdir -p .Build/config/sites/main
+ln -snf ../../../../.project/typo3/config.yaml .Build/config/sites/main/config.yaml
+mkdir -p .Build/config/system
+ln -snf ../../../.project/typo3/settings.php .Build/config/system/settings.php
+ln -snf ../../../.project/typo3/additional.php .Build/config/system/additional.php
+
+echo "Importing database"
+ddev import-db --file=.project/data/db.sql.gz
+
+echo "Run 'composer install'"
+ddev composer install
+
+echo "Extracting fileadmin"
+tar xf .project/data/fileadmin.tar.gz -C .Build/Web/
+
+echo "Copy .htaccess"
+cp .Build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .Build/Web/.htaccess
+
+echo "Update Languages (needed for behaviour tests)"
+ddev typo3 language:update
+
+ddev describe
+
+echo "Thanks for supporting 'EXT:powermail"
