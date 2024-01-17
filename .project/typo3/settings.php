@@ -1,8 +1,10 @@
 <?php
 return [
     'BE' => [
+        'compressionLevel' => '0',
         'debug' => true,
-        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$M2Rma0QvWDhuZWlubjNmaw$GNQhyTx+WUwjV0EuzRII4KuIf9l6mI8aRR5L7ec7xas',
+        'installToolPassword' => '$argon2i$v=19$m=65536,t=16,p=1$RmZtaE5LQU1rSGw2NUZiWQ$YdU5on+xJ4lI6Gwd4LWpbddeAEu88cctS2dnO+r9ty0',
+        'lockSSL' => '0',
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],
@@ -12,7 +14,7 @@ return [
         'Connections' => [
             'Default' => [
                 'charset' => 'utf8mb4',
-                'dbname' => 'test',
+                'dbname' => 'db',
                 'driver' => 'mysqli',
                 'host' => 'db',
                 'password' => 'db',
@@ -60,6 +62,9 @@ return [
         ],
     ],
     'FE' => [
+        'cacheHash' => [
+            'enforceValidation' => false,
+        ],
         'debug' => true,
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
@@ -67,12 +72,15 @@ return [
         ],
     ],
     'GFX' => [
-        'processor' => 'GraphicsMagick',
+        'processor' => 'ImageMagick',
         'processor_allowTemporaryMasksAsPng' => false,
-        'processor_colorspace' => 'RGB',
+        'processor_colorspace' => 'sRGB',
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
+    ],
+    'HTTP' => [
+        'verify' => '0',
     ],
     'LOG' => [
         'TYPO3' => [
@@ -90,11 +98,12 @@ return [
         ],
     ],
     'MAIL' => [
-        'transport' => 'sendmail',
-        'transport_sendmail_command' => '/usr/local/bin/mailhog sendmail test@example.org --smtp-addr 127.0.0.1:1025',
-        'transport_smtp_encrypt' => '',
+        'defaultMailFromAddress' => 'ddev@localhost',
+        'defaultMailFromName' => 'local - ddev',
+        'transport' => 'smtp',
+        'transport_smtp_encrypt' => false,
         'transport_smtp_password' => '',
-        'transport_smtp_server' => '',
+        'transport_smtp_server' => 'localhost:1025',
         'transport_smtp_username' => '',
     ],
     'SYS' => [
@@ -127,10 +136,7 @@ return [
         'displayErrors' => 1,
         'encryptionKey' => '06f0ff44d53f7df5a3d17df33c37f30067e4bf45849d5e86a5cd24525e5bc0ebd86ee6a6f04461d77045296c014929c1',
         'exceptionalErrors' => 12290,
-        'sitename' => 'EXT:powermail',
-        'systemMaintainers' => [
-            1,
-        ],
+        'sitename' => 'LOKAL: EXT:powermail',
         'trustedHostsPattern' => '.*.*',
     ],
 ];
