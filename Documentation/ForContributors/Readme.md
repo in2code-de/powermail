@@ -51,3 +51,19 @@ For all available `make` commands just run `make`
 ## Behaviour tests
 
 More information on running behaviour tests is available here: [Behaviour tests](../../Tests/Behavior/readme.md)
+
+## Frontend Development
+
+There are some javascript libraries and (s)css files necessary for EXT:powermail to work properly in frontend context.
+
+The sources files are located in `Resources/Private/Build`.
+
+There is a small build pipeline to build the assets. The artifacts are committed into the repository.
+
+* have nvm installed (https://github.com/nvm-sh/nvm#install--update-script)
+* `nvm i` will install the correct npm version
+* `nvm use` will change to needed npm version
+* `npm i` will install the node modules (if not yet installed)
+* `npm run build` will build the necessary files
+* `npm run watch` will watch the files and rebuild them on changes
+

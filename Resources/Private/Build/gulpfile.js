@@ -21,7 +21,7 @@ function css() {
 	const config = {};
 	config.outputStyle = 'compressed';
 
-	return src(__dirname + '/../Sass/*.scss')
+	return src(__dirname + '/Sass/*.scss')
 		.pipe(plumber())
 		.pipe(sass(config))
 		.pipe(dest(project.css));
@@ -59,7 +59,7 @@ const build = series(jsForm, jsMarketing, jsBackend, css);
 
 // "npm run watch"
 const def = parallel(
-  function watchSCSS() { return watch(__dirname + '/../Sass/**/*.scss', series(css)) },
+  function watchSCSS() { return watch(__dirname + '/Sass/**/*.scss', series(css)) },
   function watchJS() { return watch(__dirname + '/JavaScript/*.js', series(jsForm, jsMarketing, jsBackend)) }
 );
 
