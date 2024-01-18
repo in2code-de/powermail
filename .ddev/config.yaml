@@ -17,7 +17,7 @@ web_environment: []
 hooks:
   post-start:
     - exec: composer install
-host_db_port: "28262"
+host_db_port: "48532"
 
 # This config.yaml was created with ddev version v1.17.5
 # webimage: drud/ddev-webserver:v1.17.4
