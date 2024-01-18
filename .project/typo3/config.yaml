@@ -1,4 +1,4 @@
-base: 'https://powermail.ddev.site/'
+base: 'https://powermail-v12.ddev.site/'
 errorHandling: {  }
 languages:
   -

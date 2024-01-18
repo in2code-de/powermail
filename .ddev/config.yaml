@@ -1,4 +1,4 @@
-name: powermail
+name: powermail-v12
 type: typo3
 docroot: .Build/Web/
 php_version: "8.1"
