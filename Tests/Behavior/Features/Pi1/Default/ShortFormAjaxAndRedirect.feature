@@ -10,7 +10,7 @@ Feature: AllFields
     And I press "Jetzt Absenden"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt"
+    Then I should see "Sind diese Werte richtig?"
     And I press "Weiter"
     And I wait "a few" seconds
 

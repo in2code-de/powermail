@@ -54,10 +54,11 @@ return [
     ],
     'FE' => [
         'cacheHash' => [
-            'enforceValidation' => true,
+            'enforceValidation' => false,
         ],
         'debug' => true,
         'disableNoCacheParameter' => true,
+        'pageNotFoundOnCHashError' => true,
         'passwordHashing' => [
             'className' => 'TYPO3\\CMS\\Core\\Crypto\\PasswordHashing\\Argon2iPasswordHash',
             'options' => [],

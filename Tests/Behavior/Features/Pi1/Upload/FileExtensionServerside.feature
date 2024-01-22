@@ -7,8 +7,8 @@ Feature: Check if Uploads in a Form work as expected with given file extension
     Given I am on "/powermail/pi1/upload/upload-fileextension/upload-png/png-serverside"
     When I attach the file "test.txt" to "tx_powermail_pi1[field][upload][]"
     And I press "Submit"
-    Then I should see "Der Dateityp ist nicht erlaubt, bitte versuchen Sie einen anderen Typ!"
+    Then I should see "Dateien mit dieser Erweiterung dürfen nicht hochgeladen werden!"
 
     When I attach the file "logo1.png" to "tx_powermail_pi1[field][upload][]"
     And I press "Submit"
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"

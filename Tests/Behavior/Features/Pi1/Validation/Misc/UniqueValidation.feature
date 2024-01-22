@@ -7,11 +7,11 @@ Feature: UniqueValidation
     Then I should see "Short Form Prefilled"
     And I press "Jetzt Absenden"
 
-    Then I should see "Der Wert wurde bereits verwendet"
+    Then I should see "Dieser Wert wird bereits verwendet"
     When I fill in "tx_powermail_pi1[field][email]" with a random email
     And I press "Jetzt Absenden"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     And I press "Weiter"
 
     Then I should see "Thank you"

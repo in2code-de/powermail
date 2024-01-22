@@ -15,12 +15,12 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
@@ -65,12 +65,12 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "anystring"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "4"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen, bitte erneut versuchen!"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha]" with "3"
     And I press "Submit"
@@ -118,25 +118,25 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha2]" with "7"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha1]" with "3"
     When I fill in "tx_powermail_pi1[field][captcha2]" with "6"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha1]" with "7"
     When I fill in "tx_powermail_pi1[field][captcha2]" with "6"
     And I press "Submit"
 
-    Then I should see "Falscher Captcha Code eingetragen"
+    Then I should see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
 
     When I fill in "tx_powermail_pi1[field][captcha1]" with "7"
     When I fill in "tx_powermail_pi1[field][captcha2]" with "7"
     And I press "Submit"
 
-    Then I should not see "Falscher Captcha Code eingetragen"
+    Then I should not see "Falscher Captcha-Code eingegeben - bitte probieren Sie es nochmal!"
     Then I should see "7"
 
   # Two forms with one captcha per form
@@ -155,7 +155,7 @@ Feature: CaptchaValidation
     When I fill in "tx_powermail_pi1[field][captcha]" with "1"
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt"
+    Then I should see "Sind diese Werte richtig?"
 
     When I fill in "tx_powermail_pi1[field][captcha2]" with "1"
     And I press "Submit"
@@ -180,7 +180,7 @@ Feature: CaptchaValidation
     And I press "Submit"
     And I wait "a few" seconds
 
-    Then I should see "Sind diese Eingaben korrekt"
+    Then I should see "Sind diese Werte richtig?"
 
     When I fill in "tx_powermail_pi1[field][captcha2]" with "25"
     And I press "Submit"

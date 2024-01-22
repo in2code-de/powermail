@@ -10,7 +10,7 @@ Feature: RandomizedUpload
     When I attach the file "sally.jpg" to "tx_powermail_pi1[field][uploads2][]"
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel Boxhammer"
     Then I should not see text matching "test_\d+.txt|test.txt"
     Then I should see text matching "[a-z0-9]{32}.txt"

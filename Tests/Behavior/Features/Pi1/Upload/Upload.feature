@@ -14,7 +14,7 @@ Feature: Upload
     When I attach the file "test.txt" to "tx_powermail_pi1[field][upload][]"
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     And I press "Zurück"
@@ -23,7 +23,7 @@ Feature: Upload
     When I attach the file "sally.jpg" to "tx_powermail_pi1[field][uploads2][]"
     And I press "Submit"
 
-    Then I should see "Sind diese Eingaben korrekt?"
+    Then I should see "Sind diese Werte richtig?"
     Then I should see "Daniel Boxhammer"
     Then I should see text matching "test_\d+.txt|test.txt"
     Then I should see text matching "logo2_\d+.png|logo2.png"
