@@ -12,9 +12,30 @@ then
 fi
 
 git lfs pull
-ddev import-db --src=.project/data/db.sql.gz
+
+echo "Symlink configuration"
+cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
+mkdir -p .build/config/sites/main
+ln -snf ../../../../.project/typo3/config.yaml .build/config/sites/main/config.yaml
+mkdir -p .build/config/system
+ln -snf ../../../.project/typo3/settings.php .build/config/system/settings.php
+ln -snf ../../../.project/typo3/additional.php .build/config/system/additional.php
+
+echo "Importing database"
+ddev import-db --file=.project/data/db.sql.gz
+
+echo "Run 'composer install'"
 ddev composer install
-cp .Build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .Build/Web/.htaccess
-mkdir -p config/sites/main && cp .project/TYPO3/config.yaml config/sites/main/
-mkdir -p config/system && cp .ddev/typo3/*.php config/system
-mkdir -p .Build/Web/fileadmin && cd .Build/Web && tar xf ../../.project/data/fileadmin.tar.gz
+
+echo "Extracting fileadmin"
+tar xf .project/data/fileadmin.tar.gz -C .build/public/
+
+echo "Copy .htaccess"
+cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
+
+echo "Update Languages (needed for behaviour tests)"
+ddev typo3 language:update
+
+ddev describe
+
+echo "Thanks for supporting 'EXT:powermail"

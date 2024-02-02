@@ -3,13 +3,9 @@ services:
   web:
     environment:
       - TYPO3_CONTEXT=Development/DDEV
-      # Variables for first installation
-      - TYPO3_INSTALL_DB_DRIVER=mysql
-      - TYPO3_INSTALL_DB_USER=db
-      - TYPO3_INSTALL_DB_PASSWORD=db
-      - TYPO3_INSTALL_DB_HOST=db
-      - TYPO3_INSTALL_DB_PORT=3306
-      - TYPO3_INSTALL_DB_USE_EXISTING=1
-      - TYPO3_INSTALL_DB_DBNAME=db
-      - TYPO3_INSTALL_SITE_SETUP_TYPE=no
-      - TYPO3_INSTALL_WEB_SERVER_CONFIG=none
+      - TYPO3_PATH_APP=/var/www/html/.build
+      - MYSQL_DATABASE=db
+      - MYSQL_PASSWORD=db
+      - MYSQL_USER=db
+      - MYSQL_HOST=db
+      - MAIL_HOST=localhost:1025
