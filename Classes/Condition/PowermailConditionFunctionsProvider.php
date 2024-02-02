@@ -17,7 +17,7 @@ class PowermailConditionFunctionsProvider implements ExpressionFunctionProviderI
     /**
      * @return array|ExpressionFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             $this->isPowermailPluginOnCurrentPageFunction(),
