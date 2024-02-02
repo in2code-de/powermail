@@ -1,3 +1,8 @@
+Please use the `master` branch instead. The `master` branch is 12.0 compatible until Powermail will be compatible
+with TYPO3 V13.
+
+This branch is only there for historical reasons and not to break existing tags on that branch prior to going public.
+
 # TYPO3 Extension powermail
 
 Powermail is a well-known, editor-friendly, powerful
