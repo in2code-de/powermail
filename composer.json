@@ -92,20 +92,17 @@
 		}
 	},
 	"config": {
-		"vendor-dir": ".Build/vendor",
-		"bin-dir": ".Build/bin",
+		"vendor-dir": ".build/vendor",
+		"bin-dir": ".build/vendor/bin",
 		"allow-plugins": {
 			"typo3/class-alias-loader": true,
 			"typo3/cms-composer-installers": true
 		}
 	},
 	"scripts": {
-		"test:behaviour:ddev": "behat --config Tests/Behavior/behat.ddev.yml",
-		"test:behaviour:ddev:tag": "behat --config Tests/Behavior/behat.ddev.yml --tags",
-		"test:behaviour:ddev:stop": "behat --config Tests/Behavior/behat.ddev.yml --stop-on-failure",
-		"test:behaviour:docker": "behat --config Tests/Behavior/behat.docker.yml",
-		"test:behaviour:docker:tag": "behat --config Tests/Behavior/behat.docker.yml --tags",
-		"test:behaviour:docker:stop": "behat --config Tests/Behavior/behat.docker.yml --stop-on-failure",
+		"test:behaviour": "behat --config Tests/Behavior/behat.yml",
+		"test:behaviour:tag": "behat --config Tests/Behavior/behat.yml --tags",
+		"test:behaviour:stop": "behat --config Tests/Behavior/behat.yml --stop-on-failure",
 		"test:php:cs": "php-cs-fixer --version && php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
 		"test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"test:typoscript:lint": "typoscript-lint --config=.project/tests/typoscript-lint.yml",
@@ -114,7 +111,7 @@
 	"extra": {
 		"typo3/cms": {
 			"cms-package-dir": "{$vendor-dir}/typo3/cms",
-			"web-dir": ".Build/Web",
+			"web-dir": ".build/public",
 			"extension-key": "powermail",
 			"ignore-as-root": false
 		}

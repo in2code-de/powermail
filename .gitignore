@@ -12,7 +12,7 @@ Thumbs.db
 .svn
 .sass-cache
 .php-cs-fixer.cache
-.Build
+.build
 composer.lock
 package-lock.json
 var

@@ -1,6 +1,6 @@
-name: powermail
+name: powermail-v12
 type: typo3
-docroot: .Build/Web/
+docroot: .build/public/
 php_version: "8.1"
 webserver_type: apache-fpm
 router_http_port: "80"
@@ -8,7 +8,9 @@ router_https_port: "443"
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
-mariadb_version: "10.3"
+database:
+  type: "mariadb"
+  version: "10.3"
 mysql_version: ""
 use_dns_when_possible: true
 composer_version: "2"
@@ -16,7 +18,7 @@ web_environment: []
 hooks:
   post-start:
     - exec: composer install
-host_db_port: "28262"
+host_db_port: "64241"
 
 # This config.yaml was created with ddev version v1.17.5
 # webimage: drud/ddev-webserver:v1.17.4

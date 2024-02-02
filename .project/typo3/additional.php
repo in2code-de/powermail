@@ -15,12 +15,16 @@ $changeSettings = [
     'DB' => [
         'Connections' => [
             'Default' => [
-                'charset' => 'utf8',
+                'charset' => 'utf8mb4',
                 'driver' => 'mysqli',
                 'dbname' => getenv('MYSQL_DATABASE'),
                 'host' => getenv('MYSQL_HOST'),
                 'user' => getenv('MYSQL_USER'),
                 'password' => getenv('MYSQL_PASSWORD'),
+                'tableoptions' => [
+                    'charset' => 'utf8mb4',
+                    'collate' => 'utf8mb4_unicode_ci',
+                ],
             ],
         ],
     ],
@@ -35,7 +39,7 @@ $changeSettings = [
         'verify' => '0',
     ],
     'MAIL' => [
-        'transport_smtp_server' => 'mail:1025',
+        'transport_smtp_server' => getenv('MAIL_HOST'),
         'transport_smtp_encrypt' => '',
         'transport_smtp_password' => '',
         'transport_smtp_username' => '',
@@ -51,8 +55,9 @@ $changeSettings = [
         'devIPmask' => '*',
         'clearCacheSystem' => 1,
         'curlUse' => 1,
-        'exceptionalErrors' => '28674'
-    ]
+        'exceptionalErrors' => '28674',
+        'trustedHostsPattern' => '.*.*',
+    ],
 ];
 
 $GLOBALS['TYPO3_CONF_VARS'] = array_replace_recursive($GLOBALS['TYPO3_CONF_VARS'], $changeSettings);
