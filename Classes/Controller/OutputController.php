@@ -130,12 +130,12 @@ class OutputController extends AbstractController
      * @throws Exception
      * @noinspection PhpUnused
      */
-    public function updateAction(Mail $mail): void
+    public function updateAction(Mail $mail): ResponseInterface
     {
         $this->uploadService->uploadAllFiles();
         $this->mailRepository->update($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
-        $this->redirect('edit', null, null, ['mail' => $mail]);
+        return $this->redirect('edit', null, null, ['mail' => $mail]);
     }
 
     /**
