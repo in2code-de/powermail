@@ -8,6 +8,8 @@ class PowermailForm {
 
   initialize = function () {
     const that = this;
+    // for checking on the external site if the powermail version supports intercepting ajax forms
+    window.PowerMailFormOverrideAjaxExists = true;
     that.#formValidationListener();
     that.#moreStepFormListener();
     that.#ajaxSubmitListener();
@@ -37,38 +39,45 @@ class PowermailForm {
           const url = form.getAttribute('action');
           const formUid = form.getAttribute('data-powermail-form');
           const redirectUri = form.getAttribute('data-powermail-ajax-uri');
+          
           that.#addProgressbar(form);
-
-          fetch(url, {body: new FormData(form), method: 'post'})
-            .then((resp) => resp.text())
-            .then(function(data) {
-              const parser = new DOMParser();
-              const htmlDocument = parser.parseFromString(data, 'text/html');
-              const section = htmlDocument.documentElement.querySelector('[data-powermail-form="' + formUid + '"]');
-              if (section !== null) {
-                const container = document.querySelector('[data-powermail-form="' + formUid + '"]')
-                  .closest('.tx-powermail');
-                container.innerHTML = '';
-                container.appendChild(section);
-              } else {
-                // no form markup found try to redirect via javascript
-                if (redirectUri !== null) {
-                  Utility.redirectToUri(redirectUri);
+          function submitIt() {
+            fetch(url, { body: new FormData(form), method: 'post' })
+              .then((resp) => resp.text())
+              .then(function (data) {
+                const parser = new DOMParser();
+                const htmlDocument = parser.parseFromString(data, 'text/html');
+                const section = htmlDocument.documentElement.querySelector('[data-powermail-form="' + formUid + '"]');
+                if (section !== null) {
+                  const container = document.querySelector('[data-powermail-form="' + formUid + '"]')
+                    .closest('.tx-powermail');
+                  container.innerHTML = '';
+                  container.appendChild(section);
                 } else {
-                  // fallback if no location found (but will effect 2x submit)
-                  form.submit();
+                  // no form markup found try to redirect via javascript
+                  if (redirectUri !== null) {
+                    Utility.redirectToUri(redirectUri);
+                  } else {
+                    // fallback if no location found (but will effect 2x submit)
+                    form.submit();
+                  }
                 }
-              }
 
-              // Fire existing listener again
-              that.#ajaxSubmitListener();
-              that.#formValidationListener();
-              that.#moreStepFormListener();
-              that.#reloadCaptchaImages();
-            })
-            .catch(function(error) {
-              console.log(error);
-            });
+                // Fire existing listener again
+                that.#ajaxSubmitListener();
+                that.#formValidationListener();
+                that.#moreStepFormListener();
+                that.#reloadCaptchaImages();
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
+          }
+          if (window.PowerMailFormOverrideAjax) {
+            window.PowerMailFormOverrideAjax().then(submitIt());
+          } else {
+            submitIt();
+          }
         }
       });
     });
