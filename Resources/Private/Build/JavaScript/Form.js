@@ -188,7 +188,7 @@ class PowermailForm {
           if (value !== null) {
             let formatInput = field.getAttribute('data-datepicker-format');
             let momentDate = moment(value, formatInput);
-            if (momentDate.isValid) {
+            if (momentDate.isValid()) {
               field.value = momentDate.format(formatOutput);
             }
           }

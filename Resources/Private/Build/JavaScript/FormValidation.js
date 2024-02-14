@@ -128,7 +128,8 @@ class Form {
         const fieldsWithError = this.#form.querySelectorAll('.powermail_field_error');
         fieldsWithError.forEach((field) => {
           if (Utility.isElementVisible(field)) {
-            field.scrollIntoView({behavior:'smooth'});
+            field.scrollIntoView({behavior:'smooth', block:'center'});
+            field.focus({preventScroll:true});
             throw 'StopException';
           }
         });

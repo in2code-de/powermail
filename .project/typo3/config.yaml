@@ -1,9 +1,5 @@
-base: 'https://local.powermail.de/'
+base: 'https://powermail-v12.ddev.site/'
 errorHandling: {  }
-baseVariants:
-  -
-    base: 'https://powermail.ddev.site/'
-    condition: 'applicationContext == "Development/DDEV"'
 languages:
   -
     title: deutsch

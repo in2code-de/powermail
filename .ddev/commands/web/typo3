@@ -7,4 +7,4 @@
 ## Example: "ddev typo3 site:list" or "ddev typo3 list" or "ddev typo3 extension:list"
 ## ProjectTypes: typo3
 
-.Build/bin/typo3 "$@"
+.build/vendor/bin/typo3 "$@"

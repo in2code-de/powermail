@@ -147,7 +147,7 @@
 										<numIndex index="1">1</numIndex>
 									</numIndex>
 								</items>
-								<default>0</default>
+								<default>1</default>
 							</config>
 						</TCEforms>
 					</settings.flexform.list.showownonly>
@@ -310,6 +310,7 @@
 								<foreign_table>fe_users</foreign_table>
 								<foreign_table_where>AND fe_users.disable = 0 AND fe_users.deleted = 0 order by fe_users.username</foreign_table_where>
 								<allowNonIdValues>1</allowNonIdValues>
+                                <default>_owner</default>
 							</config>
 						</TCEforms>
 					</settings.flexform.edit.feuser>

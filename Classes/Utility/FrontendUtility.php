@@ -129,9 +129,9 @@ class FrontendUtility
         }
 
         // add owner groups to allowed groups (if "_owner")
-        if (is_numeric(array_search('_owner', $usergroupsSettings))) {
+        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usergroupsSettings))) {
             $userRepository = GeneralUtility::makeInstance(UserRepository::class);
-            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
+            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser()->getUid());
             $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }
 

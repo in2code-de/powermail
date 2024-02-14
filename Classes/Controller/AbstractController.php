@@ -200,7 +200,7 @@ abstract class AbstractController extends ActionController
                 if (empty($value)) {
                     $value = '';
                 } else {
-                    $value = json_encode($value);
+                    $value = json_encode($value, JSON_UNESCAPED_UNICODE);
                 }
             }
             $newArguments['mail']['answers'][$iteration] = [

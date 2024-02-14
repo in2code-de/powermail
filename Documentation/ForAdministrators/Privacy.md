@@ -54,6 +54,8 @@ If you don't need to store mails in the database, you can simply turn it off wit
 
 `plugin.tx_powermail.settings.db.enable = 0`
 
+**If you use the OptIn Feature the mail is stored in the database until the user confirms it. If it is not confirmed you can delete it with a cleanup task after a defined period with the cleanuptask.**
+
 ## Deleting of old mails
 
 See the Scheduler section in the manual to see how you can remove old mails from the database.

@@ -12,7 +12,7 @@ return [
         'Connections' => [
             'Default' => [
                 'charset' => 'utf8mb4',
-                'dbname' => 'test',
+                'dbname' => 'db',
                 'driver' => 'mysqli',
                 'host' => 'db',
                 'password' => 'db',
@@ -22,6 +22,13 @@ return [
                     'collate' => 'utf8mb4_unicode_ci',
                 ],
                 'user' => 'db',
+            ],
+        ],
+    ],
+    'EXTCONF' => [
+        'lang' => [
+            'availableLanguages' => [
+                'de',
             ],
         ],
     ],
