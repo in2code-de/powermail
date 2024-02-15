@@ -15,14 +15,13 @@ use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\MailUtility;
 use In2code\Powermail\Utility\ReportingUtility;
 use In2code\Powermail\Utility\StringUtility;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -32,7 +31,6 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Pagination\QueryResultPaginator;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
-use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Class ModuleController for backend modules
@@ -124,7 +122,7 @@ class ModuleController extends AbstractController
             'perPage' => $this->settings['perPage'] ?? 10,
             'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
-            'activateXlsxExport' => class_exists(IOFactory::class)
+            'activateXlsxExport' => $this->isPhpSpreadsheetInstalled
         ]);
 
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
@@ -138,7 +136,7 @@ class ModuleController extends AbstractController
      */
     public function exportXlsAction(): ResponseInterface
     {
-        if (class_exists(IOFactory::class)) {
+        if ($this->isPhpSpreadsheetInstalled) {
             $this->view->assignMultiple(
                 [
                     'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),

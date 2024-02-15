@@ -16,6 +16,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -87,6 +88,8 @@ abstract class AbstractController extends ActionController
      */
     protected $eventDispatcher;
 
+    protected bool $isPhpSpreadsheetInstalled = false;
+
     /**
      * @param FormRepository $formRepository
      * @param FieldRepository $fieldRepository
@@ -106,6 +109,8 @@ abstract class AbstractController extends ActionController
         $this->mailRepository = $mailRepository;
         $this->uploadService = $uploadService;
         $this->eventDispatcher = $eventDispatcher;
+
+        $this->isPhpSpreadsheetInstalled = ExtensionManagementUtility::isLoaded('base_excel');
     }
 
     /**
