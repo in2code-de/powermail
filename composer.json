@@ -36,8 +36,7 @@
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
-		"ext-curl": "*",
-		"jambagecom/base-excel": "^1.29"
+		"ext-curl": "*"
 	},
 	"suggest": {
 		"sjbr/static-info-tables": "*",

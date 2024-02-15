@@ -18,8 +18,8 @@ Some basic points:
 
 - Main features of this mailform extension is to store the mails into
   the database. Export it from the backend module (xls, csv) or list the
-  values in the frontend again (Pi2). XLS export is only possible when the composer package *phpoffice/phpspreadsheet*
-  is installed (e.g. in your sitepackage)
+  values in the frontend again (Pi2). XLS export is only possible when the extension *jambagecom/base-excel*
+  is installed
 
 - Powermail send one or more mails to a static receiver or to dynamic receivers or
   to a whole Frontend-User Group.
@@ -68,7 +68,7 @@ Example Multistep Form with clientside validation
 Listing of stored mails with the possibility to see a Detail view or to re-edit the entries for a defined Frontend Usergroup
 Define your ABC- and Searchterm Filter
 Define the export possibilities (RSS, CSV, XLS)
-XLS export is only possible when the composer package *phpoffice/phpspreadsheet* is installed (e.g. in your sitepackage
+XLS export is only possible when the extension *jambagecom/base-excel* is installed
 
 
 ### Backend: Mail Listing
