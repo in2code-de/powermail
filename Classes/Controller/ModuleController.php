@@ -122,7 +122,7 @@ class ModuleController extends AbstractController
             'perPage' => $this->settings['perPage'] ?? 10,
             'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
-            'activateXlsxExport' => $this->isPhpSpreadsheetInstalled
+            'activateXlsxExport' => $this->isPhpSpreadsheetInstalled,
         ]);
 
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
@@ -154,7 +154,7 @@ class ModuleController extends AbstractController
             $reader = new Html();
             $spreadsheet = $reader->loadFromString($this->view->render());
 
-            $writer = IOFactory::createWriter($spreadsheet,'Xls');
+            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
             $writer->save($tmpFilename);
 
             return $this->responseFactory->createResponse()
