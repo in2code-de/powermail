@@ -16,7 +16,7 @@
                 "<vh:string.removeQuote><vh:getter.getFieldLabelFromUid uid="{fieldUid}" /></vh:string.removeQuote>";
             </f:then>
             <f:else>
-                "<vh:string.removeQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:String.UnderscoredToLowerCamelCase(val:fieldUid)}" /></vh:string.removeQuote>";
+                "<vh:string.removeQuote><f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:string.underscoredToLowerCamelCase(val:fieldUid)}" /></vh:string.removeQuote>";
             </f:else>
         </f:if>
     </f:for>
