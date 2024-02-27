@@ -7,7 +7,7 @@
 				<source>Access</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail">
-				<source>Mails</source>
+				<source>Mail</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1">
 				<source>Sender</source>
@@ -73,7 +73,7 @@
 				<source>Page Funnel which leads to this mail</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form">
-				<source>Forms</source>
+				<source>Form</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title">
 				<source>Title</source>
@@ -115,7 +115,7 @@
 				<source>Pages</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page">
-				<source>Pages</source>
+				<source>Page</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title">
 				<source>Title</source>
@@ -142,7 +142,7 @@
 				<source>Related Form</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field">
-				<source>Fields</source>
+				<source>Field</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title">
 				<source>Title</source>
@@ -376,7 +376,7 @@
 				<source>Email or Name</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer">
-				<source>Answers</source>
+				<source>Answer</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value">
 				<source>The transferred value</source>
