@@ -1,6 +1,6 @@
 # Development Context
 
-It could be usefull to set a test receiver email for all powermail forms in one TYPO3 instance.
+It could be useful to set a test receiver email for all powermail forms in one TYPO3 instance.
 
 Together with the context mode (introduced in TYPO3 6.2) you can test your forms on your development environment
 and deploy it to a production server without making changes in the database.

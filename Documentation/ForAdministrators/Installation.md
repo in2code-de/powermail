@@ -43,6 +43,7 @@ Add powermail static templates for full functions
 ![static_templates](../Images/static_templates.png)
 
 | Field | Description |
+| ----- | ----------- |
 | Main template (powermail) | Main functions and settings for all powermail forms. |
 | Powermail_Frontend (powermail) | If you want to use show mails in frontend (Pi2), choose this template. |
 | Add classes and CSS based on bootstrap (powermail) | If you want to add default bootstrap classes to all forms, pages and fields in frontend, you should add this static template. Note: If you want to add bootstrap.css from powermail, see constant editor. |
