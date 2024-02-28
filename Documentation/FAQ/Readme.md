@@ -57,11 +57,11 @@ How does the magic work? There is a viewhelper in Page.html partial, that adds c
 </vh:misc.createRowTags>
 ```
 
-columns:              Number of columns - 0 disables creation of new containers completely
-class:                Class name(s) for the new tag
-iteration:            The iteration array from a foreach viewhelper
-additionalAttributes: Any additional attributes for the new tags (must be type of array)
-tagName:              Tagname for the new containers ("div" if not given)
+- `columns`: Number of columns - 0 disables creation of new containers completely
+- `class`: Class name(s) for the new tag
+- `iteration`: The iteration array from a foreach viewhelper
+- `additionalAttributes`: Any additional attributes for the new tags (must be type of array)
+- `tagName`: Tagname for the new containers ("div" if not given)
 
 
 ## How to solve SPF defiance?

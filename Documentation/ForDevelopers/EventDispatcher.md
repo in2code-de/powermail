@@ -7,7 +7,7 @@ extend functions and properties with your extension.
 Please report to https://github.com/einpraegsam/powermail/issues if you need a new event anywhere.
 
 | Location | Event | Description |
-|-------------------|-------------|-------------------|------------------|-------------|
+| -------- | ----- | ----------- |
 | `In2code\Powermail\Domain\Validator\CustomValidator::isValid()` | `In2code\Powermail\Events\CustomValidatorEvent` | Add your own serverside Validation |
 | `In2code\Powermail\Controller\FormController::formAction()` | `In2code\Powermail\Events\FormControllerFormActionEvent` | Listeners are called before the form is rendered |
 | `In2code\Powermail\Controller\FormController::createAction()` | `In2code\Powermail\Events\FormControllerCreateActionBeforeRenderViewEvent` | Listeners are called before the mail and answers are persisted and before the emails are sent |
@@ -40,7 +40,6 @@ There is a very good documentation how to work with EventDispatcher in TYPO3:
 https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Events/EventDispatcher/Index.html
 
 ### Example Code
-""""""""""""
 
 Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:
