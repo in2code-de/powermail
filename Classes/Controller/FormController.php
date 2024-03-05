@@ -265,7 +265,7 @@ class FormController extends AbstractController
             $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
         }
-        if ($this->isPersistActive() && $isSavingOfMailAllowed) {
+        if ($this->isMailPersistActive($hash) && $isSavingOfMailAllowed) {
             $this->mailRepository->update($mail);
             $this->persistenceManager->persistAll();
         }
