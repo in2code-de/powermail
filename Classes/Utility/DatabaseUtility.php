@@ -107,7 +107,7 @@ class DatabaseUtility
                     ->from($tableName)
                     ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
                     ->executeQuery()
-                    ->rowCount() > 0;
+                    ->fetchOne() > 0;
         }
         return false;
     }
