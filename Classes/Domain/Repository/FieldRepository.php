@@ -254,6 +254,6 @@ class FieldRepository extends AbstractRepository
             ->where('uid=' . (int)$uid)
             ->setMaxResults(1)
             ->executeQuery()
-            ->fetchAssociative();
+            ->fetchOne();
     }
 }
