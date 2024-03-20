@@ -162,8 +162,7 @@ class SpamPreventionMethod extends AbstractMethod
 ```
 
 
-Some notices
-""""""""""""
+## Some notices
 
 * Method spamCheck() will be called always
 * The method initialize() and initializeSpamCheck() will always be called at first
