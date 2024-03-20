@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 12.3.0       | 2024-03-20   | php 8.3 compatibility, Bugfix. Please see commit history for changes.                                                                                                                                                 |
 | 12.2.1       | 2024-03-06   | Bugfix release Please see commit history for changes.                                                                                                                                                                 |
 | 12.2.0       | 2024-02-28   | Bugfix and feature release Please see commit history for changes.                                                                                                                                                     |
 | 12.1.1       | 2024-02-08   | Bugfix release Please see commit history for changes.                                                                                                                                                                 |
