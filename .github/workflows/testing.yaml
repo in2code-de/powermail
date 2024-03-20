@@ -22,6 +22,7 @@ jobs:
         php-version:
           - 8.1
           - 8.2
+          - 8.3
   typoscript-lint:
     name: "TypoScript linter"
     runs-on: ubuntu-20.04
@@ -71,3 +72,4 @@ jobs:
         php-version:
           - 8.1
           - 8.2
+          - 8.3
