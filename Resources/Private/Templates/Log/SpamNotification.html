@@ -1,4 +1,4 @@
-
+{namespace vh=In2code\Powermail\ViewHelpers}
 ----------------------------------------------------
 
 <f:format.date format="Y-m-d H:i:s">{time}</f:format.date>
@@ -19,6 +19,7 @@ Given Form variables:
         <f:else>
             {answer.value}
         </f:else>
+    </f:if>
 </f:for>
 <f:if condition="{ipAddress}">Senders IP addess: {ipAddress}</f:if>
 
