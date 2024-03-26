@@ -205,8 +205,8 @@ class FormController extends AbstractController
         if ($this->isMailPersistActive($hash)) {
             $isSavingOfMailAllowed = true;
             $signalArguments = [&$isSavingOfMailAllowed, $mail, $this];
-            $this->signalDispatch(__CLASS__, 'checkIfMailIsAllowedToSave', $signalArguments );
-            if ($isSavingOfMailAllowed){
+            $this->signalDispatch(__CLASS__, 'checkIfMailIsAllowedToSave', $signalArguments);
+            if ($isSavingOfMailAllowed) {
                 $this->saveMail($mail);
                 $this->signalDispatch(__CLASS__, __FUNCTION__ . 'AfterMailDbSaved', [$mail, $this]);
             }
