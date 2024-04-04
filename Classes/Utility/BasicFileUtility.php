@@ -61,6 +61,24 @@ class BasicFileUtility
     }
 
     /**
+     * Append content to the end of a file
+     *
+     * @param string $pathAndFile
+     * @param string $content
+     * @return void
+     */
+    public static function appendContentToFile(string $pathAndFile, string $content): void
+    {
+        $absolutePathAndFile = GeneralUtility::getFileAbsFileName($pathAndFile);
+        $lines = [];
+        if (is_file($absolutePathAndFile)) {
+            $lines = file($absolutePathAndFile);
+        }
+        array_push($lines, $content);
+        GeneralUtility::writeFile($absolutePathAndFile, implode('', $lines));
+    }
+
+    /**
      * Prepend content to the beginning of a file
      *
      * @param string $pathAndFile

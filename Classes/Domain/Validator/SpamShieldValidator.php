@@ -204,7 +204,7 @@ class SpamShieldValidator extends AbstractValidator
                 $this->settings['spamshield']['logTemplate'],
                 $this->getVariablesForSpamNotification($mail)
             );
-            BasicFileUtility::prependContentToFile($this->settings['spamshield']['logfileLocation'], $logMessage);
+            BasicFileUtility::appendContentToFile($this->settings['spamshield']['logfileLocation'], $logMessage);
         }
     }
 
