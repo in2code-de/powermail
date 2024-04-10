@@ -123,7 +123,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('review_state')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->where('extension_key = \'powermail\' and version = \'' . $this->getVersion() . '\'')
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchOne();
@@ -143,7 +143,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('version')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail"')
+            ->where('extension_key = \'powermail\'')
             ->orderBy('version', 'desc')
             ->setMaxResults(1)
             ->executeQuery()
@@ -167,7 +167,7 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('uid')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->where('extension_key = \'powermail\' and version = \'' . $this->getVersion() . '\'')
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchOne();

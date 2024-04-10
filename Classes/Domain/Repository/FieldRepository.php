@@ -106,7 +106,7 @@ class FieldRepository extends AbstractRepository
         $rows = $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Field::TABLE_NAME)
-            ->where('(page = "" or page = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(page = \'\' or page = 0) and sys_language_uid > 0 and deleted = 0')
             ->executeQuery()
             ->fetchAllAssociative();
         foreach ($rows as $row) {

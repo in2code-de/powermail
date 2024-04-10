@@ -77,7 +77,7 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(form = \'\' or form = 0) and sys_language_uid > 0 and deleted = 0')
             ->executeQuery()
             ->fetchAllAssociative();
     }
