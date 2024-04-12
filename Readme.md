@@ -11,7 +11,7 @@ and easy to use mailform extension for TYPO3 with a lots of features
 
 ### Double OptIn and TypoScript setting "Do not save to DB"
 
-This combination will not work anymore in V13. If the person responsible for data security desides not to save anything
+This combination will not work anymore in V13. If the person responsible for data security decides not to save anything
 into the database, no data may be saved to the database, even not in the double opt-in process.
 
 If you need this earlier than the next major (public) release, please contact us for the extension
