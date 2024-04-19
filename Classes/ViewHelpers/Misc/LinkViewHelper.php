@@ -37,8 +37,9 @@ class LinkViewHelper extends AbstractViewHelper
         if ($this->arguments['absolute'] === true) {
             $uri .= parse_url(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'), PHP_URL_SCHEME);
             $uri .= '://' . GeneralUtility::getIndpEnv('HTTP_HOST') . '/';
-            $uri .= rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
+            $uri .= trim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
-        return $uri . $path;
+
+        return rtrim($uri, '/') . '/' . ltrim($path, '/');
     }
 }
