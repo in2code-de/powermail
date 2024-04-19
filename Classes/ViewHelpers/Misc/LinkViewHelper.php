@@ -26,12 +26,19 @@ class LinkViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
+        $path = $this->arguments['path'];
+
+        // Path already absolute?
+        if (!is_null(parse_url($path, PHP_URL_HOST))) {
+            return $path;
+        }
+
         $uri = '';
         if ($this->arguments['absolute'] === true) {
             $uri .= parse_url(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'), PHP_URL_SCHEME);
             $uri .= '://' . GeneralUtility::getIndpEnv('HTTP_HOST') . '/';
             $uri .= rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
-        return $uri . $this->arguments['path'];
+        return $uri . $path;
     }
 }
