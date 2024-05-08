@@ -340,10 +340,7 @@ class FormController extends AbstractController
     {
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         $mail = $this->mailRepository->findByUid($mail);
-        $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
-        if ($response !== null) {
-            return $response;
-        }
+        $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
         $labelKey = 'failed';
 
         /** @noinspection PhpUnhandledExceptionInspection */
@@ -466,18 +463,17 @@ class FormController extends AbstractController
     /**
      * Forward to formAction if no mail param given
      *
-     * @return ForwardResponse|null
+     * @throws StopActionException
      */
-    protected function forwardIfMailParamEmpty(): ?ForwardResponse
+    protected function forwardIfMailParamEmpty(): void
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->warning('Redirect (mail empty)', $arguments);
 
-            return new ForwardResponse('form');
+            $this->forward('form');
         }
-        return null;
     }
 
     /**
@@ -485,21 +481,18 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return ResponseInterface|null
+     * @throws StopActionException
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ResponseInterface
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): void
     {
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
                 $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
-
-                return new ForwardResponse('form');
+                $this->forward('form');
             }
         }
-
-        return null;
     }
 
     /**
