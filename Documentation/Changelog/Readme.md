@@ -7,7 +7,9 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 10.8.0       | 2023-03-26   | Compatibility Release for EXT:powermail_cleane (TYPO3 V11)                                                                                                                                                            |
+| 12.3.1       | 2024-05-08   | Bugfix release
+| 10.8.1       | 2023-05-08   | Bugfix release                                                                                                                                                                                             |
+| 10.8.0       | 2023-03-26   | Compatibility Release for EXT:powermail_cleaner (TYPO3 V11)                                                                                                                                                           |
 | 12.3.0       | 2024-03-20   | php 8.3 compatibility, Bugfix. Please see commit history for changes.                                                                                                                                                 |
 | 12.2.1       | 2024-03-06   | Bugfix release Please see commit history for changes.                                                                                                                                                                 |
 | 12.2.0       | 2024-02-28   | Bugfix and feature release Please see commit history for changes.                                                                                                                                                     |
