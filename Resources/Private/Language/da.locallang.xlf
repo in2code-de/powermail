@@ -147,6 +147,10 @@
         <source>Mail was successfully deleted</source>
         <target state="final">Mail blev slettet</target>
       </trans-unit>
+      <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
+        <source>Was this email a mistake and you want to delete your request?</source>
+        <target state="final">Var denne e-mail en fejl, og du vil slette din anmodning?</target>
+      </trans-unit>
       <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link" approved="yes">
         <source>Delete all email data.</source>
         <target state="final">Slet alle indtastede informationer.</target>
@@ -1086,6 +1090,18 @@
       <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
         <source>Delete All Files</source>
         <target state="final">Slet alle filer</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalTitle" resname="" approved="yes">
+        <source>Information</source>
+        <target state="final">Information</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalText" resname="" approved="yes">
+        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+        <target state="final">Du kan også bruge CSV eksport i Excel. Hvis du ønsker at eksportere xls-filerne, skal TYPO3 Extension base_excel være installeret. Yderligere oplysninger: https://github.com/franzholz/base_excel</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalCancel" resname="" approved="yes">
+        <source>Close</source>
+        <target state="final">Luk</target>
       </trans-unit>
     </body>
   </file>
