@@ -213,9 +213,6 @@ class FormController extends AbstractController
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
-
-        $this->reformatParamsForAction();
-        $this->debugVariables();
     }
 
     /**
