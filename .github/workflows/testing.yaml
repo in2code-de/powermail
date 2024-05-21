@@ -1,5 +1,11 @@
 name: testing
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'l10n_*'
+  pull_request:
+    branches-ignore:
+      - 'l10n_*'
 
 jobs:
   php-lint:
