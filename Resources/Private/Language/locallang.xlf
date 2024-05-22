@@ -844,6 +844,15 @@
 			<trans-unit id="deleteAllFiles" resname="deleteAllFiles">
 				<source>Delete All Files</source>
 			</trans-unit>
+			<trans-unit id="xlsInfoModalTitle" resname="">
+				<source>Information</source>
+			</trans-unit>
+			<trans-unit id="xlsInfoModalText" resname="">
+				<source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+			</trans-unit>
+			<trans-unit id="xlsInfoModalCancel" resname="">
+				<source>Close</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
