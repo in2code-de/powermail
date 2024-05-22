@@ -3,26 +3,38 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="it">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="crdate.description" resname="crdate.description" approved="yes">
+        <source>Time of mail creation</source>
+        <target state="final">Ora di creazione della mail</target>
+      </trans-unit>
+      <trans-unit id="sender_mail.description" resname="sender_mail.description" approved="yes">
+        <source>This is the email of the sender</source>
+        <target state="final">questa è la email del mittente</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>This is the name of the sender</source>
+        <target state="final">questo è il nome del mittente</target>
+      </trans-unit>
+      <trans-unit id="subject.description" resname="subject.description" approved="yes">
+        <source>E-Mail Subject</source>
+        <target state="final">Oggetto dell'E-Mail</target>
+      </trans-unit>
+      <trans-unit id="receiver_mail.description" resname="receiver_mail.description" approved="yes">
+        <source>E-Mail Receiver</source>
+        <target state="final">Destinatario E-Mail</target>
+      </trans-unit>
+      <trans-unit id="spam_factor.description" resname="spam_factor.description" approved="yes">
+        <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+        <target state="final">Powermail identifica questa mail come spam con questo fattore (se il fattore è troppo alto, l'invio di mail verrà rifiutato)</target>
+      </trans-unit>
+      <trans-unit id="sender_ip.description" resname="sender_ip.description" approved="yes">
+        <source>IP-Address of the sender</source>
+        <target state="final">Indirizzo IP del mittente</target>
+      </trans-unit>
+      <trans-unit id="user_agent.description" resname="user_agent.description" approved="yes">
+        <source>Browser characteristic of the sender</source>
+        <target state="final">caratteristiche del browser del mittente</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>

@@ -149,7 +149,7 @@
       </trans-unit>
       <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
         <source>Was this email a mistake and you want to delete your request?</source>
-        <target state="final">Var denne e-mail en fejl, og du vil slette din anmodning?</target>
+        <target state="final">Har du modtaget denne e-mail ved en fejl? Og vil du slette de indtastede informationer?</target>
       </trans-unit>
       <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link" approved="yes">
         <source>Delete all email data.</source>
@@ -165,7 +165,7 @@
       </trans-unit>
       <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
         <source>Error, Email could not be sent correctly!</source>
-        <target state="final">Fejl, mail kunne ikke sendes korrekt!</target>
+        <target state="final">Fejl, e-mail kunne ikke sendes korrekt!</target>
       </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
@@ -249,7 +249,7 @@
       </trans-unit>
       <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
         <source>Number too high or too low!</source>
-        <target state="final">Nummer for højt eller lavt!</target>
+        <target state="final">Tal for højt eller for lavt!</target>
       </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
@@ -633,7 +633,7 @@
       </trans-unit>
       <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
         <source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
-        <target state="final">Det kunne ikke bekræftes, om denne version er sikker eller usikker. Opdater venligst udvidelserne i Udvidelsemanager.</target>
+        <target state="final">Det kunne ikke bekræftes, om denne version er sikker eller usikker. Opdatér venligst udvidelserne i Udvidelsemanager.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -669,7 +669,7 @@
       </trans-unit>
       <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
         <source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
-        <target state="final">Standard upload mappe findes ikke (uploads/tx_powermail/)</target>
+        <target state="final">Standard uploadmappe findes ikke (uploads/tx_powermail/)</target>
       </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
@@ -789,11 +789,11 @@
       </trans-unit>
       <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
         <source>Email was sent without problems (mail transmitted to mailserver)</source>
-        <target state="final">Sendt e-mail uden problemer (mail sendt til mailserver)</target>
+        <target state="final">E-mail blev sendt uden problemer (mail sendt til mailserver)</target>
       </trans-unit>
       <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
         <source>Email could not be sent properly (ask your Adminstrator)</source>
-        <target state="final">E-mail tæller sender ikke korrekt (spørg din adminstrator)</target>
+        <target state="final">E-mail kunne ikke sendes korrekt (spørg din adminstrator)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -1073,7 +1073,7 @@
       </trans-unit>
       <trans-unit id="FormField" resname="FormField" approved="yes">
         <source>Form field</source>
-        <target state="final">Formfelt</target>
+        <target state="final">Formularfelt</target>
       </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
@@ -1090,18 +1090,6 @@
       <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
         <source>Delete All Files</source>
         <target state="final">Slet alle filer</target>
-      </trans-unit>
-      <trans-unit id="xlsInfoModalTitle" resname="" approved="yes">
-        <source>Information</source>
-        <target state="final">Information</target>
-      </trans-unit>
-      <trans-unit id="xlsInfoModalText" resname="" approved="yes">
-        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
-        <target state="final">Du kan også bruge CSV eksport i Excel. Hvis du ønsker at eksportere xls-filerne, skal TYPO3 Extension base_excel være installeret. Yderligere oplysninger: https://github.com/franzholz/base_excel</target>
-      </trans-unit>
-      <trans-unit id="xlsInfoModalCancel" resname="" approved="yes">
-        <source>Close</source>
-        <target state="final">Luk</target>
       </trans-unit>
     </body>
   </file>

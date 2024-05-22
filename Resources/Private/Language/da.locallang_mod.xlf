@@ -23,38 +23,6 @@
         <source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
         <target state="final">Kraftfuld og nem mailform udvidelse optimeret til redaktører. Powermail tilbyder datalagring, udvidet input validering, avanceret spam-forebyggelse, marketing analyser og en masse konfigurationsindstillinger.</target>
       </trans-unit>
-      <trans-unit id="powermail_pi1.title" approved="yes">
-        <source>Powermail</source>
-        <target state="final">Powermail</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi1.description" approved="yes">
-        <source>Powerful and easy mailform extension optimized for editors.</source>
-        <target state="final">Kraftfuld og nem mailformulat-udvidelse, optimeret til redaktører.</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi2.title" approved="yes">
-        <source>Powermail Frontend (List, Detail, Export)</source>
-        <target state="final">Frontend for Powermail (liste, detailvisning, eksport)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi2.description" approved="yes">
-        <source>Displays powermail mails in the frontend with export possibilities</source>
-        <target state="final">Viser powermail mails i frontend med eksportmuligheder</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi3.title" approved="yes">
-        <source>Powermail Frontend (Edit, Update, Delete)</source>
-        <target state="final">Frontend for Powermail (redigering, opdatering, slet)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi3.description" approved="yes">
-        <source>Displays an edit form and allows to delete sent emails</source>
-        <target state="final">Viser en redigeringsformular og gør det muligt at slette sendte e-mails</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.title" approved="yes">
-        <source>Powermail Frontend (All functions)</source>
-        <target state="final">Frontend for Powermail (alle funktioner)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.description" approved="yes">
-        <source>A plugin with all actions</source>
-        <target state="final">Et plugin med alle handlinger</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>

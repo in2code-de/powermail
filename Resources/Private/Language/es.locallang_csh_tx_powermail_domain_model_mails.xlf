@@ -3,26 +3,86 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="es-ES">
     <header/>
     <body>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-		</body>
+      <trans-unit id="crdate.description" resname="crdate.description" approved="yes">
+        <source>Time of mail creation</source>
+        <target state="final">Hora de creación del correo</target>
+      </trans-unit>
+      <trans-unit id="sender_mail.description" resname="sender_mail.description" approved="yes">
+        <source>This is the email of the sender</source>
+        <target state="final">Contiene el email del remitente</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>This is the name of the sender</source>
+        <target state="final">Contiene el nombre del remitente</target>
+      </trans-unit>
+      <trans-unit id="subject.description" resname="subject.description" approved="yes">
+        <source>E-Mail Subject</source>
+        <target state="final">Asunto</target>
+      </trans-unit>
+      <trans-unit id="body.description" resname="body.description" approved="yes">
+        <source>All input values at a glance</source>
+        <target state="final">Todos los valores de entrada de un vistazo</target>
+      </trans-unit>
+      <trans-unit id="receiver_mail.description" resname="receiver_mail.description" approved="yes">
+        <source>E-Mail Receiver</source>
+        <target state="final">Email del destinatario</target>
+      </trans-unit>
+      <trans-unit id="form.description" resname="form.description" approved="yes">
+        <source>Related Form</source>
+        <target state="final">Formulario relacionado</target>
+      </trans-unit>
+      <trans-unit id="answers.description" resname="answers.description" approved="yes">
+        <source>All transferred Answers</source>
+        <target state="final">Todas las respuestas transferidas</target>
+      </trans-unit>
+      <trans-unit id="feuser.description" resname="feuser.description" approved="yes">
+        <source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+        <target state="final">Este usuario de frontend enviará el correo (si está vacío, ningún usuario que haya iniciado sesión lo enviará)</target>
+      </trans-unit>
+      <trans-unit id="spam_factor.description" resname="spam_factor.description" approved="yes">
+        <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+        <target state="final">Powermail identifica este correo como spam con este factor (si el factor es demasiado alto, se rechazará el envío del correo)</target>
+      </trans-unit>
+      <trans-unit id="time.description" resname="time.description" approved="yes">
+        <source>User needs this time to fill out the form</source>
+        <target state="final">El usuario necesita este tiempo para llenar el formulario</target>
+      </trans-unit>
+      <trans-unit id="sender_ip.description" resname="sender_ip.description" approved="yes">
+        <source>IP-Address of the sender</source>
+        <target state="final">Dirección IP del remitente</target>
+      </trans-unit>
+      <trans-unit id="user_agent.description" resname="user_agent.description" approved="yes">
+        <source>Browser characteristic of the sender</source>
+        <target state="final">Característica del navegador del remitente</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer_domain.description" resname="marketing_referer_domain.description" approved="yes">
+        <source>Last Domain of the user before he surfed to this URL</source>
+        <target state="final">Último dominio del usuario antes de navegar a esta URL</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer.description" resname="marketing_referer.description" approved="yes">
+        <source>Last URL of the user before he surfed to this URL</source>
+        <target state="final">Última URL del usuario antes de navegar a esta URL</target>
+      </trans-unit>
+      <trans-unit id="marketing_country.description" resname="marketing_country.description" approved="yes">
+        <source>User is located in this country</source>
+        <target state="final">El usuario se encuentra en este país</target>
+      </trans-unit>
+      <trans-unit id="marketing_mobile_device.description" resname="marketing_mobile_device.description" approved="yes">
+        <source>User uses a mobile device</source>
+        <target state="final">El usuario utiliza un dispositivo móvil</target>
+      </trans-unit>
+      <trans-unit id="marketing_frontend_language.description" resname="marketing_frontend_language.description" approved="yes">
+        <source>User surfed in this TYPO3-Frontend-Language</source>
+        <target state="final">El usuario navegó en este idioma</target>
+      </trans-unit>
+      <trans-unit id="marketing_browser_language.description" resname="marketing_browser_language.description" approved="yes">
+        <source>Users Browser Language</source>
+        <target state="final">Idioma del navegador de usuario</target>
+      </trans-unit>
+      <trans-unit id="marketing_page_funnel.description" resname="marketing_page_funnel.description" approved="yes">
+        <source>Internal Page funnel up to the form submit</source>
+        <target state="final">Embudo interno de la página hasta el formulario de envío</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
