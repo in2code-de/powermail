@@ -27,10 +27,6 @@
         <source>Receivers Email</source>
         <target state="final">Modtager e-Mail</target>
       </trans-unit>
-      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
-        <source>Email Text</source>
-        <target state="final">Email tekst</target>
-      </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
         <source>Frontend User</source>
         <target state="final">Frontend bruger</target>
@@ -107,6 +103,10 @@
         <source>The given Link is not correct</source>
         <target state="final">Det angivne link er ikke korrekt</target>
       </trans-unit>
+      <trans-unit id="disclaimer_mail_deleted" resname="disclaimer_mail_deleted" approved="yes">
+        <source>Mail was successfully deleted</source>
+        <target state="final">Mail blev slettet med succes</target>
+      </trans-unit>
       <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
         <source>Was this email a mistake and you want to delete your request?</source>
         <target state="final">Var denne e-mail en fejl, og du vil slette din anmodning?</target>
@@ -151,10 +151,6 @@
         <source>One of these fields must be filled!</source>
         <target state="final">Et af disse felter skal udfyldes!</target>
       </trans-unit>
-      <trans-unit id="validationerror_captcha" resname="validationerror_captcha" approved="yes">
-        <source>Wrong captcha code entered - please try again!</source>
-        <target state="final">Forkert captcha kode indtastet - prøv igen!</target>
-      </trans-unit>
       <trans-unit id="validationerror_password" resname="validationerror_password" approved="yes">
         <source>Both Password-Fields are not equal!</source>
         <target state="final">Begge adgangskodefelter er ikke ens!</target>
@@ -162,10 +158,6 @@
       <trans-unit id="validationerror_unique" resname="validationerror_unique" approved="yes">
         <source>This value is already in use - please use a new one!</source>
         <target state="final">Denne værdi er allerede i brug - brug venligst en ny!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_validation" resname="validationerror_validation" approved="yes">
-        <source>Your input is not allowed!</source>
-        <target state="final">Dit input er ikke tilladt!</target>
       </trans-unit>
       <trans-unit id="validationerror_validation.1" resname="validationerror_validation.1" approved="yes">
         <source>This is not a valid email address!</source>
@@ -195,25 +187,9 @@
         <source>Please decrease number!</source>
         <target state="final">Venligst formindsk antal!</target>
       </trans-unit>
-      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
-        <source>Number too high or too low!</source>
-        <target state="final">Nummer for højt eller lavt!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
-        <source>Your input is not valid (too many or too less signs)</source>
-        <target state="final">Dit input er ikke gyldigt (for mange eller for få tegn)</target>
-      </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
         <target state="final">Fejl i validering!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_extension" resname="validationerror_upload_extension" approved="yes">
-        <source>It's not allowed to upload a file with this extension!</source>
-        <target state="final">Det er ikke tilladt at uploade en fil med denne endelse!</target>
-      </trans-unit>
-      <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
-        <source>The file, that you want to upload is too large!</source>
-        <target state="final">Filen, som du vil uploade, er for stor!</target>
       </trans-unit>
       <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
         <source>Upload failed, please check permissions on the server!</source>
