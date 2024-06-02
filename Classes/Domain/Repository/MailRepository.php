@@ -582,7 +582,7 @@ class MailRepository extends AbstractRepository
             // get intersection
             if (empty($customAnswerFieldRelations)) {
                 // no result -> do nothing
-                $customAnswersRelationIntersection = [];
+                $customAnswersRelationIntersection = null;
             } elseif (count($customAnswerFieldRelations) === 1) {
                 // only one custom field is part of the search
                 $customAnswersRelationIntersection = reset($customAnswerFieldRelations);
@@ -592,7 +592,7 @@ class MailRepository extends AbstractRepository
             }
 
             // Query with intersection
-            if (empty($customAnswersRelationIntersection))
+            if (empty($customAnswersRelationIntersection) && $customAnswersRelationIntersection !== null)
             {
                 // When intersection of custom answer field relations is empty, search is out of scope.
                 // Set a dummy uid - minus one (-1) will do this - to force out of scope result!
