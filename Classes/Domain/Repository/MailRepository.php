@@ -13,6 +13,7 @@ use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
@@ -522,6 +523,8 @@ class MailRepository extends AbstractRepository
             $query->equals('pid', $pid)
         ];
         if (isset($piVars['filter'])) {
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+            $customAnswerFieldRelations = [];
             foreach ((array)$piVars['filter'] as $field => $value) {
                 if (!is_array($value)) {
                     if ($field === 'all' && !empty($value)) {
@@ -551,11 +554,54 @@ class MailRepository extends AbstractRepository
                 if (is_array($value)) {
                     foreach ((array)$value as $answerField => $answerValue) {
                         if (!empty($answerValue) && $answerField !== 'crdate') {
-                            $and[] = $query->equals('answers.field', $answerField);
-                            $and[] = $query->like('answers.value', '%' . $answerValue . '%');
+                            $queryBuilder = $connectionPool->getQueryBuilderForTable('tx_powermail_domain_model_answer');
+                            $statement = $queryBuilder->select('mail')->from('tx_powermail_domain_model_answer')
+                                ->where(
+                                    $queryBuilder->expr()->eq(
+                                        'pid',
+                                        $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT)
+                                    ),
+                                    $queryBuilder->expr()->eq(
+                                        'field',
+                                        $queryBuilder->createNamedParameter($answerField, \PDO::PARAM_INT)
+                                    ),
+                                    $queryBuilder->expr()->like(
+                                        'value',
+                                        $queryBuilder->createNamedParameter('%' . $answerValue . '%')
+                                    )
+                                )->execute();
+
+                            while ($row = $statement->fetchAssociative()) {
+                                $customAnswerFieldRelations[$answerField][] = $row['mail'];
+                            }
                         }
                     }
                 }
+            }
+
+            // get intersection
+            if (empty($customAnswerFieldRelations)) {
+                // no result -> do nothing
+                $customAnswersRelationIntersection = [];
+            } elseif (count($customAnswerFieldRelations) === 1) {
+                // only one custom field is part of the search
+                $customAnswersRelationIntersection = reset($customAnswerFieldRelations);
+            } else {
+                // get intersection of all field results
+                $customAnswersRelationIntersection = array_intersect(...$customAnswerFieldRelations);
+            }
+
+            // Query with intersection
+            if (empty($customAnswersRelationIntersection))
+            {
+                // When intersection of custom answer field relations is empty, search is out of scope.
+                // Set a dummy uid - minus one (-1) will do this - to force out of scope result!
+                $customAnswersRelationIntersection = [-1];
+                $and[] = $query->in('uid', $customAnswersRelationIntersection);
+            }
+            if (!empty($customAnswersRelationIntersection))
+            {
+                $and[] = $query->in('uid', $customAnswersRelationIntersection);
             }
         }
         return $and;
