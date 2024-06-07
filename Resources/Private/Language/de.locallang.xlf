@@ -1047,6 +1047,10 @@
         <source>All tables successfully converted</source>
         <target state="final">Alle Tabellen erfolgreich migriert!</target>
       </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist" resname="ExtensionManagerConvertingScriptStopAlreadyExist" approved="yes">
+        <source>Failure! Tables could not be converted because there is already one or more new tables (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) and they are not empty</source>
+        <target state="final">Fehler! Tabellen konnten nicht migriert werden, weil eine oder mehrere neue Tabellen bereits existieren (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) und nicht leer sind</target>
+      </trans-unit>
       <trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound" resname="ExtensionManagerConvertingScriptStopNoTablesFound" approved="yes">
         <source>Failure! Tables could not be converted because there is one or more old tables missing (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</source>
         <target state="final">Fehler! Tabellen konnten nicht migriert werden, weil eine oder mehrere alte Tabellen nicht mehr existieren (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</target>
@@ -1086,6 +1090,18 @@
       <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
         <source>Delete All Files</source>
         <target state="final">Alle Dateien löschen</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalTitle" resname="" approved="yes">
+        <source>Information</source>
+        <target state="final">Information</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalText" resname="" approved="yes">
+        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+        <target state="final">Sie können CSV Export auch in Excel verwenden, wenn Sie xls-Dateien exportieren wollen, muss die TYPO3 Extension base_excel installiert sein. Weitere Informationen: https://github.com/franzholz/base_excel</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalCancel" resname="" approved="yes">
+        <source>Close</source>
+        <target state="final">Schließen</target>
       </trans-unit>
     </body>
   </file>
