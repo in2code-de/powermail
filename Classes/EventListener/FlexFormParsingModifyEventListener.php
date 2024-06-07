@@ -77,13 +77,16 @@ final class FlexFormParsingModifyEventListener
 
     private function getPidForCurrentRecord(): int
     {
+        $uid = 0;
         $request = $this->getRequest();
-        $queryParams = $request->getQueryParams();
-        $uid = array_keys($queryParams['edit']['tt_content'] ?? [])[0] ?? 0;
+        if ($request) {
+            $queryParams = $request->getQueryParams();
+            $uid = array_keys($queryParams['edit']['tt_content'] ?? [])[0] ?? 0;
+        }
         return DatabaseUtility::getPidForRecord($uid, 'tt_content');
     }
 
-    private function getRequest(): ServerRequestInterface
+    private function getRequest(): ?ServerRequestInterface
     {
         return $GLOBALS['TYPO3_REQUEST'];
     }
