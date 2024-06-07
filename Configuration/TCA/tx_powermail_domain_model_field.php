@@ -227,6 +227,7 @@ $fieldsTca = [
             'endtime' => 'endtime',
         ],
         'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif'),
+        'searchFields' => 'title',
     ],
     'interface' => [
     ],
