@@ -7,10 +7,6 @@
         <source>Access</source>
         <target state="final">Доступ</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
-        <source>Mails</source>
-        <target state="final">Письма</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Отправитель</target>
@@ -95,10 +91,6 @@
         <source>Page Funnel which leads to this mail</source>
         <target state="final">Страница воронка, приведшая к этому письму</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
-        <source>Forms</source>
-        <target state="final">Формы</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Название</target>
@@ -151,10 +143,6 @@
         <source>Pages</source>
         <target state="final">Страницы</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
-        <source>Pages</source>
-        <target state="final">Страницы</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Название</target>
@@ -186,10 +174,6 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Связать с формой</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
-        <source>Fields</source>
-        <target state="final">Поля</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -498,10 +482,6 @@
       <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
         <source>Email or Name</source>
         <target state="final">Эл. почта или имя</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
-        <source>Answers</source>
-        <target state="final">Ответы</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
