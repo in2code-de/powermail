@@ -22,7 +22,7 @@ class PowermailPermissionUpdater implements UpgradeWizardInterface
 {
     public function getIdentifier(): string
     {
-        return 'txPowermailPluginPermissionUpdater';
+        return 'powermailPermissionUpdater';
     }
 
     public function getTitle(): string
