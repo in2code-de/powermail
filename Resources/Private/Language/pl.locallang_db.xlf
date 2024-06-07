@@ -7,10 +7,6 @@
         <source>Access</source>
         <target state="final">Dostęp</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
-        <source>Mails</source>
-        <target state="final">Poczta</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Nadawca</target>
@@ -67,10 +63,6 @@
         <source>Browser Language</source>
         <target state="final">Język przeglądarki</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
-        <source>Forms</source>
-        <target state="final">Formularze</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Tytuł formularza</target>
@@ -115,10 +107,6 @@
         <source>Pages</source>
         <target state="final">Strony</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
-        <source>Pages</source>
-        <target state="final">Strony</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Tytuł formularza</target>
@@ -150,10 +138,6 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Powiązany formularz</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
-        <source>Fields</source>
-        <target state="final">Pola</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -458,10 +442,6 @@
       <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
         <source>Email or Name</source>
         <target state="final">E-mail lub Nazwa</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
-        <source>Answers</source>
-        <target state="final">Odpowiedzi</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
