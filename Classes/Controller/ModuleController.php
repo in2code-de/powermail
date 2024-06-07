@@ -142,7 +142,7 @@ class ModuleController extends AbstractController
                     'mails' => $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars),
                     'fieldUids' => GeneralUtility::trimExplode(
                         ',',
-                        StringUtility::conditionalVariable($this->piVars['export']['fields'], ''),
+                        StringUtility::conditionalVariable($this->piVars['export']['fields'] ?? '', ''),
                         true
                     ),
                 ]
