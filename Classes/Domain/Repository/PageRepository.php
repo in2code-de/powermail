@@ -57,7 +57,7 @@ class PageRepository extends AbstractRepository
         $searchString .= '\n                    <value index=\"vDEF\">' . $form->getUid() . '</value>%';
         $sql = 'select distinct pages.title, pages.uid';
         $sql .= ' from pages left join tt_content on tt_content.pid = pages.uid';
-        $sql .= ' where tt_content.list_type = "powermail_pi1"';
+        $sql .= ' where (tt_content.CType = "list" and tt_content.list_type = "powermail_pi1" or tt_content.CType = "powermail_pi1")';
         $sql .= ' and tt_content.deleted = 0 and pages.deleted = 0';
         $sql .= ' and tt_content.pi_flexform like "' . $searchString . '"';
 
