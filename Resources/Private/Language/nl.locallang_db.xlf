@@ -3,10 +3,6 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="nl">
     <header/>
     <body>
-      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
-        <source>Mails</source>
-        <target state="final">E-mails</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.sender_mail" resname="tx_powermail_domain_model_mail.sender_mail" approved="yes">
         <source>Senders Email</source>
         <target state="final">E-mailadres afzender</target>
@@ -67,10 +63,6 @@
         <source>Browser Language</source>
         <target state="final">Taal browser</target>
       </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
-        <source>Forms</source>
-        <target state="final">Formulieren</target>
-      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Titel</target>
@@ -92,10 +84,6 @@
         <target state="final">Lay-out3</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages" approved="yes">
-        <source>Pages</source>
-        <target state="final">Pagina's</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
         <source>Pages</source>
         <target state="final">Pagina's</target>
       </trans-unit>
@@ -126,10 +114,6 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Gerelateerd formulier</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
-        <source>Fields</source>
-        <target state="final">Velden</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -370,10 +354,6 @@
       <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
         <source>Email or Name</source>
         <target state="final">E-mailadres of naam</target>
-      </trans-unit>
-      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
-        <source>Answers</source>
-        <target state="final">Antwoorden</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
