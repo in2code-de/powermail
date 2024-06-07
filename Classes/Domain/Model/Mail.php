@@ -543,7 +543,7 @@ class Mail extends AbstractEntity
     {
         $pageFunnel = $this->getMarketingPageFunnel();
         if (count($pageFunnel)) {
-            return (int) $pageFunnel[count($pageFunnel) - 1];
+            return (int)$pageFunnel[count($pageFunnel) - 1];
         }
         return 0;
     }
