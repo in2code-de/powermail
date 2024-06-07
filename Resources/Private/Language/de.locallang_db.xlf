@@ -7,6 +7,10 @@
         <source>Access</source>
         <target state="final">Zugriff</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Mail</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Sender</target>
@@ -91,6 +95,10 @@
         <source>Page Funnel which leads to this mail</source>
         <target state="final">Diese Seitenaufrufe führten zu dieser Mail (pagefunnel)</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Form</source>
+        <target state="final">Formular</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Bezeichnung</target>
@@ -143,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Seiten</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Page</source>
+        <target state="final">Seite</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Bezeichnung</target>
@@ -174,6 +186,10 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Verknüpftes Formular</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Field</source>
+        <target state="final">Feld</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -483,6 +499,10 @@
         <source>Email or Name</source>
         <target state="final">E-Mail oder Name</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answer</source>
+        <target state="final">Antwort</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
         <target state="final">Der übermittelte Text</target>
@@ -526,6 +546,10 @@
       <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
         <source>Choose a Powermail Form</source>
         <target state="final">Powermail Formular wählen</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote" approved="yes">
+        <source>Form overview</source>
+        <target state="final">Formular-Übersicht</target>
       </trans-unit>
       <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform" approved="yes">
         <source>Please select a form</source>
