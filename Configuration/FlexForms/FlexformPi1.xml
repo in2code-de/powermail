@@ -15,7 +15,6 @@
 							<renderType>selectMultipleSideBySide</renderType>
 							<items type="array">
 							</items>
-							<size>1</size>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<wizards>
