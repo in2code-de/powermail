@@ -204,15 +204,13 @@
 						</config>
 					</settings.flexform.receiver.subject>
 					<settings.flexform.receiver.body>
-						<exclude>1</exclude>
-						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.body</label>
-						<config>
-							<type>text</type>
-							<default>{powermail_all}</default>
-							<enableRichtext>1</enableRichtext>
-							<richtextConfiguration>default</richtextConfiguration>
-						</config>
-						<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
+                        <exclude>1</exclude>
+                        <label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.body</label>
+                        <config>
+                            <type>text</type>
+                            <default>{powermail_all}</default>
+                            <enableRichtext>1</enableRichtext>
+                        </config>
 					</settings.flexform.receiver.body>
 				</el>
 			</ROOT>
@@ -253,9 +251,7 @@
 							<type>text</type>
 							<default>{powermail_all}</default>
 							<enableRichtext>1</enableRichtext>
-							<richtextConfiguration>default</richtextConfiguration>
 						</config>
-						<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 					</settings.flexform.sender.body>
 				</el>
 			</ROOT>
@@ -272,9 +268,7 @@
 							<type>text</type>
 							<default>{powermail_all}</default>
 							<enableRichtext>1</enableRichtext>
-							<richtextConfiguration>default</richtextConfiguration>
 						</config>
-						<defaultExtras>richtext[]:rte_transform[mode=ts_css]</defaultExtras>
 					</settings.flexform.thx.body>
 					<settings.flexform.thx.redirect>
 						<exclude>1</exclude>
