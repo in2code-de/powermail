@@ -4,14 +4,23 @@
 ## Usage: initialize
 ## Example: "ddev initialize"
 
-if ! command -v "git-lfs" &> /dev/null
+HOST=https://www.in2code.de
+ASSET_PATH=fileadmin/static/extensions/powermail
+ASSET_VERSION=v12
+ASSETS=(powermail-fileadmin.tar.gz powermail-db.gz)
+
+if ! command -v "curl" &> /dev/null
 then
-    echo "COMMAND "git lfs" could not be found"
-    echo "Please install git-lfs support, see: https://git-lfs.github.com/"
+    echo "COMMAND "curl" could not be found"
+    echo "Please install curl for downloading necessary assets in development environment"
     exit
 fi
 
-git lfs pull
+for asset in "${ASSETS[@]}"
+do
+    echo "Downloading $asset"
+    curl -s $HOST/$ASSET_PATH/$ASSET_VERSION/$asset -o .project/data/$asset
+done
 
 echo "Symlink configuration"
 cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
@@ -22,13 +31,14 @@ ln -snf ../../../.project/typo3/settings.php .build/config/system/settings.php
 ln -snf ../../../.project/typo3/additional.php .build/config/system/additional.php
 
 echo "Importing database"
-ddev import-db --file=.project/data/db.sql.gz
+mv .project/data/powermail-db.gz .project/data/powermail-db.sql.gz
+ddev import-db --file=.project/data/powermail-db.sql.gz
 
 echo "Run 'composer install'"
 ddev composer install
 
 echo "Extracting fileadmin"
-tar xf .project/data/fileadmin.tar.gz -C .build/public/
+tar xf .project/data/powermail-fileadmin.tar.gz -C .build/public/
 
 echo "Copy .htaccess"
 cp .build/vendor/typo3/cms-install/Resources/Private/FolderStructureTemplateFiles/root-htaccess .build/public/.htaccess
