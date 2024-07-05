@@ -212,8 +212,10 @@ $fieldsTca = [
         'type' => 'type',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
-        'versioningWS' => true,
+        [
+            'label' => '',
+            'value' => 0,
+        ], 'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -351,8 +353,9 @@ $fieldsTca = [
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
+                [
+                    'label' => '',
+                    'value' => 0,
                 ],
                 'foreign_table' => Field::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Field::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
@@ -385,9 +388,7 @@ $fieldsTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
             ],
         ],
@@ -396,9 +397,7 @@ $fieldsTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
             ],
         ],
@@ -423,109 +422,109 @@ $fieldsTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer1',
-                        '--div--',
+                        'value' => '--div--',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.0',
-                        'input',
+                        'value' => 'input',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.1',
-                        'textarea',
+                        'value' => 'textarea',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.2',
-                        'select',
+                        'value' => 'select',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.3',
-                        'check',
+                        'value' => 'check',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.4',
-                        'radio',
+                        'value' => 'radio',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.5',
-                        'submit',
+                        'value' => 'submit',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer2',
-                        '--div--',
+                        'value' => '--div--',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.6',
-                        'captcha',
+                        'value' => 'captcha',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.7',
-                        'reset',
+                        'value' => 'reset',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.8',
-                        'text',
+                        'value' => 'text',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.9',
-                        'content',
+                        'value' => 'content',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.10',
-                        'html',
+                        'value' => 'html',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.11',
-                        'password',
+                        'value' => 'password',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.12',
-                        'file',
+                        'value' => 'file',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.13',
-                        'hidden',
+                        'value' => 'hidden',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.14',
-                        'date',
+                        'value' => 'date',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.17',
-                        'country',
+                        'value' => 'country',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.15',
-                        'location',
+                        'value' => 'location',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.16',
-                        'typoscript',
+                        'value' => 'typoscript',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer3',
-                        '--div--',
+                        'value' => '--div--',
                     ],
                 ],
                 'size' => 1,
@@ -616,16 +615,16 @@ $fieldsTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        0,
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
+                        'value' => 0,
                     ],
                     /**
                      * Spacer
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer1',
-                        '--div--',
+                        'value' =>  '--div--',
                     ],
                     /**
                      * EMAIL (+html5)
@@ -634,9 +633,9 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-type="email" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.1',
-                        1,
+                        'value' => 1,
                     ],
                     /**
                      * URL (+html5)
@@ -645,9 +644,9 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-type="url" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.2',
-                        2,
+                        'value' => 2,
                     ],
                     /**
                      * PHONE (+html5)
@@ -658,9 +657,9 @@ $fieldsTca = [
                      *        <input ... data-powermail-pattern="[\+]\d{2}[\(]\d{2}[\)]\d{4}[\-]\d{4}" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.3',
-                        3,
+                        'value' => 3,
                     ],
                     /**
                      * NUMBER/INTEGER (+html5)
@@ -669,9 +668,9 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-type="integer" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.4',
-                        4,
+                        'value' => 4,
                     ],
                     /**
                      * LETTERS (+html5)
@@ -680,17 +679,17 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-pattern="[a-zA-Z]*" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.5',
-                        5,
+                        'value' => 5,
                     ],
                     /**
                      * Spacer
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer2',
-                        '--div--',
+                        'value' => '--div--',
                     ],
                     /**
                      * MIN NUMBER (+html5)
@@ -700,9 +699,9 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-min="6" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.6',
-                        6,
+                        'value' => 6,
                     ],
                     /**
                      * MAX NUMBER (+html5)
@@ -712,9 +711,9 @@ $fieldsTca = [
                      * javascript example: <input type="text" data-powermail-max="12" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.7',
-                        7,
+                        'value' => 7,
                     ],
                     /**
                      * RANGE (+html5)
@@ -725,9 +724,9 @@ $fieldsTca = [
                      *        <input type="text" data-powermail-type="range" min="1" max="10" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.8',
-                        8,
+                        'value' => 8,
                     ],
                     /**
                      * LENGTH
@@ -737,9 +736,9 @@ $fieldsTca = [
                      *        <input type="text" data-powermail-length="[6, 10]" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.9',
-                        9,
+                        'value' => 9,
                     ],
                     /**
                      * PATTERN (+html5)
@@ -750,17 +749,17 @@ $fieldsTca = [
                      *        <input type="text" data-powermail-pattern="https?://.+" />
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.validation.10',
-                        10,
+                        'value' => 10,
                     ],
                     /**
                      * Spacer
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.type.spacer3',
-                        '--div--',
+                        'value' => '--div--',
                     ],
                 ],
                 'size' => 1,
@@ -812,58 +811,58 @@ $fieldsTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        '',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
+                        'value' => '',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.name',
-                        'name',
+                        'value' => 'name',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.address',
-                        'address',
+                        'value' => 'address',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.phone',
-                        'telephone',
+                        'value' => 'telephone',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.fax',
-                        'fax',
+                        'value' => 'fax',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.email',
-                        'email',
+                        'value' => 'email',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.zip',
-                        'zip',
+                        'value' => 'zip',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.city',
-                        'city',
+                        'value' => 'city',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.country',
-                        'country',
+                        'value' => 'country',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.www',
-                        'www',
+                        'value' => 'www',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.feuser_value.company',
-                        'company',
+                        'value' => 'company',
                     ],
                 ],
                 'size' => 1,
@@ -892,24 +891,24 @@ $fieldsTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        '',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
+                        'value' => '',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.1',
-                        'layout1',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.1',
+                        'value' =>  'layout1',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.2',
-                        'layout2',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.2',
+                        'value' => 'layout2',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.3',
-                        'layout3',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.3',
+                        'value' => 'layout3',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.4',
-                        'nolabel',
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.css.4',
+                        'value' => 'nolabel',
                     ],
                 ],
                 'size' => 1,
@@ -936,19 +935,19 @@ $fieldsTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.datepicker_settings.1',
-                        'date',
+                        'value' => 'date',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.datepicker_settings.2',
-                        'datetime',
+                        'value' => 'datetime',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Field::TABLE_NAME . '.datepicker_settings.3',
-                        'time',
+                        'value' => 'time',
                     ],
                 ],
                 'size' => 1,
@@ -1013,7 +1012,10 @@ $fieldsTca = [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    [
+                        'label' =>'',
+                        'value' => 0
+                    ],
                 ],
                 'foreign_table' => Page::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### ' .
