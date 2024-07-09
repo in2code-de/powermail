@@ -22,7 +22,6 @@ $mailsTca = [
         'label' => 'sender_mail',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
@@ -63,7 +62,10 @@ $mailsTca = [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
                 ],
                 'foreign_table' => Mail::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Mail::TABLE_NAME . '.pid=###CURRENT_PID### and ' .
@@ -96,9 +98,7 @@ $mailsTca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
             ],
         ],
@@ -107,9 +107,7 @@ $mailsTca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
+                'type' => 'datetime',
                 'default' => 0,
             ],
         ],
@@ -117,10 +115,8 @@ $mailsTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.crdate',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime',
-                'size' => 30,
+                'type' => 'datetime',
+                'default' => 0,
                 'readOnly' => 1,
             ],
         ],
@@ -249,11 +245,8 @@ $mailsTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Mail::TABLE_NAME . '.time',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'timesec',
+                'type' => 'datetime',
                 'size' => 13,
-                'checkbox' => 0,
                 'default' => 0,
                 'readOnly' => 1,
             ],
@@ -331,9 +324,8 @@ $mailsTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Mail::TABLE_NAME . '.marketing_frontend_language',
             'config' => [
-                'type' => 'input',
                 'size' => 2,
-                'eval' => 'int',
+                'type' => 'number',
                 'readOnly' => 1,
                 'default' => 0,
             ],
