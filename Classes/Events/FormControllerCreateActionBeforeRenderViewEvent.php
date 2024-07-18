@@ -5,6 +5,7 @@ namespace In2code\Powermail\Events;
 
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 final class FormControllerCreateActionBeforeRenderViewEvent
 {
@@ -12,6 +13,11 @@ final class FormControllerCreateActionBeforeRenderViewEvent
      * @var Mail
      */
     protected Mail $mail;
+
+    /**
+     * @var ViewInterface|null
+     */
+    protected ?ViewInterface $view;
 
     /**
      * @var string
@@ -27,12 +33,14 @@ final class FormControllerCreateActionBeforeRenderViewEvent
      * @param Mail $mail
      * @param string $hash
      * @param FormController $formController
+     * @param ViewInterface|null $view
      */
-    public function __construct(Mail $mail, string $hash, FormController $formController)
+    public function __construct(Mail $mail, string $hash, FormController $formController, ?ViewInterface $view=null)
     {
         $this->mail = $mail;
         $this->hash = $hash;
         $this->formController = $formController;
+        $this->view = $view;
     }
 
     public function setMail(Mail $mail): void
@@ -46,6 +54,22 @@ final class FormControllerCreateActionBeforeRenderViewEvent
     public function getMail(): Mail
     {
         return $this->mail;
+    }
+
+    /**
+     * @return ViewInterface|null
+     */
+    public function getView(): ?ViewInterface
+    {
+        return $this->view;
+    }
+
+    /**
+     * @param ViewInterface|null $view
+     */
+    public function setView(?ViewInterface $view): void
+    {
+        $this->view = $view;
     }
 
     /**

@@ -5,6 +5,7 @@ namespace In2code\Powermail\Events;
 
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 final class FormControllerOptinConfirmActionBeforeRenderViewEvent
 {
@@ -13,6 +14,11 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
      */
     protected Mail $mail;
 
+    /**
+     * @var ViewInterface|null
+     */
+    protected ?ViewInterface $view;
+    
     /**
      * @var string
      */
@@ -27,12 +33,14 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
      * @param Mail $mail
      * @param string $hash
      * @param FormController $formController
+     * @param ViewInterface|null $view
      */
-    public function __construct(Mail $mail, string $hash, FormController $formController)
+    public function __construct(Mail $mail, string $hash, FormController $formController, ?ViewInterface $view=null)
     {
         $this->mail = $mail;
         $this->hash = $hash;
         $this->formController = $formController;
+        $this->view = $view;
     }
 
     /**
@@ -44,11 +52,27 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
     }
 
     /**
-     * @param int $mail
+     * @param Mail $mail
      */
     public function setMail(Mail $mail): void
     {
         $this->mail = $mail;
+    }
+
+    /**
+     * @return ViewInterface|null
+     */
+    public function getView(): ?ViewInterface
+    {
+        return $this->view;
+    }
+
+    /**
+     * @param ViewInterface|null $view
+     */
+    public function setView(?ViewInterface $view): void
+    {
+        $this->view = $view;
     }
 
     /**
