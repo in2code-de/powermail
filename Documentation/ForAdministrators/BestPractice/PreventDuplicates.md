@@ -62,7 +62,7 @@ plugin.tx_powermail.settings.setup {
 }
 
 # turn validation on if GET/POST param with field timestamppreventduplicates exists
-[traverse(request.getQueryParams(), 'tx_powermail_pi1/field/timestamppreventduplicates') > 0]
+[traverse(request.getParsedBody(), 'tx_powermail_pi1/field/timestamppreventduplicates') > 0]
     plugin.tx_powermail.settings.setup.validation.unique.timestamppreventduplicates = 1
 [end]
 ```
