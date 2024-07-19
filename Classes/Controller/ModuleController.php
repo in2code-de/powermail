@@ -101,7 +101,7 @@ class ModuleController extends AbstractController
             }
         }
 
-        $itemsPerPage = $this->settings['perPage'] ?? 10;
+        $itemsPerPage = (int)$this->settings['perPage'] ?? 10;
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
         $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);
 
