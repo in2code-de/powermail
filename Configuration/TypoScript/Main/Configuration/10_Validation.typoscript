@@ -9,6 +9,11 @@ plugin.tx_powermail.settings.setup {
     # enable serverside validation
     server = {$plugin.tx_powermail.settings.validation.server}
 
+    morestep {
+      # enable clientside fieldset validation for morestep forms on step change
+      fieldset = {$plugin.tx_powermail.settings.validation.morestep.fieldset}
+    }
+
     unique {
       # EXAMPLE: Enable unique check for {email}
       #email = 1
