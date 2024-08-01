@@ -26,6 +26,7 @@ $pagesTca = [
             'endtime' => 'endtime',
         ],
         'iconfile' => ConfigurationUtility::getIconPath(Page::TABLE_NAME . '.gif'),
+        'searchFields' => 'title',
     ],
     'interface' => [
     ],

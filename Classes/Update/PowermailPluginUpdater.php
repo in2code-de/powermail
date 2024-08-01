@@ -112,7 +112,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
             $flexForm = $this->flexFormService->convertFlexFormContentToArray($record['pi_flexform']);
 
             if ($list_type === 'powermail_pi2') {
-                $targetCType = $this->getTargetListType($flexForm['switchableControllerActions']);
+                $targetCType = $this->getTargetListType($flexForm['switchableControllerActions'] ?? '');
                 $allowedSettings = $this->getAllowedSettingsFromFlexForm($targetCType);
                 foreach ($flexFormData['data'] as $sheetKey => $sheetData) {
                     foreach ($sheetData['lDEF'] as $settingName => $setting) {
@@ -138,7 +138,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
             }
 
             // Remove flexform data which do not exist in flexform of new plugin
-            $this->updateContentElement($record['uid'], $targetCType, $newFlexform);
+            $this->updateContentElement($record['uid'], $targetCType, (string)$newFlexform);
         }
 
         return true;
@@ -181,7 +181,10 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
 
     protected function getAllowedSettingsFromFlexForm(string $listType): array
     {
-        $flexFormFile = $GLOBALS['TCA']['tt_content']['columns']['pi_flexform']['config']['ds']['*,' . $listType];
+        $flexFormFile = $GLOBALS['TCA']['tt_content']['columns']['pi_flexform']['config']['ds']['*,' . $listType] ?? null;
+        if (!$flexFormFile) {
+            return [];
+        }
         $flexFormContent = file_get_contents(GeneralUtility::getFileAbsFileName(substr(trim($flexFormFile), 5)));
         $flexFormData = GeneralUtility::xml2array($flexFormContent);
 

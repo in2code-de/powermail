@@ -39,7 +39,8 @@
 		"ext-curl": "*"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "*"
+		"sjbr/static-info-tables": "*",
+		"jambagecom/base-excel": "^v1.29.0"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"

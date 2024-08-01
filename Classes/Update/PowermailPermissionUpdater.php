@@ -22,7 +22,7 @@ class PowermailPermissionUpdater implements UpgradeWizardInterface
 {
     public function getIdentifier(): string
     {
-        return 'txPowermailPluginPermissionUpdater';
+        return 'powermailPermissionUpdater';
     }
 
     public function getTitle(): string
@@ -113,7 +113,7 @@ class PowermailPermissionUpdater implements UpgradeWizardInterface
             'tt_content:list_type:powermail_pi1' => $pi1Replacement,
         ];
 
-        $newList = str_replace(array_keys($searchReplace), array_values($searchReplace), $row['explicit_allowdeny']);
+        $newList = str_replace(array_keys($searchReplace), array_values($searchReplace), $row['explicit_allowdeny'] ?? '');
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('be_groups');
         $queryBuilder->update('be_groups')
             ->set('explicit_allowdeny', $newList)

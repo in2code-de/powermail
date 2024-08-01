@@ -5,9 +5,9 @@
 You can extend powermail fields with new properties to insert (e.g.) a checkbox for readonly or disabled or
 something else.
 
-Following example shows two new fields in a new tab "Powermailextended".  
+Following example shows two new fields in a new tab "Powermailextended".
 The first is an input field of type textarea. If the user entered text for this field this text shall
-be displayed.  
+be displayed.
 The second field is a checkbox. If this checkbox was checked from an editor, the input field should use
 the html-attribute readonly="readonly".
 
@@ -336,8 +336,7 @@ class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository
 
 Last but not least don't forget to add your static TypoScript template to your powermail page, otherwise the partials will not be used.
 
-Example Code
-""""""""""""
+## Example Code
 
 Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:

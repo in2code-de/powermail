@@ -105,9 +105,9 @@ class DatabaseUtility
             return (int)$queryBuilder
                     ->count($fieldName)
                     ->from($tableName)
-                    ->where($fieldName . ' != "" and ' . $fieldName . ' != 0')
+                    ->where($fieldName . ' != \'\' and ' . $fieldName . ' != 0')
                     ->executeQuery()
-                    ->rowCount() > 0;
+                    ->fetchOne() > 0;
         }
         return false;
     }

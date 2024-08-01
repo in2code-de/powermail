@@ -4,7 +4,7 @@
  * @params {jQuery} $
  * @class PowermailBackend
  */
-function PowermailBackend($) {
+function PowermailBackend($, Modal) {
   'use strict';
 
   /**
@@ -236,6 +236,22 @@ function PowermailBackend($) {
   var addExportListener = function () {
     // On export
     $('.export_icon_xls, .export_icon_csv').click(function () {
+      if ($(this).hasClass('export_icon_xls_not_available')) {
+        return Modal.confirm(
+          $(this).data('modal-title'),
+          $(this).data('modal-text'),
+          2,
+          [
+            {
+              text: $(this).data('modal-cancel'),
+              btnClass: 'btn-default',
+              name: 'abort',
+              trigger: function (){
+                Modal.dismiss();
+              }
+            }
+          ]);
+      }
       if ($(this).hasClass('export_icon_csv')) {
         $('#forwardToAction').val('exportCsv');
       }
@@ -630,14 +646,15 @@ requirejs.config({
 define(
   [
     'jquery',
+    'TYPO3/CMS/Backend/Modal',
     'TYPO3/CMS/Powermail/Libraries/jquery-ui.min',
     'TYPO3/CMS/Powermail/Libraries/jquery.flot.min',
     'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min',
     'TYPO3/CMS/Powermail/Libraries/bootstrap.min',
   ],
-  function ($) {
+  function ($, Modal) {
     $(document).ready(function ($) {
-      var PowermailBackend = new window.PowermailBackend($);
+      var PowermailBackend = new window.PowermailBackend($, Modal);
       PowermailBackend.initialize();
     });
   });

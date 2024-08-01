@@ -188,8 +188,7 @@ class IpBreaker extends AbstractBreaker
 ```
 
 
-Some notices
-""""""""""""
+## Some notices
 
 * You have to add the method isDisabled() and you have to return a boolean value
 * The method initialize() will always be called at first

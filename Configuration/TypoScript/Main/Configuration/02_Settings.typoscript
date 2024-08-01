@@ -11,7 +11,7 @@ plugin.tx_powermail.settings.setup {
   }
 
   misc {
-    # HTML Output for type HMTL fields
+    # HTML Output for type HTML fields
     htmlForHtmlFields = {$plugin.tx_powermail.settings.misc.htmlForHtmlFields}
 
     # HTML for labels

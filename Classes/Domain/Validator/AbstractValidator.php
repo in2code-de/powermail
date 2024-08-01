@@ -108,15 +108,17 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * Validation should be in mostly workflows only on first action. This is createAction. But if confirmation is
      * turned on, validation should work in most cases on the confirmationAction.
      *
+     * ToDo: for v13 rename the actions in the condition
+     *
      * @return bool
      */
     public function isFirstActionForValidation(): bool
     {
         $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
-            return $arguments['action'] === 'confirmation';
+            return $arguments['action'] === 'checkConfirmation';
         }
-        return $arguments['action'] === 'create';
+        return $arguments['action'] === 'checkCreate';
     }
 
     /**
@@ -132,8 +134,10 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         $this->settings = $configurationService->getTypoScriptSettings();
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         $this->flexForm = $flexFormService->convertFlexFormContentToArray(
+            // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
+            // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
             // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-            $configurationManager->getContentObject()->data['pi_flexform']
+            $configurationManager->getContentObject()->data['pi_flexform'] ?? ''
         );
     }
 

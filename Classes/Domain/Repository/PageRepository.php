@@ -40,7 +40,8 @@ class PageRepository extends AbstractRepository
     public function getPropertiesFromUid(int $uid): array
     {
         $connection = DatabaseUtility::getConnectionForTable('pages');
-        return $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        $properties = $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        return $properties ?: [];
     }
 
     /**
@@ -57,7 +58,7 @@ class PageRepository extends AbstractRepository
         $searchString .= '\n                    <value index=\"vDEF\">' . $form->getUid() . '</value>%';
         $sql = 'select distinct pages.title, pages.uid';
         $sql .= ' from pages left join tt_content on tt_content.pid = pages.uid';
-        $sql .= ' where tt_content.list_type = "powermail_pi1"';
+        $sql .= ' where (tt_content.CType = "list" and tt_content.list_type = "powermail_pi1" or tt_content.CType = "powermail_pi1")';
         $sql .= ' and tt_content.deleted = 0 and pages.deleted = 0';
         $sql .= ' and tt_content.pi_flexform like "' . $searchString . '"';
 
@@ -77,7 +78,7 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where('(form = \'\' or form = 0) and sys_language_uid > 0 and deleted = 0')
             ->executeQuery()
             ->fetchAllAssociative();
     }

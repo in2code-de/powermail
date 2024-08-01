@@ -91,4 +91,10 @@ final class SendMailServicePrepareAndSendEvent
         $this->allowedToSend = $allowedToSend;
         return $this;
     }
+
+    public function setMailMessage(MailMessage $mailMessage): SendMailServicePrepareAndSendEvent
+    {
+        $this->mailMessage = $mailMessage;
+        return $this;
+    }
 }

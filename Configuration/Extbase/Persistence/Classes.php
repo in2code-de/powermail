@@ -15,9 +15,9 @@ return [
         'tableName' => 'fe_groups',
     ],
     BackendUser::class => [
-        'tableName' => 'fe_users',
+        'tableName' => 'be_users',
     ],
     BackendUserGroup::class => [
-        'tableName' => 'fe_groups',
+        'tableName' => 'be_groups',
     ],
 ];

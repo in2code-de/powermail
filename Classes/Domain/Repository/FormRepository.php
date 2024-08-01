@@ -149,7 +149,7 @@ class FormRepository extends AbstractRepository
 
         $sql = 'select uid,pid,title';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where pages = ""';
+        $sql .= ' where pages = \'\'';
         $sql .= ' and sys_language_uid > 0';
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
@@ -167,7 +167,7 @@ class FormRepository extends AbstractRepository
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $queryBuilder
             ->update(Form::TABLE_NAME)
-            ->where('sys_language_uid > 0 and deleted = 0 and pages = ""')
+            ->where('sys_language_uid > 0 and deleted = 0 and pages = \'\'')
             ->set('pages', 0)
             ->executeStatement();
     }
@@ -182,7 +182,7 @@ class FormRepository extends AbstractRepository
     public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
-        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" and f.sys_language_uid IN (-1,0)' .
+        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != \'submit\' and f.sys_language_uid IN (-1,0)' .
             ' and fo.uid = ' . (int)$formUid;
         return $queryBuilder
             ->select('f.uid', 'f.title', 'f.sender_email', 'f.sender_name', 'f.marker')
