@@ -12,6 +12,7 @@ use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -66,15 +67,17 @@ class FormSelectorUserFunc
      */
     public function getForms(array &$params): void
     {
-        $params['items'] = [];
-        $language = (int)$params['flexParentDatabaseRow']['sys_language_uid'];
-        foreach ($this->getStartPids() as $startPid) {
-            foreach ($this->getAllForms((int)$startPid, $language) as $form) {
-                if ($this->hasUserAccessToPage((int)$form['pid'])) {
-                    $params['items'][] = [
-                        BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
-                        (int)$form['uid'],
-                    ];
+        if (ArrayUtility::isValidPath($params, 'flexParentDatabaseRow/sys_language_uid')) {
+            $params['items'] = [];
+            $language = (int)$params['flexParentDatabaseRow']['sys_language_uid'];
+            foreach ($this->getStartPids() as $startPid) {
+                foreach ($this->getAllForms((int)$startPid, $language) as $form) {
+                    if ($this->hasUserAccessToPage((int)$form['pid'])) {
+                        $params['items'][] = [
+                            BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
+                            (int)$form['uid'],
+                        ];
+                    }
                 }
             }
         }
