@@ -123,6 +123,9 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail): void
     {
+        if ($mail->getUid() !== null) {
+            $this->forward('form');
+        }
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
