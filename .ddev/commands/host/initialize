@@ -16,6 +16,9 @@ then
     exit
 fi
 
+# Create data directory
+mkdir -p .project/data
+
 for asset in "${ASSETS[@]}"
 do
     echo "Downloading $asset"
