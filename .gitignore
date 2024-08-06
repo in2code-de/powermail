@@ -30,5 +30,5 @@ config/
 /.phpunit.result.cache
 /phpunit.xml.dist.bak
 
-.project/data/screenshots
+.project/data
 /.phpunit.cache/
