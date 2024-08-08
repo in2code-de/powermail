@@ -120,6 +120,21 @@ class FormController extends AbstractController
         return (new ForwardResponse('confirmation'))->withArguments($this->request->getArguments());
     }
 
+
+    public function initializeCheckConfirmationAction(): void
+    {
+        // ToDo -- v13: move exceptions to methods
+        $response = $this->forwardIfMailParamEmpty();
+        if ($response !== null) {
+            throw new PropagateResponseException($response);
+        }
+
+        $response = $this->forwardIfFormParamsDoNotMatch();
+        if ($response !== null) {
+            throw new PropagateResponseException($response);
+        }
+    }
+
     /**
      * @return void
      * @throws DeprecatedException
