@@ -247,6 +247,10 @@
         <source>Please decrease number!</source>
         <target state="final">Veuillez diminuer le nombre !</target>
       </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
+        <source>Number too high or too low!</source>
+        <target state="final">Nombre trop élevé ou trop bas faible !</target>
+      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Votre entrée n'est pas valide (trop ou pas assez de caractères)</target>
@@ -262,6 +266,10 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Le fichier que vous voulez télécharger est trop volumineux !</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
+        <source>Upload failed, please check permissions on the server!</source>
+        <target state="final">Échec du téléchargement, veuillez vérifier les permissions sur le serveur !</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
@@ -463,6 +471,10 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">Chemin du ParseFunc dans le TypoScript (sans préfixe lib.).</target>
       </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
+        <source>If you have trouble with form converting, you can leave this value empty.</source>
+        <target state="final">Si vous avez des problèmes avec la conversion de formulaire, vous pouvez laisser cette valeur complètement vide.</target>
+      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Ignorer les anciens formulaires cachés</target>
@@ -595,6 +607,10 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Les sessions en frontend fonctionnent correctement en utilisant $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() et -&gt;setKey()</target>
       </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
+        <source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target state="final">Les sessions frontend ne fonctionnent pas correctement en utilisant $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() et -&gt;setKey() - veuillez contacter votre administrateur</target>
+      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Gestionnaire d'extensions mis à jour</target>
@@ -614,6 +630,10 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Dernière mise à jour du gestionnaire d'extension</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">Il n'a pas pu être vérifié si cette version est sécurisée ou non sécurisée. Veuillez mettre à jour les extensions dans le gestionnaire d'extensions.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -647,6 +667,10 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Le dossier de téléchargement par défaut existe (uploads/tx_powermail/)</target>
       </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
+        <source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
+        <target state="final">Le dossier de téléchargement par défaut n'existe pas (uploads/tx_powermail/)</target>
+      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Formulaires localisés</target>
@@ -678,6 +702,10 @@
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Contexte de développement</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
+        <source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
+        <target state="final">Cette instance de TYPO3 est en cours d'exécution dans le contexte de développement. Tous les courriels ne seront envoyés qu'à %s.</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
         <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -758,6 +786,14 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">Statut de l'envoi d'email</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
+        <source>Email was sent without problems (mail transmitted to mailserver)</source>
+        <target state="final">E-mail envoyé sans problème (mail transmis au serveur de messagerie)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
+        <source>Email could not be sent properly (ask your Adminstrator)</source>
+        <target state="final">L'email n'a pas pu être envoyé correctement (contactez votre administrateur)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -963,6 +999,10 @@
         <source>Filter Now</source>
         <target state="final">Filtrer maintenant</target>
       </trans-unit>
+      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail" approved="yes">
+        <source>Please edit your filter settings.</source>
+        <target state="final">Veuillez modifier vos paramètres de filtre.</target>
+      </trans-unit>
       <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
         <source>Details</source>
         <target state="final">Détails</target>
@@ -1031,6 +1071,10 @@
         <source>Emails</source>
         <target state="final">E-mail</target>
       </trans-unit>
+      <trans-unit id="FormField" resname="FormField" approved="yes">
+        <source>Form field</source>
+        <target state="final">Champ de formulaire</target>
+      </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
         <target state="final">Information marketing</target>
@@ -1046,6 +1090,18 @@
       <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
         <source>Delete All Files</source>
         <target state="final">Supprimer tous les fichiers</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalTitle" resname="" approved="yes">
+        <source>Information</source>
+        <target state="final">Information</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalText" resname="" approved="yes">
+        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+        <target state="final">Vous pouvez utiliser l'export CSV dans Excel. Si vous voulez exporter des fichiers au format XLS l'extension TYPO3 base_excel doit être installée. Plus d'informations : https://github.com/franzholz/base_excel</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalCancel" resname="" approved="yes">
+        <source>Close</source>
+        <target state="final">Fermer</target>
       </trans-unit>
     </body>
   </file>
