@@ -134,8 +134,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
                 }
             } else {
                 $targetCType = 'powermail_pi1';
-                $newFlexform = $record['pi_flexform'];
-            }
+                $newFlexform = $record['pi_flexform'] ?? '';            }
 
             // Remove flexform data which do not exist in flexform of new plugin
             $this->updateContentElement($record['uid'], $targetCType, (string)$newFlexform);
