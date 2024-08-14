@@ -54,6 +54,10 @@ class OutputController extends AbstractController
      */
     public function showAction(Mail $mail)
     {
+        if (!FrontendUtility::isAllowedToView($this->settings, $mail)) {
+            $this->forward('list');
+        }
+
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
             [
@@ -70,6 +74,15 @@ class OutputController extends AbstractController
      */
     public function editAction(Mail $mail = null)
     {
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
+            $this->controllerContext = $this->buildControllerContext();
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->forward('list');
+        }
         $fieldArray = $this->getFieldList($this->settings['edit']['fields']);
         $this->view->assignMultiple(
             [
