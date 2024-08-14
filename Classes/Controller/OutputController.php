@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
@@ -65,6 +64,10 @@ class OutputController extends AbstractController
      */
     public function showAction(Mail $mail): void
     {
+        if (!FrontendUtility::isAllowedToView($this->settings, $mail)) {
+            $this->forward('list');
+        }
+
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
             [
@@ -73,6 +76,36 @@ class OutputController extends AbstractController
             ]
         );
         $this->assignMultipleActions();
+    }
+
+    /**
+     * @return void
+     * @throws InvalidArgumentNameException
+     * @throws InvalidQueryException
+     * @throws InvalidSlotException
+     * @throws InvalidSlotReturnException
+     * @throws NoSuchArgumentException
+     * @throws StopActionException
+     * @throws DBALException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws Exception
+     * @throws DeprecatedException
+     * @noinspection PhpUnused
+     */
+    public function initializeEditAction(): void
+    {
+        $arguments = $this->request->getArguments();
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
+            $this->controllerContext = $this->buildControllerContext();
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
+                '',
+                AbstractMessage::ERROR
+            );
+            $this->forward('list');
+        }
+        $this->reformatParamsForAction();
     }
 
     /**
