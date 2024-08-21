@@ -6,7 +6,6 @@ Changelog
 
 All changes are documented on https://docs.typo3.org/typo3cms/extensions/powermail/Changelog/
 
-
 .. t3-field-list-table::
  :header-rows: 1
 
@@ -16,6 +15,14 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Date
    :Changes:
       Release Description
+
+ - :Version:
+      7.5.0
+   :Date:
+      2024-08-21
+   :Changes:
+      * Security: harden access checks for several controllers
+      * Security: remove export actions and templates
 
  - :Version:
       7.4.3

@@ -31,10 +31,10 @@ call_user_func(function () {
         'In2code.powermail',
         'Pi2',
         [
-            'Output' => 'list, show, edit, update, export, rss, delete'
+            'Output' => 'list, show, edit, update, delete'
         ],
         [
-            'Output' => 'list, edit, update, export, rss, delete'
+            'Output' => 'list, edit, update, delete'
         ]
     );
 

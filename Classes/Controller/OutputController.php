@@ -162,66 +162,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param array $export Field Array with mails and format
-     * @return void
-     * @throws InvalidQueryException
-     * @throws StopActionException
-     */
-    public function exportAction($export = [])
-    {
-        if (!$this->settings['list']['export']) {
-            return;
-        }
-        $mails = $this->mailRepository->findByUidList($export['fields']);
-
-        // get field array for output
-        if ($this->settings['list']['fields']) {
-            $fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], true);
-        } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm($this->settings['main']['form']);
-        }
-        $fields = $this->fieldRepository->findByUids($fieldArray);
-
-        if ($export['format'] === 'xls') {
-            $this->forward('exportXls', null, null, ['mails' => $mails, 'fields' => $fields]);
-        }
-        $this->forward('exportCsv', null, null, ['mails' => $mails, 'fields' => $fields]);
-    }
-
-    /**
-     * @param QueryResult $mails mails objects
-     * @param array $fields uid field list
-     * @return void
-     */
-    public function exportXlsAction(QueryResult $mails = null, $fields = [])
-    {
-        $this->view->assign('mails', $mails);
-        $this->view->assign('fields', $fields);
-    }
-
-    /**
-     * @param QueryResult $mails mails objects
-     * @param array $fields uid field list
-     * @return void
-     */
-    public function exportCsvAction(QueryResult $mails = null, $fields = [])
-    {
-        $this->view->assign('mails', $mails);
-        $this->view->assign('fields', $fields);
-    }
-
-    /**
-     * @return void
-     * @throws InvalidQueryException
-     */
-    public function rssAction()
-    {
-        $mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
-        $this->view->assign('mails', $mails);
-        $this->assignMultipleActions();
-    }
-
-    /**
      * Object initialization
      *
      * @return void
