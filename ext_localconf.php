@@ -32,10 +32,10 @@ call_user_func(function () {
         'Powermail',
         'Pi2',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
         ]
     );
 

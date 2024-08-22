@@ -65,12 +65,16 @@ class OutputController extends AbstractController
 
     /**
      * @param Mail $mail
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      * @throws Exception
      */
     public function showAction(Mail $mail): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToView($this->settings, $mail)) {
+            return (new ForwardResponse('list'));
+        }
+
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
             [
@@ -84,12 +88,21 @@ class OutputController extends AbstractController
 
     /**
      * @param Mail $mail
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      * @throws Exception
      */
     public function editAction(Mail $mail = null): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
+                '',
+                AbstractMessage::ERROR
+            );
+            return new ForwardResponse('list');
+        }
+
         $fieldArray = $this->getFieldList($this->settings['edit']['fields']);
         $this->view->assignMultiple(
             [
@@ -118,23 +131,13 @@ class OutputController extends AbstractController
      */
     public function initializeUpdateAction()
     {
-        $arguments = $this->request->getArguments();
-        if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
-            $this->controllerContext = $this->buildControllerContext();
-            $this->addFlashmessage(
-                LocalizationUtility::translate('PowermailFrontendEditFailed'),
-                '',
-                AbstractMessage::ERROR
-            );
-            return new ForwardResponse('list');
-        }
         $this->reformatParamsForAction();
     }
 
     /**
      * @param Mail $mail
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
-     * @return void
+     * @return ResponseInterface
      * @throws StopActionException
      * @throws UnsupportedRequestTypeException
      * @throws IllegalObjectTypeException
@@ -142,26 +145,32 @@ class OutputController extends AbstractController
      * @throws \Exception
      * @noinspection PhpUnused
      */
-    public function updateAction(Mail $mail): void
+    public function updateAction(Mail $mail): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
+                '',
+                AbstractMessage::ERROR
+            );
+            return new ForwardResponse('list');
+        }
+
         $this->uploadService->uploadAllFiles();
         $this->mailRepository->update($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
-        $this->redirect('edit', null, null, ['mail' => $mail]);
+        return (new ForwardResponse('edit'))->withArguments(['mail' => $mail]);
     }
 
     /**
-     * @return void
-     * @throws DBALException
-     * @throws Exception
-     * @throws StopActionException
+     * @param Mail $mail
+     * @return ResponseInterface
+     * @throws IllegalObjectTypeException
      * @noinspection PhpUnused
      */
-    public function initializeDeleteAction()
+    public function deleteAction(Mail $mail): ResponseInterface
     {
-        $arguments = $this->request->getArguments();
-        if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['mail'])) {
-            $this->controllerContext = $this->buildControllerContext();
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
             $this->addFlashmessage(
                 LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
                 '',
@@ -169,88 +178,10 @@ class OutputController extends AbstractController
             );
             return new ForwardResponse('list');
         }
-    }
 
-    /**
-     * @param Mail $mail
-     * @return void
-     * @throws IllegalObjectTypeException
-     * @noinspection PhpUnused
-     */
-    public function deleteAction(Mail $mail): ResponseInterface
-    {
         $this->assignMultipleActions();
         $this->mailRepository->remove($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful'));
-        return $this->htmlResponse();
-    }
-
-    /**
-     * @param array $export Field Array with mails and format
-     * @return void
-     * @throws InvalidQueryException
-     * @throws StopActionException
-     * @throws Exception
-     * @noinspection PhpUnused
-     */
-    public function exportAction(array $export = []): ResponseInterface
-    {
-        if (!$this->settings['list']['export']) {
-            return $this->htmlResponse(null);
-        }
-        $mails = $this->mailRepository->findByUidList($export['fields']);
-
-        // get field array for output
-        if ($this->settings['list']['fields']) {
-            $fieldArray = GeneralUtility::trimExplode(',', $this->settings['list']['fields'], true);
-        } else {
-            $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
-        }
-        $fields = $this->fieldRepository->findByUids($fieldArray);
-
-        if ($export['format'] === 'xls') {
-            return (new ForwardResponse('exportXls'))->withArguments(['mails' => $mails, 'fields' => $fields]);
-        }
-        return (new ForwardResponse('exportCsv'))->withArguments(['mails' => $mails, 'fields' => $fields]);
-        return $this->htmlResponse();
-    }
-
-    /**
-     * @param QueryResult $mails mails objects
-     * @param array $fields uid field list
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function exportXlsAction(QueryResult $mails = null, array $fields = []): ResponseInterface
-    {
-        $this->view->assign('mails', $mails);
-        $this->view->assign('fields', $fields);
-        return $this->htmlResponse();
-    }
-
-    /**
-     * @param QueryResult $mails mails objects
-     * @param array $fields uid field list
-     * @return void
-     * @noinspection PhpUnused
-     */
-    public function exportCsvAction(QueryResult $mails = null, array $fields = []): ResponseInterface
-    {
-        $this->view->assign('mails', $mails);
-        $this->view->assign('fields', $fields);
-        return $this->htmlResponse();
-    }
-
-    /**
-     * @return void
-     * @throws InvalidQueryException
-     * @noinspection PhpUnused
-     */
-    public function rssAction(): ResponseInterface
-    {
-        $mails = $this->mailRepository->findListBySettings($this->settings, $this->piVars);
-        $this->view->assign('mails', $mails);
-        $this->assignMultipleActions();
         return $this->htmlResponse();
     }
 

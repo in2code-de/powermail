@@ -154,6 +154,21 @@ class FrontendUtility
         return false;
     }
 
+    public static function isAllowedToView(array $settings, Mail $mail): bool
+    {
+        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        if (
+            $feUser === 0 ||
+            (
+                (int)$settings['list']['showownonly'] === 1
+                && $mail->getFeuser()->getUid() !== $feUser
+            )
+        ) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Is a frontend user logged in
      *

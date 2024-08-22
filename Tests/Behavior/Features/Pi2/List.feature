@@ -25,15 +25,14 @@ Feature: List
     Then I should see "Olli"
     Then the sourcecode should contain '<li class="disabled">'
     Then the sourcecode should contain '<a href="#">Z</a>'
-    Then the sourcecode should contain '<input class="btn btn-primary" type="submit" value="XLS">'
 
   @Pi2ListFilterEmpty
   Scenario: Check empty Filter over List View
     Given I am on "/powermail/pi2/standard/list"
     When I fill in "tx_powermail_pi2[filter][_all]" with "öoijasd908püuß980asdöijo"
     And I press "Jetzt Filtern"
-    Then I should see "Keine Mails vorhanden"
-    Then I should see "Bitte bearbeiten Sie Ihre Filter-Einstellungen."
+    Then I should see "Keine Mails gefunden"
+    Then I should see "Bitte passen Sie Ihre Filtereinstellungen an."
 
   @Pi2ListFilter
   Scenario: Check empty Filter over List View
