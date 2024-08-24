@@ -34,10 +34,10 @@ call_user_func(function () {
         'Powermail',
         'Pi2',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, export, rss'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, export, rss'
+            \In2code\Powermail\Controller\OutputController::class => 'list'
         ],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
@@ -58,10 +58,10 @@ call_user_func(function () {
         'Powermail',
         'Pi4',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
         ],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );

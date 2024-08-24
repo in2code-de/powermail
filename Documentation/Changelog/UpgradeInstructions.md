@@ -1,5 +1,14 @@
 # Upgrade Instructions and breaking changes
 
+## Version 12.4.0
+
+### Breaking Change
+
+We removed the export and rss functionality completely without any replacement, because there is no
+reliable security concept behind it and is not easy to fix.
+
+If you need this, please contact [in2code](https://www.in2code.de/en/contact/) for paid assistance or implement it yourself.
+
 ## Version 12.0.0
 
 ### Upgrade - Wizards
