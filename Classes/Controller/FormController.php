@@ -173,6 +173,10 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail): ResponseInterface
     {
+        if ($mail->getUid() !== null) {
+            return (new ForwardResponse('form'))->withoutArguments();
+        }
+
         $event = GeneralUtility::makeInstance(FormControllerConfirmationActionEvent::class, $mail, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
