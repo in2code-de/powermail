@@ -96,7 +96,7 @@ class SendMailService
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->info('Mail properties', [$email]);
         }
-        if (GeneralUtility::validEmail($email['receiverEmail'] === false) ||
+        if (GeneralUtility::validEmail($email['receiverEmail']) === false ||
             GeneralUtility::validEmail($email['senderEmail']) === false) {
             return false;
         }
