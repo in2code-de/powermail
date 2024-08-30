@@ -195,13 +195,13 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                  *
                  * html5 example:
                  *        <input type="text"
-                 *            pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
+                 *            pattern="/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)\-]*\d+$/" />
                  * javascript example:
                  *        <input ... data-powermail-pattern=
-                 *            "/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/" />
+                 *            "/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)\-]*\d+$/" />
                  */
             case 3:
-                $pattern = '^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$';
+                $pattern = '^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)\-]*\d+$';
                 if ($this->isNativeValidationEnabled()) {
                     $additionalAttributes['pattern'] = $pattern;
                 } else {
