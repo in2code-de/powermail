@@ -94,6 +94,7 @@ class ModuleController extends AbstractController
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
         $currentPage = (int) $this->request->getQueryParams()['currentPage'] ?? 1;
+        $currentPage = $currentPage > 0 ? $currentPage : 1;
 
         $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
