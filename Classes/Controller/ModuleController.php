@@ -71,7 +71,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
@@ -130,11 +130,11 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface|null
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
-    public function exportXlsAction(): ResponseInterface
+    public function exportXlsAction(): ?ResponseInterface
     {
         if ($this->isPhpSpreadsheetInstalled) {
             $this->view->assignMultiple(
@@ -164,10 +164,11 @@ class ModuleController extends AbstractController
                 ->withAddedHeader('Pragma', 'no-cache')
                 ->withBody($this->streamFactory->createStreamFromFile($tmpFilename));
         }
+        return null;
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -193,7 +194,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
@@ -219,7 +220,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws PropertyNotAccessibleException
@@ -246,7 +247,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
