@@ -197,6 +197,9 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
+        if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
+            return (new ForwardResponse('form'))->withoutArguments();
+        }
         $isSavingOfMailAllowed = false;
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
