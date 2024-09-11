@@ -11,11 +11,8 @@ use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
@@ -85,10 +82,6 @@ class CaptchaValidator extends AbstractValidator
     protected function validCodePreflight(string $value, Field $field): bool
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
-            case 'captcha':
-                $result = $this->validateCaptcha($value, $field);
-                break;
-
             default:
                 $result = $this->validatePowermailCaptcha($value, $field);
         }
@@ -104,21 +97,6 @@ class CaptchaValidator extends AbstractValidator
     {
         $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
         return $captchaService->validCode($value, $field, $this->isClearSession());
-    }
-
-    /**
-     * @param string $value
-     * @param Field $field
-     * @return bool
-     * @throws ExceptionCore
-     */
-    protected function validateCaptcha(string $value, Field $field): bool
-    {
-        $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-        if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
-            return Utility::checkCaptcha($value, $field->getUid());
-        }
-        return $this->validateCaptchaOld($value);
     }
 
     /**
