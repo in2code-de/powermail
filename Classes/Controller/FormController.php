@@ -185,6 +185,9 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, string $hash = ''): void
     {
+        if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
+            $this->forward('form');
+        }
         $this->signalDispatch(__CLASS__, __FUNCTION__ . 'BeforeRenderView', [$mail, $hash, $this]);
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->dataProcessorRunner->callDataProcessors(
