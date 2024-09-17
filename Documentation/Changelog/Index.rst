@@ -17,6 +17,13 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Release Description
 
  - :Version:
+      7.5.1
+   :Date:
+      2024-09-17
+   :Changes:
+      * Security: harden access checks for createAction in FormController
+
+ - :Version:
       7.5.0
    :Date:
       2024-08-21
