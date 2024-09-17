@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version         | Release Date | Description                                                                                                                                                                                                           |
 |-----------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 12.4.1          | 2024-09-17   | Security release: Harden access checks to mail records.                                                                                                                                                               |
 | [!!!] 12.4.0    | 2024-08-21   | Security release: Harden access checks to mail records, remove export and rss views completely without any replacement.                                                                                               |
 | 12.3.5          | 2024-06-07   | Bugfix release: Please see commit history for changes.                                                                                                                                                                |
 | 12.3.3 / 12.3.4 | 2024-06-03   | Bugfix release: Please see commit history for changes.                                                                                                                                                                |
