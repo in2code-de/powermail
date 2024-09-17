@@ -4,6 +4,7 @@
 
 | Version     | Release Date | Description                                                                                                                                                                                                           |
 |-------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 8.5.1       | 2024-09-17   | Security: Improve access checks.                                                                                                                                                                                      |
 | !!! 8.5.0   | 2024-08-21   | Security: Improve access checks. Remove export functionality completely.                                                                                                                                              |
 | 8.4.2       | 2022-08-23   | Bugfix: Fix formlisting in plugins for editors with restricted page access                                                                                                                                            |
 | 8.4.1       | 2021-08-11   | Task: Also Sanitize CSV and XLS export in Pi2 (not only the export in the backend module)                                                                                                                             |
