@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version      | Release Date | Description                                                                                                                                                                                                           |
 |--------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 10.9.1       | 2024-09-17   | Security: Harden access checks to sent mails.                                                                                                                                                                         |
 | [!!!] 10.9.0 | 2024-08-21   | Security: Harden access checks to sent mails, remove export views completely without replacement                                                                                                                      |
 | 10.8.2       | 2024-07-03   | Bugfix release: Prevent exception for double opt in confirmation clicks                                                                                                                                               |
 | 10.8.1       | 2023-05-08   | Bugfix release                                                                                                                                                                                                        |
