@@ -38,12 +38,14 @@ use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -234,6 +236,8 @@ class FormController extends AbstractController
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
+
+        $this->redirectIfMailUidDoesNotExist();
 
         $this->reformatParamsForAction();
         $this->debugVariables();
@@ -593,6 +597,29 @@ class FormController extends AbstractController
             return new ForwardResponse('form');
         }
         return null;
+    }
+
+    /**
+     * @throws PropagateResponseException
+     */
+    private function redirectIfMailUidDoesNotExist(): void
+    {
+        $arguments = $this->request->getArguments();
+        $mail = $this->mailRepository->findByUid($arguments['mail']);
+        if ($mail === null) {
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->warning('Redirect (invalid mail uid)', $arguments);
+
+            $queryParams = $this->request->getQueryParams();
+            unset($queryParams['tx_powermail_pi1']);
+
+            /** @var UriBuilder $uriBuilder */
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+            $uriBuilder->setRequest($this->request);
+            $uriBuilder->setArguments($queryParams);
+
+            throw new PropagateResponseException(new RedirectResponse($uriBuilder->build(), 303));
+        }
     }
 
     /**
