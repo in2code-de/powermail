@@ -3,6 +3,10 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ja">
     <header/>
     <body>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">エラー、表示するオプションがありません</target>
+      </trans-unit>
       <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
         <source>Time</source>
         <target state="final">時間</target>
