@@ -216,6 +216,7 @@ plugin.tx_powermail {
       ajaxSubmit = 0
 
       # cat=powermail_additional//0808; type=boolean; label= Enable AddQueryString: Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+      # You need also set `$GLOBALS['TYPO3_CONF_VARS']['FE]['cacheHash']['enforceValidation'] = false`
       addQueryString = 0
 
       # cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)

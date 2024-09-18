@@ -7,14 +7,8 @@ use Exception;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\StringUtility;
-use In2code\Powermail\Utility\TypoScriptUtility;
-use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -89,23 +83,8 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      */
     protected function getImageSource(Field $field): string
     {
-        $settings = $this->getSettings();
-        switch (TypoScriptUtility::getCaptchaExtensionFromSettings($settings)) {
-            case 'captcha':
-                $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-                $image = BasicFileUtility::getRelativeFolder(ExtensionManagementUtility::extPath('captcha'))
-                    . 'captcha/captcha.php';
-                if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
-                    $imageTag = Utility::makeCaptcha($field->getUid());
-                    return StringUtility::getSrcFromImageTag($imageTag);
-                }
-                break;
-
-            default:
-                $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
-                $image = $captchaService->render($field);
-        }
-        return $image;
+        $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
+        return  $captchaService->render($field);
     }
 
     /**

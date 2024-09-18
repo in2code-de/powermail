@@ -3,21 +3,21 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\PrefillMultiFieldViewHelperEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -26,7 +26,18 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class PrefillMultiFieldViewHelper extends AbstractViewHelper
 {
-    use SignalTrait;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
 
     /**
      * @var bool
@@ -91,11 +102,10 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *        radio
      *
      * @return bool
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function render(): bool
     {
@@ -117,8 +127,19 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         if (!$this->isCachedForm()) {
             $this->buildSelectedValue();
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $cycle, $default, $this]);
-        return $this->isSelected();
+
+        /** @var PrefillMultiFieldViewHelperEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                PrefillMultiFieldViewHelperEvent::class,
+                $this->isSelected(),
+                $field,
+                $mail,
+                $cycle,
+                $default
+            )
+        );
+        return $event->isSelected();
     }
 
     /**

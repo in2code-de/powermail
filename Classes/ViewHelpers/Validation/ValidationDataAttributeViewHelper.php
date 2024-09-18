@@ -3,20 +3,30 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\ValidationDataAttributeViewHelperEvent;
 use In2code\Powermail\Utility\LocalizationUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ValidationDataAttributeViewHelper
  */
 class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
 {
-    use SignalTrait;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
 
     /**
      * @return void
@@ -33,16 +43,14 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * Returns Data Attribute Array for JS validation with internal framework
      *
      * @return array for data attributes
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws DBALException
      */
     public function render(): array
     {
         /** @var Field $field */
         $field = $this->arguments['field'];
         $additionalAttributes = $this->arguments['additionalAttributes'];
-        $iteration = $this->arguments['iteration'];
+        $iteration = $this->arguments['iteration'] ?? [];
         switch ($field->getType()) {
             case 'check':
                 // multiple field radiobuttons
@@ -57,9 +65,17 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
         }
         $additionalAttributes = $this->addValidationAttributesForInputOrTextarea($additionalAttributes, $field);
-        $signalArguments = [&$additionalAttributes, $field, $iteration, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $additionalAttributes;
+
+        /** @var ValidationDataAttributeViewHelperEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                ValidationDataAttributeViewHelperEvent::class,
+                $additionalAttributes,
+                $field,
+                $iteration
+            )
+        );
+        return $event->getAdditionalAttributes();
     }
 
     /**
@@ -69,7 +85,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @param array $iteration
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     protected function addMandatoryAttributesForMultipleFields(
         array $additionalAttributes,
@@ -119,7 +135,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     protected function addValidationAttributesForInputOrTextarea(array $additionalAttributes, Field $field): array
     {
@@ -358,7 +374,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param Field $field
      * @param array $iteration
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     protected function addMultipleDataAttributeForCheckboxes(
         array $additionalAttributes,
@@ -379,7 +395,7 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     protected function addErrorContainerAndClassHandlerAttributes(array $additionalAttributes, Field $field)
     {

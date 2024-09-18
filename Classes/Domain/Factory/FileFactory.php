@@ -14,10 +14,8 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Type\File\FileInfo;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class FileFactory
@@ -44,12 +42,10 @@ class FileFactory
      * @param string $marker
      * @param int $key
      * @return File|null
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws ExceptionExtbaseObject
      */
     public function getInstanceFromFilesArray(array $filesArray, string $marker, int $key): ?File
     {
@@ -70,11 +66,11 @@ class FileFactory
      * @param string $value
      * @param array $arguments
      * @return File|null
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws DeprecatedException
+     * @throws ExceptionExtbaseObject
      */
     public function getInstanceFromUploadArguments(string $marker, string $value, array $arguments): ?File
     {
@@ -92,10 +88,10 @@ class FileFactory
      * @param string $fileName
      * @param Answer $answer
      * @return File
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
+     * @throws ExceptionExtbaseObject
      */
     public function getInstanceFromExistingAnswerValue(string $fileName, Answer $answer): File
     {
@@ -116,12 +112,10 @@ class FileFactory
      * @param bool $uploaded
      * @param ?Form $form
      * @return File
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws ExceptionExtbaseObject
      */
     protected function makeFileInstance(
         string $marker,

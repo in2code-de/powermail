@@ -8,7 +8,6 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -34,7 +33,6 @@ class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
      * Get any property from tx_powermail_domain_model_field by markername and form
      *
      * @return mixed|string
-     * @throws Exception
      * @throws InvalidQueryException
      * @throws PropertyNotAccessibleException
      * @throws ExtensionConfigurationExtensionNotConfiguredException

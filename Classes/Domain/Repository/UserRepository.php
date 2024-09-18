@@ -1,11 +1,10 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\User;
-use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -33,7 +32,7 @@ class UserRepository extends AbstractRepository
      * @param int $uid
      * @return User
      */
-    public function findByUid($uid)
+    public function findByUid($uid): User
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -46,7 +45,6 @@ class UserRepository extends AbstractRepository
     /**
      * @param string $uid FE_user UID
      * @return int[]
-     * @throws DBALException
      */
     public function getUserGroupsFromUser($uid): array
     {
@@ -55,8 +53,9 @@ class UserRepository extends AbstractRepository
         $sql .= ' sys_refindex.tablename = "fe_users" and sys_refindex.ref_table = "fe_groups"';
         $sql .= ' and fe_users.uid = sys_refindex.recuid and fe_groups.uid = sys_refindex.ref_uid';
         $sql .= ' and fe_users.uid = ' . (int)$uid;
-        $connection = DatabaseUtility::getConnectionForTable('fe_groups');
-        $rows = $connection->query($sql)->fetchAll();
+
+        $query = $this->createQuery();
+        $rows = $query->statement($sql)->execute(true);
         foreach ($rows as $row) {
             if (!empty($row['uid'])) {
                 $groups[] = (int)$row['uid'];

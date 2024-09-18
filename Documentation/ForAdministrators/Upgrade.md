@@ -1,4 +1,4 @@
-y# Upgrade Powermail
+# Upgrade Powermail
 
 ## Introduction
 

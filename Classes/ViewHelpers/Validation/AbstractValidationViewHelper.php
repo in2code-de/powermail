@@ -3,12 +3,12 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -63,6 +63,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field|null $field
      * @return array
+     * @throws DBALException
      */
     protected function addMandatoryAttributes(array $additionalAttributes, ?Field $field): array
     {
@@ -99,6 +100,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
+     * @throws DBALException
      */
     protected function addErrorContainer(array $additionalAttributes, Field $field): array
     {
@@ -113,6 +115,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      * @param array $additionalAttributes
      * @param Field $field
      * @return array
+     * @throws DBALException
      */
     protected function addClassHandler(array $additionalAttributes, Field $field): array
     {
@@ -123,7 +126,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 
     /**
      * @return void
-     * @throws Exception
      */
     public function initialize()
     {

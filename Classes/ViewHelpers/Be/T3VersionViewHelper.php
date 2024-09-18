@@ -23,6 +23,10 @@ class T3VersionViewHelper extends AbstractViewHelper
     public function render(): bool
     {
         if (!Environment::isComposerMode()) {
+            // Since TYPO3 12 (or earlier) the _EXTKEY variable is not available in the full context
+            // of an extension, therefore we need to set it manually when explicitly loading the ext_emconf.php
+            $_EXTKEY = 'powermail';
+
             $EM_CONF = [];
             require(ExtensionManagementUtility::extPath('powermail') . 'ext_emconf.php');
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Controller;
 
 use Doctrine\DBAL\DBALException;
+use Exception;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
@@ -13,21 +14,16 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidArgumentNameException;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
 use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
-use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Controller for powermail frontend output in Pi2
@@ -36,9 +32,8 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 class OutputController extends AbstractController
 {
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
-     * @throws Exception
      * @noinspection PhpUnused
      */
     public function listAction(): ResponseInterface
@@ -65,12 +60,15 @@ class OutputController extends AbstractController
 
     /**
      * @param Mail $mail
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
-     * @throws Exception
      */
     public function showAction(Mail $mail): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToView($this->settings, $mail)) {
+            return new ForwardResponse('list');
+        }
+
         $fieldArray = $this->getFieldList($this->settings['single']['fields']);
         $this->view->assignMultiple(
             [
@@ -83,13 +81,21 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return void
+     * @param Mail|null $mail
+     * @return ResponseInterface
      * @noinspection PhpUnused
-     * @throws Exception
      */
     public function editAction(Mail $mail = null): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
+                '',
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
+            );
+            return new ForwardResponse('list');
+        }
+
         $fieldArray = $this->getFieldList($this->settings['edit']['fields']);
         $this->view->assignMultiple(
             [
@@ -103,82 +109,64 @@ class OutputController extends AbstractController
 
     /**
      * @return void
-     * @throws InvalidArgumentNameException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws NoSuchArgumentException
-     * @throws StopActionException
      * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws Exception
      * @throws DeprecatedException
+     * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
     public function initializeUpdateAction()
     {
-        $arguments = $this->request->getArguments();
-        if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['field']['__identity'])) {
-            $this->controllerContext = $this->buildControllerContext();
-            $this->addFlashmessage(
-                LocalizationUtility::translate('PowermailFrontendEditFailed'),
-                '',
-                AbstractMessage::ERROR
-            );
-            return new ForwardResponse('list');
-        }
         $this->reformatParamsForAction();
     }
 
     /**
      * @param Mail $mail
      * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
-     * @return void
+     * @return ResponseInterface
      * @throws StopActionException
-     * @throws UnsupportedRequestTypeException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
-     * @throws \Exception
-     * @noinspection PhpUnused
-     */
-    public function updateAction(Mail $mail): void
-    {
-        $this->uploadService->uploadAllFiles();
-        $this->mailRepository->update($mail);
-        $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
-        $this->redirect('edit', null, null, ['mail' => $mail]);
-    }
-
-    /**
-     * @return void
-     * @throws DBALException
      * @throws Exception
-     * @throws StopActionException
      * @noinspection PhpUnused
      */
-    public function initializeDeleteAction()
+    public function updateAction(Mail $mail): ResponseInterface
     {
-        $arguments = $this->request->getArguments();
-        if (!FrontendUtility::isAllowedToEdit($this->settings, $arguments['mail'])) {
-            $this->controllerContext = $this->buildControllerContext();
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
             $this->addFlashmessage(
-                LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
+                LocalizationUtility::translate('PowermailFrontendEditFailed'),
                 '',
-                AbstractMessage::ERROR
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             return new ForwardResponse('list');
         }
+
+        $this->uploadService->uploadAllFiles();
+        $this->mailRepository->update($mail);
+        $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendEditSuccessful'));
+        return $this->redirect('edit', null, null, ['mail' => $mail]);
     }
 
     /**
      * @param Mail $mail
-     * @return void
+     * @return ResponseInterface
      * @throws IllegalObjectTypeException
      * @noinspection PhpUnused
      */
     public function deleteAction(Mail $mail): ResponseInterface
     {
+        if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
+            $this->addFlashmessage(
+                LocalizationUtility::translate('PowermailFrontendDeleteFailed'),
+                '',
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
+            );
+            return new ForwardResponse('list');
+        }
+
         $this->assignMultipleActions();
         $this->mailRepository->remove($mail);
         $this->addFlashmessage(LocalizationUtility::translate('PowermailFrontendDeleteSuccessful'));
@@ -187,10 +175,8 @@ class OutputController extends AbstractController
 
     /**
      * @param array $export Field Array with mails and format
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
-     * @throws StopActionException
-     * @throws Exception
      * @noinspection PhpUnused
      */
     public function exportAction(array $export = []): ResponseInterface
@@ -212,13 +198,12 @@ class OutputController extends AbstractController
             return (new ForwardResponse('exportXls'))->withArguments(['mails' => $mails, 'fields' => $fields]);
         }
         return (new ForwardResponse('exportCsv'))->withArguments(['mails' => $mails, 'fields' => $fields]);
-        return $this->htmlResponse();
     }
 
     /**
-     * @param QueryResult $mails mails objects
+     * @param QueryResult|null $mails mails objects
      * @param array $fields uid field list
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function exportXlsAction(QueryResult $mails = null, array $fields = []): ResponseInterface
@@ -229,9 +214,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param QueryResult $mails mails objects
+     * @param QueryResult|null $mails mails objects
      * @param array $fields uid field list
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function exportCsvAction(QueryResult $mails = null, array $fields = []): ResponseInterface
@@ -242,7 +227,7 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -267,7 +252,6 @@ class OutputController extends AbstractController
      *
      * @param string $list
      * @return array
-     * @throws Exception
      */
     protected function getFieldList(string $list = ''): array
     {

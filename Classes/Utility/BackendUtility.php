@@ -5,6 +5,7 @@ namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
+use Throwable;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
@@ -190,6 +191,7 @@ class BackendUtility
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
         }
         $urlParts = parse_url($returnUrl);
+        $urlParts['query'] = $urlParts['query'] ?? '';
         parse_str((string)$urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
             return (int)$queryParts['id'];
@@ -215,7 +217,7 @@ class BackendUtility
         try {
             // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
             $array = BackendUtilityCore::getPagesTSconfig($pid);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             unset($exception);
         }
         return $array;

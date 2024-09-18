@@ -227,6 +227,7 @@ $fieldsTca = [
             'endtime' => 'endtime',
         ],
         'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif'),
+        'searchFields' => 'title',
     ],
     'interface' => [
     ],
@@ -408,7 +409,8 @@ $fieldsTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'type' => [
@@ -528,8 +530,8 @@ $fieldsTca = [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => 'required',
                 'itemsProcFunc' => 'In2code\Powermail\Tca\AddOptionsToSelection->addOptionsForType',
+                'required' => true,
             ],
         ],
         'settings' => [
@@ -559,7 +561,6 @@ $fieldsTca = [
                 Field::TABLE_NAME . '.content_element',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => 'tt_content',
                 'size' => 1,
                 'maxitems' => 1,

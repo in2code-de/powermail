@@ -26,6 +26,7 @@ $pagesTca = [
             'endtime' => 'endtime',
         ],
         'iconfile' => ConfigurationUtility::getIconPath(Page::TABLE_NAME . '.gif'),
+        'searchFields' => 'title',
     ],
     'interface' => [
     ],
@@ -108,7 +109,8 @@ $pagesTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'css' => [

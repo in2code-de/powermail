@@ -1,5 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace be=TYPO3\CMS\Backend\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -42,9 +43,9 @@
 							<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 						</td>
 						<td nowrap="nowrap">
-							<a title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
+                            <be:link.editRecord uid="{form.uid}" table="tx_powermail_domain_model_form">
 								<span title="id={form.uid}">{form.title}</span>
-							</a>
+                            </be:link.editRecord>
 						</td>
 						<td nowrap="nowrap">
 							<a title="id={form.pid}" href="{f:be.uri(route:'web_layout',parameters:'{id:form.pid}')}">
@@ -72,9 +73,9 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<a class="btn" title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
-									<span class="t3-icon fa fa-pencil">&nbsp;</span>
-								</a>
+                                <be:link.editRecord uid="{form.uid}" table="tx_powermail_domain_model_form">
+                                    <core:Icon identifier="actions-open" />
+								</be:link.editRecord>
 							</div>
 						</td>
 					</tr>

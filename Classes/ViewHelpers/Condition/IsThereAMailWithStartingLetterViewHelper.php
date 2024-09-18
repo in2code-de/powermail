@@ -43,7 +43,7 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
                     $answer->getField()->getUid() === (int)$answerField
                 ) {
                     $value = $answer->getValue();
-                    if (strtolower($value[0]) === strtolower($letter)) {
+                    if ($value !== '' && strtolower($value[0]) === strtolower($letter)) {
                         return true;
                     }
                 }

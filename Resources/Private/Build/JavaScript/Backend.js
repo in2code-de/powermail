@@ -4,7 +4,7 @@
  * @params {jQuery} $
  * @class PowermailBackend
  */
-function PowermailBackend($) {
+function PowermailBackend($, Modal) {
   'use strict';
 
   /**
@@ -115,7 +115,7 @@ function PowermailBackend($) {
         if (page > 0) {
           const form = document.querySelector('#powermail_module_search');
           const paginationHiddenField = document.createElement('input');
-          paginationHiddenField.setAttribute('type', 'text');
+          paginationHiddenField.setAttribute('type', 'hidden');
           paginationHiddenField.setAttribute('name', 'tx_powermail_web_powermailm1[currentPage]');
           paginationHiddenField.setAttribute('value', page.toString());
           form.appendChild(paginationHiddenField);
@@ -236,6 +236,22 @@ function PowermailBackend($) {
   var addExportListener = function () {
     // On export
     $('.export_icon_xls, .export_icon_csv').click(function () {
+      if ($(this).hasClass('export_icon_xls_not_available')) {
+        return Modal.confirm(
+          $(this).data('modal-title'),
+          $(this).data('modal-text'),
+          2,
+          [
+            {
+              text: $(this).data('modal-cancel'),
+              btnClass: 'btn-default',
+              name: 'abort',
+              trigger: function (){
+                Modal.dismiss();
+              }
+            }
+          ]);
+      }
       if ($(this).hasClass('export_icon_csv')) {
         $('#forwardToAction').val('exportCsv');
       }
@@ -408,22 +424,17 @@ function PowermailBackend($) {
    * @private
    */
   var visibilityToggleLine = function ($tr) {
-    var $visibilityButton = $tr.find('.visibilityButton');
+    var $hideMailButton = $tr.find('.hideMail');
+    var $unhideMailButton = $tr.find('.unhideMail');
     var hidden = 0;
-    if ($visibilityButton.hasClass('unhideMail')) {
-      $visibilityButton
-        .removeClass('unhideMail')
-        .removeClass('fa-toggle-off')
-        .addClass('hideMail')
-        .addClass('fa-toggle-on');
+    if ($hideMailButton.hasClass('hide')) {
+      $hideMailButton.removeClass('hide');
+      $unhideMailButton.addClass('hide');
       $tr.find('.powermailRecordIcon').children(':first').removeClass('hide');
       $tr.find('.powermailRecordIcon').children(':last').addClass('hide');
     } else {
-      $visibilityButton
-        .removeClass('hideMail')
-        .removeClass('fa-toggle-on')
-        .addClass('unhideMail')
-        .addClass('fa-toggle-off');
+      $hideMailButton.addClass('hide');
+      $unhideMailButton.removeClass('hide');
       $tr.find('.powermailRecordIcon').children().last().removeClass('hide');
       $tr.find('.powermailRecordIcon').children().first().addClass('hide');
       hidden = 1;
@@ -635,14 +646,15 @@ requirejs.config({
 define(
   [
     'jquery',
+    'TYPO3/CMS/Backend/Modal',
     'TYPO3/CMS/Powermail/Libraries/jquery-ui.min',
     'TYPO3/CMS/Powermail/Libraries/jquery.flot.min',
     'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min',
     'TYPO3/CMS/Powermail/Libraries/bootstrap.min',
   ],
-  function ($) {
+  function ($, Modal) {
     $(document).ready(function ($) {
-      var PowermailBackend = new window.PowermailBackend($);
+      var PowermailBackend = new window.PowermailBackend($, Modal);
       PowermailBackend.initialize();
     });
   });

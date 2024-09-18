@@ -3,10 +3,10 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -40,7 +40,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
      * View helper check if value should be returned or not
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     public function render(): bool
     {

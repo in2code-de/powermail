@@ -351,8 +351,8 @@ class SaveToAnyTableService
             ->from($this->getTable())
             ->where($where)
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchAssociative();
     }
 
     /**

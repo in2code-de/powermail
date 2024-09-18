@@ -4,7 +4,7 @@ namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\FieldTypeFromValidationViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FieldTypeFromValidationViewHelperTest
@@ -24,7 +24,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             FieldTypeFromValidationViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
@@ -41,7 +41,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             'defaultWithHtml5' => [
@@ -130,7 +130,7 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
         $field->setValidation($validation);
 
         $this->abstractValidationViewHelperMock->_set('arguments', ['field' => $field]);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
+        $result = $this->abstractValidationViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }
 }

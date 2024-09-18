@@ -9,9 +9,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SessionUtility
@@ -133,9 +130,6 @@ class SessionUtility
      * @param Mail $mail
      * @param array $settings Settings array
      * @return void
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {

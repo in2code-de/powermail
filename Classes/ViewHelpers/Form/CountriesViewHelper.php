@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Form;
 
 use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;

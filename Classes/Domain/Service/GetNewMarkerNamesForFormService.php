@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class GetNewMarkerNamesForFormService
@@ -53,7 +53,9 @@ class GetNewMarkerNamesForFormService
      * @param int $formUid
      * @param bool $forceReset
      * @return array
-     * @throws Exception
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
+     * @throws ExceptionExtbaseObject
      */
     public function getMarkersForFieldsDependingOnForm(int $formUid, bool $forceReset): array
     {
@@ -90,6 +92,7 @@ class GetNewMarkerNamesForFormService
      * @param array $fieldArray
      * @param bool $forceReset
      * @return array
+     * @throws ExceptionExtbaseObject
      */
     public function makeUniqueValueInArray(array $fieldArray, bool $forceReset = false): array
     {
@@ -165,7 +168,7 @@ class GetNewMarkerNamesForFormService
      * @param Field $field
      * @param bool $forceReset
      * @return string
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function fallbackMarkerIfEmpty(Field $field, bool $forceReset): string
     {

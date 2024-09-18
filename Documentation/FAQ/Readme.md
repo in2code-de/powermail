@@ -57,11 +57,11 @@ How does the magic work? There is a viewhelper in Page.html partial, that adds c
 </vh:misc.createRowTags>
 ```
 
-columns:              Number of columns - 0 disables creation of new containers completely
-class:                Class name(s) for the new tag
-iteration:            The iteration array from a foreach viewhelper
-additionalAttributes: Any additional attributes for the new tags (must be type of array)
-tagName:              Tagname for the new containers ("div" if not given)
+- `columns`: Number of columns - 0 disables creation of new containers completely
+- `class`: Class name(s) for the new tag
+- `iteration`: The iteration array from a foreach viewhelper
+- `additionalAttributes`: Any additional attributes for the new tags (must be type of array)
+- `tagName`: Tagname for the new containers ("div" if not given)
 
 
 ## How to solve SPF defiance?
@@ -96,6 +96,16 @@ plugin.tx_powermail.settings.setup.optin.overwrite.senderEmail = TEXT
 plugin.tx_powermail.settings.setup.optin.overwrite.senderEmail.value = server@domain.org
 plugin.tx_powermail.settings.setup.optin.overwrite.senderName = TEXT
 plugin.tx_powermail.settings.setup.optin.overwrite.senderName.value = Server from domain.org
+```
+
+
+To set a sender email address for the disclaimer email (to sender), you could use this TypoScript:
+
+```
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderEmail = TEXT
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderEmail.value = server@domain.org
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderName = TEXT
+plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderName.value = Server from domain.org
 ```
 
 Please ask your server administrator for a valid email address.
@@ -276,6 +286,9 @@ leads to an error from the extension news.
 This is easy to handle, just add this line of TypoScript to your **Constants**:
 
 `plugin.tx_powermail.settings.misc.addQueryString = 1`
+
+You need also set `$GLOBALS['TYPO3_CONF_VARS']['FE]['cacheHash']['enforceValidation'] = false`
+
 
 
 ## I have a problem, what can I do?

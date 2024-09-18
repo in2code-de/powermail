@@ -4,39 +4,33 @@ Powermail is a well-known, editor-friendly, powerful
 and easy to use mailform extension for TYPO3 with a lots of features
 (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-## Powermail 9 and 10
+> :warning: **TYPO3 13 compatibility**\
+> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how to get access to a TYPO3 13 version
 
-Changes for powermail 10 with TYPO3 11:
+## :warning: Deprecations, planned breaking changes for V13 and features
 
-* Remove jQuery from all frontend renderings
+### Double OptIn and TypoScript setting "Do not save to DB"
 
-Changes done for powermail 9 with TYPO3 11:
+This combination will not work anymore in V13. If the person responsible for data security decides not to save anything
+into the database, no data may be saved to the database, even not in the double opt-in process.
 
-* Update for TYPO3 11 ()
-* Remove code dependencies to former TYPO3 versions
-* Add Responses to Actions
-* Update unit tests
-* Update behaviour tests
-* Manual tests (especially in backend context)
+If you need this earlier than the next major (public) release, please contact us for the extension
+`EXT:powermail_cleaner`. With this extension it is possible to set that for each plugin individually.
 
-### Early Access Programm
+### Plugins / content elements pi2 - pi4
 
-From now on an Early Access Programm is available for Powermail. You can get access for 12 month by donating any ammount >100 € net.
+The content elements for frontend editing will be moved to a separate paid extension.
 
-You will receive:
-* Private Access to a github repository
-* Early access to new releases
-* guaranteed paid support options
+### Future: Powermail Powerpack
 
-Get member of the programm at: https://www.in2code.de/en/agency/typo3-extensions/#c3643
+Next to extensions `EXT:powermail_cleaner`, `EXT:powermail_ratelimiter` and the frontend editing stuff, there will be
+another paid extension `EXT:powermail_powerpack`. This extension will contain additional features, we developed
+throughout the last years and want to make available to the broader public, for example:
 
-### Supporters for TYPO3 11
+* use an email address only once per plugins
+* maximum "seats" per plugin (like a very, very basic registration)
+* ...
 
-* B13.com
-* Studio Mitte Digital Media GmbH
-* SKALM GmbH
-* mexan AG
-* Wittkiel Gruppe GmbH
 
 ## 1. Documentation overview
 
@@ -64,10 +58,12 @@ Quick guide:
 
 | Powermail   | TYPO3     | PHP       | Support/Development                            |
 |-------------|-----------|-----------|------------------------------------------------|
-| 10.x        | 11.x      | >= 7.4    | Features, Bugfixes, Security Updates           |
-| 9.x         | 11.x      | >= 7.4    | Support dropped                                |
-| 8.x         | 10.x      | >= 7.2    | Security Updates (paid backports are possible) |
-| 7.x         | 8.7 - 9.x | 7.0 - 7.x | Security Updates (paid backports are possible) |
+| 12.x        | 12.x      | 8.1 - 8.2 | Features, Bugfixes, Security Updates           |
+| 11.x        | 12.x      | 8.1 - 8.2 | Support dropped                                |
+| 10.x        | 11.x      | 7.4 - 8.1 | Bugfixes, Security Updates                     |
+| 9.x         | 11.x      | 7.4       | Support dropped                                |
+| 8.x         | 10.x      | 7.2 - 7.4 | Security Updates (paid backports are possible) |
+| 7.x         | 8.7 - 9.x | 7.0 - 7.4 | Security Updates (paid backports are possible) |
 | 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
 | 5.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
 | 4.x         | 7.6 - 8.7 | 5.5 - 7.2 | Security Updates (paid backports are possible) |

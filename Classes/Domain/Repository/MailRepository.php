@@ -1,30 +1,29 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\MailRepositoryGetVariablesWithMarkersFromMailEvent;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -32,14 +31,9 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class MailRepository extends AbstractRepository
 {
-    use SignalTrait;
-
     /**
      * Find all mails in given PID (BE List)
      *
-     * @param int $pid
-     * @param array $settings TypoScript Config Array
-     * @param array $piVars Plugin Variables
      * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */
@@ -48,7 +42,7 @@ class MailRepository extends AbstractRepository
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
         $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(
             $this->getSorting($settings['sortby'] ?? '', $settings['order'] ?? '', $piVars)
         );
@@ -94,7 +88,7 @@ class MailRepository extends AbstractRepository
             $query->equals('deleted', 0),
             $query->equals('pid', $pid),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
         $query->setLimit(1);
         $mails = $query->execute();
@@ -109,17 +103,17 @@ class MailRepository extends AbstractRepository
      * @param int $uid
      * @return Mail
      */
-    public function findByUid($uid)
+    public function findByUid($uid): ?Mail
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
-        $query->getQuerySettings()->setLanguageMode(null);
 
         $and = [
             $query->equals('uid', $uid),
             $query->equals('deleted', 0),
         ];
-        $query->matching($query->logicalAnd($and));
+
+        $query->matching($query->logicalAnd(...$and));
 
         $mail = $query->execute()->getFirst();
         /** @var Mail $mail */
@@ -132,7 +126,6 @@ class MailRepository extends AbstractRepository
      * @param Form $form
      * @param int $pageUid
      * @return QueryResultInterface
-     * @throws Exception
      * @throws InvalidQueryExceptionAlias
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -147,7 +140,7 @@ class MailRepository extends AbstractRepository
             $query->equals('answers.value', $value),
             $query->equals('pid', $pageUid),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -189,6 +182,7 @@ class MailRepository extends AbstractRepository
         // FILTER: showownonly
         if ($listSettings['showownonly'] ?? false) {
             $and[] = $query->equals('feuser', FrontendUtility::getPropertyFromLoggedInFrontendUser());
+            $and[] = $query->greaterThan('feuser', 0);
         }
 
         // FILTER: abc
@@ -212,7 +206,7 @@ class MailRepository extends AbstractRepository
                         $query->equals('answers.field', $field),
                         $query->like('answers.value', '%' . $value . '%'),
                     ];
-                    $filter[] = $query->logicalAnd($filterAnd);
+                    $filter[] = $query->logicalAnd(...$filterAnd);
                 }
             }
 
@@ -220,15 +214,15 @@ class MailRepository extends AbstractRepository
                 // switch between AND and OR
                 if (!empty($settings['search']['logicalRelation']) &&
                     strtolower($settings['search']['logicalRelation']) === 'and') {
-                    $and[] = $query->logicalAnd($filter);
+                    $and[] = $query->logicalAnd(...$filter);
                 } else {
-                    $and[] = $query->logicalOr($filter);
+                    $and[] = $query->logicalOr(...$filter);
                 }
             }
         }
 
         // FILTER: create constraint
-        $constraint = $query->logicalAnd($and);
+        $constraint = $query->logicalAnd(...$and);
         $query->matching($constraint);
 
         // sorting
@@ -288,7 +282,7 @@ class MailRepository extends AbstractRepository
             $query->equals('deleted', 0),
             $query->in('uid', GeneralUtility::trimExplode(',', $uidList, true)),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
         foreach ((array)$sorting as $field => $order) {
             if (empty($order)) {
@@ -310,6 +304,17 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->matching($query->equals('form', $formUid));
+        $query->setOrderings($this->getSorting('crdate', 'desc'));
+        $query->setLimit($limit);
+        return $query->execute();
+    }
+
+    public function findLatestByFormAndPage(int $formUid, int $pageUid, int $limit = 3): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $constraints[] = $query->equals('form', $formUid);
+        $constraints[] = $query->equals('pid', $pageUid);
+        $query->matching($query->logicalAnd(...$constraints));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
         $query->setLimit($limit);
         return $query->execute();
@@ -340,14 +345,14 @@ class MailRepository extends AbstractRepository
      * @param Mail $mail
      * @param bool $htmlSpecialChars
      * @return array
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function getVariablesWithMarkersFromMail(Mail $mail, bool $htmlSpecialChars = false): array
     {
         $variables = [];
         foreach ($mail->getAnswers() as $answer) {
+            /**
+             * @var $answer Answer
+             */
             if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
                 continue;
             }
@@ -356,14 +361,21 @@ class MailRepository extends AbstractRepository
                 $value = implode(', ', $value);
             }
             $variables[$answer->getField()->getMarker()] = $value;
+            if ($answer->getOriginalValue() !== $answer->getStringValue()) {
+                $variables[$answer->getField()->getMarker() . '_originalValue'] = $answer->getOriginalValue();
+            }
         }
         if ($htmlSpecialChars) {
             $variables = ArrayUtility::htmlspecialcharsOnArray($variables);
         }
 
-        $signalArguments = [&$variables, $mail, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $variables;
+        $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+        /** @var MailRepositoryGetVariablesWithMarkersFromMailEvent $event */
+        $event = $eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(MailRepositoryGetVariablesWithMarkersFromMailEvent::class, $variables, $mail)
+        );
+
+        return $event->getVariables();
     }
 
     /**
@@ -398,6 +410,7 @@ class MailRepository extends AbstractRepository
      * @param string|array $default String as default or cObject array
      * @param string $glue
      * @return string Sender Name
+     * @throws DeprecatedException
      */
     public function getSenderNameFromArguments(Mail $mail, $default = null, string $glue = ' '): string
     {
@@ -452,10 +465,10 @@ class MailRepository extends AbstractRepository
             $this->cleanStringForQuery(StringUtility::conditionalVariable($sortby, 'crdate')) =>
                 $this->getSortOrderByString($order),
         ];
-        if (!empty($piVars['sorting'])) {
+        if (!empty($piVars['tx_powermail_web_powermailm1']['sorting'])) {
             $sorting = [];
-            foreach ((array)array_reverse($piVars['sorting']) as $property => $sortOrderName) {
-                $sorting[$this->cleanStringForQuery($property)] = $this->getSortOrderByString($sortOrderName);
+            foreach ((array)array_reverse($piVars['tx_powermail_web_powermailm1']['sorting']) as $property => $sortOrderName) {
+                $sorting[$this->cleanStringForQuery(StringUtility::conditionalVariable($property, 'crdate'))] = $this->getSortOrderByString($sortOrderName);
             }
         }
         return $sorting;
@@ -541,7 +554,7 @@ class MailRepository extends AbstractRepository
                             $query->like('sender_ip', '%' . $value . '%'),
                             $query->like('answers.value', '%' . $value . '%'),
                         ];
-                        $and[] = $query->logicalOr($or);
+                        $and[] = $query->logicalOr(...$or);
                     } elseif ($field === 'form' && !empty($value)) {
                         $and[] = $query->equals('form', $value);
                     } elseif ($field === 'start' && !empty($value)) {
@@ -577,8 +590,12 @@ class MailRepository extends AbstractRepository
     public function removeFromDatabase(int $mailIdentifier): void
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME);
-        $queryBuilder->delete(Mail::TABLE_NAME)->where('uid=' . (int)$mailIdentifier)->execute();
+        $queryBuilder
+            ->delete(Mail::TABLE_NAME)
+            ->where('uid=' . (int)$mailIdentifier)->executeStatement();
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
-        $queryBuilder->delete(Answer::TABLE_NAME)->where('mail=' . (int)$mailIdentifier)->execute();
+        $queryBuilder
+            ->delete(Answer::TABLE_NAME)
+            ->where('mail=' . (int)$mailIdentifier)->executeStatement();
     }
 }

@@ -7,10 +7,8 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class SendReceiverMailPreflight
@@ -27,13 +25,15 @@ class SendReceiverMailPreflight
      */
     protected array $settings = [];
 
+    protected Request $request;
+
     /**
      * @param array $settings
      */
-    public function __construct(array $settings)
+    public function __construct(array $settings, Request $request)
     {
         $this->settings = $settings;
-        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
     }
 
     /**
@@ -41,10 +41,7 @@ class SendReceiverMailPreflight
      * @param string|null $hash
      * @return bool
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function sendReceiverMail(Mail $mail, string $hash = null): bool
     {

@@ -1,24 +1,28 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Form;
 
-use TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 
 /**
  * Class MultiUploadViewHelper
+ *
+ * ToDo: Test, whether this class can be replaced by \TYPO3\CMS\Fluid\ViewHelpers\Form\UploadViewHelper
  */
-class MultiUploadViewHelper extends UploadViewHelper
+class MultiUploadViewHelper extends AbstractFormFieldViewHelper
 {
-    /**
-     * Initialize the arguments.
-     *
-     * @return void
-     * @api
-     */
-    public function initializeArguments()
+    protected $tagName = 'input';
+
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
+        $this->registerTagAttribute('disabled', 'string', 'Specifies that the input element should be disabled when the page loads');
+        $this->registerTagAttribute('multiple', 'string', 'Specifies that the file input element should allow multiple selection of files');
+        $this->registerTagAttribute('accept', 'string', 'Specifies the allowed file extensions to upload via comma-separated list, example ".png,.gif"');
+        $this->registerArgument('errorClass', 'string', 'CSS class to set if there are errors for this ViewHelper', false, 'f3-form-error');
+        $this->registerUniversalTagAttributes();
     }
 
     /**

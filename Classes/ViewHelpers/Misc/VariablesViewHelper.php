@@ -10,9 +10,6 @@ use In2code\Powermail\Utility\ArrayUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
@@ -53,10 +50,7 @@ class VariablesViewHelper extends AbstractViewHelper
      * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
      * @return string
-     * @throws Exception
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     public function render(): string
     {

@@ -7,33 +7,6 @@ call_user_func(
     function () {
 
         /**
-         * Include Backend Module
-         */
-        if (TYPO3_MODE === 'BE' &&
-            !\In2code\Powermail\Utility\ConfigurationUtility::isDisableBackendModuleActive() &&
-            !(TYPO3_REQUESTTYPE & TYPO3_REQUESTTYPE_INSTALL)
-        ) {
-            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'Powermail',
-                'web',
-                'm1',
-                '',
-                [
-                    \In2code\Powermail\Controller\ModuleController::class =>
-                        'dispatch, list, exportXls, exportCsv, reportingBe, toolsBe, overviewBe, ' .
-                        'checkBe, converterBe, converterUpdateBe, reportingFormBe, reportingMarketingBe, ' .
-                        'fixUploadFolder, fixWrongLocalizedForms, fixFilledMarkersInLocalizedFields, ' .
-                        'fixWrongLocalizedPages, fixFilledMarkersInLocalizedPages'
-                ],
-                [
-                    'access' => 'user,group',
-                    'icon' => 'EXT:powermail/Resources/Public/Icons/powermail.svg',
-                    'labels' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf',
-                ]
-            );
-        }
-
-        /**
          * Table description files for localization and allowing powermail tables on pages of type default
          */
         $tables = [
@@ -65,17 +38,6 @@ call_user_func(
                 'expirePeriod' => 30
             ];
         }
-
-        /**
-         * Register icons
-         */
-        $iconRegistry =
-            \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-        $iconRegistry->registerIcon(
-            'extension-powermail-main',
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            ['source' => 'EXT:powermail/Resources/Public/Icons/powermail.svg']
-        );
 
         /**
          * Search with TYPO3 backend search

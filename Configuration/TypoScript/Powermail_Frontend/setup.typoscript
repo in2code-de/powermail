@@ -113,7 +113,7 @@ powermail_frontend_rss {
   10 < styles.content.get
 }
 
-[getTSFE().type == 31311 || getTSFE().type == 31312 || getTSFE().type == 31319]
+[traverse(getTSFE(), 'type') == 31311 || traverse(getTSFE(), 'type') == 31312 || traverse(getTSFE(), 'type') == 31319]
 # overwrite the default content element layout, because we don't want the wrapper div in our export files
 tt_content.list {
   layoutRootPaths {

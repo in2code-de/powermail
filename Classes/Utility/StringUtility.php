@@ -22,13 +22,13 @@ class StringUtility
         if (is_bool($value)) {
             return false;
         }
-        // string (default fields)
         if (!is_array($value)) {
+            // string (default fields)
             if (isset($value) && strlen((string)$value)) {
                 return true;
             }
-        // array (checkboxes)
         } else {
+            // array (checkboxes)
             foreach ($value as $subValue) {
                 if (isset($value) && strlen((string)$subValue)) {
                     return true;

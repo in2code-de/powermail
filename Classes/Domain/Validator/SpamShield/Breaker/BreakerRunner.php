@@ -9,7 +9,6 @@ use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class BreakerRunner
@@ -52,7 +51,6 @@ class BreakerRunner
      * @return bool
      * @throws ClassDoesNotExistException
      * @throws ConfigurationIsMissingException
-     * @throws Exception
      * @throws InterfaceNotImplementedException
      */
     public function isSpamCheckDisabledByAnyBreaker(): bool

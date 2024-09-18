@@ -65,10 +65,10 @@ class Mail extends AbstractEntity
     /**
      * @var int
      */
-    protected $time = null;
+    protected $time = 0;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Form
+     * @var Form
      */
     protected $form = null;
 
@@ -147,7 +147,7 @@ class Mail extends AbstractEntity
      *
      * @var int
      */
-    protected $_languageUid = -1;
+    protected ?int $_languageUid = -1;
 
     /**
      * __construct
@@ -543,7 +543,7 @@ class Mail extends AbstractEntity
     {
         $pageFunnel = $this->getMarketingPageFunnel();
         if (count($pageFunnel)) {
-            return $pageFunnel[count($pageFunnel) - 1];
+            return (int)$pageFunnel[count($pageFunnel) - 1];
         }
         return 0;
     }

@@ -15,8 +15,6 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ShowFormNoteIfNoEmailOrNameSelected shows one or two warnings in backend below a form if
@@ -41,11 +39,9 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     /**
      * @return array
      * @throws DBALException
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      */
     public function render()
     {
@@ -57,11 +53,9 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     /**
      * @return string
      * @throws DBALException
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
      */
     protected function getHtml(): string
     {

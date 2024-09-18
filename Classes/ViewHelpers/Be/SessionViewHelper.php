@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use Throwable;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\NullFrontend;
 use TYPO3\CMS\Core\Context\Context;
@@ -65,7 +66,7 @@ class SessionViewHelper extends AbstractViewHelper
      */
     protected function initializeTsfe(): void
     {
-        $site = GeneralUtility::makeInstance(Site::class, 1, 1, []);
+        $site = GeneralUtility::makeInstance(Site::class, '1', 1, []);
         $siteLanguage = GeneralUtility::makeInstance(
             SiteLanguage::class,
             0,
@@ -73,13 +74,13 @@ class SessionViewHelper extends AbstractViewHelper
             new Uri('https://domain.org/page'),
             []
         );
-        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, 0, []);
+        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, '0', []);
         $nullFrontend = GeneralUtility::makeInstance(NullFrontend::class, 'pages');
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
         $frontendUser = new FrontendUserAuthentication();
         try {
             $cacheManager->registerCache($nullFrontend);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             unset($exception);
         }
         $GLOBALS['TSFE'] = new TypoScriptFrontendController(

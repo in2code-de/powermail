@@ -27,9 +27,9 @@ class ForeignValidator extends AbstractValidator
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
-        foreach ((array)$this->settings['validators'] as $validatorConf) {
+        foreach ((array)($this->settings['validators'] ?? []) as $validatorConf) {
             $this->loadFile($validatorConf);
             if (!class_exists($validatorConf['class'])) {
                 throw new ClassDoesNotExistException(
@@ -40,7 +40,7 @@ class ForeignValidator extends AbstractValidator
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
                 $validator = GeneralUtility::makeInstance($validatorConf['class']);
-                $validator->setConfiguration((array)$validatorConf['config']);
+                $validator->setConfiguration($validatorConf['config'] ?? []);
                 $validator->initialize();
                 /** @var Result $result */
                 $this->addErrors($validator->validate($mail));
@@ -51,8 +51,6 @@ class ForeignValidator extends AbstractValidator
                 );
             }
         }
-
-        return $this->isValidState();
     }
 
     /**

@@ -7,7 +7,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class MailRepositoryTest
@@ -16,12 +16,12 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class MailRepositoryTest extends UnitTestCase
 {
     /**
-     * @var array
+     * @var bool
      */
-    protected $testFilesToDelete = [];
+    protected bool $resetSingletonInstances = true;
 
     /**
-     * @var \In2code\Powermail\Domain\Repository\MailRepository
+     * @var MailRepository
      */
     protected $generalValidatorMock;
 
@@ -30,17 +30,17 @@ class MailRepositoryTest extends UnitTestCase
      */
     public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
         $objectManager = TestingHelper::getObjectManager();
-        $this->generalValidatorMock = $this->getAccessibleMock(MailRepository::class, ['dummy'], [$objectManager]);
+        $this->generalValidatorMock = $this->getAccessibleMock(
+            MailRepository::class,
+            null,
+            [$objectManager],
+        );
     }
 
-    /**
-     * Dataprovider getLabelsWithMarkersFromMailReturnsArray()
-     *
-     * @return array
-     */
-    public function getLabelsWithMarkersFromMailReturnsArrayDataProvider()
+    public static function getLabelsWithMarkersFromMailReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -100,106 +100,11 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getLabelsWithMarkersFromMail', $mail);
+        $result = $this->generalValidatorMock->_call('getLabelsWithMarkersFromMail', $mail);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider getVariablesWithMarkersFromMailReturnsArray()
-     *
-     * @return array
-     */
-    public function getVariablesWithMarkersFromMailReturnsArrayDataProvider()
-    {
-        return [
-            [
-                [
-                    [
-                        'marker',
-                        'value',
-                    ],
-                ],
-                [
-                    'marker' => 'value',
-                ],
-            ],
-            [
-                [
-                    [
-                        'firstname',
-                        'Alex',
-                    ],
-                    [
-                        'lastname',
-                        'Kellner',
-                    ],
-                    [
-                        'email',
-                        'alex@in2code.de',
-                    ],
-                ],
-                [
-                    'firstname' => 'Alex',
-                    'lastname' => 'Kellner',
-                    'email' => 'alex@in2code.de',
-                ],
-            ],
-            [
-                [
-                    [
-                        'checkbox',
-                        [
-                            'red',
-                            'blue',
-                        ],
-                    ],
-                    [
-                        'firstname',
-                        'Alex',
-                    ],
-                ],
-                [
-                    'checkbox' => 'red, blue',
-                    'firstname' => 'Alex',
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @param array $values
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider getVariablesWithMarkersFromMailReturnsArrayDataProvider
-     * @test
-     * @covers ::getVariablesWithMarkersFromMail
-     */
-    public function getVariablesWithMarkersFromMailReturnsArray($values, $expectedResult)
-    {
-        $mail = new Mail();
-        if (is_array($values)) {
-            foreach ($values as $markerValueMix) {
-                $answer = new Answer();
-                $field = new Field();
-                $field->setMarker($markerValueMix[0]);
-                $answer->setValue($markerValueMix[1]);
-                $answer->setValueType((is_array($markerValueMix[1]) ? 1 : 0));
-                $answer->setField($field);
-                $mail->addAnswer($answer);
-            }
-        }
-
-        $this->generalValidatorMock->_callRef('disableSignals');
-        $result = $this->generalValidatorMock->_callRef('getVariablesWithMarkersFromMail', $mail);
-        self::assertSame($expectedResult, $result);
-    }
-
-    /**
-     * Dataprovider getSenderMailFromArgumentsReturnsString()
-     *
-     * @return array
-     */
-    public function getSenderMailFromArgumentsReturnsStringDataProvider()
+    public static function getSenderMailFromArgumentsReturnsStringDataProvider(): array
     {
         return [
             [
@@ -288,16 +193,11 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getSenderMailFromArguments', $mail, $fallback);
+        $result = $this->generalValidatorMock->_call('getSenderMailFromArguments', $mail, $fallback);
         self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider getSenderNameFromArgumentsReturnsString()
-     *
-     * @return array
-     */
-    public function getSenderNameFromArgumentsReturnsStringDataProvider()
+    public static function getSenderNameFromArgumentsReturnsStringDataProvider(): array
     {
         return [
             [
@@ -380,7 +280,7 @@ class MailRepositoryTest extends UnitTestCase
             }
         }
 
-        $result = $this->generalValidatorMock->_callRef('getSenderNameFromArguments', $mail, $fallback);
+        $result = $this->generalValidatorMock->_call('getSenderNameFromArguments', $mail, $fallback);
         self::assertSame($expectedResult, $result);
     }
 

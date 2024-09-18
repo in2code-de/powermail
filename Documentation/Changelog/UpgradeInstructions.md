@@ -1,5 +1,41 @@
 # Upgrade Instructions and breaking changes
 
+## Version 12.4.0
+
+### Breaking Change
+
+We removed the export and rss functionality completely without any replacement, because there is no
+reliable security concept behind it and is not easy to fix.
+
+If you need this, please contact [in2code](https://www.in2code.de/en/contact/) for paid assistance or implement it yourself.
+
+## Version 12.0.0
+
+### Upgrade - Wizards
+
+Unfortunately the bugfix for https://github.com/in2code-pro/powermail/issues/56 introduced a breaking
+change. There are now five submodules, instead of a single big one.
+
+That means, permissions for backend usergroups must be changed in order to use the new modules.
+
+The new version provides an upgrade wizard to migrate the old permission to the new submodules. Please visit
+the upgrade wizard in the backend or run it via cli.
+
+### Events
+
+Many events can now modify the transferred mail object.
+
+If you use events, please check the following ones for changed signatures
+
+* FormControllerCreateActionAfterMailDbSavedEvent got the additional argument hash
+* FormControllerOptinConfirmActionBeforeRenderViewEvent uses the mail object instead of the mail uid
+* all setters in events do not return the event object (as stated in the official documenation)
+
+## Version 11.1
+
+In Version 11.1 the default behaviour for password fields is hashing the value with the default hashing algorithm before storing it in the database.
+If you want to restore the old behaviour you have to apply the changes described [here](/ForAdministrators/BestPractice/PasswordField.md).
+
 ## Version 10.0
 
 In version 10 we completely removed jQuery, jQuery UI, Datetimepicker, Parsley.js and other old JS stuff from frontend

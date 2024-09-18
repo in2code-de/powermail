@@ -7,6 +7,9 @@ services:
   In2code\Powermail\:
     resource: '../Classes/*'
 
+  In2code\Powermail\Domain\Factory\MailFactory:
+    public: true
+
   In2code\Powermail\Command\CleanupExportsCommand:
     tags:
       - name: 'console.command'
@@ -36,3 +39,9 @@ services:
       - name: 'console.command'
         command: 'powermail:resetMarkers'
         description: 'Reset all marker names in fields if there are broken fields without or duplicated markernames.'
+
+  In2code\Powermail\EventListener\FlexFormParsingModifyEventListener:
+    tags:
+      - name: 'event.listener'
+        identifier: 'powermail/modify-data-structure'
+        method: 'modifyDataStructure'

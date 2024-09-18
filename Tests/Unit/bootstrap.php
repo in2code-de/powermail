@@ -15,12 +15,12 @@ if (!file_exists($autoload)) {
 
 $bootstrapLoaded = false;
 $bootstrap = $webRoot . '/typo3/sysext/core/Build/UnitTestsBootstrap.php';
-$bootstrapNimut = $buildRoot . '/vendor/nimut/testing-framework/res/Configuration/UnitTestsBootstrap.php';
+$bootstrapTypo3 = __DIR__ . '/UnitTestsBootstrap.php';
 if (file_exists($bootstrap)) {
     require($bootstrap);
     $bootstrapLoaded = true;
-} elseif (file_exists($bootstrapNimut)) {
-    require($bootstrapNimut);
+} elseif (file_exists($bootstrapTypo3)) {
+    require($bootstrapTypo3);
     $bootstrapLoaded = true;
 }
 if ($bootstrapLoaded === false) {

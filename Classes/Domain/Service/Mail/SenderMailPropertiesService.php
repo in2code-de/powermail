@@ -3,14 +3,14 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\SenderMailPropertiesGetSenderEmailEvent;
+use In2code\Powermail\Events\SenderMailPropertiesGetSenderNameEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class SenderMailPropertiesService to get email array for sender attributes
@@ -18,8 +18,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SenderMailPropertiesService
 {
-    use SignalTrait;
-
     /**
      * TypoScript settings as plain array
      *
@@ -35,6 +33,11 @@ class SenderMailPropertiesService
     protected array $configuration = [];
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
      * @param array $settings
      */
     public function __construct(array $settings)
@@ -42,15 +45,14 @@ class SenderMailPropertiesService
         $this->settings = $settings;
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
     }
 
     /**
      * Get sender email from form settings. If empty, take default from TypoScript or TYPO3 configuration
      *
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function getSenderEmail(): string
     {
@@ -65,18 +67,18 @@ class SenderMailPropertiesService
             );
         }
 
-        $signalArguments = [&$senderEmail, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $senderEmail;
+        /** @var SenderMailPropertiesGetSenderEmailEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(SenderMailPropertiesGetSenderEmailEvent::class, $senderEmail, $this)
+        );
+        return $event->getSenderEmail();
     }
 
     /**
      * Get sender name from form settings. If empty, take default from TypoScript or TYPO3 configuration.
      *
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function getSenderName(): string
     {
@@ -91,8 +93,10 @@ class SenderMailPropertiesService
             );
         }
 
-        $signalArguments = [&$senderName, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $senderName;
+        /** @var SenderMailPropertiesGetSenderNameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(SenderMailPropertiesGetSenderNameEvent::class, $senderName, $this)
+        );
+        return $event->getSenderName();
     }
 }

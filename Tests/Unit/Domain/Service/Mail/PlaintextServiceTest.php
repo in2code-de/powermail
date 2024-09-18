@@ -3,7 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Service\Mail\PlaintextService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PlaintextServiceTest
@@ -12,7 +12,7 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
 class PlaintextServiceTest extends UnitTestCase
 {
     /**
-     * @var \In2code\Powermail\Domain\Service\Mail\PlaintextService
+     * @var PlaintextService
      */
     protected $generalValidatorMock;
 
@@ -21,7 +21,7 @@ class PlaintextServiceTest extends UnitTestCase
      */
     public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(PlaintextService::class, ['addSender']);
+        $this->generalValidatorMock = $this->getAccessibleMock(PlaintextService::class, null);
     }
 
     /**
@@ -37,7 +37,7 @@ class PlaintextServiceTest extends UnitTestCase
      *
      * @return array
      */
-    public function makePlainReturnStringDataProvider()
+    public static function makePlainReturnStringDataProvider(): array
     {
         return [
             [

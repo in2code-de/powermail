@@ -3,8 +3,8 @@
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Utility\ObjectUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Log\Logger;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ObjectUtilityTest
@@ -12,6 +12,11 @@ use TYPO3\CMS\Core\Log\Logger;
  */
 class ObjectUtilityTest extends UnitTestCase
 {
+    /**
+     * @var bool
+     */
+    protected bool $resetSingletonInstances = true;
+
     /**
      * @return void
      * @test

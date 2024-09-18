@@ -48,6 +48,7 @@ class FinisherRunner
                     1578644684
                 );
             }
+            $contentObjectParent = clone $contentObject;
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractFinisher $finisher */
                 $finisher = GeneralUtility::makeInstance(
@@ -67,6 +68,7 @@ class FinisherRunner
                     1578644680
                 );
             }
+            $contentObject = $contentObjectParent;
         }
     }
 

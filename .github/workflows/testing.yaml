@@ -1,5 +1,11 @@
 name: testing
-on: [push, pull_request]
+on:
+  push:
+    branches-ignore:
+      - 'l10n_*'
+  pull_request:
+    branches-ignore:
+      - 'l10n_*'
 
 jobs:
   php-lint:
@@ -7,7 +13,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
@@ -20,14 +26,15 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - 7.4
-          - 8.0
+          - 8.1
+          - 8.2
+          - 8.3
   typoscript-lint:
     name: "TypoScript linter"
     runs-on: ubuntu-20.04
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Run TypoScript lint"
         uses: TYPO3-Continuous-Integration/TYPO3-CI-Typoscript-Lint@v1
         with:
@@ -39,22 +46,37 @@ jobs:
     needs: php-lint
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.4
+          php-version: 8.1
       - name: "Composer Install"
         run: "composer install"
       - name: "Run PHP CS Fixer"
         run: "composer test:php:cs"
+  phpstan:
+    name: "PHPstan"
+    runs-on: ubuntu-20.04
+    needs: php-lint
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+      - name: "Composer Install"
+        run: "composer install"
+      - name: "Run PHPstan"
+        run: "composer test:php:phpstan"
   unit-tests:
     name: "PHP Unit Tests"
     runs-on: ubuntu-20.04
     needs: php-lint
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
@@ -69,5 +91,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - 7.4
-          - 8.0
+          - 8.1
+          - 8.2
+          - 8.3

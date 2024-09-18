@@ -3,9 +3,9 @@
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Service\RedirectUriServiceFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class RedirectUriServiceTest
@@ -26,7 +26,7 @@ class RedirectUriServiceTest extends UnitTestCase
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             RedirectUriServiceFixture::class,
-            ['dummy'],
+            null,
             [new ContentObjectRenderer()]
         );
     }
@@ -39,12 +39,7 @@ class RedirectUriServiceTest extends UnitTestCase
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getTargetFromFlexFormReturnString()
-     *
-     * @return array
-     */
-    public function getTargetFromFlexFormReturnStringDataProvider()
+    public static function getTargetFromFlexFormReturnStringDataProvider(): array
     {
         return [
             '234' => [

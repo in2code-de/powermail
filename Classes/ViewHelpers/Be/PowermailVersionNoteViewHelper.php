@@ -123,10 +123,10 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('review_state')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->where('extension_key = \'powermail\' and version = \'' . $this->getVersion() . '\'')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         if (!empty($row['review_state']) && $row['review_state'] === -1) {
             $unsafe = true;
         }
@@ -143,11 +143,11 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('version')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail"')
+            ->where('extension_key = \'powermail\'')
             ->orderBy('version', 'desc')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         if (!empty($row['version'])) {
             $newestVersion = VersionNumberUtility::convertVersionNumberToInteger($row['version']);
             $currentVersion = VersionNumberUtility::convertVersionNumberToInteger($this->getVersion());
@@ -167,10 +167,10 @@ class PowermailVersionNoteViewHelper extends AbstractViewHelper
         $row = $queryBuilder
             ->select('uid')
             ->from(self::TABLE_NAME)
-            ->where('extension_key = "powermail" and version = "' . $this->getVersion() . '"')
+            ->where('extension_key = \'powermail\' and version = \'' . $this->getVersion() . '\'')
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchOne();
         return !empty($row['uid']);
     }
 

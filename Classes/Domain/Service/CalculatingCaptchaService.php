@@ -13,7 +13,6 @@ use In2code\Powermail\Utility\MathematicUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class CalculatingCaptchaService
@@ -28,8 +27,6 @@ class CalculatingCaptchaService
     protected $configuration;
 
     /**
-     * Operators
-     *
      * @var array
      */
     protected $operators = [
@@ -86,7 +83,6 @@ class CalculatingCaptchaService
 
     /**
      * @param bool $test
-     * @throws Exception
      */
     public function __construct(bool $test = false)
     {
@@ -256,8 +252,7 @@ class CalculatingCaptchaService
     }
 
     /**
-     * @return CalculatingCaptchaService
-     * @throws Exception
+     * @return $this
      */
     public function setConfiguration(): CalculatingCaptchaService
     {

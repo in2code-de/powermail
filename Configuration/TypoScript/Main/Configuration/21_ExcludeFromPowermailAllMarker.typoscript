@@ -27,7 +27,7 @@ plugin.tx_powermail.settings.setup {
       excludeFromMarkerNames =
 
       # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-      excludeFromFieldTypes =
+      excludeFromFieldTypes = password
     }
 
     # In Mail to sender (if activated)
@@ -36,7 +36,7 @@ plugin.tx_powermail.settings.setup {
       excludeFromMarkerNames =
 
       # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-      excludeFromFieldTypes =
+      excludeFromFieldTypes = password
     }
 
     # In double-opt-in Mail to sender (if activated)
@@ -45,7 +45,7 @@ plugin.tx_powermail.settings.setup {
       excludeFromMarkerNames =
 
       # add some fieldtypes (commaseparated) which should be excluded (e.g. hidden, captcha)
-      excludeFromFieldTypes =
+      excludeFromFieldTypes = password
     }
   }
 }

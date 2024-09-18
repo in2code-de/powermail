@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Exception\DatabaseFieldMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
+use Throwable;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -56,7 +57,7 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
             $connection->executeQuery('update ' . Field::TABLE_NAME . ' set page=pages;');
             $connection = DatabaseUtility::getConnectionForTable(Page::TABLE_NAME);
             $connection->executeQuery('update ' . Page::TABLE_NAME . ' set form=forms;');
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             return false;
         }
         return true;

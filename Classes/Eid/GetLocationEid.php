@@ -8,6 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Throwable;
 use TYPO3\CMS\Core\Exception;
+use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -88,7 +90,12 @@ class GetLocationEid
         $url = 'https://nominatim.openstreetmap.org/reverse?format=json&addressdetails=1&lat=' . $lat . '&lon=' . $lng;
 
         try {
-            $json = GeneralUtility::getUrl($url);
+            $guzzleClientFactory = GeneralUtility::makeInstance(GuzzleClientFactory::class);
+            $requestFactory = GeneralUtility::makeInstance(RequestFactory::class, $guzzleClientFactory);
+            $json = $requestFactory
+                ->request($url)
+                ->getBody()
+                ->getContents();
             if ($json !== false) {
                 $data = json_decode($json, true);
                 if (!empty($data['address'])) {

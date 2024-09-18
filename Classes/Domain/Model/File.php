@@ -3,20 +3,16 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\GetNewPathAndFilenameEvent;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * File Model for single uploaded files
  */
 class File
 {
-    use SignalTrait;
-
     /**
      * Field marker name
      *
@@ -95,6 +91,11 @@ class File
     protected ?Field $field = null;
 
     /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
      * @param string $marker
      * @param string $originalName
      * @param string $temporaryName
@@ -104,6 +105,7 @@ class File
         $this->marker = $marker;
         $this->originalName = $originalName;
         $this->temporaryName = $temporaryName;
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
     }
 
     /**
@@ -331,9 +333,6 @@ class File
      * Check if file is existing on the server
      *
      * @return bool
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function isFileExisting(): bool
     {
@@ -343,9 +342,6 @@ class File
     /**
      * @param bool $absolute
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function getNewPathAndFilename(bool $absolute = false): string
     {
@@ -353,7 +349,10 @@ class File
         if ($absolute === true) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$pathAndFilename, $this]);
-        return $pathAndFilename;
+        /** @var GetNewPathAndFilenameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(GetNewPathAndFilenameEvent::class, $pathAndFilename, $this)
+        );
+        return $event->getPathAndFilename();
     }
 }
