@@ -1,17 +1,17 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class ValueBlacklistMethod
  */
 class ValueBlacklistMethod extends AbstractMethod
 {
-
     /**
      * @var string
      */
@@ -21,16 +21,19 @@ class ValueBlacklistMethod extends AbstractMethod
      * Blacklist String Check: Check if a blacklisted word is in given values
      *
      * @return bool true if spam recognized
-     * @throws Exception
      */
     public function spamCheck(): bool
     {
+        /** @var Answer $answer */
         foreach ($this->mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {
                 continue;
             }
+            if (is_bool($answer->getValue())) {
+                continue;
+            }
             foreach ($this->getValues() as $blackword) {
-                if ($this->isStringInString($answer->getValue(), $blackword)) {
+                if ($this->isStringInString((string)$answer->getValue(), $blackword)) {
                     return true;
                 }
             }
@@ -42,7 +45,6 @@ class ValueBlacklistMethod extends AbstractMethod
      * Get blacklisted values
      *
      * @return array
-     * @throws Exception
      */
     protected function getValues(): array
     {

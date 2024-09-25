@@ -1,7 +1,11 @@
 <?php
+
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\Driver\Exception;
+use Doctrine\DBAL\Exception as ExceptionDbal;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\DatabaseUtility;
@@ -11,7 +15,6 @@ use In2code\Powermail\Utility\DatabaseUtility;
  */
 class PageRepository extends AbstractRepository
 {
-
     /**
      * @param int $uid
      * @return string
@@ -31,13 +34,14 @@ class PageRepository extends AbstractRepository
     /**
      * @param int $uid
      * @return array
+     * @throws Exception
+     * @throws ExceptionDbal
      */
     public function getPropertiesFromUid(int $uid): array
     {
-        $query = $this->createQuery();
-        $sql = 'select * from pages where uid = ' . (int)$uid . ' limit 1';
-        $result = $query->statement($sql)->execute(true);
-        return $result[0];
+        $connection = DatabaseUtility::getConnectionForTable('pages');
+        $properties = $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        return $properties ?: [];
     }
 
     /**
@@ -54,7 +58,7 @@ class PageRepository extends AbstractRepository
         $searchString .= '\n                    <value index=\"vDEF\">' . $form->getUid() . '</value>%';
         $sql = 'select distinct pages.title, pages.uid';
         $sql .= ' from pages left join tt_content on tt_content.pid = pages.uid';
-        $sql .= ' where tt_content.list_type = "powermail_pi1"';
+        $sql .= ' where (tt_content.CType = "list" and tt_content.list_type = "powermail_pi1" or tt_content.CType = "powermail_pi1")';
         $sql .= ' and tt_content.deleted = 0 and pages.deleted = 0';
         $sql .= ' and tt_content.pi_flexform like "' . $searchString . '"';
 
@@ -66,6 +70,7 @@ class PageRepository extends AbstractRepository
      *        tx_powermail_domain_model_page.form = "0"
      *
      * @return array
+     * @throws ExceptionDbal
      */
     public function findAllWrongLocalizedPages(): array
     {
@@ -73,9 +78,9 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(form = "" or form = 0) and sys_language_uid > 0 and deleted = 0')
-            ->execute()
-            ->fetchAll();
+            ->where('(form = \'\' or form = 0) and sys_language_uid > 0 and deleted = 0')
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -94,7 +99,7 @@ class PageRepository extends AbstractRepository
                 ->update(Page::TABLE_NAME)
                 ->where('uid = ' . (int)$page['uid'])
                 ->set('form', $localizedFormUid)
-                ->execute();
+                ->executeStatement();
         }
     }
 
@@ -102,11 +107,12 @@ class PageRepository extends AbstractRepository
      * Get all not deleted pages
      *
      * @return int[]
+     * @throws ExceptionDbal
      */
     public function getAllPages(): array
     {
         $querybuilder = DatabaseUtility::getQueryBuilderForTable('pages', true);
-        $rows = $querybuilder->select('uid')->from('pages')->execute()->fetchAll();
+        $rows = $querybuilder->select('uid')->from('pages')->executeQuery()->fetchAllAssociative();
         $pids = [];
         foreach ($rows as $row) {
             $pids[] = (int)$row['uid'];

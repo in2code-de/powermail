@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
@@ -12,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -39,11 +39,11 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
             /** @var Mail $mail */
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
-                if (method_exists($answer->getField(), 'getUid') &&
+                if (method_exists($answer->getField() ?? '', 'getUid') &&
                     $answer->getField()->getUid() === (int)$answerField
                 ) {
                     $value = $answer->getValue();
-                    if (strtolower($value[0]) === strtolower($letter)) {
+                    if ($value !== '' && strtolower($value[0]) === strtolower($letter)) {
                         return true;
                     }
                 }

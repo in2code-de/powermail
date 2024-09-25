@@ -1,10 +1,13 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Update;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\DatabaseUtility;
+use Throwable;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -54,7 +57,7 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             $connection->executeQuery('update ' . Mail::TABLE_NAME . ' set sys_language_uid=-1;');
             $connection = DatabaseUtility::getConnectionForTable(Answer::TABLE_NAME);
             $connection->executeQuery('update ' . Answer::TABLE_NAME . ' set sys_language_uid=-1;');
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             return false;
         }
         return true;
@@ -62,6 +65,7 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
 
     /**
      * @return bool
+     * @throws DBALException
      */
     public function updateNecessary(): bool
     {
@@ -74,12 +78,13 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
     public function getPrerequisites(): array
     {
         return [
-            DatabaseUpdatedPrerequisite::class
+            DatabaseUpdatedPrerequisite::class,
         ];
     }
 
     /**
      * @return bool
+     * @throws DBALException
      */
     protected function areMailsExistingInWrongLanguage(): bool
     {
@@ -88,12 +93,13 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             ->count('sys_language_uid')
             ->from(Mail::TABLE_NAME)
             ->where('sys_language_uid > -1')
-            ->execute()
-            ->fetchColumn() > 0;
+            ->executeQuery()
+            ->rowCount() > 0;
     }
 
     /**
      * @return bool
+     * @throws DBALException
      */
     protected function areAnswersExistingInWrongLanguage(): bool
     {
@@ -102,7 +108,7 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             ->count('sys_language_uid')
             ->from(Answer::TABLE_NAME)
             ->where('sys_language_uid > -1')
-            ->execute()
-            ->fetchColumn() > 0;
+            ->executeQuery()
+            ->rowCount() > 0;
     }
 }

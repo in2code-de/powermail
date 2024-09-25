@@ -1,34 +1,64 @@
 name: TER release
 
 on:
+  workflow_dispatch:
+    tags:
+      - '*'
   push:
     tags:
       - '*'
 
 jobs:
   ter-release:
+    if: github.repository == 'in2code-de/powermail'
     name: TER release
     runs-on: ubuntu-latest
     env:
       TYPO3_EXTENSION_KEY: 'powermail'
-      REPOSITORY_URL: 'https://github.com/einpraegsam/powermail'
+      REPOSITORY_URL: 'https://github.com/in2code-de/powermail'
       TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
       TYPO3_API_USERNAME: ${{ secrets.TYPO3_API_USERNAME }}
       TYPO3_API_PASSWORD: ${{ secrets.TYPO3_API_PASSWORD }}
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Check tag
+        run: |
+          if ! [[ ${{ github.ref }} =~ ^refs/tags/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}$ ]]; then
+            exit 1
+          fi
+
       - name: Get the version
         id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+        run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+      - name: Get comment
+        id: get-comment
+        run: |
+          readonly local comment=$(git tag -n10 -l ${{ env.version }} | sed "s/^[0-9.]*[ ]*//g")
+
+          if [[ -z "${comment// }" ]]; then
+            echo "comment=Released version ${{ env.version }} of ${{ env.TYPO3_EXTENSION_KEY }}" >> $GITHUB_ENV
+          else
+            {
+              echo 'comment<<EOF'
+              echo "$comment"
+              echo EOF
+            } >> "$GITHUB_ENV"
+          fi
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
           extensions: intl, mbstring, xml, soap, zip, curl
+          tools: composer:v2
 
       - name: Install EXT:tailor
         run: composer global require typo3/tailor --prefer-dist --no-progress --no-suggest
 
-      - name: Upload EXT:${{ env.EXTENSION_KEY }} as ${{ steps.get_version.outputs.VERSION }} to TER
-        run: php ~/.composer/vendor/bin/tailor ter:publish ${{ steps.get_version.outputs.VERSION }} --artefact=${{ env.REPOSITORY_URL }}/archive/${{ steps.get_version.outputs.VERSION }}.zip --comment="New release of version ${{ steps.get_version.outputs.VERSION }} - see details, changelog and documentation on ${{ env.REPOSITORY_URL }}"
+      - name: Publish to TER
+        run: php ~/.composer/vendor/bin/tailor ter:publish --comment "${{ env.comment }}" ${{ env.version }}
+

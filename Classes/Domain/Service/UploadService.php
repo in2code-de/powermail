@@ -1,61 +1,72 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
+use Exception;
 use In2code\Powermail\Domain\Factory\FileFactory;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\File;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\UploadServiceGetFilesEvent;
+use In2code\Powermail\Events\UploadServicePreflightEvent;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Resource\Security\FileNameValidator;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class UploadService
  */
 class UploadService implements SingletonInterface
 {
-    use SignalTrait;
-
     /**
      * Contains all files from upload
      *
      * @var File[]
      */
-    protected $files = [];
+    protected array $files = [];
 
     /**
      * Temporary filenames array to find duplicates
      *
      * @var array
      */
-    protected $fileNames = [];
+    protected array $fileNames = [];
 
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
 
     /**
      * @param array $settings
      * @return void
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     public function preflight(array $settings): void
     {
@@ -64,14 +75,14 @@ class UploadService implements SingletonInterface
         $this->fillFilesFromHiddenFields();
         $this->fillFilesFromExistingMail();
         $this->makeUniqueFilenames();
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$this]);
+        $this->eventDispatcher->dispatch(GeneralUtility::makeInstance(UploadServicePreflightEvent::class, $this));
     }
 
     /**
      * Upload all files to upload folder
      *
      * @return bool true if files where uploaded correctly
-     * @throws \Exception
+     * @throws Exception
      */
     public function uploadAllFiles(): bool
     {
@@ -98,8 +109,6 @@ class UploadService implements SingletonInterface
      *
      * @param string $marker
      * @return array
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws Exception
      */
     public function getNewFileNamesByMarker(string $marker): array
@@ -126,7 +135,7 @@ class UploadService implements SingletonInterface
         if (!empty($extension) &&
             !empty($fileExtensions) &&
             GeneralUtility::inList($fileExtensions, $extension) &&
-            GeneralUtility::verifyFilenameAgainstDenyPattern($filename) &&
+            GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename) &&
             GeneralUtility::validPathStr($filename)
         ) {
             return true;
@@ -153,8 +162,6 @@ class UploadService implements SingletonInterface
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     protected function fillFilesFromFilesArray(): void
     {
@@ -164,7 +171,7 @@ class UploadService implements SingletonInterface
             foreach ((array)$filesArray['name']['field'] as $marker => $files) {
                 foreach ((array)array_keys($files) as $key) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromFilesArray($filesArray, $marker, $key);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -183,18 +190,16 @@ class UploadService implements SingletonInterface
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     protected function fillFilesFromHiddenFields(): void
     {
         $arguments = $this->getArguments();
-        foreach ((array)$arguments['field'] as $marker => $values) {
+        foreach ((array)($arguments['field'] ?? []) as $marker => $values) {
             $fileNames = $this->getNewFileNamesByMarker($marker);
             if (empty($fileNames)) {
                 foreach ((array)$values as $value) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromUploadArguments($marker, $value, $arguments);
                     if ($file !== null) {
                         $this->addFile($file);
@@ -218,14 +223,14 @@ class UploadService implements SingletonInterface
     {
         $arguments = $this->getArguments();
         if ($this->isOptinConfirmWithExistingMail($arguments)) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             /** @var Mail $mail */
             $mail = $mailRepository->findByUid((int)$arguments['mail']);
             if ($mail !== null) {
                 $answers = $mail->getAnswersByValueType(Answer::VALUE_TYPE_UPLOAD);
                 foreach ($answers as $answer) {
                     /** @var FileFactory $fileFactory */
-                    $fileFactory = ObjectUtility::getObjectManager()->get(FileFactory::class, $this->settings);
+                    $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $value = $answer->getValue();
                     if (is_array($value)) {
                         foreach ($value as $valueItem) {
@@ -250,8 +255,6 @@ class UploadService implements SingletonInterface
      * Rename filenames if needed
      *
      * @return void
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws Exception
      */
     protected function makeUniqueFilenames(): void
@@ -260,7 +263,10 @@ class UploadService implements SingletonInterface
             if (!$file->isUploaded()) {
                 $fileName = $file->getNewName();
                 if ($this->isRandomizeFileNameConfigured()) {
-                    $fileName = $this->randomizeFileName($file->getNewName(), $this->isPrependOriginalFileNameConfigured());
+                    $fileName = $this->randomizeFileName(
+                        $file->getNewName(),
+                        $this->isPrependOriginalFileNameConfigured()
+                    );
                     $file->renameName($fileName);
                 }
                 for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
@@ -288,17 +294,14 @@ class UploadService implements SingletonInterface
             return $this->randomizeFileName($filename);
         }
         $fileInfo = GeneralUtility::split_fileref($filename);
-        $filebody = $this->removeAppendingNumbersInString($fileInfo['filebody']);
+        $fileBody = $this->removeAppendingNumbersInString($fileInfo['filebody']);
         $appendix = '_' . sprintf('%02d', $iteration);
-        $filename = $filebody . $appendix . '.' . $fileInfo['fileext'];
-        return $filename;
+        return $fileBody . $appendix . '.' . $fileInfo['fileext'];
     }
 
     /**
      * @param File $file
      * @return bool
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws Exception
      */
     protected function isFileExistingInUploadFolder(File $file): bool
@@ -307,11 +310,11 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * @param $filename
+     * @param string $filename
      * @param false $prependOriginalFileName
      * @return string
      */
-    protected function randomizeFileName($filename, $prependOriginalFileName = false): string
+    protected function randomizeFileName(string $filename, bool $prependOriginalFileName = false): string
     {
         $fileInfo = pathinfo($filename);
         $randomizedFileName = '';
@@ -325,13 +328,11 @@ class UploadService implements SingletonInterface
 
     /**
      * @return File[]
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      * @throws Exception
      */
     public function getFiles(): array
     {
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$this]);
+        $this->eventDispatcher->dispatch(GeneralUtility::makeInstance(UploadServiceGetFilesEvent::class, $this));
         return $this->files;
     }
 
@@ -406,8 +407,7 @@ class UploadService implements SingletonInterface
      *
      * @param File $file
      * @return bool
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws Exception
      */
     protected function isNotUniqueFilename(File $file): bool
     {

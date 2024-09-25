@@ -1,54 +1,54 @@
 plugin.tx_powermail {
-	settings {
-		BasicCss = EXT:powermail/Resources/Public/Css/Basic.css
+  settings {
+    BasicCss = EXT:powermail/Resources/Public/Css/Basic.css
 
-		styles {
-			bootstrap {
-				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
-				addBootstrap = 0
+    styles {
+      bootstrap {
+        # cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
+        addBootstrap = 0
 
-				# cat=powermail_styles//0010; type=text; label= Define path Bootsrap.css
-				bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
+        # cat=powermail_styles//0010; type=text; label= Define path Bootsrap.css
+        bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
 
-				# cat=powermail_styles//0020; type=int+; label= Number of columns
-				numberOfColumns = 2
+        # cat=powermail_styles//0020; type=int+; label= Number of columns
+        numberOfColumns = 2
 
-				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for row containers
-				rowClasses = row
+        # cat=powermail_styles//0100; type=text; label= Framework classname(s) for row containers
+        rowClasses = row
 
-				# cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
-				formClasses = form-horizontal
+        # cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
+        formClasses = form-horizontal
 
-				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
-				fieldAndLabelWrappingClasses = form-group col-md-6
+        # cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
+        fieldAndLabelWrappingClasses = form-group col-md-6
 
-				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
-				fieldWrappingClasses = col-sm-10
+        # cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
+        fieldWrappingClasses = col-sm-10
 
-				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
-				labelClasses = control-label col-sm-2
+        # cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
+        labelClasses = control-label col-sm-2
 
-				# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
-				fieldClasses = form-control
+        # cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
+        fieldClasses = form-control
 
-				# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
-				offsetClasses = col-sm-offset-2
+        # cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
+        offsetClasses = col-sm-offset-2
 
-				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
-				radioClasses = radio
+        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
+        radioClasses = radio
 
-				# cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
-				checkClasses = checkbox
+        # cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+        checkClasses = checkbox
 
-				# cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
-				submitClasses = btn btn-primary
+        # cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
+        submitClasses = btn btn-primary
 
-				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
-				createClasses = powermail_create
+        # cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
+        createClasses = powermail_create
 
         # cat=powermail_styles//0200; type=boolean; label= Activate bootstrap classes (constants in {$plugin.tx_powermail.settings.styles.bootstrap.*} override {$plugin.tx_powermail.settings.styles.framework.*})
-				important = 1
-			}
-		}
-	}
+        important = 1
+      }
+    }
+  }
 }

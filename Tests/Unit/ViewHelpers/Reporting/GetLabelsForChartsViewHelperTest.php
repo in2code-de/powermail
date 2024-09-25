@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetLabelsForChartsViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetLabelsForChartsViewHelperTest
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class GetLabelsForChartsViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -19,18 +19,18 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             GetLabelsForChartsViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -40,7 +40,7 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             [
@@ -49,14 +49,14 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
                         'label1' => '10',
                         'label2' => '70',
                         'label3' => '20',
-                    ]
+                    ],
                 ],
                 'test',
                 ',',
                 15,
                 '...',
                 false,
-                'label1,label2,label3'
+                'label1,label2,label3',
             ],
             [
                 [
@@ -64,14 +64,14 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
                         'abc' => '10',
                         'def' => '70',
                         'gh' => '20',
-                    ]
+                    ],
                 ],
                 'a',
                 ',',
                 2,
                 '...',
                 true,
-                'ab...%2Cde...%2Cgh'
+                'ab...%2Cde...%2Cgh',
             ],
             [
                 [
@@ -79,14 +79,14 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
                         'typo3' => '15',
                         'wordpress' => '60',
                         'drupal' => '25',
-                    ]
+                    ],
                 ],
                 '0',
                 '|',
                 5,
                 ' etc...',
                 false,
-                'typo3|wordp etc...|drupa etc...'
+                'typo3|wordp etc...|drupa etc...',
             ],
             [
                 [
@@ -94,14 +94,14 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
                         '"Fußgänger"' => '15',
                         '"Auto, LKW, Krafträder"' => '60',
                         'Fahrradfahrer' => '25',
-                    ]
+                    ],
                 ],
                 '0',
                 ',',
                 15,
                 '...',
                 false,
-                'Fußgänger,Auto LKW Kraftr...,Fahrradfahrer'
+                'Fußgänger,Auto LKW Kraftr...,Fahrradfahrer',
             ],
         ];
     }
@@ -126,10 +126,10 @@ class GetLabelsForChartsViewHelperTest extends UnitTestCase
             'separator' => $separator,
             'crop' => $crop,
             'append' => $append,
-            'urlEncode' => $urlEncode
+            'urlEncode' => $urlEncode,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        $result = $this->abstractValidationViewHelperMock->_call('render');
+        self::assertSame($expectedResult, $result);
     }
 }

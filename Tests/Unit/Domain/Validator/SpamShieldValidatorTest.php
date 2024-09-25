@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Validator;
 
 use In2code\Powermail\Domain\Validator\SpamShieldValidator;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class SpamShieldValidatorTest
@@ -10,27 +11,29 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class SpamShieldValidatorTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShieldValidator
+     * @var SpamShieldValidator
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             SpamShieldValidator::class,
-            ['dummy']
+            null,
+            [],
+            '',
+            false
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -40,40 +43,40 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function getCalculatedSpamFactorReturnsVoidDataProvider()
+    public static function getCalculatedSpamFactorReturnsVoidDataProvider(): array
     {
         return [
             'indication of 0' => [
                 0,
-                0.000
+                0.000,
             ],
             'indication of 1' => [
                 1,
-                0.000
+                0.000,
             ],
             'indication of 2' => [
                 2,
-                0.5
+                0.5,
             ],
             'indication of 5' => [
                 5,
-                0.8
+                0.8,
             ],
             'indication of 8' => [
                 8,
-                0.8750
+                0.8750,
             ],
             'indication of 12' => [
                 12,
-                0.9167
+                0.9167,
             ],
             'indication of 50' => [
                 50,
-                0.9800
+                0.9800,
             ],
             'indication of 50050' => [
                 50050,
-                1.000
+                1.000,
             ],
         ];
     }
@@ -88,11 +91,11 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function getCalculatedSpamFactorReturnsVoid($spamIndicator, $expectedCalculateMailSpamFactor)
     {
-        $this->generalValidatorMock->_callRef('setSpamIndicator', $spamIndicator);
-        $this->generalValidatorMock->_callRef('calculateMailSpamFactor');
-        $this->assertSame(
+        $this->generalValidatorMock->_call('setSpamIndicator', $spamIndicator);
+        $this->generalValidatorMock->_call('calculateMailSpamFactor');
+        self::assertSame(
             number_format($expectedCalculateMailSpamFactor, 4),
-            number_format($this->generalValidatorMock->_callRef('getCalculatedSpamFactor'), 4)
+            number_format($this->generalValidatorMock->_call('getCalculatedSpamFactor'), 4)
         );
     }
 
@@ -101,7 +104,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function formatSpamFactorReturnsStringDataProvider()
+    public static function formatSpamFactorReturnsStringDataProvider(): array
     {
         return [
             [
@@ -133,7 +136,7 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     public function formatSpamFactorReturnsString($factor, $expectedResult)
     {
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('formatSpamFactor', $factor));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('formatSpamFactor', $factor));
     }
 
     /**
@@ -141,38 +144,38 @@ class SpamShieldValidatorTest extends UnitTestCase
      *
      * @return array
      */
-    public function isSpamToleranceLimitReachedReturnsBoolDataProvider()
+    public static function isSpamToleranceLimitReachedReturnsBoolDataProvider(): array
     {
         return [
             [
                 0.8,
                 0.9,
-                false
+                false,
             ],
             [
                 0.5312,
                 0.54,
-                false
+                false,
             ],
             [
                 0.9,
                 0.8,
-                true
+                true,
             ],
             [
                 0.0,
                 0.0,
-                true
+                true,
             ],
             [
                 0.01,
                 0.0,
-                true
+                true,
             ],
             [
                 1.0,
                 1.0,
-                true
+                true,
             ],
         ];
     }
@@ -190,6 +193,6 @@ class SpamShieldValidatorTest extends UnitTestCase
     {
         $this->generalValidatorMock->_set('calculatedSpamFactor', $calculatedSpamFactor);
         $this->generalValidatorMock->_set('spamFactorLimit', $spamFactorLimit);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('isSpamToleranceLimitReached'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('isSpamToleranceLimitReached'));
     }
 }

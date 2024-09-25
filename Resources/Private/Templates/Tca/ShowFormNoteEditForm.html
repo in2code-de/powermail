@@ -30,7 +30,7 @@
 					<a title="id={formProperties.uid}" href="{uriEditForm}">{formProperties.title}</a>
 				</td>
 				<td>
-					<a title="id={formProperties.pid}" onclick="top.loadEditId({formProperties.pid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+					<a title="id={formProperties.pid}" href="{f:be.uri(route:'web_layout',parameters:'{id:formProperties.pid}')}">
 						{storagePageProperties.title}
 					</a>
 				</td>

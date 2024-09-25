@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Be;
 
 use In2code\Powermail\ViewHelpers\Be\PowermailVersionNoteViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PowermailVersionNoteViewHelperTest
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class PowermailVersionNoteViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface|PowermailVersionNoteViewHelper
      */
@@ -19,18 +19,18 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
             PowermailVersionNoteViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -40,7 +40,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsIntDataProvider()
+    public static function renderReturnsIntDataProvider(): array
     {
         return [
             [
@@ -48,42 +48,42 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
                 false,
                 false,
                 false,
-                0
+                0,
             ],
             [
                 true,
                 true,
                 true,
                 false,
-                3
+                3,
             ],
             [
                 false,
                 true,
                 true,
                 true,
-                0
+                0,
             ],
             [
                 true,
                 false,
                 true,
                 false,
-                1
+                1,
             ],
             [
                 true,
                 true,
                 true,
                 true,
-                2
+                2,
             ],
             [
                 true,
                 false,
                 true,
                 true,
-                2
+                2,
             ],
         ];
     }
@@ -108,14 +108,14 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
     ) {
         $this->powermailVersionNoteViewHelperMock->setVersion('1.0.0');
         $this->powermailVersionNoteViewHelperMock->_set('checkFromDatabase', false);
-        $this->powermailVersionNoteViewHelperMock->_callRef('setExtensionTableExists', $extensionTableExists);
-        $this->powermailVersionNoteViewHelperMock->_callRef('setIsNewerVersionAvailable', $isNewerVersionAvailable);
-        $this->powermailVersionNoteViewHelperMock->_callRef(
+        $this->powermailVersionNoteViewHelperMock->_call('setExtensionTableExists', $extensionTableExists);
+        $this->powermailVersionNoteViewHelperMock->_call('setIsNewerVersionAvailable', $isNewerVersionAvailable);
+        $this->powermailVersionNoteViewHelperMock->_call(
             'setCurrentVersionInExtensionTableExists',
             $currentVersionInExtensionTableExists
         );
-        $this->powermailVersionNoteViewHelperMock->_callRef('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
-        $result = $this->powermailVersionNoteViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        $this->powermailVersionNoteViewHelperMock->_call('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
+        $result = $this->powermailVersionNoteViewHelperMock->_call('render');
+        self::assertSame($expectedResult, $result);
     }
 }

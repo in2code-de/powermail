@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
 
@@ -7,7 +8,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
  */
 interface BreakerInterface
 {
-
     /**
      * @return bool
      */

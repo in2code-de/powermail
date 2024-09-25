@@ -1,9 +1,10 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetNewMarkerNamesForFormServiceTest
@@ -11,82 +12,31 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService
+     * @var GetNewMarkerNamesForFormService
      */
     protected $createMarkerMock;
 
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->createMarkerMock = $this->getAccessibleMock(
             GetNewMarkerNamesForFormService::class,
-            ['dummy']
+            ['cleanString']
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->createMarkerMock);
     }
 
-    /**
-     * Dataprovider cleanStringReturnsString()
-     *
-     * @return array
-     */
-    public function cleanStringReturnsStringDataProvider()
-    {
-        return [
-            [
-                'test',
-                'default',
-                'test',
-            ],
-            [
-                'This is A Test',
-                'default',
-                'thisisatest',
-            ],
-            [
-                '$T h%is_-',
-                'default',
-                'this__',
-            ],
-            [
-                'ęąśółżźćäöüśćóß',
-                'default',
-                'easolzzcaeoeuescoss',
-            ]
-        ];
-    }
-
-    /**
-     * @param string $string
-     * @param string $defaultValue
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider cleanStringReturnsStringDataProvider
-     * @test
-     * @covers ::cleanString
-     */
-    public function cleanStringReturnsString($string, $defaultValue, $expectedResult)
-    {
-        $this->assertSame($expectedResult, $this->createMarkerMock->_callRef('cleanString', $string, $defaultValue));
-    }
-
-    /**
-     * Dataprovider makeUniqueValueInArrayReturnsVoid()
-     *
-     * @return array
-     */
-    public function makeUniqueValueInArrayReturnsVoidDataProvider()
+    public static function makeUniqueValueInArrayReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -94,120 +44,120 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
                     [
                         'marker' => 'abc',
                         'uid' => 12,
-                        'title' => 'abc'
-                    ]
+                        'title' => 'abc',
+                    ],
                 ],
                 [
-                    12 => 'abc'
+                    12 => 'abc',
                 ],
-                false
+                false,
             ],
             [
                 [
                     [
                         'marker' => 'abc',
                         'uid' => 12,
-                        'title' => 'abc'
+                        'title' => 'abc',
                     ],
                     [
                         'marker' => 'abc',
                         'uid' => 13,
-                        'title' => 'abc'
-                    ]
+                        'title' => 'abc',
+                    ],
                 ],
                 [
                     12 => 'abc',
-                    13 => 'abc_01'
+                    13 => 'abc_01',
                 ],
-                false
+                false,
             ],
             [
                 [
                     [
                         'marker' => 'abc',
                         'uid' => 12,
-                        'title' => 'abc'
+                        'title' => 'abc',
                     ],
                     [
                         'marker' => 'abc_01',
                         'uid' => 13,
-                        'title' => 'abc'
+                        'title' => 'abc',
                     ],
                     [
                         'marker' => 'abc_01',
                         'uid' => 14,
-                        'title' => 'abc'
-                    ]
+                        'title' => 'abc',
+                    ],
                 ],
                 [
                     12 => 'abc',
                     13 => 'abc_01',
                     14 => 'abc_02',
                 ],
-                false
+                false,
             ],
             [
                 [
                     [
                         'marker' => 'abc_01',
                         'uid' => 12,
-                        'title' => 'abc'
+                        'title' => 'abc',
                     ],
                     [
                         'marker' => 'abc_01',
                         'uid' => 13,
-                        'title' => 'abc'
+                        'title' => 'abc',
                     ],
                     [
                         'marker' => 'xxx',
                         'uid' => 14,
-                        'title' => 'xxx'
-                    ]
+                        'title' => 'xxx',
+                    ],
                 ],
                 [
                     12 => 'abc_01',
                     13 => 'abc_02',
                     14 => 'xxx',
                 ],
-                false
+                false,
             ],
             [
                 [
                     [
                         'marker' => 'abc',
                         'uid' => 12,
-                        'title' => 'def'
+                        'title' => 'def',
                     ],
                     [
                         'marker' => 'abc',
                         'uid' => 13,
-                        'title' => 'def'
-                    ]
+                        'title' => 'def',
+                    ],
                 ],
                 [
                     12 => 'abc',
                     13 => 'abc_01',
                 ],
-                false
+                false,
             ],
             [
                 [
                     [
                         'marker' => 'abc',
                         'uid' => 12,
-                        'title' => 'def'
+                        'title' => 'def',
                     ],
                     [
                         'marker' => 'abc',
                         'uid' => 13,
-                        'title' => 'def'
-                    ]
+                        'title' => 'def',
+                    ],
                 ],
                 [
                     12 => 'def',
                     13 => 'def_01',
                 ],
-                true
+                true,
             ],
         ];
     }
@@ -230,9 +180,12 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
             }
             $fieldArray[$field->getUid()] = $field;
         }
-        $this->assertSame(
+        if ($forceReset) {
+            $this->createMarkerMock->method('cleanString')->willReturnOnConsecutiveCalls('def', 'def_01');
+        }
+        self::assertSame(
             $expectedResult,
-            $this->createMarkerMock->_callRef('makeUniqueValueInArray', $fieldArray, $forceReset)
+            $this->createMarkerMock->_call('makeUniqueValueInArray', $fieldArray, $forceReset)
         );
     }
 }

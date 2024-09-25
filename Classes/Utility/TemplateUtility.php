@@ -1,13 +1,13 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -16,7 +16,6 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  */
 class TemplateUtility
 {
-
     /**
      * Get absolute paths for templates with fallback
      *        Returns paths from *RootPaths and "hardcoded"
@@ -25,7 +24,6 @@ class TemplateUtility
      * @param string $part "template", "partial", "layout"
      * @return array
      * @throws InvalidConfigurationTypeException
-     * @throws Exception
      */
     public static function getTemplateFolders(string $part = 'template'): array
     {
@@ -59,7 +57,6 @@ class TemplateUtility
      * @param string $part "template", "partial", "layout"
      * @return string Filename/path
      * @throws InvalidConfigurationTypeException
-     * @throws Exception
      */
     public static function getTemplatePath(string $pathAndFilename, string $part = 'template'): string
     {
@@ -76,7 +73,6 @@ class TemplateUtility
      * @param string $part "template", "partial", "layout"
      * @return array All existing matches found
      * @throws InvalidConfigurationTypeException
-     * @throws Exception
      */
     public static function getTemplatePaths(string $pathAndFilename, string $part = 'template'): array
     {
@@ -98,18 +94,12 @@ class TemplateUtility
      * @param string $format
      * @return StandaloneView
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws Exception
      */
     public static function getDefaultStandAloneView(
-        string $extensionName = 'Powermail',
-        string $pluginName = 'Pi1',
         string $format = 'html'
     ): StandaloneView {
         /** @var StandaloneView $standaloneView */
-        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
-        $standaloneView->getRequest()->setControllerExtensionName($extensionName);
-        $standaloneView->getRequest()->setPluginName($pluginName);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setFormat($format);
         $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
         $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
@@ -122,11 +112,9 @@ class TemplateUtility
      * @param Mail $mail
      * @param string $section
      * @param array $settings
-     * @param string $type
+     * @param ?string $type
      * @return string
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws Exception
      */
     public static function powermailAll(
         Mail $mail,
@@ -141,7 +129,7 @@ class TemplateUtility
                 'mail' => $mail,
                 'section' => $section,
                 'settings' => $settings,
-                'type' => $type
+                'type' => $type,
             ]
         );
         return $standaloneView->render();
@@ -153,15 +141,18 @@ class TemplateUtility
      * @param string $string Any string
      * @param array $variables Variables
      * @return string Parsed string
-     * @throws Exception
      */
     public static function fluidParseString(string $string, array $variables = []): string
     {
-        if (empty($string) || ConfigurationUtility::isDatabaseConnectionAvailable() === false
-            || BackendUtility::isBackendContext()) {
+        if (empty($string)
+            || ConfigurationUtility::isDatabaseConnectionAvailable() === false
+            || BackendUtility::isBackendContext()
+            || Environment::isCli()
+        ) {
             return $string;
         }
-        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
+        $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
+        $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setTemplateSource($string);
         $standaloneView->assignMultiple($variables);
         return $standaloneView->render() ?? '';

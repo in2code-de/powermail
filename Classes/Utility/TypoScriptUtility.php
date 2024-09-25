@@ -1,17 +1,16 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class TypoScriptUtility
  */
 class TypoScriptUtility
 {
-
     /**
      * Overwrite a string if a TypoScript cObject is available
      *
@@ -20,14 +19,13 @@ class TypoScriptUtility
      * @param string $key Key for TypoScript Configuration
      * @return string
      * @codeCoverageIgnore
-     * @throws Exception
      */
     public static function overwriteValueFromTypoScript(
         string $string = '',
         ?array $conf = [],
         string $key = ''
     ): string {
-        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.'])) {
+        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key]??'', $conf[$key . '.']??[])) {
             $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
         return $string;
@@ -36,10 +34,9 @@ class TypoScriptUtility
     /**
      * Parse TypoScript from path like lib.blabla
      *
-     * @param $typoScriptObjectPath
+     * @param string $typoScriptObjectPath
      * @return string
      * @codeCoverageIgnore
-     * @throws Exception
      */
     public static function parseTypoScriptFromTypoScriptPath(string $typoScriptObjectPath): string
     {
@@ -64,7 +61,7 @@ class TypoScriptUtility
     public static function getCaptchaExtensionFromSettings(array $settings): string
     {
         $allowedExtensions = [
-            'captcha'
+            'captcha',
         ];
         if (in_array($settings['captcha']['use'], $allowedExtensions) &&
             ExtensionManagementUtility::isLoaded($settings['captcha']['use'])) {

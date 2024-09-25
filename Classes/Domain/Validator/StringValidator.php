@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Utility\StringUtility;
@@ -10,14 +12,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class StringValidator extends AbstractValidator
 {
-
     /**
      * Mandatory Check
      *
      * @param mixed $value
      * @return bool
      */
-    protected function validateMandatory($value)
+    protected function validateMandatory(mixed $value): bool
     {
         return StringUtility::isNotEmpty($value);
     }
@@ -75,7 +76,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateNumbersOnly(string $value): bool
     {
-        return strval((int)$value) === strval($value);
+        return (string)((int)$value) === (string)$value;
     }
 
     /**
@@ -110,7 +111,7 @@ class StringValidator extends AbstractValidator
      */
     protected function validateMaxNumber(string $value, string $configuration): bool
     {
-        return floatval($value) <= floatval($configuration);
+        return (float)$value <= (float)$configuration;
     }
 
     /**
@@ -123,7 +124,7 @@ class StringValidator extends AbstractValidator
     protected function validateRange(string $value, string $configuration): bool
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
-        if ((int)$values[0] <= 0) {
+        if (!isset($values[0]) || (int)$values[0] <= 0) {
             return true;
         }
         if (!isset($values[1])) {
@@ -143,7 +144,7 @@ class StringValidator extends AbstractValidator
     protected function validateLength(string $value, string $configuration): bool
     {
         $values = GeneralUtility::trimExplode(',', $configuration, true);
-        if ((int)$values[0] <= 0) {
+        if (!isset($values[0]) || (int)$values[0] <= 0) {
             return true;
         }
         if (!isset($values[1])) {
@@ -170,8 +171,7 @@ class StringValidator extends AbstractValidator
      * @param string $value
      * @return void
      */
-    public function isValid($value)
+    public function isValid($value): void
     {
-        parent::isValid($value);
     }
 }

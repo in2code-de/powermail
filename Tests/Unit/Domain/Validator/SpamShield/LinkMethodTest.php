@@ -1,12 +1,11 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\LinkMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class LinkMethodTest
@@ -14,26 +13,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class LinkMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+     * @var LinkMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             LinkMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -41,7 +37,7 @@ class LinkMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -51,28 +47,28 @@ class LinkMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             'links allowed 1, 2 links given' => [
                 '1',
                 'xx <a href="http://www.test.de">http://www.test.de</a> xx',
-                true
+                true,
             ],
             'links allowed 3, 2 links given' => [
                 '3',
                 'xx <a href="ftp://www.test.de">https://www.test.de</a> xx',
-                false
+                false,
             ],
             'links allowed 0, 1 link given' => [
                 '0',
                 'xx <a href="#">https://www.test.de</a> xx',
-                true
+                true,
             ],
             'links allowed 2, 3 link given' => [
                 '2',
                 'xx [url=http://www.xyz.org]http://www.xyz.org[/url] http://www.xyz.org xx',
-                true
+                true,
             ],
         ];
     }
@@ -96,6 +92,6 @@ class LinkMethodTest extends UnitTestCase
 
         $this->generalValidatorMock->_set('mail', $mail);
         $this->generalValidatorMock->_set('configuration', ['linkLimit' => $allowedLinks]);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

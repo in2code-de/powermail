@@ -1,0 +1,22 @@
+##################
+# Captcha Settings
+##################
+plugin.tx_powermail.settings.setup {
+  captcha {
+    # Select "default" (on board calculating captcha) or "captcha" (needs extension captcha)
+    use = default
+
+    default {
+      image = {$plugin.tx_powermail.settings.captcha.image}
+      font = {$plugin.tx_powermail.settings.captcha.font}
+      textColor = {$plugin.tx_powermail.settings.captcha.textColor}
+      textSize = {$plugin.tx_powermail.settings.captcha.textSize}
+      textAngle = {$plugin.tx_powermail.settings.captcha.textAngle}
+      distanceHor = {$plugin.tx_powermail.settings.captcha.distanceHor}
+      distanceVer = {$plugin.tx_powermail.settings.captcha.distanceVer}
+
+      # EXAMPLE: You can force a fix captcha - operator must be "+" (for testing only with calculating captcha)
+      # forceValue = 1+1
+    }
+  }
+}

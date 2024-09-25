@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
@@ -10,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class LinkViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -26,12 +26,20 @@ class LinkViewHelper extends AbstractViewHelper
      */
     public function render(): string
     {
+        $path = $this->arguments['path'];
+
+        // Path already absolute?
+        if (!is_null(parse_url($path, PHP_URL_HOST))) {
+            return $path;
+        }
+
         $uri = '';
         if ($this->arguments['absolute'] === true) {
             $uri .= parse_url(GeneralUtility::getIndpEnv('TYPO3_REQUEST_URL'), PHP_URL_SCHEME);
             $uri .= '://' . GeneralUtility::getIndpEnv('HTTP_HOST') . '/';
-            $uri .= rtrim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
+            $uri .= trim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
-        return $uri . $this->arguments['path'];
+
+        return rtrim($uri, '/') . '/' . ltrim($path, '/');
     }
 }

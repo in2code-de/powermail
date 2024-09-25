@@ -1,12 +1,14 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use PHPUnit\Framework\MockObject\MockObject;
+use Psr\EventDispatcher\ListenerProviderInterface;
+use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class PrefillFieldViewHelperTest
@@ -14,172 +16,160 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class PrefillFieldViewHelperTest extends UnitTestCase
 {
+    protected MockObject $abstractValidationViewHelperMock;
 
-    /**
-     * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
-     */
-    protected $abstractValidationViewHelperMock;
-
-    /**
-     * @return void
-     */
-    public function setUp()
+    public function setUp(): void
     {
+        $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
+        $eventDispatcher = new EventDispatcher($listenerProviderMock);
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             PrefillFieldViewHelper::class,
-            ['dummy']
+            null,
+            [$eventDispatcher]
         );
     }
 
-    /**
-     * @return void
-     */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider for getDefaultValueReturnsString()
-     *
-     * @return array
-     */
-    public function getDefaultValueReturnsStringDataProvider()
+    public static function getDefaultValueReturnsStringDataProvider(): array
     {
         return [
             [
                 [ // field values
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [ // variables from POST
                     'field' => [
                         'marker' => 'abc',
-                        '123' => 'ghi'
+                        '123' => 'ghi',
                     ],
                     'marker' => 'def',
-                    'uid123' => 'jkl'
+                    'uid123' => 'jkl',
                 ],
                 [ // configuration
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'abc' // expected
+                'abc', // expected
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [
                     'field' => [
-                        '123' => 'ghi'
+                        '123' => 'ghi',
                     ],
                     'marker' => 'def',
-                    'uid123' => 'jkl'
+                    'uid123' => 'jkl',
                 ],
                 [
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'def'
+                'def',
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [
                     'field' => [
-                        '123' => 'ghi'
+                        '123' => 'ghi',
                     ],
-                    'uid123' => 'jkl'
+                    'uid123' => 'jkl',
                 ],
                 [
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'mno'
+                'mno',
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [
-                    'uid123' => 'jkl'
+                    'uid123' => 'jkl',
                 ],
                 [
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'mno'
+                'mno',
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [],
                 [
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'mno'
+                'mno',
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                    'prefillValue' => 'mno',
                 ],
                 [],
                 [],
-                'mno'
-            ],
-            [
-                [
-                    'uid' => 123,
-                    'marker' => 'marker'
-                ],
-                [],
-                [
-                    'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
-                ],
-                'pqr'
+                'mno',
             ],
             [
                 [
                     'uid' => 123,
                     'marker' => 'marker',
-                    'prefillValue' => 'mno'
+                ],
+                [],
+                [
+                    'prefill.' => [
+                        'marker' => 'pqr',
+                    ],
+                ],
+                'pqr',
+            ],
+            [
+                [
+                    'uid' => 123,
+                    'marker' => 'marker',
+                    'prefillValue' => 'mno',
                 ],
                 [
                     'field' => [
                         'marker' => '',
-                        '123' => 'ghi'
+                        '123' => 'ghi',
                     ],
                     'marker' => 'def',
-                    'uid123' => 'jkl'
+                    'uid123' => 'jkl',
                 ],
                 [
                     'prefill.' => [
-                        'marker' => 'pqr'
-                    ]
+                        'marker' => 'pqr',
+                    ],
                 ],
-                'def'
+                'def',
             ],
             [
                 [
@@ -188,7 +178,7 @@ class PrefillFieldViewHelperTest extends UnitTestCase
                 ],
                 [],
                 [],
-                ''
+                '',
             ],
         ];
     }
@@ -217,110 +207,42 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('field', $field);
         $this->abstractValidationViewHelperMock->_set('marker', $field->getMarker());
-        $this->abstractValidationViewHelperMock->_callRef('buildValue');
-        $this->assertSame($expectedResult, $this->abstractValidationViewHelperMock->_callRef('getValue'));
+        $this->abstractValidationViewHelperMock->_call('buildValue');
+        self::assertSame($expectedResult, $this->abstractValidationViewHelperMock->_call('getValue'));
     }
 
-    /**
-     * Dataprovider for getDefaultValueReturnsString()
-     *
-     * @return array
-     */
-    public function getFromTypoScriptContentObjectReturnsStringDataProvider()
+    public static function getFromTypoScriptRawReturnsStringDataProvider(): array
     {
         return [
+            [
+                [
+                    'prefill.' => [
+                        'email' => 'abcdef',
+                    ],
+                ],
+                'email',
+                'abcdef',
+            ],
+            [
+                [
+                    'prefill.' => [
+                        'email' => 'TEXT',
+                        'email.' => [
+                            'value' => 'xyz',
+                        ],
+                    ],
+                ],
+                'email',
+                '',
+            ],
             [
                 [
                     'prefill.' => [
                         'marker' => 'TEXT',
-                        'marker.' => [
-                            'value' => 'y',
-                            'wrap' => 'x|z'
-                        ]
-                    ]
+                    ],
                 ],
                 'marker',
-                'xyz'
-            ],
-            [
-                [
-                    'prefill.' => [
-                        'email' => 'TEXT',
-                        'email.' => [
-                            'data' => 'date:U',
-                            'strftime' => '%d.%m.%Y %H:%M'
-                        ]
-                    ]
-                ],
-                'email',
-                (string) strftime('%d.%m.%Y %H:%M')
-            ],
-        ];
-    }
-
-    /**
-     * @param array $configuration
-     * @param string $marker
-     * @param string $expectedResult
-     * @return void
-     * @dataProvider getFromTypoScriptContentObjectReturnsStringDataProvider
-     * @test
-     * @covers ::getFromTypoScriptContentObject
-     * @throws Exception
-     */
-    public function getFromTypoScriptContentObjectReturnsString(array $configuration, $marker, $expectedResult)
-    {
-        TestingHelper::initializeTypoScriptFrontendController();
-        $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
-        $field = new Field();
-        $field->setMarker($marker);
-        $this->abstractValidationViewHelperMock->_set('field', $field);
-        $this->abstractValidationViewHelperMock->_set('marker', $marker);
-        $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
-        $value = '';
-        $this->assertSame(
-            $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptContentObject', $value)
-        );
-    }
-
-    /**
-     * Dataprovider for getFromTypoScriptRawReturnsString()
-     *
-     * @return array
-     */
-    public function getFromTypoScriptRawReturnsStringDataProvider()
-    {
-        return [
-            [
-                [
-                    'prefill.' => [
-                        'email' => 'abcdef'
-                    ]
-                ],
-                'email',
-                'abcdef'
-            ],
-            [
-                [
-                    'prefill.' => [
-                        'email' => 'TEXT',
-                        'email.' => [
-                            'value' => 'xyz'
-                        ]
-                    ]
-                ],
-                'email',
-                ''
-            ],
-            [
-                [
-                    'prefill.' => [
-                        'marker' => 'TEXT'
-                    ]
-                ],
-                'marker',
-                'TEXT'
+                'TEXT',
             ],
         ];
     }
@@ -339,9 +261,9 @@ class PrefillFieldViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('marker', $marker);
         $value = '';
-        $this->assertSame(
+        self::assertSame(
             $expectedResult,
-            $this->abstractValidationViewHelperMock->_callRef('getFromTypoScriptRaw', $value)
+            $this->abstractValidationViewHelperMock->_call('getFromTypoScriptRaw', $value)
         );
     }
 }

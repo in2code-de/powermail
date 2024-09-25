@@ -1,0 +1,12 @@
+##################
+# All settings for database storage
+##################
+plugin.tx_powermail.settings.setup {
+  db {
+    # Enable mail storage
+    enable = {$plugin.tx_powermail.settings.db.enable}
+
+    # Add new mails with hidden=1
+    hidden = {$plugin.tx_powermail.settings.db.hidden}
+  }
+}

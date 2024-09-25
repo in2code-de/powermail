@@ -1,0 +1,308 @@
+@import "Settings";
+@import "BootstrapExpanded";
+
+a[href],
+input[type='submit'],
+input[type='image'],
+label[for],
+select,
+button,
+.pointer {
+  cursor: pointer;
+}
+
+.transparent {
+  filter: alpha(opacity=33);
+  -moz-opacity: 0.33;
+  opacity: 0.33;
+}
+
+#typo3-docheader .btn-primary {
+  color: white;
+}
+
+/**
+ * List View
+ */
+.table-powermail td {
+  white-space: normal !important;
+}
+
+.openPowermailDetailsIcons > .icon {
+  &:last-child {
+    display: none;
+  }
+}
+
+.powermail_listbe_details_container {
+  display: none;
+  margin-bottom: 15px;
+}
+
+.table tr.powermail_listbe_details_closed {
+  display: none;
+}
+
+.powermail_listbe_details_dl {
+  clear: both;
+  padding: 5px 0 5px 42px;
+  border-top: 1px dashed $greySoft2;
+  width: 100%;
+  margin: 0;
+}
+
+.powermail_listbe_details_container:hover .powermail_listbe_details_dl {
+  background-color: $greySoft1;
+}
+
+.powermail_listbe_details_container .powermail_listbe_details_dl:first-child {
+  border-style: none;
+}
+
+.powermail_listbe_details_dl dt {
+  display: block;
+  float: left;
+  width: 180px;
+  margin-right: 10px;
+}
+
+.powermail_listbe_details_dl dd {
+  margin-left: 190px;
+}
+
+.powermail_listbe_details_dl dd img {
+  padding: 3px 0;
+}
+
+.powermail_listbe_details_dl_additional {
+  color: #aaa;
+}
+
+.powermail_listbe_details_dl_additional:first-child {
+  border-top: 1px solid #aaa;
+}
+
+.powermail_listbe_details > td {
+  padding: 1px 0 0 0 !important;
+}
+
+.hideMail,
+.unhideMail,
+.deleteMail,
+.openPowermailDetails,
+.openPowermailDetailsIcons,
+.addPowermailSelection,
+.addPowermailSelectionAll,
+.powermailSelectionDelete,
+.powermailSelectionHide {
+  cursor: pointer;
+}
+
+a.sorting {
+  padding-right: 10px;
+  background-repeat: no-repeat;
+  background-position: 100% 4px;
+}
+
+a.sorting_desc {
+  background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
+}
+
+a.sorting_asc {
+  background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+}
+
+/**
+ * List View
+ */
+.addPowermailSelectionAll {
+  float: right;
+}
+
+/**
+ * Reporting View: Selection
+ */
+.powermail_reporting_selection {
+  background-color: #DDDDDD;
+  border: 1px solid #A2AAB8;
+  padding: 20px;
+}
+
+.powermail_reporting_selection_inner,
+.powermail_reporting_selection_left,
+.powermail_reporting_selection_right {
+  float: left;
+  width: 49%;
+  background-color: #F8F8F8;
+  padding: 15px;
+  border: 1px solid #A2AAB8;
+  margin-right: 2%;
+  margin-bottom: 2%;
+}
+
+.powermail_reporting_selection_inner:nth-child(even) {
+  margin-right: 0;
+}
+
+.powermail_reporting_selection_left {
+  float: left;
+}
+
+.powermail_reporting_selection_right {
+  float: right;
+}
+
+.powermail_reporting_selection_inner img,
+.powermail_reporting_selection_left img,
+.powermail_reporting_selection_right img {
+  padding-top: 15px;
+  max-width: 100%;
+  height: auto;
+  width: 800px;
+}
+
+.flotContainer {
+  width: 600px;
+  max-width: 100%;
+  min-width: 100%;
+  height: 200px;
+  max-height: 100%;
+  margin-bottom: 20px;
+}
+
+.flotLabel {
+  font-size: 8pt;
+  text-align: center;
+  padding: 2px 4px;
+  color: white;
+  border: 1px solid white;
+}
+
+.legendLabel {
+  padding-left: 5px;
+}
+
+/**
+ * Reporting View: Form
+ */
+.powermail_reporting_form h3,
+.powermail_reporting_marketing h3 {
+  margin-top: 40px;
+}
+
+.powermail_reporting_form_fields,
+.powermail_reporting_marketing_fields {
+  background-color: #DDDDDD;
+  border: 1px solid #A2AAB8;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.powermail_reporting_form_fields_inner,
+.powermail_reporting_marketing_fields_inner {
+  padding: 20px;
+}
+
+.powermail_reporting_form_fields_item,
+.powermail_reporting_marketing_fields_item {
+  background-color: #F8F8F8;
+  float: left;
+  border: 1px solid #A2AAB8;
+  padding: 0 20px 45px 20px;
+  width: 100%;
+  margin-right: 2%;
+  margin-bottom: 20px;
+  position: relative;
+  > .noValuesToShow {
+    font-weight: bold;
+    width: 100%;
+    height: 190px;
+    display: block;
+    margin: 0;
+  }
+}
+
+.powermail_reporting_form_fields_item:nth-child(even),
+.powermail_reporting_marketing_fields_item:nth-child(even) {
+  margin-right: 0;
+}
+
+.powermail_reporting_form_fields_item img,
+.powermail_reporting_marketing_fields_item img {
+  height: auto;
+  max-width: 100%;
+}
+
+.powermail_reporting_form_fields_table_absolute {
+  position: relative;
+}
+
+table.powermail_reporting_form_fields_table {
+  border: 1px solid #A2AAB8;
+  background-color: #FFFFFF;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+}
+
+table.powermail_reporting_form_fields_table tr.even {
+  background-color: #EEEEEE;
+}
+
+table.powermail_reporting_form_fields_table th {
+  border-bottom: 1px dashed #A2AAB8;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+table.powermail_reporting_form_fields_table td {
+  padding: 5px 10px;
+}
+
+.powermail_reporting_form_fields_table_right {
+  text-align: right;
+}
+
+table.powermail_reporting_form_fields_table th.powermail-open {
+  padding-left: 10px;
+  background-repeat: no-repeat;
+  background-position: 10px 11px;
+  background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_desc.png');
+}
+
+table.powermail_reporting_form_fields_table th.powermail-close {
+  padding-left: 10px;
+  background-repeat: no-repeat;
+  background-position: 10px 11px;
+  background-image: url('/typo3conf/ext/powermail/Resources/Public/Image/icon_sorting_asc.png');
+}
+
+tr.powermail_listbe_overview:hover a {
+  text-decoration: none;
+}
+
+tr.selectLine > td {
+  background-color: $greySoft2 !important;
+}
+
+td.nowrap {
+  white-space: nowrap !important;
+}
+
+a.overviewShowAll {
+  display: inline-block;
+  padding: 5px 20px;
+  border: 1px solid $greySoft1;
+  background: $greySoft2;
+  &:hover {
+    background: $greySoft1;
+  }
+}
+
+.selectedLineMessage {
+  display: none;
+  float: right;
+  margin: 0 13px 30px 0;
+}
+
+@import "Message";

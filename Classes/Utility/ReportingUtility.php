@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
@@ -14,7 +14,6 @@ use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
  */
 class ReportingUtility
 {
-
     /**
      * @var array
      */

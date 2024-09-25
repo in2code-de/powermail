@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Service;
 
 use In2code\Powermail\Domain\Service\ExportService;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ExportServiceTest
@@ -10,54 +11,48 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class ExportServiceTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Service\ExportService
+     * @var ExportService
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
             ExportService::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Data Provider for getRelativeTemplatePathAndFileNameReturnsString()
-     *
-     * @return array
-     */
-    public function getRelativeTemplatePathAndFileNameReturnsStringDataProvider()
+    public static function getRelativeTemplatePathAndFileNameReturnsStringDataProvider(): array
     {
         return [
             [
                 'csv',
-                'Module/ExportCsv.html'
+                'Module/ExportCsv.html',
             ],
             [
                 'xls',
-                'Module/ExportXls.html'
+                'Module/ExportXls.html',
             ],
             [
                 'bullshit',
-                'Module/ExportXls.html'
+                'Module/ExportXls.html',
             ],
             [
                 '',
-                'Module/ExportXls.html'
+                'Module/ExportXls.html',
             ],
         ];
     }
@@ -73,36 +68,31 @@ class ExportServiceTest extends UnitTestCase
     public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult)
     {
         $this->generalValidatorMock->setFormat($format);
-        $this->assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
+        self::assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
     }
 
-    /**
-     * Data Provider for getFormatReturnsString()
-     *
-     * @return array
-     */
-    public function getFormatReturnsStringDataProvider()
+    public static function getFormatReturnsStringDataProvider(): array
     {
         return [
             [
                 'csv',
-                'csv'
+                'csv',
             ],
             [
                 'xls',
-                'xls'
+                'xls',
             ],
             [
                 '',
-                'xls'
+                'xls',
             ],
             [
                 'XLS',
-                'xls'
+                'xls',
             ],
             [
                 'CSV',
-                'xls'
+                'xls',
             ],
         ];
     }
@@ -118,6 +108,6 @@ class ExportServiceTest extends UnitTestCase
     public function getFormatReturnsString($format, $expectedResult)
     {
         $this->generalValidatorMock->setFormat($format);
-        $this->assertSame($this->generalValidatorMock->_call('getFormat'), $expectedResult);
+        self::assertSame($this->generalValidatorMock->_call('getFormat'), $expectedResult);
     }
 }

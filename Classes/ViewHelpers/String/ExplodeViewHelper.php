@@ -1,16 +1,16 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\String;
 
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class ExplodeViewHelper
  */
 class ExplodeViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */

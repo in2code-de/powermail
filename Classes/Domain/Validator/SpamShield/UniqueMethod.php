@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
@@ -7,7 +8,6 @@ namespace In2code\Powermail\Domain\Validator\SpamShield;
  */
 class UniqueMethod extends AbstractMethod
 {
-
     /**
      * Unique Check: Checks if values in given params are different
      *

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
@@ -12,7 +13,6 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  */
 class Marker extends AbstractFormElement
 {
-
     /**
      * @return array
      */

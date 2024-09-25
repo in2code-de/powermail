@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\UserFunc;
 
@@ -9,7 +10,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class DateConverter
 {
-
     /**
      * @var ContentObjectRenderer
      */
@@ -187,5 +187,10 @@ class DateConverter
     public function getDate(): \DateTime
     {
         return $this->date;
+    }
+
+    public function setContentObjectRenderer(ContentObjectRenderer $cObj): void
+    {
+        $this->cObj = $cObj;
     }
 }

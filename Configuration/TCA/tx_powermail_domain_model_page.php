@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
@@ -10,8 +11,6 @@ $pagesTca = [
         'label' => 'title',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
@@ -25,7 +24,8 @@ $pagesTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => ConfigurationUtility::getIconPath(Page::TABLE_NAME . '.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Page::TABLE_NAME . '.gif'),
+        'searchFields' => 'title',
     ],
     'interface' => [
     ],
@@ -34,7 +34,7 @@ $pagesTca = [
             'showitem' => 'title, fields, --div--;LLL:EXT:powermail/Resources/Private/Language/' .
                 'locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, css, --div--;LLL:EXT:' .
                 'powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, form, ' .
-                'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime'
+                'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime',
         ],
     ],
     'columns' => [
@@ -42,31 +42,25 @@ $pagesTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'default' => 0,
-                'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-                ],
+                'type' => 'language',
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
                 ],
                 'foreign_table' => Page::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Page::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Page::TABLE_NAME . '.sys_language_uid IN (-1,0)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
@@ -80,7 +74,7 @@ $pagesTca = [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -94,15 +88,8 @@ $pagesTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
+                'type' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
         'endtime' => [
@@ -110,15 +97,8 @@ $pagesTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
+                'type' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
         'title' => [
@@ -127,7 +107,8 @@ $pagesTca = [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim',
+                'required' => true,
             ],
         ],
         'css' => [
@@ -139,29 +120,29 @@ $pagesTca = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
-                        ''
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:pleaseChoose',
+                        'value' => '',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.1',
-                        'layout1'
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.1',
+                        'value' => 'layout1',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.2',
-                        'layout2'
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.2',
+                        'value' => 'layout2',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.3',
-                        'layout3'
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.3',
+                        'value' => 'layout3',
                     ],
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.4',
-                        'nolabel'
+                        'label' =>  'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Page::TABLE_NAME . '.css.4',
+                        'value' => 'nolabel',
                     ],
                 ],
                 'size' => 1,
                 'maxitems' => 1,
-                'eval' => ''
+                'eval' => '',
             ],
         ],
         'fields' => [
@@ -181,9 +162,8 @@ $pagesTca = [
                     'showSynchronizationLink' => 0,
                     'showAllLocalizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
-                    'showRemovedLocalizationRecords' => 1,
-                ]
-            ]
+                ],
+            ],
         ],
         'form' => [
             'exclude' => true,
@@ -192,28 +172,24 @@ $pagesTca = [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
                 'items' => [
-                    ['', 0],
+                    [
+                        'label' => '',
+                        'value' => 0,
+                    ],
                 ],
                 'foreign_table' => Form::TABLE_NAME,
                 'foreign_table_where' => 'and ' . Form::TABLE_NAME . '.pid=###CURRENT_PID### ' .
                     'and ' . Form::TABLE_NAME . '.sys_language_uid IN (-1,###REC_FIELD_sys_language_uid###)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'sorting' => [
             'label' => 'Sorting',
             'config' => [
                 'type' => 'none',
-            ]
-        ]
-    ]
+            ],
+        ],
+    ],
 ];
-
-/**
- * Switch from l10n_mode "exclude" to "mergeIfNotBlank"
- */
-if (ConfigurationUtility::isL10nModeMergeActive()) {
-    $pagesTca['columns']['css']['l10n_mode'] = 'mergeIfNotBlank';
-}
 
 return $pagesTca;

@@ -1,11 +1,10 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class ValueBlacklistMethodTest
@@ -13,26 +12,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class ValueBlacklistMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod
+     * @var ValueBlacklistMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             ValueBlacklistMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -40,7 +36,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -53,7 +49,7 @@ class ValueBlacklistMethodTest extends UnitTestCase
     public function reduceDelimitersReturnsString()
     {
         $string = ',;,' . PHP_EOL . ',';
-        $this->assertSame(',,,,,', $this->generalValidatorMock->_callRef('reduceDelimiters', $string));
+        self::assertSame(',,,,,', $this->generalValidatorMock->_call('reduceDelimiters', $string));
     }
 
     /**
@@ -61,33 +57,33 @@ class ValueBlacklistMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function findStringInStringReturnsStringDataProvider()
+    public static function findStringInStringReturnsStringDataProvider(): array
     {
         return [
             [
                 'Sex',
-                true
+                true,
             ],
             [
                 'This sex was great',
-                true
+                true,
             ],
             [
                 'Staatsexamen',
-                false
+                false,
             ],
             [
                 '_sex_bla',
-                true
+                true,
             ],
             [
                 'tst sex.seems.to.be.nice',
-                true
+                true,
             ],
             [
                 'email@sex.org',
-                true
-            ]
+                true,
+            ],
         ];
     }
 
@@ -102,9 +98,9 @@ class ValueBlacklistMethodTest extends UnitTestCase
     public function findStringInStringReturnsString($string, $expectedResult)
     {
         $needle = 'sex';
-        $this->assertSame(
+        self::assertSame(
             $expectedResult,
-            $this->generalValidatorMock->_callRef('isStringInString', $string, $needle)
+            $this->generalValidatorMock->_call('isStringInString', $string, $needle)
         );
     }
 }

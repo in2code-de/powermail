@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Condition;
 
@@ -16,7 +17,7 @@ class PowermailConditionFunctionsProvider implements ExpressionFunctionProviderI
     /**
      * @return array|ExpressionFunction[]
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             $this->isPowermailPluginOnCurrentPageFunction(),
@@ -69,17 +70,18 @@ class PowermailConditionFunctionsProvider implements ExpressionFunctionProviderI
      */
     protected function isPluginExistingOnCurrentPageInCurrentLanguage(array $plugins): bool
     {
-        $listTypes = implode('","', $plugins);
+        $listTypes = implode('\',\'', $plugins);
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable('tt_content');
         $row = $queryBuilder
             ->select('*')
             ->from('tt_content')
-            ->where('pid=' . FrontendUtility::getCurrentPageIdentifier()
-                . ' and CType="list" and list_type in ("' . $listTypes . '") and sys_language_uid='
-                . FrontendUtility::getSysLanguageUid())
-            ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->where(
+                'pid=' . FrontendUtility::getCurrentPageIdentifier()
+                . ' and CType in (\'' . $listTypes . '\') and sys_language_uid='
+                . FrontendUtility::getSysLanguageUid()
+            )->setMaxResults(1)
+            ->executeQuery()
+            ->fetchAssociative();
         return !empty($row['uid']);
     }
 }

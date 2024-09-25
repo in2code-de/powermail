@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Tests\Unit\Fixtures\Domain\Model\FieldFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FieldTest
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class FieldTest extends UnitTestCase
 {
-
     /**
      * @var FieldFixture
      */
@@ -19,28 +19,20 @@ class FieldTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(
-            FieldFixture::class,
-            ['dummy']
-        );
+        $this->generalValidatorMock = $this->getAccessibleMock(FieldFixture::class, null);
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider optionArrayReturnsArray()
-     *
-     * @return array
-     */
-    public function optionArrayReturnsArrayDataProvider()
+    public static function optionArrayReturnsArrayDataProvider(): array
     {
         return [
             [
@@ -49,9 +41,9 @@ class FieldTest extends UnitTestCase
                     [
                         'label' => 'abc',
                         'value' => 'abc',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
-                ]
+                ],
             ],
             [
                 "red\nblue\nyellow",
@@ -59,19 +51,19 @@ class FieldTest extends UnitTestCase
                     [
                         'label' => 'red',
                         'value' => 'red',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
                     [
                         'label' => 'blue',
                         'value' => 'blue',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
                     [
                         'label' => 'yellow',
                         'value' => 'yellow',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
-                ]
+                ],
             ],
             [
                 "please choose...|\nred\nblue|blue|*",
@@ -79,19 +71,19 @@ class FieldTest extends UnitTestCase
                     [
                         'label' => 'please choose...',
                         'value' => '',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
                     [
                         'label' => 'red',
                         'value' => 'red',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
                     [
                         'label' => 'blue',
                         'value' => 'blue',
-                        'selected' => 1
+                        'selected' => 1,
                     ],
-                ]
+                ],
             ],
             [
                 "||*\nred|red shoes",
@@ -99,14 +91,14 @@ class FieldTest extends UnitTestCase
                     [
                         'label' => '',
                         'value' => '',
-                        'selected' => 1
+                        'selected' => 1,
                     ],
                     [
                         'label' => 'red',
                         'value' => 'red shoes',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
-                ]
+                ],
             ],
             [
                 "Red Shoes | 1 \nBlack Shoes | 2 | *\nBlue Shoes | ",
@@ -114,19 +106,19 @@ class FieldTest extends UnitTestCase
                     [
                         'label' => 'Red Shoes',
                         'value' => '1',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
                     [
                         'label' => 'Black Shoes',
                         'value' => '2',
-                        'selected' => 1
+                        'selected' => 1,
                     ],
                     [
                         'label' => 'Blue Shoes',
                         'value' => '',
-                        'selected' => 0
+                        'selected' => 0,
                     ],
-                ]
+                ],
             ],
         ];
     }
@@ -142,45 +134,40 @@ class FieldTest extends UnitTestCase
     public function optionArrayReturnsArray($value, $expectedResult)
     {
         $result = $this->generalValidatorMock->_call('optionArray', $value, '', false);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 
-    /**
-     * Dataprovider dataTypeFromFieldTypeReturnsString()
-     *
-     * @return array
-     */
-    public function dataTypeFromFieldTypeReturnsStringDataProvider()
+    public static function dataTypeFromFieldTypeReturnsStringDataProvider(): array
     {
         return [
             [
                 'captcha',
-                0
+                0,
             ],
             [
                 'check',
-                1
+                1,
             ],
             [
                 'file',
-                3
+                3,
             ],
             [
                 'input',
-                0
+                0,
             ],
             [
                 'textarea',
-                0
+                0,
             ],
             [
                 'select',
-                0
+                0,
             ],
             [
                 'select',
                 1,
-                true
+                true,
             ],
         ];
     }
@@ -200,6 +187,6 @@ class FieldTest extends UnitTestCase
             $this->generalValidatorMock->_set('multiselect', $multiple);
         }
         $result = $this->generalValidatorMock->_call('dataTypeFromFieldType', $fieldType);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }

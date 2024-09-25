@@ -1,16 +1,17 @@
 <?php
+
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
+use Doctrine\DBAL\Exception;
+use In2code\Powermail\Database\QueryGenerator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Core\Database\QueryGenerator;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -20,19 +21,20 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class FormRepository extends AbstractRepository
 {
-
     /**
      * Find Form by given Page Uid
      *
      * @param int $uid page uid
-     * @return QueryResultInterface
+     * @return ?Form
      */
-    public function findByPages(int $uid)
+    public function findByPages(int $uid): ?Form
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
         $query->matching($query->equals('pages.uid', $uid));
-        return $query->execute()->getFirst();
+        /** @var Form $form */
+        $form = $query->execute()->getFirst();
+        return $form;
     }
 
     /**
@@ -47,9 +49,9 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false)->setRespectSysLanguage(false);
         $and = [
             $query->equals('uid', $form->getUid()),
-            $query->equals('pages.fields.type', 'captcha')
+            $query->equals('pages.fields.type', 'captcha'),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -65,9 +67,9 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
         $and = [
             $query->equals('uid', $form->getUid()),
-            $query->equals('pages.fields.type', 'password')
+            $query->equals('pages.fields.type', 'password'),
         ];
-        $query->matching($query->logicalAnd($and));
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 
@@ -110,7 +112,6 @@ class FormRepository extends AbstractRepository
      *
      * @param int $pid start page identifier
      * @return QueryResultInterface
-     * @throws Exception
      * @throws InvalidQueryException
      */
     public function findAllInPidAndRootline(int $pid): QueryResultInterface
@@ -119,13 +120,13 @@ class FormRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         if ($pid > 0) {
-            $queryGenerator = ObjectUtility::getObjectManager()->get(QueryGenerator::class);
+            $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
             $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
             $pids = BackendUtility::filterPagesForAccess($pids);
             $query->matching($query->in('pid', $pids));
         } else {
             if (!BackendUtility::isBackendAdmin()) {
-                $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+                $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
                 $pids = $pageRepository->getAllPages();
                 $pids = BackendUtility::filterPagesForAccess($pids);
                 $query->matching($query->in('pid', $pids));
@@ -135,7 +136,6 @@ class FormRepository extends AbstractRepository
 
         return $query->execute();
     }
-
 
     /**
      * Find all localized records with
@@ -149,7 +149,7 @@ class FormRepository extends AbstractRepository
 
         $sql = 'select uid,pid,title';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where pages = ""';
+        $sql .= ' where pages = \'\'';
         $sql .= ' and sys_language_uid > 0';
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
@@ -167,9 +167,9 @@ class FormRepository extends AbstractRepository
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
         $queryBuilder
             ->update(Form::TABLE_NAME)
-            ->where('sys_language_uid > 0 and deleted = 0 and pages = ""')
+            ->where('sys_language_uid > 0 and deleted = 0 and pages = \'\'')
             ->set('pages', 0)
-            ->execute();
+            ->executeStatement();
     }
 
     /**
@@ -177,11 +177,12 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid Form UID
      * @return array
+     * @throws Exception
      */
     public function getFieldsFromFormWithSelectQuery(int $formUid): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
-        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != "submit" and f.sys_language_uid IN (-1,0)' .
+        $where = 'f.deleted = 0 and f.hidden = 0 and f.type != \'submit\' and f.sys_language_uid IN (-1,0)' .
             ' and fo.uid = ' . (int)$formUid;
         return $queryBuilder
             ->select('f.uid', 'f.title', 'f.sender_email', 'f.sender_name', 'f.marker')
@@ -191,8 +192,8 @@ class FormRepository extends AbstractRepository
             ->where($where)
             ->orderBy('f.sorting', 'asc')
             ->setMaxResults(10000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
@@ -200,7 +201,6 @@ class FormRepository extends AbstractRepository
      *
      * @param int $formUid
      * @return array e.g. array(123, 234, 567)
-     * @throws Exception
      */
     public function getFieldUidsFromForm(int $formUid): array
     {

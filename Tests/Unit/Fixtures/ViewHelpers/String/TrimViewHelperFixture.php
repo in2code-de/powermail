@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\ViewHelpers\String;
 
 use In2code\Powermail\ViewHelpers\String\TrimViewHelper;
@@ -8,7 +9,6 @@ use In2code\Powermail\ViewHelpers\String\TrimViewHelper;
  */
 class TrimViewHelperFixture extends TrimViewHelper
 {
-
     /**
      * @var string
      */

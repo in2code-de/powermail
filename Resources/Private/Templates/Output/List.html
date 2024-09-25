@@ -15,8 +15,6 @@ Render Powermail_Frontend List View
 
 		<f:render partial="Output/Search" arguments="{_all}" />
 
-		<f:render partial="Output/Export" arguments="{_all}" />
-
 		<f:if condition="{mails}">
 			<f:then>
 				<table class="table table-striped table-hover table-responsive">
@@ -93,13 +91,13 @@ Render Powermail_Frontend List View
 								</f:if>
 
 								<f:if condition="{vh:condition.isAllowedToEdit(settings:settings, mail:mail)}">
-									<f:link.action action="edit" pageUid="{editPid}" arguments="{mail:mail}">
+									<f:link.action action="edit" pluginName="Pi4" pageUid="{editPid}" arguments="{mail:mail}">
 										<f:translate key="PowermailFrontendEditView">Edit</f:translate>
 									</f:link.action>
 								</f:if>
 
 								<f:if condition="{vh:condition.isAllowedToEdit(settings:settings, mail:mail)}">
-									<f:link.action action="delete" pageUid="{editPid}" arguments="{mail:mail}">
+									<f:link.action action="delete" pluginName="Pi4" pageUid="{editPid}" arguments="{mail:mail}">
 										<f:translate key="PowermailFrontendDeleteView">Delete</f:translate>
 									</f:link.action>
 								</f:if>

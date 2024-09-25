@@ -8,7 +8,8 @@
 			<div class="{settings.styles.framework.checkClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}">
 				<label>
 					<f:form.checkbox
-							property="{field.marker}."
+							property="{field.marker}"
+							multiple="true"
 							value="{setting.value}"
 							checked="{vh:misc.prefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
 							id="powermail_field_{field.marker}_{index.cycle}"

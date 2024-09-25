@@ -1,15 +1,16 @@
 <?php
+
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Field;
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Service\FlexFormService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
 
@@ -23,33 +24,32 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      *
      * @var bool
      */
-    protected $validState = true;
+    protected bool $validState = true;
 
     /**
      * @var array
      */
-    protected $settings;
+    protected array $settings;
 
     /**
      * @var array
      */
-    protected $flexForm;
+    protected array $flexForm;
 
     /**
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * @param Field $field
      * @param string $label
      * @return void
-     * @throws Exception
      */
     public function setErrorAndMessage(Field $field, string $label): void
     {
         $this->setValidState(false);
-        $this->addError($label, 1580681677, ['marker' => $field->getMarker()]);
+        $this->result->addError(new Error($label, 1580681677, ['marker' => $field->getMarker()]));
     }
 
     /**
@@ -63,24 +63,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     }
 
     /**
-     * Get TypoScript and FlexForm
-     *
-     * @param ConfigurationManagerInterface $configurationManager
-     * @return void
-     * @throws Exception
-     */
-    public function injectTypoScript(ConfigurationManagerInterface $configurationManager): void
-    {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
-        $this->settings = $configurationService->getTypoScriptSettings();
-        $flexFormService = ObjectUtility::getObjectManager()->get(FlexFormService::class);
-        $this->flexForm = $flexFormService->convertFlexFormContentToArray(
-            // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-            $configurationManager->getContentObject()->data['pi_flexform']
-        );
-    }
-
-    /**
      * @return void
      */
     public function initialize(): void
@@ -88,16 +70,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     }
 
     /**
-     * @param Mail $mail
-     * @return bool
-     */
-    public function isValid($mail)
-    {
-        return true;
-    }
-
-    /**
-     * @param $validState
+     * @param bool $validState
      * @return void
      */
     public function setValidState(bool $validState): void
@@ -135,16 +108,17 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * Validation should be in mostly workflows only on first action. This is createAction. But if confirmation is
      * turned on, validation should work in most cases on the confirmationAction.
      *
+     * ToDo: for v13 rename the actions in the condition
+     *
      * @return bool
      */
     public function isFirstActionForValidation(): bool
     {
         $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
-            return $arguments['action'] === 'confirmation';
-        } else {
-            return $arguments['action'] === 'create';
+            return $arguments['action'] === 'checkConfirmation';
         }
+        return $arguments['action'] === 'checkCreate';
     }
 
     /**
@@ -153,9 +127,18 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * @param array $options Options for the validator
      * @throws InvalidValidationOptionsException
      */
-    public function __construct(array $options = [])
+    public function __construct()
     {
-        parent::__construct($options);
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
+        $this->settings = $configurationService->getTypoScriptSettings();
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+        $this->flexForm = $flexFormService->convertFlexFormContentToArray(
+            // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
+            // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
+            // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
+            $configurationManager->getContentObject()->data['pi_flexform'] ?? ''
+        );
     }
 
     /**

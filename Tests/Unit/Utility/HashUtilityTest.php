@@ -1,9 +1,10 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Exception\ConfigurationIsMissingException;
 use In2code\Powermail\Tests\Unit\Fixtures\Utility\HashUtilityFixture;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class HashUtilityTest
@@ -11,7 +12,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class HashUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -21,7 +21,7 @@ class HashUtilityTest extends UnitTestCase
     public function testGetEncryptionKey()
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
-        $this->assertSame('abcdef', HashUtilityFixture::getEncryptionKeyForTesting());
+        self::assertSame('abcdef', HashUtilityFixture::getEncryptionKeyForTesting());
 
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = '';
         $this->expectExceptionCode(1514910284796);

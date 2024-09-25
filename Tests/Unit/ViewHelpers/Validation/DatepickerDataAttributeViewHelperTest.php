@@ -1,12 +1,11 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Validation;
 
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\ViewHelpers\Validation\DatepickerDataAttributeViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class DatepickerDataAttributeViewHelperTest
@@ -14,7 +13,6 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  */
 class DatepickerDataAttributeViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -23,18 +21,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             DatepickerDataAttributeViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -44,154 +42,88 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsArrayDataProvider()
+    public static function renderReturnsArrayDataProvider(): array
     {
         return [
             'datepickerWithNativevalidationAndClientvalidationAndAdditionalAttributesAndMandatory' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [
-                    'mandatory' => true
+                    'mandatory' => true,
                 ],
                 [
-                    'data-company' => 'in2code'
+                    'data-company' => 'in2code',
                 ],
                 'anyvalue',
                 [
                     'data-company' => 'in2code',
-                    'data-datepicker-force' => '',
-                    'data-datepicker-settings' => 'date',
-                    'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
-                        'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
-                        'datepicker_month_aug,datepicker_month_sep,datepicker_month_oct,datepicker_month_nov,' .
-                        'datepicker_month_dec',
-                    'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
-                        'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
-                    'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
                     'aria-required' => 'true',
-                    'data-parsley-required-message' => 'validationerror_mandatory',
-                    'data-parsley-trigger' => 'change'
-                ]
+                    'data-powermail-required-message' => 'validationerror_mandatory',
+                ],
             ],
             'datepickerWithNativevalidationAndClientvalidation' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '1'
+                        'client' => '1',
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 'anyvalue',
                 [
-                    'data-datepicker-force' => '',
-                    'data-datepicker-settings' => 'date',
-                    'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
-                        'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
-                        'datepicker_month_aug,datepicker_month_sep,datepicker_month_oct,datepicker_month_nov,' .
-                        'datepicker_month_dec',
-                    'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
-                        'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
-                    'data-datepicker-format' => 'Y-m-d H:i',
+                    'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
                     'data-date-value' => 'anyvalue',
-                ]
+                ],
             ],
             'datepickerWithNativevalidation' => [
                 [
                     'validation' => [
                         'native' => '1',
-                        'client' => '0'
+                        'client' => '0',
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
-                    'data-datepicker-settings' => 'date',
-                    'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
-                        'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
-                        'datepicker_month_aug,datepicker_month_sep,datepicker_month_oct,datepicker_month_nov,' .
-                        'datepicker_month_dec',
-                    'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
-                        'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
-                    'data-datepicker-format' => 'Y-m-d H:i',
-                ]
+                    'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
+                ],
             ],
             'datepickerWithClientvalidation' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '1'
+                        'client' => '1',
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
-                    'data-datepicker-settings' => 'date',
-                    'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
-                        'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
-                        'datepicker_month_aug,datepicker_month_sep,datepicker_month_oct,datepicker_month_nov,' .
-                        'datepicker_month_dec',
-                    'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
-                        'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
-                    'data-datepicker-format' => 'Y-m-d H:i',
-                ]
+                    'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
+                ],
             ],
             'datepickerWithoutValidation' => [
                 [
                     'validation' => [
                         'native' => '0',
-                        'client' => '0'
+                        'client' => '0',
                     ],
-                    'misc' => [
-                        'datepicker' => [
-                            'forceJavaScriptDatePicker' => ''
-                        ]
-                    ]
                 ],
                 [],
                 [],
                 '',
                 [
-                    'data-datepicker-force' => '',
-                    'data-datepicker-settings' => 'date',
-                    'data-datepicker-months' => 'datepicker_month_jan,datepicker_month_feb,datepicker_month_mar,' .
-                        'datepicker_month_apr,datepicker_month_may,datepicker_month_jun,datepicker_month_jul,' .
-                        'datepicker_month_aug,datepicker_month_sep,datepicker_month_oct,datepicker_month_nov,' .
-                        'datepicker_month_dec',
-                    'data-datepicker-days' => 'datepicker_day_so,datepicker_day_mo,datepicker_day_tu,' .
-                        'datepicker_day_we,datepicker_day_th,datepicker_day_fr,datepicker_day_sa',
-                    'data-datepicker-format' => 'Y-m-d H:i',
-                ]
+                    'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
+                ],
             ],
         ];
     }
@@ -210,7 +142,7 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      */
     public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult)
     {
-        $field = new Field;
+        $field = new Field();
         foreach ($fieldProperties as $propertyName => $propertyValue) {
             $field->_setProperty($propertyName, $propertyValue);
         }
@@ -218,19 +150,14 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         $this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
         $this->abstractValidationViewHelperMock->_set('test', true);
 
-        $controllerContext = new ControllerContext;
-        $request = new Request;
-        $request->setControllerExtensionName('powermail');
-        $controllerContext->setRequest($request);
-        $this->abstractValidationViewHelperMock->_set('controllerContext', $controllerContext);
         $arguments = [
             'field' => $field,
             'additionalAttributes' => $additionalAttributes,
-            'value' => $value
+            'value' => $value,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
 
-        $result = $this->abstractValidationViewHelperMock->_callRef('render');
-        $this->assertSame($expectedResult, $result);
+        $result = $this->abstractValidationViewHelperMock->_call('render');
+        self::assertSame($expectedResult, $result);
     }
 }

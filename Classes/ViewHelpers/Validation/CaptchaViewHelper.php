@@ -1,19 +1,14 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Exception;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
-use In2code\Powermail\Utility\StringUtility;
-use In2code\Powermail\Utility\TypoScriptUtility;
-use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
@@ -21,11 +16,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
-
     /**
-     * @var null|string
+     * @var string|null
      */
-    protected $error = null;
+    protected ?string $error = null;
 
     /**
      * Constructor
@@ -50,14 +44,13 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     {
         try {
             return $this->getImage();
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             return $this->getErrorMessage($exception);
         }
     }
 
     /**
      * @return string
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function getImage(): string
@@ -71,10 +64,10 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     }
 
     /**
-     * @param \Exception $exception
+     * @param Exception $exception
      * @return string
      */
-    protected function getErrorMessage(\Exception $exception): string
+    protected function getErrorMessage(Exception $exception): string
     {
         $this->tag->setTagName('p');
         $this->tag->addAttribute('class', 'bg-danger');
@@ -86,37 +79,20 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     /**
      * @param Field $field
      * @return string image URL
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function getImageSource(Field $field): string
     {
-        $settings = $this->getSettings();
-        switch (TypoScriptUtility::getCaptchaExtensionFromSettings($settings)) {
-            case 'captcha':
-                $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-                $image = BasicFileUtility::getRelativeFolder(ExtensionManagementUtility::extPath('captcha'))
-                    . 'captcha/captcha.php';
-                if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
-                    $imageTag = Utility::makeCaptcha($field->getUid());
-                    return StringUtility::getSrcFromImageTag($imageTag);
-                }
-                break;
-
-            default:
-                $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
-                $image = $captchaService->render($field);
-        }
-        return $image;
+        $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
+        return  $captchaService->render($field);
     }
 
     /**
      * @return array
-     * @throws Exception
      */
     public function getSettings(): array
     {
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         return $configurationService->getTypoScriptSettings();
     }
 }

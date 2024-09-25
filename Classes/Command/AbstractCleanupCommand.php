@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Command;
 
@@ -22,6 +23,7 @@ abstract class AbstractCleanupCommand extends Command
         string $directory,
         int $period
     ): void {
+        // todo: should have a return value (success / error)
         $files = GeneralUtility::getFilesInDir(GeneralUtility::getFileAbsFileName($directory), '', true);
         $counter = 0;
         foreach ($files as $file) {

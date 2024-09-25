@@ -1,0 +1,22 @@
+##################
+# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+##################
+plugin.tx_powermail.settings.setup {
+  styles {
+    numberOfColumns = {$plugin.tx_powermail.settings.styles.framework.numberOfColumns}
+
+    framework {
+      rowClasses = {$plugin.tx_powermail.settings.styles.framework.rowClasses}
+      formClasses = {$plugin.tx_powermail.settings.styles.framework.formClasses}
+      fieldAndLabelWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses}
+      fieldWrappingClasses = {$plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses}
+      labelClasses = {$plugin.tx_powermail.settings.styles.framework.labelClasses}
+      fieldClasses = {$plugin.tx_powermail.settings.styles.framework.fieldClasses}
+      offsetClasses = {$plugin.tx_powermail.settings.styles.framework.offsetClasses}
+      radioClasses = {$plugin.tx_powermail.settings.styles.framework.radioClasses}
+      checkClasses = {$plugin.tx_powermail.settings.styles.framework.checkClasses}
+      submitClasses = {$plugin.tx_powermail.settings.styles.framework.submitClasses}
+      createClasses = {$plugin.tx_powermail.settings.styles.framework.createClasses}
+    }
+  }
+}

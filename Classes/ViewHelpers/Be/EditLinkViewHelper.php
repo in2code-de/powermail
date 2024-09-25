@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
@@ -13,7 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class EditLinkViewHelper extends AbstractViewHelper
 {
-
     /**
      * Short writings of table names
      *
@@ -21,7 +21,7 @@ class EditLinkViewHelper extends AbstractViewHelper
      */
     protected $tables = [
         'form' => Form::TABLE_NAME,
-        'mail' => Mail::TABLE_NAME
+        'mail' => Mail::TABLE_NAME,
     ];
 
     /**

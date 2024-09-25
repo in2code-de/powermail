@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
+use Throwable;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\NullFrontend;
 use TYPO3\CMS\Core\Context\Context;
@@ -10,17 +12,16 @@ use TYPO3\CMS\Core\Http\Uri;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
-use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class SessionViewHelper
  */
 class SessionViewHelper extends AbstractViewHelper
 {
-
     /**
      * Session Key
      *
@@ -65,7 +66,7 @@ class SessionViewHelper extends AbstractViewHelper
      */
     protected function initializeTsfe(): void
     {
-        $site = GeneralUtility::makeInstance(Site::class, 1, 1, []);
+        $site = GeneralUtility::makeInstance(Site::class, '1', 1, []);
         $siteLanguage = GeneralUtility::makeInstance(
             SiteLanguage::class,
             0,
@@ -73,20 +74,23 @@ class SessionViewHelper extends AbstractViewHelper
             new Uri('https://domain.org/page'),
             []
         );
-        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, 0, []);
+        $pageArguments = GeneralUtility::makeInstance(PageArguments::class, 1, '0', []);
         $nullFrontend = GeneralUtility::makeInstance(NullFrontend::class, 'pages');
         $cacheManager = GeneralUtility::makeInstance(CacheManager::class);
+        $frontendUser = new FrontendUserAuthentication();
         try {
             $cacheManager->registerCache($nullFrontend);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             unset($exception);
         }
         $GLOBALS['TSFE'] = new TypoScriptFrontendController(
             GeneralUtility::makeInstance(Context::class),
             $site,
             $siteLanguage,
-            $pageArguments
+            $pageArguments,
+            $frontendUser
         );
-        $GLOBALS['TSFE']->fe_user = new FrontendUserAuthentication();
+        $GLOBALS['TSFE']->fe_user->initializeUserSessionManager();
+        $GLOBALS['TSFE']->fe_user->createUserSession([]);
     }
 }

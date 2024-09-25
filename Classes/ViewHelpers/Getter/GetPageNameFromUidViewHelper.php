@@ -1,10 +1,10 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Getter;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -12,7 +12,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetPageNameFromUidViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -24,11 +23,10 @@ class GetPageNameFromUidViewHelper extends AbstractViewHelper
 
     /**
      * @return string
-     * @throws Exception
      */
     public function render(): string
     {
-        $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+        $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
         return $pageRepository->getPageNameFromUid((int)$this->arguments['uid']);
     }
 }

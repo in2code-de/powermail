@@ -1,13 +1,13 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -15,11 +15,10 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class FinisherRunner
 {
-
     /**
      * @var string
      */
-    protected $interface = 'In2code\Powermail\Finisher\FinisherInterface';
+    protected string $interface = FinisherInterface::class;
 
     /**
      * Call finisher classes after submit
@@ -32,7 +31,6 @@ class FinisherRunner
      * @return void
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
-     * @throws Exception
      */
     public function callFinishers(
         Mail $mail,
@@ -50,12 +48,13 @@ class FinisherRunner
                     1578644684
                 );
             }
+            $contentObjectParent = clone $contentObject;
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractFinisher $finisher */
-                $finisher = ObjectUtility::getObjectManager()->get(
+                $finisher = GeneralUtility::makeInstance(
                     $class,
                     $mail,
-                    (array)$finisherSettings['config'],
+                    $finisherSettings['config'] ?? [],
                     $settings,
                     $formSubmitted,
                     $actionMethodName,
@@ -69,6 +68,7 @@ class FinisherRunner
                     1578644680
                 );
             }
+            $contentObject = $contentObjectParent;
         }
     }
 
@@ -98,8 +98,8 @@ class FinisherRunner
      */
     protected function callInitializeFinisherMethod(AbstractFinisher $finisher, string $finisherMethod): void
     {
-        if (method_exists($finisher, 'initialize' . ucFirst($finisherMethod))) {
-            $finisher->{'initialize' . ucFirst($finisherMethod)}();
+        if (method_exists($finisher, 'initialize' . ucfirst($finisherMethod))) {
+            $finisher->{'initialize' . ucfirst($finisherMethod)}();
         }
     }
 

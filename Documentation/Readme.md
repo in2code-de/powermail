@@ -18,7 +18,10 @@ Some basic points:
 
 - Main features of this mailform extension is to store the mails into
   the database. Export it from the backend module (xls, csv) or list the
-  values in the frontend again (Pi2).
+  values in the frontend again (Pi2). XLS export in the backend is only
+  possible if the extension *jambagecom/base-excel*  is installed. In
+  classic installation, a phar file for phpspreadsheet must be manually
+  created (See docs of EXT:base_excel).
 
 - Powermail send one or more mails to a static receiver or to dynamic receivers or
   to a whole Frontend-User Group.
@@ -35,7 +38,7 @@ Some basic points:
   (funnel, browser, language, country, etc...)
 
 - For Developers: Powermail is a very flexible extension, which also
-  could be extended by your code or extension (hooks, signalslots,
+  could be extended by your code or extension (hooks, eventdispatchers,
   own Finishers, own DataProcessors, own Spam-Prevention-Methods,
   own Validators, TypoScript cObjects and userFuncs, debugoutput, etc...).
 
@@ -67,6 +70,7 @@ Example Multistep Form with clientside validation
 Listing of stored mails with the possibility to see a Detail view or to re-edit the entries for a defined Frontend Usergroup
 Define your ABC- and Searchterm Filter
 Define the export possibilities (RSS, CSV, XLS)
+XLS export is only possible when the extension *jambagecom/base-excel* is installed
 
 
 ### Backend: Mail Listing
@@ -89,7 +93,9 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 * [Documentation for editors](/Documentation/ForEditors/Readme.md)
 * [Documentation for administrators](/Documentation/ForAdministrators/Readme.md)
 * [Documentation for developers](/Documentation/ForDevelopers/Readme.md)
+* [Documentation for contributors](/Documentation/ForContributors/Readme.md)
 * [FAQ](/Documentation/FAQ/Readme.md) (with a lot of stuff and best practice)
 * [Changelog](/Documentation/Changelog/Readme.md)
+* [Upgrade Instructions](/Documentation/Changelog/UpgradeInstructions.md)
 * [Support](/Documentation/Support/Readme.md)
 * [Additional links](/Documentation/Links/Readme.md)

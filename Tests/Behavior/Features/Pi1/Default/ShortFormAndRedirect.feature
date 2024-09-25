@@ -12,9 +12,9 @@ Feature: ShortFormAndRedirect
 
   Scenario: Fill out DefaultForm and submit
     Given I am on "/powermail/pi1/default/shortform-redirect"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
-    When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "alex@in2code.de"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Tuana"
+    When I fill in "tx_powermail_pi1[field][lastname]" with "Koehler"
+    When I fill in "tx_powermail_pi1[field][email]" with "Tuana.Koehler20@fake-yahoo.com"
     And I press "Jetzt Absenden"
     Then I should see "Sind diese Eingaben korrekt?"
     And I press "Weiter"
@@ -30,9 +30,9 @@ Feature: ShortFormAndRedirect
 
   Scenario: Fill out DefaultForm (english) and submit
     Given I am on "/en/powermail/pi1/default/shortform-redirect"
-    When I fill in "tx_powermail_pi1[field][firstname]" with "Alexandra"
-    When I fill in "tx_powermail_pi1[field][lastname]" with "Kellner"
-    When I fill in "tx_powermail_pi1[field][email]" with "alexandra@in2code.de"
+    When I fill in "tx_powermail_pi1[field][firstname]" with "Tuana"
+    When I fill in "tx_powermail_pi1[field][lastname]" with "Köhler"
+    When I fill in "tx_powermail_pi1[field][email]" with "Tuana.Koehler20@fake-yahoo.com"
     And I press "Submit"
     Then I should see "Are these values correct?"
     And I press "Next"

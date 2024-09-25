@@ -1,18 +1,18 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class UploadAttributesViewHelper
  */
 class UploadAttributesViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * @return void
      */
@@ -27,7 +27,7 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * Array for multiple upload
      *
      * @return array
-     * @throws Exception
+     * @throws DBALException
      */
     public function render(): array
     {
@@ -45,14 +45,14 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         }
         if ($this->isClientValidationEnabled()) {
             if (!empty($this->settings['misc']['file']['size'])) {
-                $additionalAttributes['data-parsley-powermailfilesize'] =
+                $additionalAttributes['data-powermail-powermailfilesize'] =
                     (int)$this->settings['misc']['file']['size'] . ',' . $field->getMarker();
-                $additionalAttributes['data-parsley-powermailfilesize-message'] =
+                $additionalAttributes['data-powermail-powermailfilesize-message'] =
                     LocalizationUtility::translate('validationerror_upload_size');
             }
             if (!empty($this->settings['misc']['file']['extension'])) {
-                $additionalAttributes['data-parsley-powermailfileextensions'] = $field->getMarker();
-                $additionalAttributes['data-parsley-powermailfileextensions-message'] =
+                $additionalAttributes['data-powermail-powermailfileextensions'] = $field->getMarker();
+                $additionalAttributes['data-powermail-powermailfileextensions-message'] =
                     LocalizationUtility::translate('validationerror_upload_extension');
             }
         }

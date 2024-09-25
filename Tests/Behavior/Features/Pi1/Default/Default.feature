@@ -28,5 +28,5 @@ Feature: AllFields
     And I press "Submit"
 
     Then I should see "This is an input"
-    Then the sourcecode should contain 'This<br />\nis<br />\na<br />\ntextarea'
+    Then the sourcecode should contain 'This<br>\nis<br>\na<br>\ntextarea'
     Then I should see "Red"

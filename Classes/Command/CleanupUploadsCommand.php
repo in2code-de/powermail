@@ -1,11 +1,12 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class CleanupUploadsCommand
@@ -31,11 +32,11 @@ class CleanupUploadsCommand extends AbstractCleanupCommand
      * @param InputInterface $input
      * @param OutputInterface $output
      * @return int
-     * @throws Exception
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->removeFilesFromRelativeDirectory($output, 'uploads/tx_powermail/', (int)$input->getArgument('period'));
-        return 0;
+        // todo implement error handling
+        return Command::SUCCESS;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Be;
 
@@ -10,7 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class UploadsFolderViewHelper extends AbstractViewHelper
 {
-
     /**
      * Upload Filder
      *

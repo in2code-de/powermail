@@ -1,7 +1,9 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use DateTime;
 use In2code\Powermail\Utility\ArrayUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Persistence\Generic\LazyLoadingProxy;
@@ -63,10 +65,10 @@ class Mail extends AbstractEntity
     /**
      * @var int
      */
-    protected $time = null;
+    protected $time = 0;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Form
+     * @var Form
      */
     protected $form = null;
 
@@ -77,7 +79,7 @@ class Mail extends AbstractEntity
     protected $answers = null;
 
     /**
-     * @var \DateTime
+     * @var DateTime
      */
     protected $crdate = null;
 
@@ -145,7 +147,7 @@ class Mail extends AbstractEntity
      *
      * @var int
      */
-    protected $_languageUid = -1;
+    protected ?int $_languageUid = -1;
 
     /**
      * __construct
@@ -347,7 +349,7 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return null|Form|LazyLoadingProxy $form
+     * @return Form|LazyLoadingProxy|null $form
      */
     public function getForm()
     {
@@ -401,18 +403,18 @@ class Mail extends AbstractEntity
     }
 
     /**
-     * @return \DateTime
+     * @return DateTime|null
      */
-    public function getCrdate(): \DateTime
+    public function getCrdate(): ?DateTime
     {
         return $this->crdate;
     }
 
     /**
-     * @param \DateTime $crdate
+     * @param DateTime $crdate
      * @return Mail
      */
-    public function setCrdate(\DateTime $crdate): Mail
+    public function setCrdate(DateTime $crdate): Mail
     {
         $this->crdate = $crdate;
         return $this;
@@ -541,7 +543,7 @@ class Mail extends AbstractEntity
     {
         $pageFunnel = $this->getMarketingPageFunnel();
         if (count($pageFunnel)) {
-            return $pageFunnel[count($pageFunnel) - 1];
+            return (int)$pageFunnel[count($pageFunnel) - 1];
         }
         return 0;
     }

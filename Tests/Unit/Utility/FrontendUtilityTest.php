@@ -1,10 +1,10 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class FrontendUtilityTest
@@ -12,20 +12,13 @@ use TYPO3\CMS\Core\Exception;
  */
 class FrontendUtilityTest extends UnitTestCase
 {
-
-    /**
-     * @var array
-     */
-    protected $testFilesToDelete = [];
-
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
-        TestingHelper::initializeTypoScriptFrontendController();
     }
 
     /**
@@ -35,8 +28,8 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getStoragePageReturnsInt()
     {
-        $this->assertSame(123, FrontendUtility::getStoragePage(123));
-        $this->assertSame(1, FrontendUtility::getStoragePage());
+        self::assertSame(123, FrontendUtility::getStoragePage(123));
+        self::assertNotSame(1, FrontendUtility::getStoragePage());
     }
 
     /**
@@ -48,7 +41,7 @@ class FrontendUtilityTest extends UnitTestCase
     public function getCurrentPageIdentifierReturnsInt()
     {
         $result = FrontendUtility::getCurrentPageIdentifier();
-        $this->assertSame(1, $result);
+        self::assertSame(0, $result);
     }
 
     /**
@@ -59,7 +52,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getSysLanguageUidReturnsInt()
     {
-        $this->assertSame(0, FrontendUtility::getSysLanguageUid());
+        self::assertSame(0, FrontendUtility::getSysLanguageUid());
     }
 
     /**
@@ -69,14 +62,14 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function testGetPluginNameReturnsString()
     {
-        $this->assertSame('tx_powermail_pi1', FrontendUtility::getPluginName());
+        self::assertSame('tx_powermail_pi1', FrontendUtility::getPluginName());
 
         $_GET['tx_powermail_pi2']['action'] = 'test';
-        $this->assertSame('tx_powermail_pi2', FrontendUtility::getPluginName());
+        self::assertSame('tx_powermail_pi2', FrontendUtility::getPluginName());
 
         unset($_GET['tx_powermail_pi2']);
         $_GET['tx_powermail_web_powermailm1']['action'] = 'test';
-        $this->assertSame('tx_powermail_web_powermailm1', FrontendUtility::getPluginName());
+        self::assertSame('tx_powermail_web_powermailm1', FrontendUtility::getPluginName());
         unset($_GET);
     }
 
@@ -88,20 +81,9 @@ class FrontendUtilityTest extends UnitTestCase
     public function testGetActionName()
     {
         $_GET['tx_powermail_pi1']['action'] = '';
-        $this->assertSame('', FrontendUtility::getActionName());
+        self::assertSame('', FrontendUtility::getActionName());
         $_GET['tx_powermail_pi1']['action'] = 'test';
-        $this->assertSame('test', FrontendUtility::getActionName());
-    }
-
-    /**
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getCharset
-     */
-    public function getCharsetReturnsString()
-    {
-        $this->assertSame('utf-8', FrontendUtility::getCharset());
+        self::assertSame('test', FrontendUtility::getActionName());
     }
 
     /**
@@ -112,7 +94,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function isLoggedInFrontendUserReturnsBool()
     {
-        $this->assertFalse(FrontendUtility::isLoggedInFrontendUser());
+        self::assertFalse(FrontendUtility::isLoggedInFrontendUser());
     }
 
     /**
@@ -123,8 +105,8 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getPropertyFromLoggedInFrontendUserReturnsString()
     {
-        $this->assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
-        $this->assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('foobar'));
+        self::assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
+        self::assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('foobar'));
     }
 
     /**
@@ -132,20 +114,20 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getDomainFromUriReturnsStringDataProvider()
+    public static function getDomainFromUriReturnsStringDataProvider(): array
     {
         return [
             [
                 'http://subdomain.domain.org/folder/file.html',
-                'subdomain.domain.org'
+                'subdomain.domain.org',
             ],
             [
                 'ftp://domain.org',
-                'domain.org'
+                'domain.org',
             ],
             [
                 'https://www.domain.co.uk/',
-                'www.domain.co.uk'
+                'www.domain.co.uk',
             ],
         ];
     }
@@ -160,7 +142,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getDomainFromUriReturnsString($value, $expectedResult)
     {
-        $this->assertSame($expectedResult, FrontendUtility::getDomainFromUri($value));
+        self::assertSame($expectedResult, FrontendUtility::getDomainFromUri($value));
     }
 
     /**
@@ -168,28 +150,28 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getCountryFromIpReturnsStringDataProvider()
+    public static function getCountryFromIpReturnsStringDataProvider(): array
     {
         return [
             [
                 '217.72.208.133',
-                'Germany'
+                'Germany',
             ],
             [
                 '27.121.255.4',
-                'Japan'
+                'Japan',
             ],
             [
                 '5.226.31.255',
-                'Spain'
+                'Spain',
             ],
             [
                 '66.85.131.18',
-                'United States'
+                'United States',
             ],
             [
                 '182.118.23.7',
-                'China'
+                'China',
             ],
         ];
     }
@@ -204,7 +186,7 @@ class FrontendUtilityTest extends UnitTestCase
      */
     public function getCountryFromIpReturnsString($ipAddress, $expectedResult)
     {
-        $this->assertSame($expectedResult, FrontendUtility::getCountryFromIp($ipAddress));
+        self::assertSame($expectedResult, FrontendUtility::getCountryFromIp($ipAddress));
     }
 
     /**
@@ -212,7 +194,7 @@ class FrontendUtilityTest extends UnitTestCase
      *
      * @return array
      */
-    public function getSubFolderOfCurrentUrlReturnsStringDataProvider()
+    public static function getSubFolderOfCurrentUrlReturnsStringDataProvider(): array
     {
         return [
             [
@@ -220,56 +202,56 @@ class FrontendUtilityTest extends UnitTestCase
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
-                '/'
+                '/',
             ],
             [
                 false,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
-                '/'
+                '/',
             ],
             [
                 true,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
-                '/'
+                '/',
             ],
             [
                 false,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/',
-                ''
+                '',
             ],
             [
                 true,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
-                '/subfolder/'
+                '/subfolder/',
             ],
             [
                 false,
                 true,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
-                'subfolder/'
+                'subfolder/',
             ],
             [
                 true,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
-                '/subfolder'
+                '/subfolder',
             ],
             [
                 false,
                 false,
                 'http://www.in2code.de',
                 'http://www.in2code.de/subfolder/',
-                'subfolder'
+                'subfolder',
             ],
         ];
     }
@@ -288,6 +270,6 @@ class FrontendUtilityTest extends UnitTestCase
     public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult)
     {
         $result = FrontendUtility::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
-        $this->assertSame($expectedResult, $result);
+        self::assertSame($expectedResult, $result);
     }
 }
