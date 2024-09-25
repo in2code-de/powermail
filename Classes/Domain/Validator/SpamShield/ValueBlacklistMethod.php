@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -23,12 +24,16 @@ class ValueBlacklistMethod extends AbstractMethod
      */
     public function spamCheck(): bool
     {
+        /** @var Answer $answer */
         foreach ($this->mail->getAnswers() as $answer) {
             if (is_array($answer->getValue())) {
                 continue;
             }
+            if (is_bool($answer->getValue())) {
+                continue;
+            }
             foreach ($this->getValues() as $blackword) {
-                if ($this->isStringInString($answer->getValue(), $blackword)) {
+                if ($this->isStringInString((string)$answer->getValue(), $blackword)) {
                     return true;
                 }
             }
