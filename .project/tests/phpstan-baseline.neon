@@ -2511,11 +2511,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/ValueBlacklistMethod.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
-			count: 2
-			path: ../../Classes/Domain/Validator/SpamShield/ValueBlacklistMethod.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\ValueBlacklistMethod\\:\\:getValues\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/ValueBlacklistMethod.php
