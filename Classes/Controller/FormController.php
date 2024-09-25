@@ -32,6 +32,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use function in_array;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
