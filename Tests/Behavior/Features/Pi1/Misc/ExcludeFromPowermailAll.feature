@@ -11,7 +11,7 @@ Feature: ExcludeFromPowermailAll
 
     Then I should see "Sind diese Eingaben korrekt?"
     Then I should see "Sendername"
-    Then I should see "alexander.kellner@einpraegsam.net"
+    Then I should see "Tuana.Koehler20@yahoo.com"
     Then I should not see "Admin Only Value"
     Then I should not see "This is the hidden value"
     Then I should not see "123"
@@ -19,7 +19,7 @@ Feature: ExcludeFromPowermailAll
 
     Then I should see "Danke, Ihre Eingaben:"
     Then I should see "Sendername"
-    Then I should see "alexander.kellner@einpraegsam.net"
+    Then I should see "Tuana.Koehler20@yahoo.com"
     Then I should see "This is the hidden value"
     Then I should not see "Admin Only Value"
     Then I should not see "123"

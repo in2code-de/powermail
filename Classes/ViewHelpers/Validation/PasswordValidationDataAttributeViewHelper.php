@@ -1,22 +1,24 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class PasswordValidationDataAttributeViewHelper
  */
 class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
-
     /**
-     * Returns Data Attribute Array for JS validation with parsley.js
+     * Returns Data Attribute Array for JS validation
      *
      * @return array for data attributes
-     * @throws Exception
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function render(): array
     {
@@ -25,8 +27,8 @@ class PasswordValidationDataAttributeViewHelper extends ValidationDataAttributeV
         if ($this->isClientValidationEnabled()) {
             /** @var Field $field */
             $field = $this->arguments['field'];
-            $additionalAttributes['data-parsley-equalto'] = '#powermail_field_' . $field->getMarker();
-            $additionalAttributes['data-parsley-equalto-message'] =
+            $additionalAttributes['data-powermail-equalto'] = '#powermail_field_' . $field->getMarker();
+            $additionalAttributes['data-powermail-equalto-message'] =
                 LocalizationUtility::translate('validationerror_password');
         }
 

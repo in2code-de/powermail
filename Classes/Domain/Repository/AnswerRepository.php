@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -10,26 +12,23 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class AnswerRepository extends AbstractRepository
 {
-
     /**
      * Find single Answer by field uid and mail uid
      *
      * @param int $fieldUid
      * @param int $mailUid
-     * @return Answer
+     * @return Answer|null
      */
-    public function findByFieldAndMail($fieldUid, $mailUid): Answer
+    public function findByFieldAndMail($fieldUid, $mailUid): ?Answer
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
 
         $and = [
             $query->equals('mail', $mailUid),
-            $query->equals('field', $fieldUid)
+            $query->equals('field', $fieldUid),
         ];
-
-        $constraint = $query->logicalAnd($and);
-        $query->matching($constraint);
+        $query->matching($query->logicalAnd(...$and));
         $query->setLimit(1);
         /** @var Answer $answer */
         $answer = $query->execute()->getFirst();
@@ -48,15 +47,11 @@ class AnswerRepository extends AbstractRepository
         $query->getQuerySettings()->setIgnoreEnableFields(true);
 
         // get all uploaded answers which are not empty
-        $query->matching(
-            $query->logicalAnd(
-                [
-                    $query->equals('valueType', Answer::VALUE_TYPE_UPLOAD),
-                    $query->logicalNot($query->equals('value', ''))
-                ]
-            )
-        );
-
+        $and = [
+            $query->equals('valueType', Answer::VALUE_TYPE_UPLOAD),
+            $query->logicalNot($query->equals('value', '')),
+        ];
+        $query->matching($query->logicalAnd(...$and));
         return $query->execute();
     }
 }

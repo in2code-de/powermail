@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
@@ -7,28 +8,31 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Error\Result;
 
 /**
  * Class PasswordValidator
  */
 class PasswordValidator extends AbstractValidator
 {
-
     /**
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return bool
-     * @throws Exception
+     * @return Result
      */
-    public function isValid($mail)
+    public function validate($mail): Result
     {
-        if (!$this->formHasPassword($mail->getForm()) || $this->ignoreValidationIfConfirmation()) {
-            return true;
+        $this->result = new Result();
+        if ($this->formHasPassword($mail->getForm()) && !$this->ignoreValidationIfConfirmation()) {
+            $this->isValid($mail);
         }
+        return $this->result;
+    }
 
+    protected function isValid($mail): void
+    {
         foreach ($mail->getAnswers() as $answer) {
             if ($answer->getField()->getType() !== 'password') {
                 continue;
@@ -36,10 +40,7 @@ class PasswordValidator extends AbstractValidator
             if ($answer->getValue() !== $this->getMirroredValueOfPasswordField($answer->getField())) {
                 $this->setErrorAndMessage($answer->getField(), 'password');
             }
-
         }
-
-        return $this->isValidState();
     }
 
     /**
@@ -47,11 +48,10 @@ class PasswordValidator extends AbstractValidator
      *
      * @param Field $field
      * @return string
-     * @throws Exception
      */
     protected function getMirroredValueOfPasswordField(Field $field): string
     {
-        return (string)FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'];
+        return FrontendUtility::getArguments()['field'][$field->getMarker() . '_mirror'] ?? '';
     }
 
     /**
@@ -59,13 +59,12 @@ class PasswordValidator extends AbstractValidator
      *
      * @param Form $form
      * @return bool
-     * @throws Exception
      */
     protected function formHasPassword(Form $form): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasPassword($form);
-        return count($form) ? true : false;
+        return (bool)count($form);
     }
 
     /**
@@ -75,7 +74,17 @@ class PasswordValidator extends AbstractValidator
      */
     protected function ignoreValidationIfConfirmation(): bool
     {
-        return FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'create';
+        return (
+            !empty(FrontendUtility::getArguments()['__referrer'])
+            && !empty(FrontendUtility::getArguments()['action'])
+            && FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
+            && FrontendUtility::getArguments()['action'] === 'checkCreate'
+        )
+            || (
+                !empty(FrontendUtility::getArguments()['controller'])
+                && !empty(FrontendUtility::getArguments()['action'])
+                && FrontendUtility::getArguments()['controller'] === 'Form'
+                && FrontendUtility::getArguments()['action'] === 'optinConfirm'
+            );
     }
 }

@@ -11,7 +11,9 @@
                                 <f:translate key="validationerror_spam" /> {singleError.arguments.spamfactor}
                             </f:then>
                             <f:else>
-                                <vh:getter.getFieldPropertyFromMarkerAndForm marker="{singleError.arguments.marker}" form="{form}" property="title"/>:
+                                <f:if condition="{singleError.arguments.marker}">
+                                    <vh:getter.getFieldPropertyFromMarkerAndForm marker="{singleError.arguments.marker}" form="{form}" property="title"/>:
+                                </f:if>
                             </f:else>
                         </f:if>
 

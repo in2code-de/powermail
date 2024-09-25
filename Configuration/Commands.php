@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 use In2code\Powermail\Command\CleanupExportsCommand;
@@ -10,22 +11,22 @@ use In2code\Powermail\Command\ResetMarkersCommand;
 return [
     'powermail:export' => [
         'class' => ExportCommand::class,
-        'schedulable' => true
+        'schedulable' => true,
     ],
     'powermail:resetMarkers' => [
         'class' => ResetMarkersCommand::class,
-        'schedulable' => true
+        'schedulable' => true,
     ],
     'powermail:cleanupUploads' => [
         'class' => CleanupUploadsCommand::class,
-        'schedulable' => true
+        'schedulable' => true,
     ],
     'powermail:cleanupExports' => [
         'class' => CleanupExportsCommand::class,
-        'schedulable' => true
+        'schedulable' => true,
     ],
     'powermail:cleanupUnusedUploads' => [
         'class' => CleanupUnusedUploadsCommand::class,
-        'schedulable' => true
-    ]
+        'schedulable' => true,
+    ],
 ];

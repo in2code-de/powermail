@@ -1,29 +1,23 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Hook;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Domain\Service\GetNewMarkerNamesForFormService;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class CreateMarker to autofill field marker with value from title e.g. {firstname}
  */
 class CreateMarker
 {
-
-    /**
-     * @var null|ObjectManager
-     */
-    protected $objectManager = null;
-
     /**
      * Contains data of open record - depends on context and could contain:
      * - tx_powermail_domain_model_form.*
@@ -32,17 +26,17 @@ class CreateMarker
      *
      * @var array
      */
-    protected $data = [];
+    protected array $data = [];
 
     /**
      * @var string
      */
-    protected $status = '';
+    protected string $status = '';
 
     /**
      * @var string
      */
-    protected $table = '';
+    protected string $table = '';
 
     /**
      * @var int|string
@@ -52,17 +46,17 @@ class CreateMarker
     /**
      * @var array
      */
-    protected $properties = [];
+    protected array $properties = [];
 
     /**
      * React if one of this tables is in game
      *
      * @var array
      */
-    protected $allowedTableNames = [
+    protected array $allowedTableNames = [
         Form::TABLE_NAME,
         Page::TABLE_NAME,
-        Field::TABLE_NAME
+        Field::TABLE_NAME,
     ];
 
     /**
@@ -75,7 +69,7 @@ class CreateMarker
      *
      * @var array
      */
-    protected $fieldArray = [];
+    protected array $fieldArray = [];
 
     /**
      * @param string $status mode of change
@@ -83,7 +77,7 @@ class CreateMarker
      * @param string $uid identifier of the record
      * @param array $properties the properties that can be manipulated before storing
      * @return void
-     * @throws Exception
+     * @throws DBALException
      */
     public function initialize(string $status, string $table, string $uid, array &$properties): void
     {
@@ -91,7 +85,6 @@ class CreateMarker
         $this->table = $table;
         $this->uid = $uid;
         $this->properties = &$properties;
-        $this->objectManager = ObjectUtility::getObjectManager();
         $this->data = (array)GeneralUtility::_GP('data');
         $this->addExistingFields();
         $this->addNewFields();
@@ -105,7 +98,8 @@ class CreateMarker
      * @param string $uid identifier of the record
      * @param array $properties the properties that can be manipulated before storing
      * @return void
-     * @throws Exception
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function processDatamap_postProcessFieldArray(
         string $status,
@@ -115,8 +109,7 @@ class CreateMarker
     ): void {
         if ($this->shouldProcess($table)) {
             $this->initialize($status, $table, $uid, $properties);
-            /** @var GetNewMarkerNamesForFormService $markerService */
-            $markerService = $this->objectManager->get(GetNewMarkerNamesForFormService::class);
+            $markerService = GeneralUtility::makeInstance(GetNewMarkerNamesForFormService::class);
             $markers = $markerService->makeUniqueValueInArray($this->fieldArray);
 
             if ($this->table === Field::TABLE_NAME) {
@@ -177,6 +170,7 @@ class CreateMarker
      *
      * @param array $markers
      * @return void
+     * @throws DBALException
      */
     protected function checkAndRenameMarkers(array $markers): void
     {
@@ -186,15 +180,19 @@ class CreateMarker
                 (int)$uid,
                 'marker'
             );
-            if ($row['marker'] !== $marker) {
+            if (($row['marker'] ?? false) !== $marker) {
                 $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME);
-                $queryBuilder->update(Field::TABLE_NAME)->where('uid=' . (int)$uid)->set('marker', $marker)->execute();
+                $queryBuilder
+                    ->update(Field::TABLE_NAME)
+                    ->where('uid=' . (int)$uid)
+                    ->set('marker', $marker)
+                    ->executeStatement();
             }
         }
     }
 
     /**
-     * @param $marker
+     * @param string $marker
      * @return void
      */
     protected function setMarkerProperty(string $marker): void
@@ -206,13 +204,13 @@ class CreateMarker
      * Add existing fields from database to field array
      *
      * @return void
-     * @throws Exception
+     * @throws DBALException
      */
     protected function addExistingFields(): void
     {
         $fieldProperties = $this->getFieldProperties();
         foreach ($fieldProperties as $properties) {
-            $this->addField($this->makeFieldFromProperties($properties));
+            $this->addField($this->getFieldObjectFromProperties($properties));
         }
     }
 
@@ -220,12 +218,11 @@ class CreateMarker
      * Add new fields to field array
      *
      * @return void
-     * @throws Exception
      */
     protected function addNewFields(): void
     {
-        foreach ((array)$this->data[Field::TABLE_NAME] as $fieldUid => $properties) {
-            $this->addField($this->makeFieldFromProperties($properties, (string)$fieldUid));
+        foreach ((array)($this->data[Field::TABLE_NAME] ?? []) as $fieldUid => $properties) {
+            $this->addField($this->getFieldObjectFromProperties($properties, (string)$fieldUid));
         }
     }
 
@@ -239,19 +236,25 @@ class CreateMarker
      * @param array $properties
      * @param string $uid Number for persisted and string for new fields like "NEW5e2d7c8f48f4a868804329"
      * @return Field
-     * @throws Exception
      */
-    protected function makeFieldFromProperties(array $properties, string $uid = '0')
+    protected function getFieldObjectFromProperties(array $properties, string $uid = '0'): Field
     {
-        /** @var Field $field */
-        $field = $this->objectManager->get(Field::class);
+        $field = GeneralUtility::makeInstance(Field::class);
+        $properties['content_element'] = (int)($properties['content_element'] ?? 0);
+        $properties['validation'] = (int)($properties['validation'] ?? 0);
+        $properties['multiselect'] = (bool)($properties['multiselect'] ?? false);
+        $properties['sender_name'] = (bool)($properties['sender_name'] ?? false);
+        $properties['sender_email'] = (bool)($properties['sender_email'] ?? false);
+        $properties['mandatory'] = (bool)($properties['mandatory'] ?? false);
+        $properties['sorting'] = (int)($properties['sorting'] ?? 0);
+        $properties['l10n_parent'] = (int)($properties['l10n_parent'] ?? 0);
         foreach ($properties as $key => $value) {
             $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
         if (!empty($properties['sys_language_uid'])) {
-            $field->_setProperty('_languageUid', $properties['sys_language_uid']);
+            $field->_setProperty('_languageUid', (int)$properties['sys_language_uid']);
         }
-        $field->setDescription((string)$properties['uid'] > 0 ? (string)$properties['uid'] : $uid);
+        $field->setDescription((string)($properties['uid'] ?? '') > 0 ? (string)$properties['uid'] : $uid);
         return $field;
     }
 
@@ -259,6 +262,7 @@ class CreateMarker
      * Get array with markers from a complete form
      *
      * @return array
+     * @throws DBALException
      */
     protected function getFieldProperties(): array
     {
@@ -270,14 +274,15 @@ class CreateMarker
             ->join('p', Field::TABLE_NAME, 'f', 'f.page = p.uid')
             ->where('fo.uid = ' . $this->getFormUid() . ' and f.deleted = 0')
             ->setMaxResults(1000)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
     }
 
     /**
      * Read Form Uid from GET params
      *
      * @return int form uid
+     * @throws DBALException
      */
     protected function getFormUid(): int
     {
@@ -292,7 +297,7 @@ class CreateMarker
 
         // if pages open (fields via IRRE)
         if ($formUid === 0) {
-            foreach (array_keys((array)$this->data[Page::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)($this->data[Page::TABLE_NAME] ?? [])) as $uid) {
                 if (!empty($this->data[Page::TABLE_NAME][$uid]['form'])) {
                     $formUid = (int)$this->data[Page::TABLE_NAME][$uid]['form'];
                 }
@@ -301,7 +306,7 @@ class CreateMarker
 
         // if field is directly opened (no IRRE OR opened pages with their IRRE fields
         if ($formUid === 0) {
-            foreach (array_keys((array)$this->data[Field::TABLE_NAME]) as $uid) {
+            foreach (array_keys((array)($this->data[Field::TABLE_NAME] ?? [])) as $uid) {
                 if (!empty($this->data[Field::TABLE_NAME][$uid]['page'])) {
                     $formUid = $this->getFormUidFromRelatedPage((int)$this->data[Field::TABLE_NAME][$uid]['page']);
                 }
@@ -316,6 +321,7 @@ class CreateMarker
      *
      * @param int $pageUid
      * @return int
+     * @throws DBALException
      */
     protected function getFormUidFromRelatedPage(int $pageUid): int
     {
@@ -326,8 +332,8 @@ class CreateMarker
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
             ->where('p.uid = ' . (int)$pageUid)
             ->setMaxResults(1)
-            ->execute()
-            ->fetchColumn();
+            ->executeQuery()
+            ->fetchOne();
     }
 
     /**
@@ -335,7 +341,6 @@ class CreateMarker
      *
      * @param Field $field
      * @return void
-     * @throws Exception
      */
     protected function addField(Field $field): void
     {
@@ -371,6 +376,7 @@ class CreateMarker
      */
     protected function shouldRenameMarker(array $markers): bool
     {
-        return !empty($markers[$this->uid]) && $markers[$this->uid] !== $this->properties['marker'];
+        return !empty($markers[$this->uid]) && isset($this->properties['marker'])
+          && $markers[$this->uid] !== $this->properties['marker'];
     }
 }

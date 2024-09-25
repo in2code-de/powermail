@@ -1,97 +1,99 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\GetNewPathAndFilenameEvent;
 use In2code\Powermail\Utility\StringUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * File Model for single uploaded files
  */
 class File
 {
-    use SignalTrait;
-
     /**
      * Field marker name
      *
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * Original name
      *
      * @var string
      */
-    protected $originalName = '';
+    protected string $originalName = '';
 
     /**
      * Temporary uploaded name
      *
      * @var string|null
      */
-    protected $temporaryName = null;
+    protected ?string $temporaryName = null;
 
     /**
      * New, cleaned and unique filename
      *
      * @var string
      */
-    protected $newName = '';
+    protected string $newName = '';
 
     /**
      * Is there a problem with this file?
      *
      * @var bool
      */
-    protected $valid = true;
+    protected bool $valid = true;
 
     /**
      * Like "image/png"
      *
      * @var string
      */
-    protected $type = '';
+    protected string $type = '';
 
     /**
      * Filesize
      *
      * @var int
      */
-    protected $size = 0;
+    protected int $size = 0;
 
     /**
      * Uploadfolder for this file
      *
      * @var string
      */
-    protected $uploadFolder = 'uploads/tx_powermail/';
+    protected string $uploadFolder = 'uploads/tx_powermail/';
 
     /**
      * Already uploaded to uploadfolder?
      *
      * @var bool
      */
-    protected $uploaded = false;
+    protected bool $uploaded = false;
 
     /**
      * File must be renamed?
      *
      * @var bool
      */
-    protected $renamed = false;
+    protected bool $renamed = false;
 
     /**
      * Related field
      *
      * @var Field|null
      */
-    protected $field = null;
+    protected ?Field $field = null;
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param string $marker
@@ -103,6 +105,7 @@ class File
         $this->marker = $marker;
         $this->originalName = $originalName;
         $this->temporaryName = $temporaryName;
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
     }
 
     /**
@@ -134,8 +137,9 @@ class File
     /**
      * @param string $originalName
      * @return File
+     * @noinspection PhpUnused
      */
-    public function setOriginalName($originalName): File
+    public function setOriginalName(string $originalName): File
     {
         $this->originalName = $originalName;
         return $this;
@@ -152,6 +156,7 @@ class File
     /**
      * @param string $temporaryName
      * @return File
+     * @noinspection PhpUnused
      */
     public function setTemporaryName(string $temporaryName): File
     {
@@ -289,7 +294,7 @@ class File
     }
 
     /**
-     * @param boolean $renamed
+     * @param bool $renamed
      * @return File
      */
     public function setRenamed(bool $renamed): File
@@ -328,9 +333,6 @@ class File
      * Check if file is existing on the server
      *
      * @return bool
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function isFileExisting(): bool
     {
@@ -340,17 +342,17 @@ class File
     /**
      * @param bool $absolute
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
-    public function getNewPathAndFilename($absolute = false): string
+    public function getNewPathAndFilename(bool $absolute = false): string
     {
         $pathAndFilename = $this->getUploadFolder() . $this->getNewName();
-        if ($absolute) {
+        if ($absolute === true) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$pathAndFilename, $this]);
-        return $pathAndFilename;
+        /** @var GetNewPathAndFilenameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(GetNewPathAndFilenameEvent::class, $pathAndFilename, $this)
+        );
+        return $event->getPathAndFilename();
     }
 }

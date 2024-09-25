@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\DataProcessor;
 
+use Exception;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
@@ -14,18 +16,17 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class DataProcessorRunner
 {
-
     /**
      * @var string
      */
-    protected $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
+    protected string $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
 
     /**
      * @param Mail $mail
      * @param string $actionMethodName
      * @param array $settings
      * @param ContentObjectRenderer $contentObject
-     * @throws \Exception
+     * @throws Exception
      */
     public function callDataProcessors(
         Mail $mail,
@@ -43,11 +44,16 @@ class DataProcessorRunner
                 );
             }
             if (is_subclass_of($class, $this->interface)) {
+                if (!isset($dpSettings['config'])) {
+                    $dpSettings['config'] = [];
+                } else {
+                    $dpSettings['config'] = (array)$dpSettings['config'];
+                }
                 /** @var AbstractDataProcessor $dataProcessor */
-                $dataProcessor =  ObjectUtility::getObjectManager()->get(
+                $dataProcessor =  GeneralUtility::makeInstance(
                     $dpSettings['class'],
                     $mail,
-                    (array)$dpSettings['config'],
+                    $dpSettings['config'],
                     $settings,
                     $actionMethodName,
                     $contentObject
@@ -93,8 +99,8 @@ class DataProcessorRunner
         AbstractDataProcessor $dataProcessor,
         string $finisherMethod
     ): void {
-        if (method_exists($dataProcessor, 'initialize' . ucFirst($finisherMethod))) {
-            $dataProcessor->{'initialize' . ucFirst($finisherMethod)}();
+        if (method_exists($dataProcessor, 'initialize' . ucfirst($finisherMethod))) {
+            $dataProcessor->{'initialize' . ucfirst($finisherMethod)}();
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
@@ -9,7 +10,6 @@ use In2code\Powermail\Domain\Model\Field;
  */
 class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
 {
-
     /**
      * InputTypes
      *
@@ -20,7 +20,7 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         2 => 'url',
         3 => 'tel',
         4 => 'number',
-        8 => 'range'
+        8 => 'range',
     ];
 
     /**

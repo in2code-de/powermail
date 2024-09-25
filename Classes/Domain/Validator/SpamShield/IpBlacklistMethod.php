@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
@@ -10,7 +11,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class IpBlacklistMethod extends AbstractMethod
 {
-
     /**
      * @var string
      */

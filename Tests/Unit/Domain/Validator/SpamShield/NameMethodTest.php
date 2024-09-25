@@ -1,13 +1,12 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\NameMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class NameMethodTest
@@ -15,26 +14,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class NameMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+     * @var NameMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             NameMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -42,7 +38,7 @@ class NameMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -52,7 +48,7 @@ class NameMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             [
@@ -61,7 +57,7 @@ class NameMethodTest extends UnitTestCase
                     'lastname' => 'abcdef',
                     'xyz' => '123',
                 ],
-                true
+                true,
             ],
             [
                 [
@@ -69,7 +65,7 @@ class NameMethodTest extends UnitTestCase
                     'lastname' => 'abcdefg',
                     'xyz' => '123',
                 ],
-                false
+                false,
             ],
             [
                 [
@@ -77,7 +73,7 @@ class NameMethodTest extends UnitTestCase
                     'surname' => 'viagra',
                     'xyz' => '123',
                 ],
-                true
+                true,
             ],
         ];
     }
@@ -104,6 +100,6 @@ class NameMethodTest extends UnitTestCase
         }
 
         $this->generalValidatorMock->_set('mail', $mail);
-        $this->assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedOverallSpamIndicator, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

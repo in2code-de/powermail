@@ -9,7 +9,7 @@
 Spamshield is a method to protect your mailforms from spam without the usage of a captcha field.
 After a submit, different spammethods must be passed:
 
-- Honeypod
+- Honeypot
 - Linkcheck
 - Namecheck
 - Sessioncheck

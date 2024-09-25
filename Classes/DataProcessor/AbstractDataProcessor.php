@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\DataProcessor;
 
@@ -10,7 +11,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractDataProcessor implements DataProcessorInterface
 {
-
     /**
      * @var Mail
      */

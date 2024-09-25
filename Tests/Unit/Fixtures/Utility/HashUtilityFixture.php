@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\Utility;
 
 use In2code\Powermail\Exception\ConfigurationIsMissingException;
@@ -9,7 +10,6 @@ use In2code\Powermail\Utility\HashUtility;
  */
 class HashUtilityFixture extends HashUtility
 {
-
     /**
      * @return string
      * @throws ConfigurationIsMissingException

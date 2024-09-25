@@ -1,9 +1,10 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Domain\Model;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class AnswerTest
@@ -11,95 +12,89 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class AnswerTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Model\Answer
+     * @var Answer
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
-        $this->generalValidatorMock = $this->getAccessibleMock(Answer::class, ['dummy']);
+        $this->generalValidatorMock = $this->getAccessibleMock(Answer::class, null);
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
-    /**
-     * Dataprovider getValueReturnVoid()
-     *
-     * @return array
-     */
-    public function getValueReturnVoidDataProvider()
+    public static function getValueReturnVoidDataProvider(): array
     {
         return [
             'string 1' => [
                 'abc def',
                 'abc def',
                 0,
-                null
+                null,
             ],
             'string 2' => [
                 '<\'"test"',
                 '<\'"test"',
                 0,
-                null
+                null,
             ],
             'array 1' => [
                 json_encode(['a']),
                 ['a'],
                 1,
-                null
+                null,
             ],
             'array 2' => [
                 json_encode([1, 2, 3]),
                 [1, 2, 3],
                 3,
-                null
+                null,
             ],
             'date 1' => [
                 strtotime('2010-01-31'),
                 '2010-01-31 00:00',
                 2,
-                'date'
+                'date',
             ],
             'date 2' => [
                 strtotime('1975-10-13'),
                 '1975-10-13 00:00',
                 2,
-                'date'
+                'date',
             ],
             'datetime 1' => [
                 strtotime('1975-10-13 14:00'),
                 '1975-10-13 14:00',
                 2,
-                'datetime'
+                'datetime',
             ],
             'datetime 2' => [
                 strtotime('2020-01-30 22:23'),
                 '2020-01-30 22:23',
                 2,
-                'datetime'
+                'datetime',
             ],
             'time 1' => [
                 strtotime('14:00'),
                 date('Y-m-d') . ' 14:00',
                 2,
-                'time'
+                'time',
             ],
             'time 2' => [
                 strtotime('22:23'),
                 date('Y-m-d') . ' 22:23',
                 2,
-                'time'
+                'time',
             ],
         ];
     }
@@ -120,19 +115,19 @@ class AnswerTest extends UnitTestCase
             $formats = [
                 'date' => 'Y-m-d',
                 'datetime' => 'Y-m-d H:i',
-                'time' => 'H:i'
+                'time' => 'H:i',
             ];
             $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
-            $field = new Field;
+            $field = new Field();
             if ($datepickerSettings) {
                 $field->setDatepickerSettings($datepickerSettings);
             }
-            $this->generalValidatorMock->_callRef('setField', $field);
+            $this->generalValidatorMock->_call('setField', $field);
         }
-        $this->generalValidatorMock->_callRef('setValueType', $valueType);
+        $this->generalValidatorMock->_call('setValueType', $valueType);
 
         $this->generalValidatorMock->_setProperty('value', $value);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('getValue', $value));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('getValue', $value));
     }
 
     /**
@@ -145,76 +140,71 @@ class AnswerTest extends UnitTestCase
     public function getRawValueReturnString($value)
     {
         $this->generalValidatorMock->_setProperty('value', $value);
-        $this->assertSame($value, $this->generalValidatorMock->_callRef('getRawValue'));
+        self::assertSame($value, $this->generalValidatorMock->_call('getRawValue'));
     }
 
-    /**
-     * Dataprovider setValueReturnVoid()
-     *
-     * @return array
-     */
-    public function setValueReturnVoidDataProvider()
+    public static function setValueReturnVoidDataProvider(): array
     {
         return [
             'string 1' => [
                 'abc def',
                 'abc def',
                 'input',
-                null
+                null,
             ],
             'string 2' => [
                 '<\'"test"',
                 '<\'"test"',
                 'input',
-                null
+                null,
             ],
             'array 1' => [
                 ['a'],
                 json_encode(['a']),
                 'check',
-                null
+                null,
             ],
             'array 2' => [
                 [1, 2, 3],
                 json_encode([1, 2, 3]),
                 'check',
-                null
+                null,
             ],
             'date 1' => [
                 '2010-01-31',
                 strtotime('2010-01-31'),
                 'date',
-                'date'
+                'date',
             ],
             'date 2' => [
                 '1975-10-13',
                 strtotime('1975-10-13'),
                 'date',
-                'date'
+                'date',
             ],
             'datetime 1' => [
                 '1975-10-13 14:00',
                 strtotime('1975-10-13 14:00'),
                 'date',
-                'datetime'
+                'datetime',
             ],
             'datetime 2' => [
                 '2020-01-30 22:23',
                 strtotime('2020-01-30 22:23'),
                 'date',
-                'datetime'
+                'datetime',
             ],
             'time 1' => [
                 '14:00',
                 strtotime('14:00'),
                 'date',
-                'time'
+                'time',
             ],
             'time 2' => [
                 '22:23',
                 strtotime('22:23'),
                 'date',
-                'time'
+                'time',
             ],
         ];
     }
@@ -233,7 +223,7 @@ class AnswerTest extends UnitTestCase
     {
         $this->generalValidatorMock->_setProperty('valueType', 0);
         if ($fieldType || $datepickerSettings) {
-            $field = new Field;
+            $field = new Field();
             if ($fieldType) {
                 $field->setType($fieldType);
             }
@@ -241,16 +231,16 @@ class AnswerTest extends UnitTestCase
                 $formats = [
                     'date' => 'Y-m-d',
                     'datetime' => 'Y-m-d H:i',
-                    'time' => 'H:i'
+                    'time' => 'H:i',
                 ];
                 $this->generalValidatorMock->_setProperty('translateFormat', $formats[$datepickerSettings]);
                 $this->generalValidatorMock->_setProperty('valueType', 2);
                 $field->setDatepickerSettings($datepickerSettings);
             }
-            $this->generalValidatorMock->_callRef('setField', $field);
+            $this->generalValidatorMock->_call('setField', $field);
         }
 
-        $this->generalValidatorMock->_callRef('setValue', $value);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
+        $this->generalValidatorMock->_call('setValue', $value);
+        self::assertSame($expectedResult, $this->generalValidatorMock->_getProperty('value'));
     }
 }

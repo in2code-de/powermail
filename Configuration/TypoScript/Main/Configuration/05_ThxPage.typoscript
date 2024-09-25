@@ -1,0 +1,26 @@
+##################
+# All settings for thx page
+##################
+plugin.tx_powermail.settings.setup {
+  thx {
+    # Following settings are normally set via Flexform
+    body =
+    redirect =
+
+    overwrite {
+      # EXAMPLE: Overwrite redirect with TypoScript cObject
+      #  Return a Number: Typolink to the pid
+      #  Return a URL: Link to an intern or extern URL
+      #  Return a File: Link to a file (within fileadmin folder)
+      # redirect = COA
+      # redirect {
+      #   10 = TEXT
+      #   10 {
+      #     typolink.parameter = 2
+      #     typolink.returnLast = url
+      #     typolink.additionalParams = &x=y
+      #   }
+      # }
+    }
+  }
+}

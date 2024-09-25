@@ -1,23 +1,23 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Model\User;
+use In2code\Powermail\Domain\Repository\BackendUserRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent;
+use In2code\Powermail\Events\ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class ReceiverService to get email array for receivers
@@ -26,8 +26,6 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class ReceiverMailReceiverPropertiesService
 {
-    use SignalTrait;
-
     const RECEIVERS_DEFAULT = 0;
     const RECEIVERS_FRONTENDGROUP = 1;
     const RECEIVERS_PREDEFINED = 2;
@@ -36,40 +34,45 @@ class ReceiverMailReceiverPropertiesService
     /**
      * @var Mail|null
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * TypoScript settings as plain array
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * TypoScript configuration for cObject parsing
      *
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * @var array
      */
-    protected $receiverEmails = [];
+    protected array $receiverEmails = [];
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param Mail $mail
      * @param array $settings
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws InvalidQueryException
+     * @throws ExceptionExtbaseObject
      */
     public function __construct(Mail $mail, array $settings)
     {
         $this->mail = $mail;
         $this->settings = $settings;
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         $this->setReceiverEmails();
     }
 
@@ -93,9 +96,6 @@ class ReceiverMailReceiverPropertiesService
      * Get receiver name with fallback
      *
      * @return string
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
      */
     public function getReceiverName(): string
     {
@@ -104,44 +104,54 @@ class ReceiverMailReceiverPropertiesService
             $receiverName = $this->settings['receiver']['name'];
         }
 
-        $signalArguments = [&$receiverName, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        return $receiverName;
+        /** @var ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                ReceiverMailReceiverPropertiesServiceGetReceiverNameEvent::class,
+                $receiverName,
+                $this
+            )
+        );
+        return $event->getReceiverName();
     }
 
     /**
      * @return void
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws InvalidQueryException
+     * @throws ExceptionExtbaseObject
      */
     protected function setReceiverEmails(): void
     {
         $emailArray = $this->getEmailsFromFlexForm();
-        $emailArray = $this->getEmailsFromFeGroup($emailArray, (int)$this->settings['receiver']['fe_group']);
-        $emailArray = $this->getEmailsFromBeGroup($emailArray, (int)$this->settings['receiver']['be_group']);
+        $emailArray = $this->getEmailsFromFeGroup($emailArray, (int)($this->settings['receiver']['fe_group'] ?? 0));
+        $emailArray = $this->getEmailsFromBeGroup($emailArray, (int)($this->settings['receiver']['be_group'] ?? 0));
         $emailArray = $this->getEmailsFromPredefinedEmail(
             $emailArray,
-            (string)$this->settings['receiver']['predefinedemail']
+            (string)($this->settings['receiver']['predefinedemail'] ?? '')
         );
         $emailArray = $this->overWriteEmailsWithTypoScript($emailArray);
         $emailArray = $this->getEmailFromDevelopmentContext($emailArray);
 
-        $signalArguments = [&$emailArray, $this];
-        $this->signalDispatch(__CLASS__, __FUNCTION__, $signalArguments);
-        $this->receiverEmails = $emailArray;
+        /** @var ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent::class,
+                $emailArray,
+                $this
+            )
+        );
+        $this->receiverEmails = $event->getEmailArray();
     }
 
     /**
      * Get emails from FlexForm and parse with fluid
      *
      * @return array
-     * @throws Exception
      */
     protected function getEmailsFromFlexForm(): array
     {
-        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_DEFAULT) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_DEFAULT) {
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $emailString = TemplateUtility::fluidParseString(
                 $this->settings['receiver']['email'],
                 $mailRepository->getVariablesWithMarkersFromMail($this->mail)
@@ -157,12 +167,12 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid fe_groups.uid
      * @return array Array with emails
-     * @throws Exception
+     * @throws InvalidQueryException
      */
     protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
-        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $users = $userRepository->findByUsergroup($uid);
             $emailArray = [];
             /** @var User $user */
@@ -181,14 +191,13 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param int $uid be_groups.uid
      * @return array
-     * @throws Exception
      * @throws InvalidQueryException
      */
     protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
-        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
             /** @var BackendUserRepository $beUserRepository */
-            $beUserRepository = ObjectUtility::getObjectManager()->get(BackendUserRepository::class);
+            $beUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
             $query = $beUserRepository->createQuery();
             $users = $query->matching($query->contains('usergroup', $uid))->execute();
             $emailArray = [];
@@ -213,11 +222,11 @@ class ReceiverMailReceiverPropertiesService
      * @param array $emailArray
      * @param string $predefinedString
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
-        if ((int)$this->settings['receiver']['type'] === self::RECEIVERS_PREDEFINED && !empty($predefinedString)) {
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_PREDEFINED && !empty($predefinedString)) {
             $receiverString = TypoScriptUtility::overwriteValueFromTypoScript(
                 '',
                 $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],
@@ -233,7 +242,7 @@ class ReceiverMailReceiverPropertiesService
      *
      * @param array $emailArray
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function overWriteEmailsWithTypoScript(array $emailArray): array
     {
@@ -264,7 +273,7 @@ class ReceiverMailReceiverPropertiesService
     }
 
     /**
-     * Read emails from String and split it on break, pipe, comma and semicolon
+     * Read emails from String and split it on break, pipe, comma, semicolon and space
      *
      * @param string $string Any given string from a textarea with some emails
      * @return array Array with emails
@@ -276,7 +285,8 @@ class ReceiverMailReceiverPropertiesService
             [
                 PHP_EOL,
                 '|',
-                ','
+                ',',
+                ' ',
             ],
             ';',
             $string

@@ -1,4 +1,5 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Fixtures\Domain\Repository;
 
 use In2code\Powermail\Domain\Model\Mail;
@@ -9,7 +10,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
  */
 class MailRepositoryFixture extends MailRepository
 {
-
     /**
      * @param int $uid
      * @return Mail

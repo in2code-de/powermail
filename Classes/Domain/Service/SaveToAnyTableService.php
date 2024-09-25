@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
@@ -61,7 +62,7 @@ class SaveToAnyTableService
      *
      * @var string
      */
-    protected $additionalWhere;
+    protected $additionalWhere = '';
 
     /**
      * Switch on devLog
@@ -231,7 +232,7 @@ class SaveToAnyTableService
         $possibleModes = [
             self::MODE_INSERT,
             self::MODE_UPDATE,
-            self::MODE_NONE
+            self::MODE_NONE,
         ];
         if (in_array($mode, $possibleModes)) {
             $this->mode = $mode;
@@ -308,7 +309,7 @@ class SaveToAnyTableService
     /**
      * Remove not allowed signs
      *
-     * @param $string
+     * @param string $string
      * @return void
      */
     protected function removeNotAllowedSigns(string &$string): void
@@ -350,8 +351,8 @@ class SaveToAnyTableService
             ->from($this->getTable())
             ->where($where)
             ->setMaxResults(1)
-            ->execute()
-            ->fetch();
+            ->executeQuery()
+            ->fetchAssociative();
     }
 
     /**

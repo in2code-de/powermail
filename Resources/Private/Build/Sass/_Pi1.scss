@@ -1,0 +1,197 @@
+.tx-powermail {
+
+    .powermail_fieldset {
+
+        /**
+         * JS Form Validation
+         */
+        .powermail-errors-list {
+            display: none;
+            margin: 5px 0 20px 0;
+            padding: 0;
+            list-style-type: none;
+            background-color: $red1;
+            border: 1px solid $red2;
+            width: 100%;
+            float: right;
+            clear: left;
+
+            &.filled {
+                display: block;
+            }
+
+            > li {
+                color: $red3;
+                padding: 5px 10px;
+            }
+        }
+
+        .powermail_field_error,
+        div.error {
+            background-color: $red2;
+            color: $red3;
+        }
+
+        .powermail_field_error_container {
+            .powermail-errors-list {
+                width: 100%;
+                margin-bottom: 0;
+                background-color: $red2;
+                border: none;
+
+                > li {
+                    padding-left: 5px;
+                }
+            }
+        }
+    }
+
+    /* Progress Bar for AJAX Submit */
+    .powermail_progressbar {
+        width: 100%;
+        height: 5px;
+        float: right;
+        border: 1px solid #EEEEEE;
+        clear: both;
+
+        &.disable {
+            display: none;
+        }
+
+        > .powermail_progress {
+            background: $blue1;
+            width: 0%;
+            max-width: 100%;
+            -webkit-animation: progress 5s 1 forwards;
+            -moz-animation: progress 5s 1 forwards;
+            -ms-animation: progress 5s 1 forwards;
+            animation: progress 5s 1 forwards;
+
+            > .powermail_progress_inner {
+                height: 5px;
+                width: 100%;
+                overflow: hidden;
+                background: url("/typo3conf/ext/powermail/Resources/Public/Image/icon_loading.gif") repeat-x;
+                -moz-opacity: 0.25;
+                -khtml-opacity: 0.25;
+                opacity: 0.25;
+                -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25);
+                filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
+                filter: alpha(opacity=25);
+            }
+        }
+    }
+
+    /* List uploaded files */
+    ul.powermail_fieldwrap_file_list {
+        background-color: white;
+        border: 1px solid $greySoft2;
+        float: right;
+        padding: 3px;
+        width: 100%;
+        list-style: none;
+        border-radius: 4px;
+        margin: 0;
+
+        > li {
+            margin: 5px;
+
+            .deleteAllFiles {
+                color: $greySoft2;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    .powermail_confirmation {
+        .powermail_progressbar {
+            width: 100%;
+        }
+    }
+
+    /**
+     * Serverside Validation
+     */
+    @import "Message";
+
+    .powermail_fieldset {
+        .powermail_tab_navigation {
+            margin-top: 2em;
+
+            .powermail_tab_navigation_next,
+            .powermail_tab_navigation_previous {
+                background-color: $greySoft3;
+                display: inline-block;
+                padding: 5px 30px;
+                text-decoration: none;
+                color: white;
+                border: 1px solid $greySoft2;
+                font-weight: bold;
+            }
+
+            .powermail_tab_navigation_next {
+                background-color: $blue1;
+                float: right;
+            }
+        }
+    }
+
+    // No label
+    .powermail_form.nolabel {
+        > h3 {
+            display: none;
+        }
+    }
+
+    .powermail_fieldset.nolabel {
+        > legend {
+            display: none;
+        }
+    }
+
+    .powermail_fieldwrap.nolabel {
+        > label {
+            display: none;
+        }
+
+        > fieldset > legend {
+            display: none;
+        }
+    }
+}
+
+@-webkit-keyframes progress {
+    from {
+    }
+    to {
+        width: 100%
+    }
+}
+
+@-moz-keyframes progress {
+    from {
+    }
+    to {
+        width: 100%
+    }
+}
+
+@-ms-keyframes progress {
+    from {
+    }
+    to {
+        width: 100%
+    }
+}
+
+@keyframes progress {
+    from {
+    }
+    to {
+        width: 100%
+    }
+}

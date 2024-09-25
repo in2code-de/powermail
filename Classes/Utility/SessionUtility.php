@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
@@ -8,9 +9,6 @@ use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
 
 /**
  * Class SessionUtility
@@ -18,26 +16,25 @@ use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
  */
 class SessionUtility
 {
-
     /**
      * Extension Key
      */
-    public static $extKey = 'powermail';
+    public static string $extKey = 'powermail';
 
     /**
      * Session methods
      *
      * @var array
      */
-    protected static $methods = [
+    protected static array $methods = [
         'temporary' => 'ses',
-        'permanently' => 'user'
+        'permanently' => 'user',
     ];
 
     /**
      * Save current timestamp to session
      *
-     * @param Form $form
+     * @param ?Form $form
      * @param array $settings
      * @return void
      */
@@ -85,27 +82,20 @@ class SessionUtility
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
+     * @param array $settings
      * @return void
      */
     public static function storeMarketingInformation(
         string $referer = '',
         int $language = 0,
         int $pid = 0,
-        bool $mobileDevice = false
+        bool $mobileDevice = false,
+        array $settings = []
     ): void {
         $marketingInfo = self::getSessionValue('powermail_marketing');
-
         // initially create array with marketing info
         if (empty($marketingInfo)) {
-            $marketingInfo = [
-                'refererDomain' => FrontendUtility::getDomainFromUri($referer),
-                'referer' => $referer,
-                'country' => FrontendUtility::getCountryFromIp(),
-                'mobileDevice' => $mobileDevice,
-                'frontendLanguage' => $language,
-                'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
-                'pageFunnel' => [$pid]
-            ];
+            $marketingInfo = self::initMarketingInfo($referer, $language, $pid, $mobileDevice, $settings);
         } else {
             // add current pid to funnel
             $marketingInfo['pageFunnel'][] = $pid;
@@ -129,15 +119,7 @@ class SessionUtility
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
         if (empty($marketingInfo)) {
-            $marketingInfo = [
-                'refererDomain' => '',
-                'referer' => '',
-                'country' => '',
-                'mobileDevice' => 0,
-                'frontendLanguage' => 0,
-                'browserLanguage' => '',
-                'pageFunnel' => []
-            ];
+            $marketingInfo = self::initMarketingInfo();
         }
         return $marketingInfo;
     }
@@ -148,20 +130,17 @@ class SessionUtility
      * @param Mail $mail
      * @param array $settings Settings array
      * @return void
-     * @throws Exception
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
      */
     public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {
         $valuesToSave = [];
-        $typoScriptService = ObjectUtility::getObjectManager()->get(TypoScriptService::class);
+        $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $contentObject = ObjectUtility::getContentObject();
         $configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($settings);
         if (!empty($configuration['saveSession.']) &&
             array_key_exists($configuration['saveSession.']['_method'], self::$methods)
         ) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $variablesWithMarkers = $mailRepository->getVariablesWithMarkersFromMail($mail);
             $contentObject->start($variablesWithMarkers);
             foreach (array_keys($variablesWithMarkers) as $marker) {
@@ -273,6 +252,39 @@ class SessionUtility
     }
 
     /**
+     * @param string $referer
+     * @param int $language
+     * @param int $pid
+     * @param bool $mobileDevice
+     * @param array $settings
+     * @return array
+     */
+    protected static function initMarketingInfo(
+        string $referer = '',
+        int $language = 0,
+        int $pid = 0,
+        bool $mobileDevice = false,
+        array $settings = []
+    ) {
+        $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
+        if (isset($settings['setup']['marketing']['determineCountry'])
+            && $settings['setup']['marketing']['determineCountry'] == 1) {
+            $country = FrontendUtility::getCountryFromIp();
+        }
+        $marketingInfo = [
+            'refererDomain' => FrontendUtility::getDomainFromUri($referer),
+            'referer' => $referer,
+            'country' => $country,
+            'mobileDevice' => $mobileDevice,
+            'frontendLanguage' => $language,
+            'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
+            'pageFunnel' => [$pid],
+        ];
+
+        return $marketingInfo;
+    }
+
+    /**
      * Set a powermail session and merge to old one
      *
      * @param string $name session name
@@ -299,7 +311,7 @@ class SessionUtility
             }
         }
         $newValues = [
-            $name => $values
+            $name => $values,
         ];
         ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
     }

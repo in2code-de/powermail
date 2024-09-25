@@ -53,7 +53,7 @@ plugin.tx_powermail.settings.setup.prefill {
 }
 ```
 
-### 6. Fill with your own PHP with a Signal.
+### 6. Fill with your own PHP with a EventListener.
 
 Look at In2code\Powermail\ViewHelpers\Misc\PrefillFieldViewHelper::render()
 

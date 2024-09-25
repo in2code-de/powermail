@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -13,7 +13,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsAllowedToEditViewHelper extends AbstractViewHelper
 {
-
     /**
      * @return void
      */
@@ -29,7 +28,6 @@ class IsAllowedToEditViewHelper extends AbstractViewHelper
      *
      * @return bool
      * @throws DBALException
-     * @throws Exception
      */
     public function render(): bool
     {

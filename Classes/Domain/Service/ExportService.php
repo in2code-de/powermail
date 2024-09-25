@@ -1,18 +1,21 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
-use In2code\Powermail\Domain\Model\Mail;
+use Exception;
 use In2code\Powermail\Domain\Model\Field;
+use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BasicFileUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\StringUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
+use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -21,28 +24,27 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class ExportService
 {
-
     /**
      * Contains mails for export
      *
-     * @var null|QueryResult
+     * @var QueryResult|null
      */
-    protected $mails = null;
+    protected ?QueryResult $mails = null;
 
     /**
      * Receiver email addresses
      *
      * @var array
      */
-    protected $receiverEmails = [];
+    protected array $receiverEmails = [];
 
     /**
      * Sender email addresses
      *
      * @var array
      */
-    protected $senderEmails = [
-        'powermail@domain.org'
+    protected array $senderEmails = [
+        'powermail@domain.org',
     ];
 
     /**
@@ -50,14 +52,14 @@ class ExportService
      *
      * @var string
      */
-    protected $subject = '';
+    protected string $subject = '';
 
     /**
      * Export format can be 'xls' or 'csv'
      *
      * @var string
      */
-    protected $format = 'xls';
+    protected string $format = 'xls';
 
     /**
      * Fields to export
@@ -84,35 +86,35 @@ class ExportService
      *
      * @var array
      */
-    protected $fieldList = [];
+    protected array $fieldList = [];
 
     /**
      * @var string
      */
-    protected $fileName = '';
+    protected string $fileName = '';
 
     /**
      * @var array
      */
-    protected $additionalProperties = [];
+    protected array $additionalProperties = [];
 
     /**
      * @var bool
      */
-    protected $addAttachment = true;
+    protected bool $addAttachment = true;
 
     /**
      * @var string
      */
-    protected $storageFolder = 'typo3temp/assets/tx_powermail/';
+    protected string $storageFolder = 'typo3temp/assets/tx_powermail/';
 
     /**
      * @var string
      */
-    protected $emailTemplate = 'Module/ExportTaskMail.html';
+    protected string $emailTemplate = 'Module/ExportTaskMail.html';
 
     /**
-     * @param null|QueryResultInterface $mails Given mails for export
+     * @param QueryResultInterface|null $mails Given mails for export
      * @param string $format can be 'xls' or 'csv'
      * @param array $additionalProperties add additional properties
      */
@@ -146,11 +148,11 @@ class ExportService
      * Send the export mail
      *
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     protected function sendEmail(): bool
     {
-        $email = ObjectUtility::getObjectManager()->get(MailMessage::class);
+        $email = GeneralUtility::makeInstance(MailMessage::class);
         $email->setTo($this->getReceiverEmails());
         $email->setFrom($this->getSenderEmails());
         $email->setSubject($this->getSubject());
@@ -166,7 +168,7 @@ class ExportService
      * Create bodytext for export mail
      *
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createMailBody(): string
     {
@@ -182,7 +184,7 @@ class ExportService
      * @return bool if file operation could done successfully
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
-     * @throws \Exception
+     * @throws Exception
      */
     protected function createExportFile(): bool
     {
@@ -207,7 +209,7 @@ class ExportService
         $standaloneView->assignMultiple(
             [
                 'mails' => $this->getMails(),
-                'fieldUids' => $this->getFieldList()
+                'fieldUids' => $this->getFieldList(),
             ]
         );
         return $standaloneView->render();
@@ -224,8 +226,11 @@ class ExportService
     /**
      * Get a list with all default fields
      *
-     * @param QueryResultInterface $mails
+     * @param QueryResultInterface|null $mails
      * @return array
+     * @throws DeprecatedException
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getDefaultFieldListFromFirstMail(QueryResultInterface $mails = null): array
     {
@@ -251,7 +256,7 @@ class ExportService
     }
 
     /**
-     * @param null|QueryResultInterface $mails
+     * @param QueryResultInterface|null $mails
      * @return ExportService
      */
     public function setMails(?QueryResultInterface $mails): ExportService
@@ -267,7 +272,7 @@ class ExportService
     {
         $allowedFormats = [
             'xls',
-            'csv'
+            'csv',
         ];
         if (!in_array($this->format, $allowedFormats)) {
             return 'xls';
@@ -417,7 +422,7 @@ class ExportService
     /**
      * Set a user defined filename
      *
-     * @param string $fileName
+     * @param string|null $fileName
      * @return ExportService
      */
     public function setFileName(string $fileName = null): ExportService

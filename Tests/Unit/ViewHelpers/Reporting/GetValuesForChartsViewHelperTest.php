@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Reporting;
 
 use In2code\Powermail\ViewHelpers\Reporting\GetValuesForChartsViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class GetValuesForChartsViewHelperTest
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class GetValuesForChartsViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -19,18 +19,18 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             GetValuesForChartsViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -40,7 +40,7 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function renderReturnsStringDataProvider()
+    public static function renderReturnsStringDataProvider(): array
     {
         return [
             [
@@ -49,12 +49,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '10',
                         'label2' => '70',
                         'label3' => '20',
-                    ]
+                    ],
                 ],
                 'test',
                 ',',
                 false,
-                '10,70,20'
+                '10,70,20',
             ],
             [
                 [
@@ -62,12 +62,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '12',
                         'label2' => '70',
                         'label3' => '18',
-                    ]
+                    ],
                 ],
                 'a',
                 ',',
                 true,
-                '12%2C70%2C18'
+                '12%2C70%2C18',
             ],
             [
                 [
@@ -75,12 +75,12 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
                         'label1' => '"1|2"',
                         'label2' => '70|',
                         'label3' => '|18',
-                    ]
+                    ],
                 ],
                 'a',
                 '|',
                 false,
-                '12|70|18'
+                '12|70|18',
             ],
         ];
     }
@@ -102,10 +102,10 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
             'answers' => $answers,
             'fieldUidOrKey' => $field,
             'separator' => $glue,
-            'urlEncode' => $urlEncode
+            'urlEncode' => $urlEncode,
         ];
         $this->abstractValidationViewHelperMock->_set('arguments', $arguments);
-        $result = $this->abstractValidationViewHelperMock->_callRef('render', $answers, $field, $glue, $urlEncode);
-        $this->assertSame($expectedResult, $result);
+        $result = $this->abstractValidationViewHelperMock->_call('render', $answers, $field, $glue, $urlEncode);
+        self::assertSame($expectedResult, $result);
     }
 }

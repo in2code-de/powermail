@@ -1,0 +1,15 @@
+##################
+# Save submitted values in a session to prefill forms for further visits. Define each markername for all forms.
+##################
+plugin.tx_powermail.settings.setup {
+  saveSession {
+    # EXAMPLE: Method "temporary" means as long as the browser is open. "permanently" could be used together with a frontend-user session. If method is empty, saveSession is deactivated.
+    # _method = temporary
+    #
+    # firstname = TEXT
+    # firstname.field = firstname
+    #
+    # lastname = TEXT
+    # lastname.field = lastname
+  }
+}

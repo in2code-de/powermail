@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator;
 
@@ -8,14 +9,10 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Service\CalculatingCaptchaService;
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\TypoScriptUtility;
-use ThinkopenAt\Captcha\Utility;
 use TYPO3\CMS\Core\Package\Exception as ExceptionCore;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 
 /**
@@ -23,38 +20,45 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
  */
 class CaptchaValidator extends AbstractValidator
 {
-
     /**
      * Captcha Session clean (only if mail is out)
      *
      * @var bool
      */
-    protected $clearSession = true;
+    protected bool $clearSession = true;
 
     /**
      * Any Captcha arguments found?
      *
      * @var bool
      */
-    protected $captchaArgument = false;
+    protected bool $captchaArgument = false;
 
     /**
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return bool
-     * @throws Exception
+     * @return void
      * @throws ExceptionCore
+     * @throws DeprecatedException
      */
-    public function isValid($mail)
+    public function isValid($mail): void
     {
         if ($this->formHasCaptcha($mail->getForm())) {
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */
                 if ($answer->getField()->getType() === 'captcha') {
                     $this->setCaptchaArgument(true);
-                    if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                        $this->setErrorAndMessage($answer->getField(), 'captcha');
+                    /* If the answer has a UID it has already been validated an persisted.
+                     * There's no reason to validate it twice. Also, there's no possibility, since the value to check
+                     * against got removed from the user's session on the first validation.
+                     * Resolves: https://github.com/einpraegsam/powermail/issues/376
+                     * Resolves: https://projekte.in2code.de/issues/44174
+                     */
+                    if ($answer->getUid() === null) {
+                        if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
+                            $this->setErrorAndMessage($answer->getField(), 'captcha');
+                        }
                     }
                 }
             }
@@ -65,8 +69,6 @@ class CaptchaValidator extends AbstractValidator
                 $this->setValidState(false);
             }
         }
-
-        return $this->isValidState();
     }
 
     /**
@@ -75,16 +77,11 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
-     * @throws Exception
      * @throws ExceptionCore
      */
     protected function validCodePreflight(string $value, Field $field): bool
     {
         switch (TypoScriptUtility::getCaptchaExtensionFromSettings($this->settings)) {
-            case 'captcha':
-                $result = $this->validateCaptcha($value, $field);
-                break;
-
             default:
                 $result = $this->validatePowermailCaptcha($value, $field);
         }
@@ -95,28 +92,11 @@ class CaptchaValidator extends AbstractValidator
      * @param string $value
      * @param Field $field
      * @return bool
-     * @throws Exception
      */
     protected function validatePowermailCaptcha(string $value, Field $field): bool
     {
-        $captchaService = ObjectUtility::getObjectManager()->get(CalculatingCaptchaService::class);
+        $captchaService = GeneralUtility::makeInstance(CalculatingCaptchaService::class);
         return $captchaService->validCode($value, $field, $this->isClearSession());
-    }
-
-    /**
-     * @param string $value
-     * @param Field $field
-     * @return bool
-     * @throws ExceptionCore
-     */
-    protected function validateCaptcha(string $value, Field $field): bool
-    {
-        $captchaVersion = ExtensionManagementUtility::getExtensionVersion('captcha');
-        if (VersionNumberUtility::convertVersionNumberToInteger($captchaVersion) >= 2000000) {
-            return Utility::checkCaptcha($value, $field->getUid());
-        } else {
-            return $this->validateCaptchaOld($value);
-        }
     }
 
     /**
@@ -139,13 +119,12 @@ class CaptchaValidator extends AbstractValidator
      *
      * @param Form $form
      * @return bool
-     * @throws Exception
      */
     protected function formHasCaptcha(Form $form): bool
     {
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasCaptcha($form);
-        return count($form) ? true : false;
+        return (bool)count($form);
     }
 
     /**
@@ -174,10 +153,10 @@ class CaptchaValidator extends AbstractValidator
     }
 
     /**
-     * @param boolean $captchaArgument
+     * @param bool $captchaArgument
      * @return void
      */
-    public function setCaptchaArgument($captchaArgument): void
+    public function setCaptchaArgument(bool $captchaArgument): void
     {
         $this->captchaArgument = $captchaArgument;
     }
@@ -192,6 +171,6 @@ class CaptchaValidator extends AbstractValidator
 
         // clear captcha only on create action
         $pluginVariables = GeneralUtility::_GET('tx_powermail_pi1');
-        $this->setClearSession(($pluginVariables['action'] === 'create' ? true : false));
+        $this->setClearSession($pluginVariables['action'] === 'create');
     }
 }

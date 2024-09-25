@@ -7,7 +7,7 @@
 				<source>Access</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail">
-				<source>Mails</source>
+				<source>Mail</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1">
 				<source>Sender</source>
@@ -73,7 +73,7 @@
 				<source>Page Funnel which leads to this mail</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form">
-				<source>Forms</source>
+				<source>Form</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title">
 				<source>Title</source>
@@ -115,7 +115,7 @@
 				<source>Pages</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page">
-				<source>Pages</source>
+				<source>Page</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title">
 				<source>Title</source>
@@ -142,7 +142,7 @@
 				<source>Related Form</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field">
-				<source>Fields</source>
+				<source>Field</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title">
 				<source>Title</source>
@@ -310,7 +310,7 @@
 				<source>Create from TypoScript (e.g. lib.fieldvalues)</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value">
-				<source>Value from logged in Frontent User</source>
+				<source>Value from logged in Frontend User</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name">
 				<source>Name</source>
@@ -376,7 +376,7 @@
 				<source>Email or Name</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer">
-				<source>Answers</source>
+				<source>Answer</source>
 			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value">
 				<source>The transferred value</source>
@@ -410,6 +410,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.main.form" resname="flexform.main.form">
 				<source>Choose a Powermail Form</source>
+			</trans-unit>
+			<trans-unit id="flexform.main.formnote" resname="flexform.main.formnote">
+				<source>Form overview</source>
 			</trans-unit>
 			<trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform">
 				<source>Please select a form</source>

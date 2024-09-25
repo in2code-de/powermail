@@ -1,24 +1,25 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BasicFileUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class BasicFileUtiltyTest
  * @coversDefaultClass \In2code\Powermail\Utility\BasicFileUtility
  */
-class BasicFileUtiltyTest extends UnitTestCase
+class BasicFileUtilityTest extends UnitTestCase
 {
-
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
+        parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 
@@ -30,7 +31,7 @@ class BasicFileUtiltyTest extends UnitTestCase
     public function getFilesFromRelativePathReturnsString()
     {
         $result = BasicFileUtility::getFilesFromRelativePath('typo3/');
-        $this->assertSame(['index.php', 'install.php'], $result);
+        self::assertSame(['index.php', 'install.php'], $result);
     }
 
     /**
@@ -41,7 +42,7 @@ class BasicFileUtiltyTest extends UnitTestCase
     public function getPathFromPathAndFilenameReturnsString()
     {
         $result = BasicFileUtility::getPathFromPathAndFilename('typo3/index.php');
-        $this->assertSame('typo3', $result);
+        self::assertSame('typo3', $result);
     }
 
     /**
@@ -55,7 +56,7 @@ class BasicFileUtiltyTest extends UnitTestCase
         $testpath = TestingHelper::getWebRoot() . 'fileadmin/';
 
         BasicFileUtility::createFolderIfNotExists($testpath);
-        $this->assertDirectoryExists($testpath);
+        self::assertDirectoryExists($testpath);
         GeneralUtility::rmdir($testpath);
     }
 
@@ -75,7 +76,7 @@ class BasicFileUtiltyTest extends UnitTestCase
         BasicFileUtility::prependContentToFile($fileName, 'def');
         $content = file($fileName);
         GeneralUtility::rmdir($testpath, true);
-        $this->assertSame(['defabc'], $content);
+        self::assertSame(['defabc'], $content);
     }
 
     /**
@@ -86,10 +87,10 @@ class BasicFileUtiltyTest extends UnitTestCase
     public function getRelativeFolderReturnsString()
     {
         $testPath = 'typo3conf/ext/powermail/';
-        $this->assertStringEndsWith(
+        self::assertStringEndsWith(
             $testPath,
             BasicFileUtility::getRelativeFolder(TestingHelper::getWebRoot() . $testPath)
         );
-        $this->assertSame($testPath, BasicFileUtility::getRelativeFolder($testPath));
+        self::assertSame($testPath, BasicFileUtility::getRelativeFolder($testPath));
     }
 }

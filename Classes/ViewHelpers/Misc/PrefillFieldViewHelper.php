@@ -1,65 +1,77 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\PrefillFieldViewHelperEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class PrefillFieldViewHelper
  */
 class PrefillFieldViewHelper extends AbstractViewHelper
 {
-    use SignalTrait;
-
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
 
     /**
-     * @var string|array
+     * @var string|array|null
      */
     protected $value = null;
 
     /**
      * @var array
      */
-    protected $configuration;
+    protected array $configuration;
 
     /**
      * @var array
      */
-    protected $variables;
+    protected array $variables;
 
     /**
-     * @var Field $field
+     * @var ?Field $field
      */
-    protected $field = null;
+    protected ?Field $field = null;
 
     /**
-     * @var Mail $mail
+     * @var ?Mail $mail
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
+
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * Constructor
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
 
     /**
      * @return void
@@ -84,11 +96,9 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        location
      *
      * @return string|array Prefill field
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws DBALException
      */
     public function render()
     {
@@ -103,8 +113,18 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         if (!$this->isCachedForm()) {
             $this->buildValue();
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $default, $this]);
-        return $this->getValue();
+
+        /** @var PrefillFieldViewHelperEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                PrefillFieldViewHelperEvent::class,
+                $this->getValue(),
+                $field,
+                $mail,
+                $default
+            )
+        );
+        return $event->getValue();
     }
 
     /**
@@ -333,7 +353,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return Mail
+     * @return ?Mail
      */
     public function getMail(): ?Mail
     {
@@ -341,7 +361,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return PrefillFieldViewHelper
      */
     public function setMail(Mail $mail = null): PrefillFieldViewHelper
@@ -383,13 +403,12 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     /**
      * @return void
-     * @throws Exception
      */
     public function initialize()
     {
         $this->variables = FrontendUtility::getArguments();
-        $this->contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 }

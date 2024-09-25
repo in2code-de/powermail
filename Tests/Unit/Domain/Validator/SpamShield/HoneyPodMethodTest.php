@@ -1,11 +1,10 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class HoneyPodMethodTest
@@ -13,26 +12,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class HoneyPodMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod
+     * @var HoneyPodMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             HoneyPodMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -40,7 +36,7 @@ class HoneyPodMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -50,20 +46,20 @@ class HoneyPodMethodTest extends UnitTestCase
      *
      * @return array
      */
-    public function spamCheckReturnsVoidDataProvider()
+    public static function spamCheckReturnsVoidDataProvider(): array
     {
         return [
             'pot filled 1' => [
                 'abc',
-                true
+                true,
             ],
             'pot filled 2' => [
                 '@test',
-                true
+                true,
             ],
             'pot empty' => [
                 '',
-                false
+                false,
             ],
         ];
     }
@@ -79,6 +75,6 @@ class HoneyPodMethodTest extends UnitTestCase
     public function spamCheckReturnsVoid($pot, $expectedResult)
     {
         $this->generalValidatorMock->_set('arguments', ['field' => ['__hp' => $pot]]);
-        $this->assertSame($expectedResult, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));
     }
 }

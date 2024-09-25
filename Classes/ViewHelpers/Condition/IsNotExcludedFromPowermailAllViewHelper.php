@@ -1,18 +1,19 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Answer;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class IsNotExcludedFromPowermailAllViewHelper
  */
 class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
 {
-
     /**
      * @var array
      */
@@ -21,7 +22,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         'confirmationAction' => 'confirmationPage',
         'sender' => 'senderMail',
         'receiver' => 'receiverMail',
-        'optin' => 'optinMail'
+        'optin' => 'optinMail',
     ];
 
     /**
@@ -39,7 +40,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
      * View helper check if value should be returned or not
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     public function render(): bool
     {
@@ -88,7 +89,10 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         array $settings,
         string $configurationType = 'excludeFromFieldTypes'
     ): array {
-        if (!empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
+        if (
+            isset($this->typeToTypoScriptType[$type]) &&
+            ArrayUtility::isValidPath($settings, 'excludeFromPowermailAllMarker/' . $this->typeToTypoScriptType[$type] . '/' . $configurationType)
+            && !empty($settings['excludeFromPowermailAllMarker'][$this->typeToTypoScriptType[$type]][$configurationType])
         ) {
             return GeneralUtility::trimExplode(
                 ',',

@@ -1,24 +1,25 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Exception\DeprecatedException;
+use Throwable;
 use TYPO3\CMS\Backend\Routing\Exception\ResourceNotFoundException;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class BackendUtility
  */
 class BackendUtility
 {
-
     /**
      * Check if backend user is admin
      *
@@ -69,9 +70,9 @@ class BackendUtility
         $uriParameters = [
             'edit' => [
                 $tableName => [
-                    $identifier => 'edit'
-                ]
-            ]
+                    $identifier => 'edit',
+                ],
+            ],
         ];
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
@@ -93,9 +94,9 @@ class BackendUtility
         $uriParameters = [
             'edit' => [
                 $tableName => [
-                    $pageIdentifier => 'new'
-                ]
-            ]
+                    $pageIdentifier => 'new',
+                ],
+            ],
         ];
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
@@ -163,7 +164,7 @@ class BackendUtility
             'M',
             'moduleToken',
             'route',
-            'token'
+            'token',
         ];
         foreach ($getParameters as $key => $value) {
             if (in_array($key, $ignoreKeys)) {
@@ -190,6 +191,7 @@ class BackendUtility
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
         }
         $urlParts = parse_url($returnUrl);
+        $urlParts['query'] = $urlParts['query'] ?? '';
         parse_str((string)$urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
             return (int)$queryParts['id'];
@@ -201,7 +203,7 @@ class BackendUtility
      * Returns the Page TSconfig for page with id, $id
      *
      * @param int $pid
-     * @param array $rootLine
+     * @param ?array $rootLine
      * @param bool $returnPartArray
      * @return array Page TSconfig
      * @throws DeprecatedException
@@ -215,7 +217,7 @@ class BackendUtility
         try {
             // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
             $array = BackendUtilityCore::getPagesTSconfig($pid);
-        } catch (\Exception $exception) {
+        } catch (Throwable $exception) {
             unset($exception);
         }
         return $array;
@@ -227,12 +229,11 @@ class BackendUtility
      *
      * @param array $pids
      * @return array
-     * @throws Exception
      */
     public static function filterPagesForAccess(array $pids): array
     {
         if (!self::isBackendAdmin()) {
-            $pageRepository = ObjectUtility::getObjectManager()->get(PageRepository::class);
+            $pageRepository = GeneralUtility::makeInstance(PageRepository::class);
             // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {
@@ -252,6 +253,6 @@ class BackendUtility
      */
     public static function isBackendContext(): bool
     {
-        return TYPO3_MODE === 'BE';
+        return isset($GLOBALS['TYPO3_REQUEST']) && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();
     }
 }

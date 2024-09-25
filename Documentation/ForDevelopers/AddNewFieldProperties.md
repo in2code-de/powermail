@@ -6,9 +6,10 @@ You can extend powermail fields with new properties to insert (e.g.) a checkbox 
 something else.
 
 Following example shows two new fields in a new tab "Powermailextended".
-The first is a textarea. If there is text stored, this should be outputted before the Input field is rendered.
-The second is a checkbox. If this checkbox was checked from an editor, the input field should use the html-attribute
-readonly="readonly".
+The first is an input field of type textarea. If the user entered text for this field this text shall
+be displayed.
+The second field is a checkbox. If this checkbox was checked from an editor, the input field should use
+the html-attribute readonly="readonly".
 
 ![developer_new_fieldproperties1](../Images/developer_new_fieldproperties1.png)
 
@@ -335,8 +336,7 @@ class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository
 
 Last but not least don't forget to add your static TypoScript template to your powermail page, otherwise the partials will not be used.
 
-Example Code
-""""""""""""
+## Example Code
 
 Look at https://github.com/einpraegsam/powermailextended for an example extension.
 This extension allows you to:

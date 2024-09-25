@@ -1,10 +1,12 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
-<f:layout name="Backend"/>
+<f:layout name="Module"/>
 
 
 	Show Backend Module: Powermail Reporting Form
 
-<f:section name="content">
+<f:section name="Content">
+
+    <f:render partial="Module/JsAndCssImport" arguments="{_all}" />
 
 	<h1><f:translate key="BackendReportingFormTitle" /></h1>
 
@@ -20,8 +22,6 @@
 		<f:if condition="{mails}">
 			<f:then>
 				<h3><f:translate key="BackendReportingFormSubtitle1" /> <f:count subject="{mails}" /> <f:translate key="Emails" />:</h3>
-
-
 				<div class="row">
 					<f:for each="{firstMail.answers}" as="answer">
 						<div class="col-md-6">

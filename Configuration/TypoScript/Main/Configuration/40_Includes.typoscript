@@ -1,0 +1,6 @@
+page {
+  includeJSFooter {
+    powermailForm = EXT:powermail/Resources/Public/JavaScript/Powermail/Form.min.js
+    powermailForm.defer = 1
+  }
+}

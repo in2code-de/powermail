@@ -1,11 +1,10 @@
 <?php
-namespace In2code\Powermail\Tests\Domain\Unit\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class IpBlacklistMethodTest
@@ -13,26 +12,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class IpBlacklistMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod
+     * @var IpBlacklistMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             IpBlacklistMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -40,7 +36,7 @@ class IpBlacklistMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -53,6 +49,6 @@ class IpBlacklistMethodTest extends UnitTestCase
     public function reduceDelimitersReturnsString()
     {
         $string = ',;,' . PHP_EOL . ',';
-        $this->assertSame(',,,,,', $this->generalValidatorMock->_callRef('reduceDelimiters', $string));
+        self::assertSame(',,,,,', $this->generalValidatorMock->_call('reduceDelimiters', $string));
     }
 }

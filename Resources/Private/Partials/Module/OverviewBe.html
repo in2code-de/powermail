@@ -1,5 +1,6 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 {namespace core=TYPO3\CMS\Core\ViewHelpers}
+{namespace be=TYPO3\CMS\Backend\ViewHelpers}
 
 <div class="panel panel-default">
 	<div class="panel-heading">
@@ -34,7 +35,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<f:for each="{formsPage}" as="form" iteration="iteration">
+				<f:for each="{forms}" as="form" iteration="iteration">
 
 					<f:comment>Basic form information</f:comment>
 					<tr class="{f:if(condition:iteration.isFirst,then:' firstcol')}{f:if(condition:iteration.isLast,then:' lastcol')}">
@@ -42,18 +43,18 @@
 							<core:Icon identifier="tcarecords-tx_powermail_domain_model_mail-default" />
 						</td>
 						<td nowrap="nowrap">
-							<a title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
+                            <be:link.editRecord uid="{form.uid}" table="tx_powermail_domain_model_form">
 								<span title="id={form.uid}">{form.title}</span>
-							</a>
+                            </be:link.editRecord>
 						</td>
 						<td nowrap="nowrap">
-							<a title="id={form.pid}" onclick="top.loadEditId({form.pid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+							<a title="id={form.pid}" href="{f:be.uri(route:'web_layout',parameters:'{id:form.pid}')}">
 								<vh:getter.getPageNameFromUid uid="{form.pid}" />
 							</a>
 						</td>
 						<td nowrap="nowrap">
 							<f:for each="{vh:getter.getPagesWithContentRelatedToForm(form:form)}" as="page">
-								<a title="id={page.uid}" onclick="top.loadEditId({page.uid},&quot;&amp;SET[language]=0&quot;); return false;" href="#">
+								<a title="id={page.uid}" href="{f:be.uri(route:'web_layout',parameters:'{id:page.uid}')}">
 									{page.title}
 								</a>
 								<br />
@@ -72,9 +73,9 @@
 
 						<td nowrap="nowrap" class="col-control">
 							<div role="group" class="btn-group">
-								<a class="btn" title="Edit" href="{vh:misc.backendEditLink(tableName:'tx_powermail_domain_model_form',identifier:form.uid)}">
-									<span class="t3-icon fa fa-pencil">&nbsp;</span>
-								</a>
+                                <be:link.editRecord uid="{form.uid}" table="tx_powermail_domain_model_form">
+                                    <core:Icon identifier="actions-open" />
+								</be:link.editRecord>
 							</div>
 						</td>
 					</tr>

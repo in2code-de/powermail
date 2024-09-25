@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
@@ -6,17 +7,17 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
+use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FrontendUtility
  */
 class FrontendUtility
 {
-
     /**
      * Returns given number or the current PID
      *
@@ -68,7 +69,12 @@ class FrontendUtility
         $pluginName = 'tx_powermail_pi1';
         if (self::isArgumentExisting('tx_powermail_pi2')) {
             $pluginName = 'tx_powermail_pi2';
+        } elseif (self::isArgumentExisting('tx_powermail_pi3')) {
+            $pluginName = 'tx_powermail_pi3';
+        } elseif (self::isArgumentExisting('tx_powermail_pi4')) {
+            $pluginName = 'tx_powermail_pi4';
         }
+
         if (self::isArgumentExisting('tx_powermail_web_powermailm1')) {
             $pluginName = 'tx_powermail_web_powermailm1';
         }
@@ -89,42 +95,33 @@ class FrontendUtility
     }
 
     /**
-     * Get charset for frontend rendering
-     *
-     * @return string
-     */
-    public static function getCharset(): string
-    {
-        return ObjectUtility::getTyposcriptFrontendController()->metaCharset;
-    }
-
-    /**
      * Check if logged in user is allowed to make changes in Pi2
      *
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
      * @return bool
      * @throws DBALException
-     * @throws Exception
      * @codeCoverageIgnore
      */
     public static function isAllowedToEdit(array $settings, $mail): bool
     {
         if (!is_a($mail, Mail::class)) {
-            $mailRepository = ObjectUtility::getObjectManager()->get(MailRepository::class);
+            $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
-        if (!ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] || $mail === null) {
+        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        if ($feUser === 0 || $mail === null) {
             return false;
         }
 
+        $feUserGroups = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'] ?? [];
         $usergroups = GeneralUtility::trimExplode(
             ',',
-            ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'],
+            $feUserGroups,
             true
         );
-        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'], true);
-        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'], true);
+        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
+        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
 
         // replace "_owner" with uid of owner in array with users
         if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings))) {
@@ -132,15 +129,14 @@ class FrontendUtility
         }
 
         // add owner groups to allowed groups (if "_owner")
-        if (is_numeric(array_search('_owner', $usergroupsSettings))) {
-            /** @var UserRepository $userRepository */
-            $userRepository = ObjectUtility::getObjectManager()->get(UserRepository::class);
-            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser());
+        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usergroupsSettings))) {
+            $userRepository = GeneralUtility::makeInstance(UserRepository::class);
+            $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser()->getUid());
             $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
         }
 
         // 1. check user
-        if (in_array(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'], $usersSettings)) {
+        if (in_array($feUser, $usersSettings)) {
             return true;
         }
 
@@ -150,6 +146,21 @@ class FrontendUtility
         }
 
         return false;
+    }
+
+    public static function isAllowedToView(array $settings, Mail $mail): bool
+    {
+        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        if (
+            $feUser === 0 ||
+            (
+                (int)$settings['list']['showownonly'] === 1
+                && $mail->getFeuser()->getUid() !== $feUser
+            )
+        ) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -186,13 +197,13 @@ class FrontendUtility
     public static function getDomainFromUri(string $uri): string
     {
         $uriParts = parse_url($uri);
-        return (string)$uriParts['host'];
+        return (string)($uriParts['host'] ?? '');
     }
 
     /**
      * Get Country Name out of an IP address
      *
-     * @param string $ipAddress
+     * @param ?string $ipAddress
      * @return string
      */
     public static function getCountryFromIp(string $ipAddress = null): string
@@ -203,7 +214,11 @@ class FrontendUtility
             // @codeCoverageIgnoreEnd
         }
         $country = '';
-        $json = GeneralUtility::getUrl('http://ip-api.com/json/' . $ipAddress);
+        $guzzleFactory = GeneralUtility::makeInstance(GuzzleClientFactory::class);
+        $json = GeneralUtility::makeInstance(RequestFactory::class, $guzzleFactory)
+            ->request('http://ip-api.com/json/' . $ipAddress)
+            ->getBody()
+            ->getContents();
         if ($json) {
             $geoInfo = json_decode($json);
             if (!empty($geoInfo->country)) {
@@ -219,8 +234,8 @@ class FrontendUtility
      *
      * @param bool $leadingSlash will be prepended
      * @param bool $trailingSlash will be appended
-     * @param string $testHost can be used for a test
-     * @param string $testUrl can be used for a test
+     * @param ?string $testHost can be used for a test
+     * @param ?string $testUrl can be used for a test
      * @return string
      */
     public static function getSubFolderOfCurrentUrl(

@@ -1,0 +1,190 @@
+##################
+# Spam Settings
+##################
+plugin.tx_powermail.settings.setup {
+  spamshield {
+    # enable or disable spam check
+    _enable = {$plugin.tx_powermail.settings.spamshield.enable}
+
+    # EXAMPLE: disable complete spam check on individual conditions (overrules ._enable=1)
+    # _disable {
+    #   1 {
+    #     Disable spamcheck if visitor is in IP-Range
+    #     class = In2code\Powermail\Domain\Validator\SpamShield\Breaker\IpBreaker
+    #     configuration {
+    #       // Commaseparated list of IPs. Use * for wildcards in the IP-address
+    #       ipWhitelist = 127.0.0.1,192.168.0.*
+    #     }
+    #   }
+
+    #   2 {
+    #     Disable spamcheck if any field contains a given value - like "powermailTestCase"
+    #     class = In2code\Powermail\Domain\Validator\SpamShield\Breaker\ValueBreaker
+    #     configuration {
+    #       value = powermailTestCase
+    #     }
+    #   }
+    # }
+
+    # Spam Factor Limit in %
+    factor = {$plugin.tx_powermail.settings.spamshield.factor}
+
+    # Notification Email to Admin if spam recognized (empty disables email to admin)
+    email = {$plugin.tx_powermail.settings.spamshield.email}
+
+    # Email address sending out spam mail. Set this if your mail transport limits allowed sender addresses
+    senderEmail = {$plugin.tx_powermail.settings.spamshield.senderEmail}
+
+    # Subject for notification Email to Admin
+    emailSubject = {$plugin.tx_powermail.settings.spamshield.emailSubject}
+
+    # Template for notification Email to Admin
+    emailTemplate = {$plugin.tx_powermail.settings.spamshield.emailTemplate}
+
+    # Path to logfile
+    logfileLocation = {$plugin.tx_powermail.settings.spamshield.logfileLocation}
+
+    # Template for logging entry
+    logTemplate = {$plugin.tx_powermail.settings.spamshield.logTemplate}
+
+    methods {
+      # Honeypot check
+      1 {
+        _enable = 1
+
+        # Spamcheck name
+        name = Honey Pot
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 5
+
+        # method configuration
+        configuration {
+
+        }
+      }
+
+      # Link check
+      2 {
+        _enable = 1
+
+        # Spamcheck name
+        name = Link check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\LinkMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 3
+
+        # method configuration
+        configuration {
+          # number of allowed links
+          linkLimit = 2
+        }
+      }
+
+      # Name check
+      3 {
+        _enable = 1
+
+        # Spamcheck name
+        name = Name check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\NameMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 3
+
+        # method configuration
+        configuration {
+
+        }
+      }
+
+      # Session check: Enabling session check means to store a cookie on form load. If forms are submitted powermail checks for that cookie again. If this check is disabled, powermail will not set a cookie by default.
+      4 {
+        _enable = 0
+
+        # Spamcheck name
+        name = Session check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 5
+
+        # method configuration
+        configuration {
+
+        }
+      }
+
+      # Unique check
+      5 {
+        _enable = 1
+
+        # Spamcheck name
+        name = Unique check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\UniqueMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 2
+
+        # method configuration
+        configuration {
+
+        }
+      }
+
+      # Value blacklist check
+      6 {
+        _enable = 1
+
+        # Spamcheck name
+        name = Value blacklist check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\ValueBlacklistMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 7
+
+        # method configuration
+        configuration {
+          # Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+          values = TEXT
+          values.value = viagra,sex,porn,p0rn
+        }
+      }
+
+      # IP blacklist check
+      7 {
+        _enable = 1
+
+        # Spamcheck name
+        name = IP blacklist check
+
+        # Class
+        class = In2code\Powermail\Domain\Validator\SpamShield\IpBlacklistMethod
+
+        # if this check failes - add this indication value to indicator (0 disables this check completely)
+        indication = 7
+
+        # method configuration
+        configuration {
+          # Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
+          values = TEXT
+          values.value = 123.132.125.123,123.132.125.124
+        }
+      }
+    }
+  }
+}

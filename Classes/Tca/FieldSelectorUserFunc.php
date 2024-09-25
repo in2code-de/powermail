@@ -1,12 +1,12 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Repository\FormRepository;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
  * Class FieldSelectorUserFunc
@@ -14,32 +14,30 @@ use TYPO3\CMS\Extbase\Object\Exception;
  */
 class FieldSelectorUserFunc
 {
-
     /**
      * Create Array for Field Selector
      *
      * @param array $params
      * @return void
-     * @throws Exception
+     * @throws DBALException
      */
     public function getFieldSelection(array &$params): void
     {
-        /** @var FormRepository $formRepository */
-        $formRepository = ObjectUtility::getObjectManager()->get(FormRepository::class);
+        $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
         if (!$formUid) {
             $params['items'] = [
                 [
                     'Please select a form (Main Settings)',
-                    ''
-                ]
+                    '',
+                ],
             ];
             return;
         }
         foreach ((array)$formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
             $params['items'][] = [
                 $field['title'] . ' {' . $field['marker'] . '}',
-                $field['uid']
+                $field['uid'],
             ];
         }
     }
@@ -53,9 +51,11 @@ class FieldSelectorUserFunc
     protected function getFormUidFromTtContentUid(int $ttContentUid): int
     {
         $row = BackendUtilityCore::getRecord('tt_content', (int)$ttContentUid, 'pi_flexform', '', false);
-        $flexform = GeneralUtility::xml2array($row['pi_flexform']);
-        if (is_array($flexform) && isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
-            return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+        if (isset($row['pi_flexform'])) {
+            $flexform = GeneralUtility::xml2array($row['pi_flexform']);
+            if (isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
+                return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
+            }
         }
         return 0;
     }

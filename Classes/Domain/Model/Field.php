@@ -1,17 +1,20 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
+use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class Field
@@ -26,7 +29,7 @@ class Field extends AbstractEntity
     /**
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * type
@@ -38,116 +41,116 @@ class Field extends AbstractEntity
      *
      * @var string
      */
-    protected $type = '';
+    protected string $type = '';
 
     /**
      * @var string
      */
-    protected $settings = '';
+    protected string $settings = '';
 
     /**
      * @var string
      */
-    protected $path = '';
+    protected string $path = '';
 
     /**
      * @var int
      */
-    protected $contentElement = 0;
+    protected int $contentElement = 0;
 
     /**
      * @var string
      */
-    protected $text = '';
+    protected string $text = '';
 
     /**
      * @var string
      */
-    protected $prefillValue = '';
+    protected string $prefillValue = '';
 
     /**
      * @var string
      */
-    protected $placeholder = '';
+    protected string $placeholder = '';
 
     /**
      * @var string
      */
-    protected $createFromTyposcript = '';
+    protected string $createFromTyposcript = '';
 
     /**
-     * @var integer
+     * @var int
      */
-    protected $validation = 0;
-
-    /**
-     * @var string
-     */
-    protected $validationConfiguration = '';
+    protected int $validation = 0;
 
     /**
      * @var string
      */
-    protected $css = '';
+    protected string $validationConfiguration = '';
 
     /**
      * @var string
      */
-    protected $description = '';
+    protected string $css = '';
+
+    /**
+     * @var string
+     */
+    protected string $description = '';
 
     /**
      * @var bool
      */
-    protected $multiselect = false;
+    protected bool $multiselect = false;
 
     /**
      * @var string
      */
-    protected $datepickerSettings = '';
+    protected string $datepickerSettings = '';
 
     /**
      * @var string
      */
-    protected $feuserValue = '';
+    protected string $feuserValue = '';
 
     /**
      * @var bool
      */
-    protected $senderName = false;
+    protected bool $senderName = false;
 
     /**
      * @var bool
      */
-    protected $senderEmail = false;
+    protected bool $senderEmail = false;
 
     /**
-     * @var boolean
+     * @var bool
      */
-    protected $mandatory = false;
+    protected bool $mandatory = false;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
-     * @var integer
+     * @var int
      */
-    protected $sorting = 0;
+    protected int $sorting = 0;
 
     /**
-     * @var integer
+     * @var int
      */
-    protected $l10nParent = 0;
+    protected int $l10nParent = 0;
 
     /**
-     * @var \In2code\Powermail\Domain\Model\Page
+     * @var Page
+     * This property can hold Page|int|null (depending on the context). "@var" must set to Page for property mapping.
      */
     protected $page = null;
 
     /**
      * @return string
-     * @throws Exception
      */
     public function getTitle(): string
     {
@@ -167,7 +170,7 @@ class Field extends AbstractEntity
      * Returns the type - must not be empty
      *
      * @return string $type
-     * @throws Exception
+     * @throws DBALException
      */
     public function getType(): string
     {
@@ -175,7 +178,7 @@ class Field extends AbstractEntity
         if (empty($type)) {
             $type = 'input';
             if ($this->isLocalized()) {
-                $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+                $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
                 $originalType = $fieldRepository->getTypeFromUid($this->getUid());
                 if (!empty($originalType)) {
                     $type = $originalType;
@@ -200,7 +203,7 @@ class Field extends AbstractEntity
      *        "input", "textarea", "select", "check", "radio"
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     public function isBasicFieldType(): bool
     {
@@ -209,7 +212,7 @@ class Field extends AbstractEntity
             'textarea',
             'select',
             'check',
-            'radio'
+            'radio',
         ];
         return in_array($this->getType(), $basicFieldTypes);
     }
@@ -219,7 +222,7 @@ class Field extends AbstractEntity
      * basicly used for export and frontend editing
      *
      * @return bool
-     * @throws Exception
+     * @throws DBALException
      */
     public function isAdvancedFieldType(): bool
     {
@@ -229,15 +232,15 @@ class Field extends AbstractEntity
             'location',
             'date',
             'country',
-            'password'
+            'password',
         ];
         return $this->isBasicFieldType() || in_array($this->getType(), $advancedFieldTypes);
     }
 
     /**
      * @return bool
-     * @throws Exception
      * @throws DeprecatedException
+     * @throws DBALException
      */
     public function isExportableFieldType(): bool
     {
@@ -247,8 +250,8 @@ class Field extends AbstractEntity
     /**
      * @param string $type
      * @return bool
-     * @throws Exception
      * @throws DeprecatedException
+     * @throws DBALException
      */
     public function isTypeOf(string $type): bool
     {
@@ -289,7 +292,7 @@ class Field extends AbstractEntity
      *            selected => 1
      *
      * @return array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function getModifiedSettings(): array
     {
@@ -327,7 +330,7 @@ class Field extends AbstractEntity
      */
     public function setContentElement(int $contentElement): void
     {
-        $this->contentElement = (int) $contentElement;
+        $this->contentElement = (int)$contentElement;
     }
 
     /**
@@ -602,13 +605,13 @@ class Field extends AbstractEntity
 
     /**
      * @return string $marker
-     * @throws Exception
+     * @throws DBALException
      */
     public function getMarker(): string
     {
         $marker = $this->marker;
         if ($this->isLocalized()) {
-            $fieldRepository = ObjectUtility::getObjectManager()->get(FieldRepository::class);
+            $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
             $marker = $fieldRepository->getMarkerFromUid($this->getUid());
         }
         if (empty($marker)) {
@@ -663,7 +666,7 @@ class Field extends AbstractEntity
     }
 
     /**
-     * @return null|Page
+     * @return Page|null
      */
     public function getPage(): ?Page
     {
@@ -681,7 +684,7 @@ class Field extends AbstractEntity
      * @param string $typoScriptObjectPath Path to TypoScript like lib.blabla
      * @param bool $parse
      * @return array Options Array
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     protected function optionArray(string $string, string $typoScriptObjectPath, bool $parse = true): array
     {
@@ -689,7 +692,7 @@ class Field extends AbstractEntity
             $string = TypoScriptUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
         }
         if (empty($string)) {
-            $string = 'Error, no options to show';
+            $string = LocalizationUtility::translate('selectErrorEmpty');
         }
         return $this->buildOptions($string, $parse);
     }
@@ -698,7 +701,6 @@ class Field extends AbstractEntity
      * @param string $string Options from the Textarea
      * @param bool $parse
      * @return array
-     * @throws Exception
      */
     protected function buildOptions(string $string, bool $parse): array
     {
@@ -707,12 +709,12 @@ class Field extends AbstractEntity
         $settingsField = GeneralUtility::trimExplode(PHP_EOL, $string, true);
         foreach ($settingsField as $line) {
             $settings = GeneralUtility::trimExplode('|', $line, false);
-            $value = (isset($settings[1]) ? $settings[1] : $settings[0]);
+            $value = ($settings[1] ?? $settings[0]);
             $label = ($parse ? TemplateUtility::fluidParseString($settings[0]) : $settings[0]);
             $options[] = [
                 'label' => $label,
                 'value' => $value,
-                'selected' => !empty($settings[2]) && $settings[2] === '*' ? 1 : 0
+                'selected' => !empty($settings[2]) && $settings[2] === '*' ? 1 : 0,
             ];
         }
         return $options;
@@ -740,14 +742,14 @@ class Field extends AbstractEntity
                 'html' => Answer::VALUE_TYPE_TEXT,
                 'input' => Answer::VALUE_TYPE_TEXT,
                 'location' => Answer::VALUE_TYPE_TEXT,
-                'password' => Answer::VALUE_TYPE_TEXT,
+                'password' => Answer::VALUE_TYPE_PASSWORD,
                 'radio' => Answer::VALUE_TYPE_TEXT,
                 'reset' => Answer::VALUE_TYPE_TEXT,
                 'select' => Answer::VALUE_TYPE_TEXT,
                 'submit' => Answer::VALUE_TYPE_TEXT,
                 'text' => Answer::VALUE_TYPE_TEXT,
                 'textarea' => Answer::VALUE_TYPE_TEXT,
-                'typoscript' => Answer::VALUE_TYPE_TEXT
+                'typoscript' => Answer::VALUE_TYPE_TEXT,
             ];
             $types = $this->extendTypeArrayWithTypoScriptTypes($types);
         }
@@ -788,10 +790,12 @@ class Field extends AbstractEntity
         $typoScript = BackendUtility::getPagesTSconfig(FrontendUtility::getCurrentPageIdentifier());
         if (!empty($typoScript['tx_powermail.']['flexForm.'])) {
             $configuration = $typoScript['tx_powermail.']['flexForm.'];
-            foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
-                if (!empty($fieldType['dataType'])) {
-                    $fieldTypeName = substr($fieldTypeName, 0, -1);
-                    $types[$fieldTypeName] = (int)$fieldType['dataType'];
+            if (isset($configuration['type.']['addFieldOptions.'])) {
+                foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
+                    if (!empty($fieldType['dataType'])) {
+                        $fieldTypeName = substr($fieldTypeName, 0, -1);
+                        $types[$fieldTypeName] = (int)$fieldType['dataType'];
+                    }
                 }
             }
         }
@@ -812,12 +816,15 @@ class Field extends AbstractEntity
     {
         $types = [];
         $typoScript = BackendUtility::getPagesTSconfig($this->getPid());
-        $configuration = $typoScript['tx_powermail.']['flexForm.'];
-        foreach ((array)$configuration['type.']['addFieldOptions.'] as $fieldTypeName => $fieldType) {
-            if (!empty($fieldType['export'])) {
-                if ($fieldType['export'] === '1') {
-                    $fieldTypeName = rtrim($fieldTypeName, '.');
-                    $types[] = $fieldTypeName;
+        if (ArrayUtility::isValidPath($typoScript, 'tx_powermail./flexForm.')) {
+            $configuration = $typoScript['tx_powermail.']['flexForm.'];
+            $configuration['type.'] = $configuration['type.'] ?? [];
+            foreach ((array)($configuration['type.']['addFieldOptions.'] ?? []) as $fieldTypeName => $fieldType) {
+                if (!empty($fieldType['export'])) {
+                    if ($fieldType['export'] === '1') {
+                        $fieldTypeName = rtrim($fieldTypeName, '.');
+                        $types[] = $fieldTypeName;
+                    }
                 }
             }
         }

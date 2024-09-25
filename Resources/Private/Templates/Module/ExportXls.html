@@ -40,12 +40,12 @@
 												<f:then>
 													<f:for each="{answer.value}" as="singleValue" iteration="arrayIndex">
 														<f:if condition="{singleValue}">
-															{singleValue}<f:if condition="{arrayIndex.isLast}"><f:else>,</f:else></f:if>
+                                                            <vh:string.sanitizeCsvCell>{singleValue}</vh:string.sanitizeCsvCell><f:if condition="{arrayIndex.isLast}"><f:else>,</f:else></f:if>
 														</f:if>
 													</f:for>
 												</f:then>
 												<f:else>
-													{answer.value}
+                                                    <vh:string.sanitizeCsvCell>{answer.value}</vh:string.sanitizeCsvCell>
 												</f:else>
 											</f:if>
 										</f:if>
@@ -81,7 +81,7 @@
 													</f:if>
 												</f:then>
 												<f:else>
-													<vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" />
+                                                    <vh:string.sanitizeCsvCell><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></vh:string.sanitizeCsvCell>
 												</f:else>
 											</f:if>
 										</f:else>

@@ -1,8 +1,9 @@
 <?php
+
 namespace In2code\Powermail\Tests\Unit\ViewHelpers\Misc;
 
 use In2code\Powermail\ViewHelpers\Misc\VariablesViewHelper;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class VariablesViewHelperTest
@@ -10,7 +11,6 @@ use Nimut\TestingFramework\TestCase\UnitTestCase;
  */
 class VariablesViewHelperTest extends UnitTestCase
 {
-
     /**
      * @var \TYPO3\CMS\Core\Tests\AccessibleObjectInterface
      */
@@ -19,18 +19,18 @@ class VariablesViewHelperTest extends UnitTestCase
     /**
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
             VariablesViewHelper::class,
-            ['dummy']
+            null
         );
     }
 
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -40,44 +40,44 @@ class VariablesViewHelperTest extends UnitTestCase
      *
      * @return array
      */
-    public function removePowermailAllParagraphTagWrapReturnsStringDataProvider()
+    public static function removePowermailAllParagraphTagWrapReturnsStringDataProvider(): array
     {
         return [
             [
                 '<p class="abc">xyz</p><p>{powermail_all}</p><p class="abc">xyz</p>',
-                '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>'
+                '<p class="abc">xyz</p>{powermail_all}<p class="abc">xyz</p>',
             ],
             [
                 '<p>{powermail_all}</p>',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '<b>{powermail_all}</b>',
-                '<b>{powermail_all}</b>'
+                '<b>{powermail_all}</b>',
             ],
             [
                 '<p> {powermail_all} </p>',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '{powermail_all}',
-                '{powermail_all}'
+                '{powermail_all}',
             ],
             [
                 '<p class="abc">xyz</p><p>{powermail_all}</p>',
-                '<p class="abc">xyz</p>{powermail_all}'
+                '<p class="abc">xyz</p>{powermail_all}',
             ],
             [
                 '<p>{powermail_all}</p><p class="abc">xyz</p>',
-                '{powermail_all}<p class="abc">xyz</p>'
+                '{powermail_all}<p class="abc">xyz</p>',
             ],
             [
                 '<table><tr><td>{powermail_all}</td></tr></table>',
-                '<table><tr><td>{powermail_all}</td></tr></table>'
+                '<table><tr><td>{powermail_all}</td></tr></table>',
             ],
             [
                 '<table><tr><td><p>	{powermail_all} </p></td></tr></table>',
-                '<table><tr><td>{powermail_all}</td></tr></table>'
+                '<table><tr><td>{powermail_all}</td></tr></table>',
             ],
         ];
     }
@@ -92,7 +92,7 @@ class VariablesViewHelperTest extends UnitTestCase
      */
     public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult)
     {
-        $result = $this->abstractValidationViewHelperMock->_callRef('removePowermailAllParagraphTagWrap', $content);
-        $this->assertSame($expectedResult, $result);
+        $result = $this->abstractValidationViewHelperMock->_call('removePowermailAllParagraphTagWrap', $content);
+        self::assertSame($expectedResult, $result);
     }
 }

@@ -27,7 +27,7 @@ Show Confirmation Page
 					enctype="multipart/form-data"
 					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
  					addQueryString="{settings.misc.addQueryString}"
-					additionalAttributes="{vh:validation.enableParsleyAndAjax(form: mail.form)}">
+					additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_prev')}"
@@ -40,13 +40,13 @@ Show Confirmation Page
 				Link: Submit form
 			</f:comment>
 			<f:form
-					action="create"
+					action="checkCreate"
 					section="c{ttContentData.uid}"
 					name="field"
 					enctype="multipart/form-data"
 					class="visible-xs-inline-block visible-sm-inline-block visible-md-inline-block visible-lg-inline-block"
 					addQueryString="{settings.misc.addQueryString}"
-					additionalAttributes="{vh:validation.enableParsleyAndAjax(form: mail.form)}">
+					additionalAttributes="{vh:validation.enableJavascriptValidationAndAjax(form: mail.form)}">
 				<f:render section="HiddenFields" arguments="{_all}" />
 				<f:form.submit
 						value="{f:translate(key: 'confirmation_next')}"
@@ -64,11 +64,11 @@ Show Confirmation Page
 		<f:if condition="{vh:condition.isArray(val:answer.value)}">
 			<f:then>
 				<f:for each="{answer.value}" as="subvalue" iteration="i">
-					<f:form.hidden property="{answer.field.marker}.{i.index}" value="{subvalue}" />
+					<f:form.hidden property="{answer.field.marker}.{i.index}" value="{subvalue}" respectSubmittedDataValue="false"  />
 				</f:for>
 			</f:then>
 			<f:else>
-				<f:form.hidden property="{answer.field.marker}" value="{answer.value}" />
+				<f:form.hidden property="{answer.field.marker}" value="{answer.value}" respectSubmittedDataValue="false"  />
 			</f:else>
 		</f:if>
 	</f:for>

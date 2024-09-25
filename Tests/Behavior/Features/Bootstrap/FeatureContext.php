@@ -10,7 +10,6 @@ use In2code\Powermail\Exception\ElementNotFoundException;
  */
 class FeatureContext extends MinkContext
 {
-
     /**
      * Wait for X seconds
      *
@@ -25,6 +24,20 @@ class FeatureContext extends MinkContext
             $seconds = 10;
         }
         sleep($seconds);
+    }
+
+    /**
+     * @Then I assign the datetime :datetime in :field
+     *
+     * @param string $datetime like "23.01.2022 14:15"
+     * @param string $field input name
+     * @return void
+     */
+    public function fillDateTimeField(string $datetime, string $field): void
+    {
+        $time = DateTime::createFromFormat('d.m.Y H:i', $datetime);
+        $javascript = 'document.querySelector("[name=\'' . $field . '\']").value="' . $time->format('Y-m-d\TH:i') . '"';
+        $this->getSession()->executeScript($javascript);
     }
 
     /**
@@ -56,7 +69,7 @@ class FeatureContext extends MinkContext
         $session = $this->getSession();
         $element = $session->getPage()->find('css', $locator);
 
-        if (null === $element) {
+        if ($element === null) {
             throw new ElementNotFoundException(
                 sprintf('Could not evaluate CSS selector: "%s"', $locator),
                 1579187286
@@ -152,7 +165,7 @@ JS;
         $locator = substr($selector, 0, 1);
 
         switch ($locator) {
-            case '$' : // Query selector
+            case '$': // Query selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
@@ -162,7 +175,7 @@ JS;
 JS;
                 break;
 
-            case '/' : // XPath selector
+            case '/': // XPath selector
                 $function = <<<JS
 (function(){
   var elem = document.evaluate("$selector", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
@@ -171,7 +184,7 @@ JS;
 JS;
                 break;
 
-            case '#' : // ID selector
+            case '#': // ID selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
@@ -181,7 +194,7 @@ JS;
 JS;
                 break;
 
-            case '.' : // Class selector
+            case '.': // Class selector
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){

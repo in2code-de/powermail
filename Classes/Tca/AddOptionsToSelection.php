@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Tca;
 
@@ -11,7 +12,6 @@ use TYPO3\CMS\Backend\Utility\BackendUtility;
  */
 class AddOptionsToSelection
 {
-
     /**
      * Parameters given from Backend
      *
@@ -125,7 +125,7 @@ class AddOptionsToSelection
     {
         $fieldOptions = [];
         $tsConfiguration = BackendUtility::getPagesTSconfig($this->getPageIdentifier());
-        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'];
+        $eConfiguration = $tsConfiguration['tx_powermail.']['flexForm.'] ?? [];
 
         if (!empty($eConfiguration[$this->getType() . '.']['addFieldOptions.'])) {
             $options = $eConfiguration[$this->getType() . '.']['addFieldOptions.'];
@@ -141,14 +141,14 @@ class AddOptionsToSelection
      * Add item to $this->params['items'] with value and label
      *
      * @param string $value
-     * @param null|string $label
+     * @param string|null $label
      * @return void
      */
     protected function addOption(string $value, string $label = null): void
     {
         $this->params['items'][] = [
             $this->getLabel($label, $value),
-            $value
+            $value,
         ];
     }
 

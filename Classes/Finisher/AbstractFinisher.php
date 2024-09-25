@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Finisher;
 
@@ -10,44 +11,67 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractFinisher implements FinisherInterface
 {
-
     /**
      * @var Mail
      */
-    protected $mail;
+    protected Mail $mail;
 
     /**
      * Extension settings
      *
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
 
     /**
      * Finisher service configuration
      *
      * @var array
      */
-    protected $configuration = [];
+    protected array $configuration = [];
 
     /**
      * Was form finally submitted?
      *
      * @var bool
      */
-    protected $formSubmitted = false;
+    protected bool $formSubmitted = false;
 
     /**
      * Controller actionName - usually "createAction" or "confirmationAction"
      *
      * @var string
      */
-    protected $actionMethodName = '';
+    protected string $actionMethodName = '';
 
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObject;
+    protected ContentObjectRenderer $contentObject;
+
+    /**
+     * @param Mail $mail
+     * @param array $configuration
+     * @param array $settings
+     * @param bool $formSubmitted
+     * @param string $actionMethodName
+     * @param ContentObjectRenderer $contentObject
+     */
+    public function __construct(
+        Mail $mail,
+        array $configuration,
+        array $settings,
+        bool $formSubmitted,
+        string $actionMethodName,
+        ContentObjectRenderer $contentObject
+    ) {
+        $this->setMail($mail);
+        $this->setConfiguration($configuration);
+        $this->setSettings($settings);
+        $this->setFormSubmitted($formSubmitted);
+        $this->setActionMethodName($actionMethodName);
+        $this->contentObject = $contentObject;
+    }
 
     /**
      * @return Mail
@@ -146,29 +170,5 @@ abstract class AbstractFinisher implements FinisherInterface
      */
     public function initializeFinisher(): void
     {
-    }
-
-    /**
-     * @param Mail $mail
-     * @param array $configuration
-     * @param array $settings
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @param ContentObjectRenderer $contentObject
-     */
-    public function __construct(
-        Mail $mail,
-        array $configuration,
-        array $settings,
-        bool $formSubmitted,
-        string $actionMethodName,
-        ContentObjectRenderer $contentObject
-    ) {
-        $this->setMail($mail);
-        $this->setConfiguration($configuration);
-        $this->setSettings($settings);
-        $this->setFormSubmitted($formSubmitted);
-        $this->setActionMethodName($actionMethodName);
-        $this->contentObject = $contentObject;
     }
 }

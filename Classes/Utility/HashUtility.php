@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
@@ -10,7 +11,6 @@ use In2code\Powermail\Exception\ConfigurationIsMissingException;
  */
 class HashUtility
 {
-
     /**
      * @param string $hash
      * @param Mail $mail

@@ -1,68 +1,66 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidControllerNameException;
-use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Object\Exception;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
+use TYPO3\CMS\Extbase\Mvc\Request;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class SendReceiverMailPreflight
  */
 class SendReceiverMailPreflight
 {
-
     /**
      * @var SendMailService
      */
-    protected $sendMailService;
+    protected SendMailService $sendMailService;
 
     /**
      * @var array
      */
-    protected $settings = [];
+    protected array $settings = [];
+
+    protected Request $request;
 
     /**
      * @param array $settings
-     * @throws Exception
      */
-    public function __construct(array $settings)
+    public function __construct(array $settings, Request $request)
     {
         $this->settings = $settings;
-        $this->sendMailService = ObjectUtility::getObjectManager()->get(SendMailService::class);
+        $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
     }
 
     /**
      * @param Mail $mail
-     * @param string $hash
+     * @param string|null $hash
      * @return bool
      * @throws InvalidConfigurationTypeException
-     * @throws InvalidControllerNameException
-     * @throws InvalidExtensionNameException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
-     * @throws Exception
+     * @throws ExceptionExtbaseObject
      */
     public function sendReceiverMail(Mail $mail, string $hash = null): bool
     {
-        $receiverService = ObjectUtility::getObjectManager()->get(
+        $receiverService = GeneralUtility::makeInstance(
             ReceiverMailReceiverPropertiesService::class,
             $mail,
             $this->settings
         );
         $mail->setReceiverMail($receiverService->getReceiverEmailsString());
-        $senderService = ObjectUtility::getObjectManager()->get(
+        $senderService = GeneralUtility::makeInstance(
             ReceiverMailSenderPropertiesService::class,
             $mail,
             $this->settings
         );
         $isSent = false;
+        if (empty($this->settings['receiver']['subject'])) {
+            // avoid error flashmessage if subject is deliberately empty (and thus deactivates mailing)
+            return true;
+        }
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
@@ -77,8 +75,8 @@ class SendReceiverMailPreflight
                 'format' => $this->settings['receiver']['mailformat'],
                 'variables' => [
                     'hash' => $hash,
-                    'L' => FrontendUtility::getSysLanguageUid()
-                ]
+                    'L' => FrontendUtility::getSysLanguageUid(),
+                ],
             ];
             $isSent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
         }

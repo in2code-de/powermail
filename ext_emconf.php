@@ -1,7 +1,4 @@
 <?php
-/***************************************************************
- * Extension Manager/Repository config file for ext "powermail".
- ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'powermail',
@@ -9,19 +6,20 @@ $EM_CONF[$_EXTKEY] = [
         and easy to use mailform extension with a lots of features
         (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)',
     'category' => 'plugin',
-    'version' => '8.2.4',
+    'version' => '12.4.1',
     'state' => 'stable',
     'author' => 'Powermail Development Team',
-    'author_email' => 'alexander.kellner@in2code.de',
+    'author_email' => 'service@in2code.de',
     'author_company' => 'in2code.de',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.0.0-10.99.99',
-            'php' => '7.0.0-7.99.99'
+            'typo3' => '12.2.0-12.5.99',
+            'php' => '8.1.0 - 8.3.99'
         ],
         'conflicts' => [
         ],
-        'suggests' => [],
+        'suggests' => [
+            'static_info_tables' => ''
+        ],
     ],
-    '_md5_values_when_last_written' => '',
 ];

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Reporting;
 
@@ -9,7 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetValuesForChartsViewHelper extends AbstractViewHelper
 {
-
     /**
      * Not allowed sign
      */
@@ -41,7 +41,7 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
         }
 
         foreach ($answers[$fieldUidOrKey] as $amount) {
-            $amount = str_replace([$this->notAllowedSign, $separator], '', $amount);
+            $amount = str_replace([$this->notAllowedSign, $separator], '', (string)$amount);
             $amount = htmlspecialchars($amount);
             $string .= $amount;
             $string .= $separator;

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
@@ -7,6 +8,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -14,7 +16,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class ConfigurationUtility
 {
-
     /**
      * Check if disableIpLog is active
      *
@@ -107,19 +108,6 @@ class ConfigurationUtility
     }
 
     /**
-     * Check if l10n_mode_merge is active
-     *
-     * @return bool
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     */
-    public static function isL10nModeMergeActive(): bool
-    {
-        $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['l10n_mode_merge'] === true;
-    }
-
-    /**
      * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -137,10 +125,9 @@ class ConfigurationUtility
      */
     public static function getDevelopmentContextEmail(): string
     {
-
         $configVariables = self::getTypo3ConfigurationVariables();
         if (Environment::getContext()->isDevelopment() &&
-            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'])) {
+            GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'] ?? '')) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
         return '';
@@ -200,10 +187,15 @@ class ConfigurationUtility
     public static function isValidationEnabled(array $settings, string $className): bool
     {
         $validationActivated = false;
-        foreach ((array)$settings['spamshield']['methods'] as $method) {
-            if ($method['class'] === $className && $method['_enable'] === '1') {
-                $validationActivated = true;
-                break;
+        if (CoreArrayUtility::isValidPath($settings, 'spamshield/methods')) {
+            foreach ((array)$settings['spamshield']['methods'] as $method) {
+                if (!empty($method['class'])
+                    && !empty($method['_enable'])
+                    && $method['class'] === $className
+                    && $method['_enable'] === '1') {
+                    $validationActivated = true;
+                    break;
+                }
             }
         }
         return !empty($settings['spamshield']['_enable']) && $validationActivated;

@@ -1,75 +1,88 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
-use In2code\Powermail\Signal\SignalTrait;
+use In2code\Powermail\Events\PrefillMultiFieldViewHelperEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotException;
-use TYPO3\CMS\Extbase\SignalSlot\Exception\InvalidSlotReturnException;
-use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Class PrefillMultiFieldViewHelper
  */
 class PrefillMultiFieldViewHelper extends AbstractViewHelper
 {
-    use SignalTrait;
+    /**
+     * @var EventDispatcherInterface
+     */
+    private EventDispatcherInterface $eventDispatcher;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
 
     /**
      * @var bool
      */
-    protected $selected = false;
+    protected bool $selected = false;
 
     /**
      * @var array
      */
-    protected $configuration;
+    protected array $configuration;
 
     /**
      * @var array
      */
-    protected $variables;
+    protected array $variables;
 
     /**
      * @var ContentObjectRenderer
      */
-    protected $contentObjectRenderer;
+    protected ContentObjectRenderer $contentObjectRenderer;
 
     /**
-     * @var Field $field
+     * @var ?Field $field
      */
-    protected $field = null;
+    protected ?Field $field = null;
 
     /**
-     * @var Mail $mail
+     * @var ?Mail $mail
      */
-    protected $mail = null;
+    protected ?Mail $mail = null;
 
     /**
      * @var string
      */
-    protected $marker = '';
+    protected string $marker = '';
 
     /**
      * @var array
      */
-    protected $options = [];
+    protected array $options = [];
 
     /**
      * @var int
      */
-    protected $index = 0;
+    protected int $index = 0;
 
     /**
      * @return void
@@ -89,11 +102,10 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      *        radio
      *
      * @return bool
-     * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidSlotException
-     * @throws InvalidSlotReturnException
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function render(): bool
     {
@@ -115,8 +127,19 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         if (!$this->isCachedForm()) {
             $this->buildSelectedValue();
         }
-        $this->signalDispatch(__CLASS__, __FUNCTION__, [$field, $mail, $cycle, $default, $this]);
-        return $this->isSelected();
+
+        /** @var PrefillMultiFieldViewHelperEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            GeneralUtility::makeInstance(
+                PrefillMultiFieldViewHelperEvent::class,
+                $this->isSelected(),
+                $field,
+                $mail,
+                $cycle,
+                $default
+            )
+        );
+        return $event->isSelected();
     }
 
     /**
@@ -325,7 +348,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     protected function isFromPrefillValue(): bool
     {
         $selected = false;
-        if ($this->options[$this->index]['selected']) {
+        if ($this->options[$this->index]['selected'] ?? false) {
             $selected = true;
         }
         return $selected;
@@ -470,7 +493,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return PrefillMultiFieldViewHelper
      */
     public function setMail(Mail $mail = null): PrefillMultiFieldViewHelper
@@ -530,13 +553,12 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
 
     /**
      * @return void
-     * @throws Exception
      */
     public function initialize(): void
     {
         $this->variables = FrontendUtility::getArguments();
-        $this->contentObjectRenderer = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
-        $configurationService = ObjectUtility::getObjectManager()->get(ConfigurationService::class);
+        $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 }

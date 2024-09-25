@@ -1,14 +1,13 @@
 <?php
-namespace In2code\Powermail\Tests\Unit\Domain\Validator\Spamshield;
+
+namespace In2code\Powermail\Tests\Unit\Domain\Validator\SpamShield;
 
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Validator\SpamShield\HoneyPodMethod;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
-use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\SessionUtility;
-use Nimut\TestingFramework\TestCase\UnitTestCase;
-use TYPO3\CMS\Core\Exception;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
  * Class SessionMethodTest
@@ -16,26 +15,23 @@ use TYPO3\CMS\Core\Exception;
  */
 class SessionMethodTest extends UnitTestCase
 {
-
     /**
-     * @var \In2code\Powermail\Domain\Validator\SpamShield\SessionMethod
+     * @var SessionMethod
      */
     protected $generalValidatorMock;
 
     /**
      * @return void
-     * @throws Exception
      */
-    public function setUp()
+    public function setUp(): void
     {
-        TestingHelper::initializeTypoScriptFrontendController();
         $this->generalValidatorMock = $this->getAccessibleMock(
             SessionMethod::class,
-            ['dummy'],
+            null,
             [
                 new Mail(),
                 [],
-                []
+                [],
             ]
         );
     }
@@ -43,7 +39,7 @@ class SessionMethodTest extends UnitTestCase
     /**
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
@@ -60,11 +56,11 @@ class SessionMethodTest extends UnitTestCase
                 'methods' => [
                     [
                         'class' => HoneyPodMethod::class,
-                        '_enable' => '1'
+                        '_enable' => '1',
                     ],
                 ],
-                '_enable' => '1'
-            ]
+                '_enable' => '1',
+            ],
         ];
         $form = new Form();
         $form->_setProperty('uid', 123);
@@ -74,6 +70,6 @@ class SessionMethodTest extends UnitTestCase
         $mail->setForm($form);
 
         $this->generalValidatorMock->_set('mail', $mail);
-        $this->assertSame(true, $this->generalValidatorMock->_callRef('spamCheck'));
+        self::assertTrue($this->generalValidatorMock->_call('spamCheck'));
     }
 }

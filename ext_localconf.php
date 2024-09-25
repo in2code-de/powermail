@@ -1,5 +1,5 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', create, confirmation, optinConfirm, marketing, disclaimer';
+    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -22,43 +22,63 @@ call_user_func(function () {
         'Pi1',
         [
             \In2code\Powermail\Controller\FormController::class =>
-                'form, create, confirmation, optinConfirm, marketing, disclaimer'
+                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer'
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
-        ]
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
+
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Powermail',
         'Pi2',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
-        ]
+            \In2code\Powermail\Controller\OutputController::class => 'list'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi3',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi4',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
+        ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     /**
      * ContentElementWizard for Pi1
      */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript">'
+        '@import \'EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript\''
     );
 
     /**
      * PageTSConfig for backend mod list
      */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '<INCLUDE_TYPOSCRIPT: source="FILE:EXT:powermail/Configuration/TSConfig/WebList.typoscript">'
+        '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
     );
-
-    /**
-     * Hook to show PluginInformation under a tt_content element in page module of type powermail
-     */
-    $cmsLayout = 'cms/layout/class.tx_cms_layout.php';
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$cmsLayout]['tt_content_drawItem']['powermail'] =
-        \In2code\Powermail\Hook\PluginPreview::class;
 
     /**
      * Hook for initially filling the marker field in backend
@@ -67,23 +87,16 @@ call_user_func(function () {
         \In2code\Powermail\Hook\CreateMarker::class;
 
     /**
-     * Hook to extend the FlexForm
-     */
-    $ffTools = \TYPO3\CMS\Core\Configuration\FlexForm\FlexFormTools::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS'][$ffTools]['flexParsing']['powermail'] =
-        In2code\Powermail\Hook\FlexFormManipulationHook::class;
-
-    /**
      * JavaScript evaluation of TCA fields
      */
-    $TYPO3_CONF_VARS['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tce']['formevals']['\In2code\Powermail\Tca\EvaluateEmail'] =
         'EXT:powermail/Classes/Tca/EvaluateEmail.php';
 
     /**
      * eID to get location from geo coordinates
      */
     $GLOBALS['TYPO3_CONF_VARS']['FE']['eID_include']['powermailEidGetLocation'] =
-        'EXT:powermail/Classes/Eid/GetLocationEid.php';
+        \In2code\Powermail\Eid\GetLocationEid::class . '::main';
 
     /**
      * User field registrations in TCA/FlexForm
@@ -111,4 +124,10 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
         = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPluginUpdater']
+        = \In2code\Powermail\Update\PowermailPluginUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionUpdater']
+        = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
+        = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
 });

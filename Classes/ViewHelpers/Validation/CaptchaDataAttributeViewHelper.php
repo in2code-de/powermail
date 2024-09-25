@@ -1,22 +1,24 @@
 <?php
+
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Utility\LocalizationUtility;
-use TYPO3\CMS\Extbase\Object\Exception;
+use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 
 /**
  * Class CaptchaDataAttributeViewHelper
  */
 class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
 {
-
     /**
-     * Returns Data Attribute Array for JS validation with parsley.js
+     * Returns Data Attribute Array for JS validation
      *
      * @return array for data attributes
-     * @throws Exception
+     * @throws DBALException
+     * @throws ExceptionExtbaseObject
      */
     public function render(): array
     {
@@ -30,12 +32,12 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
         if ($this->isNativeValidationEnabled()) {
             $dataArray['required'] = 'required';
         } elseif ($this->isClientValidationEnabled()) {
-            $dataArray['data-parsley-required'] = 'true';
+            $dataArray['data-powermail-required'] = 'true';
         }
         if ($this->isClientValidationEnabled()) {
-            $dataArray['data-parsley-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
-            $dataArray['data-parsley-class-handler'] = '#powermail_field_' . $field->getMarker();
-            $dataArray['data-parsley-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
+            $dataArray['data-powermail-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
+            $dataArray['data-powermail-class-handler'] = '#powermail_field_' . $field->getMarker();
+            $dataArray['data-powermail-required-message'] = LocalizationUtility::translate('validationerror_mandatory');
         }
 
         return $dataArray;

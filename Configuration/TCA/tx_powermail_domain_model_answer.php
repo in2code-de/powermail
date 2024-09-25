@@ -1,4 +1,5 @@
 <?php
+
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
@@ -10,8 +11,6 @@ $answersTca = [
         'label' => 'value',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
-        'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
         'versioningWS' => true,
         'origUid' => 't3_origuid',
         'languageField' => 'sys_language_uid',
@@ -24,7 +23,7 @@ $answersTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
-        'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif')
+        'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif'),
     ],
     'interface' => [
     ],
@@ -36,31 +35,23 @@ $answersTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.language',
             'config' => [
-                'type' => 'select',
-                'renderType' => 'selectSingle',
-                'foreign_table' => 'sys_language',
-                'foreign_table_where' => 'ORDER BY sys_language.title',
-                'default' => 0,
-                'items' => [
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.allLanguages', -1],
-                    ['LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.default_value', 0]
-                ]
+                'type' => 'language',
             ],
         ],
         'l10n_parent' => [
             'displayCond' => 'FIELD:sys_language_uid:>:0',
-            'exclude' => true,
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.l18n_parent',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
-                'items' => [
-                    ['', 0],
+                [
+                    'label' => '',
+                    'value' => 0,
                 ],
                 'foreign_table' => Answer::TABLE_NAME,
                 'foreign_table_where' => 'AND ' . Answer::TABLE_NAME . '.pid=###CURRENT_PID### AND ' .
                     Answer::TABLE_NAME . '.sys_language_uid IN (-1,0)',
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'l10n_diffsource' => [
@@ -74,7 +65,7 @@ $answersTca = [
                 'type' => 'input',
                 'size' => 30,
                 'max' => 255,
-            ]
+            ],
         ],
         'hidden' => [
             'exclude' => true,
@@ -88,15 +79,8 @@ $answersTca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
+                'type' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
         'endtime' => [
@@ -104,15 +88,8 @@ $answersTca = [
             'l10n_mode' => 'exclude',
             'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => [
-                'type' => 'input',
-                'renderType' => 'inputDateTime',
-                'eval' => 'datetime,int',
-                'size' => 13,
-                'checkbox' => 0,
+                'type' => 'datetime',
                 'default' => 0,
-                'range' => [
-                    'lower' => mktime(0, 0, 0, date('m'), date('d'), date('Y'))
-                ],
             ],
         ],
         'value' => [
@@ -121,7 +98,7 @@ $answersTca = [
             'config' => [
                 'type' => 'text',
                 'cols' => '60',
-                'rows' => '3'
+                'rows' => '3',
             ],
         ],
         'value_type' => [
@@ -137,33 +114,33 @@ $answersTca = [
                      * Text
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.0',
-                        '0'
+                        'value' => '0',
                     ],
                     /**
                      * Multi Text (Array)
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.1',
-                        '1'
+                        'value' => '1',
                     ],
                     /**
                      * Date
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.2',
-                        '2'
+                        'value' => '2',
                     ],
                     /**
                      * Upload
                      */
                     [
-                        'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                        'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                         Answer::TABLE_NAME . '.value_type.3',
-                        '3'
+                        'value' => '3',
                     ],
                 ],
             ],
@@ -173,12 +150,11 @@ $answersTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Answer::TABLE_NAME . '.field',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => Field::TABLE_NAME,
                 'size' => 1,
                 'maxitems' => 1,
                 'multiple' => 0,
-                'default' => 0
+                'default' => 0,
             ],
         ],
         'mail' => [
@@ -186,12 +162,11 @@ $answersTca = [
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Answer::TABLE_NAME . '.mail',
             'config' => [
                 'type' => 'group',
-                'internal_type' => 'db',
                 'allowed' => Mail::TABLE_NAME,
                 'size' => 1,
                 'maxitems' => 1,
                 'multiple' => 0,
-                'default' => 0
+                'default' => 0,
             ],
         ],
     ],
