@@ -22,7 +22,7 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         4 => 'number',
         6 => 'number',
         7 => 'number',
-        8 => 'range'
+        8 => 'range',
     ];
 
     /**
