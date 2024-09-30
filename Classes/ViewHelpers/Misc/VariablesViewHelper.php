@@ -59,6 +59,7 @@ class VariablesViewHelper extends AbstractViewHelper
         $function = $this->arguments['function'];
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $parseObject = GeneralUtility::makeInstance(StandaloneView::class);
+        $parseObject->setRequest($this->renderingContext->getRequest());
         $parseObject->setTemplateSource($this->removePowermailAllParagraphTagWrap($this->renderChildren()));
         $parseObject->assignMultiple(
             ArrayUtility::htmlspecialcharsOnArray($mailRepository->getVariablesWithMarkersFromMail($mail))
