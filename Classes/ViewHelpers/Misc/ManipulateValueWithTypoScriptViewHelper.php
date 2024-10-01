@@ -61,7 +61,16 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
             if (
                 isset($this->typeToTsType[$type]) &&
                 !empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()])) {
-                $this->contentObjectRenderer->start($answer->_getProperties());
+                $properties = ['value' => $value];
+                if ($answer->getField()->getSettings()) {
+                    $settings = $answer->getField()->getModifiedSettings();
+                    $settings = array_combine(
+                        array_column($settings, 'value'),
+                        array_column($settings, 'label')
+                    );
+                    $properties['label'] = $settings[$value] ?? $value;
+                }
+                $this->contentObjectRenderer->start($properties);
                 $value = $this->contentObjectRenderer->cObjGetSingle(
                     $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()],
                     $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker() . '.']

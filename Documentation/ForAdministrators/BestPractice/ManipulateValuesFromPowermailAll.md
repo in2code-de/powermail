@@ -31,76 +31,76 @@ plugin.tx_powermail {
             manipulateVariablesInPowermailAllMarker {
                 # On Confirmation Page (if activated)
                 confirmationPage {
-                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, label
                     markerName = CASE
                     markerName {
                         key.field = value
 
                         1 = TEXT
-                        1.value = red
+                        1.value = Override for value 1
 
                         default = TEXT
-                        default.value = blue
+                        default.field = label
                     }
                 }
 
                 # On Submitpage
                 submitPage {
-                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, label
                     markerName = CASE
                     markerName {
                         key.field = value
 
                         1 = TEXT
-                        1.value = red
+                        1.value = Override for value 1
 
                         default = TEXT
-                        default.value = blue
+                        default.field = label
                     }
                 }
 
                 # In Mail to receiver
                 receiverMail {
-                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, label
                     markerName = CASE
                     markerName {
                         key.field = value
 
                         1 = TEXT
-                        1.value = red
+                        1.value = Override for value 1
 
                         default = TEXT
-                        default.value = blue
+                        default.field = label
                     }
                 }
 
                 # In Mail to sender (if activated)
                 senderMail {
-                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, label
                     markerName = CASE
                     markerName {
                         key.field = value
 
                         1 = TEXT
-                        1.value = red
+                        1.value = Override for value 1
 
                         default = TEXT
-                        default.value = blue
+                        default.field = label
                     }
                 }
 
                 # In double-opt-in Mail to sender (if activated)
                 optinMail {
-                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, valueType, uid, pid
+                    # manipulate values by given marker (e.g. firstname, email, referrer) with TypoScript - available fieldnames (access with .field=): value, label
                     markerName = CASE
                     markerName {
                         key.field = value
 
                         1 = TEXT
-                        1.value = red
+                        1.value = Override for value 1
 
                         default = TEXT
-                        default.value = blue
+                        default.field = label
                     }
                 }
             }
