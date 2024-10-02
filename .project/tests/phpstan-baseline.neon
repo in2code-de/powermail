@@ -1956,11 +1956,6 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/SendMailService.php
 
 		-
-			message: "#^Parameter \\#1 \\$email of static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:validEmail\\(\\) expects string, bool given\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendMailService.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendMailService\\:\\:\\$configuration type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendMailService.php
