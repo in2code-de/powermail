@@ -1,4 +1,3 @@
-version: '3.6'
 services:
   chrome:
     container_name: ddev-${DDEV_SITENAME}-chromedriver
