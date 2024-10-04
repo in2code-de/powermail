@@ -285,7 +285,7 @@ class ModuleController extends AbstractController
             $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
             $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
             $senderEmail = ConfigurationUtility::getDefaultMailFromAddress('powermail@domain.net');
-            $this->view->assignMultiple(
+            $this->moduleTemplate->assignMultiple(
                 [
                     'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),
                     'email' => $email,

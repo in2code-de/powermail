@@ -3,12 +3,10 @@
 <f:if condition="{email}">
 	<f:if condition="{issent}">
 		<f:then>
-			<div class="typo3-message message-ok powermail-message">
-				<div class="header-container">
-					<h4 class="message-header">
-						<f:translate key="BackendCheckEmailTitle" />
-					</h4>
-				</div>
+            <div class="alert alert-success">
+                <h4 class="message-header">
+                    <f:translate key="BackendCheckEmailTitle" />
+                </h4>
 				<div class="message-body">
 					<p>
 						<f:translate key="BackendCheckEmailCorrect" />
@@ -17,7 +15,7 @@
 			</div>
 		</f:then>
 		<f:else>
-			<div class="typo3-message message-error powermail-message">
+            <div class="alert alert-warning">
 				<h4 class="message-header">
 					<f:translate key="BackendCheckEmailTitle" />
 				</h4>
