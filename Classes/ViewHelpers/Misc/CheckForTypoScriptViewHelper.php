@@ -41,7 +41,7 @@ class CheckForTypoScriptViewHelper extends AbstractViewHelper
         if (($argumentsSettings['staticTemplate'] ?? 1) !== '1') {
             $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
             /** @var FlashMessageQueue $flashMessageQueue */
-            $flashMessageQueue = $flashMessageService->getMessageQueueByIdentifier('powermail');
+            $flashMessageQueue = $flashMessageService->getMessageQueueByIdentifier('extbase.flashmessages.tx_powermail_pi1');
             /** @var FlashMessage $flashMessage */
             $flashMessage = GeneralUtility::makeInstance(
                 FlashMessage::class,
