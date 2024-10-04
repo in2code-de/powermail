@@ -75,11 +75,10 @@ powermailMarketing {
   10 {
     userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
     extensionName = Powermail
-    pluginName = Pi1
+    pluginName = Pi5
     vendorName = In2code
     controller = Form
     action = marketing
-    switchableControllerActions.Form.1 = marketing
     features.requireCHashArgumentForActionArguments = 0
   }
 }

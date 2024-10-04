@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer';
+    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -22,12 +22,23 @@ call_user_func(function () {
         'Pi1',
         [
             \In2code\Powermail\Controller\FormController::class =>
-                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer'
+                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer'
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
         ],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi5',
+        [
+            \In2code\Powermail\Controller\FormController::class => 'marketing'
+        ],
+        [
+            \In2code\Powermail\Controller\FormController::class => 'marketing'
+        ],
     );
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
