@@ -2646,11 +2646,6 @@ parameters:
 			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
 
 		-
-			message: "#^Parameter \\#1 \\$uid of static method In2code\\\\Powermail\\\\Utility\\\\DatabaseUtility\\:\\:getPidForRecord\\(\\) expects int, int\\|string given\\.$#"
-			count: 1
-			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\EventListener\\\\FlexFormParsingModifyEventListener\\:\\:\\$allowedSheets type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
