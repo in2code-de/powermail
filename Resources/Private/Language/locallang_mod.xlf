@@ -25,10 +25,10 @@
 				<source>Powerful and easy mailform extension optimized for editors.</source>
 			</trans-unit>
 			<trans-unit id="powermail_pi2.title">
-				<source>Powermail Frontend (List, Detail, Export)</source>
+				<source>Powermail Frontend (List, Detail)</source>
 			</trans-unit>
 			<trans-unit id="powermail_pi2.description">
-				<source>Displays powermail mails in the frontend with export possibilities</source>
+				<source>Displays powermail mails in the frontend</source>
 			</trans-unit>
 			<trans-unit id="powermail_pi3.title">
 				<source>Powermail Frontend (Edit, Update, Delete)</source>
