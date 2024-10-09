@@ -663,26 +663,6 @@
         <source>Main Settings</source>
         <target state="final">Configuración principal</target>
       </trans-unit>
-      <trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions" approved="yes">
-        <source>Choose your view</source>
-        <target state="final">Elige tu vista</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.switchableControllerActions.0" resname="flexform_pi2.main.switchableControllerActions.0" approved="yes">
-        <source>List or Detail View</source>
-        <target state="final">Vista de lista o detalle</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1" approved="yes">
-        <source>Detail View</source>
-        <target state="final">Vista de detalle</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2" approved="yes">
-        <source>Edit View</source>
-        <target state="final">Vista de edición</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.switchableControllerActions.3" resname="flexform_pi2.main.switchableControllerActions.3" approved="yes">
-        <source>All Views</source>
-        <target state="final">Todas las vistas</target>
-      </trans-unit>
       <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
         <source>Choose a form</source>
         <target state="final">Elige un formulario</target>
@@ -718,22 +698,6 @@
       <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
         <source>Show only entries from logged in Frontend-User</source>
         <target state="final">Mostrar solo las entradas de los usuarios registrados en frontend</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export" approved="yes">
-        <source>Export Formats</source>
-        <target state="final">Formatos de exportación</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0" approved="yes">
-        <source>XLS Export</source>
-        <target state="final">Exportar a XLS</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1" approved="yes">
-        <source>CSV Export</source>
-        <target state="final">Exportar a CSV</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2" approved="yes">
-        <source>RSS Feed</source>
-        <target state="final">Fuente RSS</target>
       </trans-unit>
       <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
         <source>Detailview</source>
