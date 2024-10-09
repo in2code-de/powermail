@@ -69,9 +69,6 @@ Example Multistep Form with clientside validation
 
 Listing of stored mails with the possibility to see a Detail view or to re-edit the entries for a defined Frontend Usergroup
 Define your ABC- and Searchterm Filter
-Define the export possibilities (RSS, CSV, XLS)
-XLS export is only possible when the extension *jambagecom/base-excel* is installed
-
 
 ### Backend: Mail Listing
 
