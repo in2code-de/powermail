@@ -31,6 +31,14 @@
         <source>Powerful and easy mailform extension optimized for editors.</source>
         <target state="final">Kraftfuld og nem mailformulat-udvidelse, optimeret til redaktører.</target>
       </trans-unit>
+      <trans-unit id="powermail_pi2.title" approved="yes">
+        <source>Powermail Frontend (List, Detail)</source>
+        <target state="final">Powermail frontend (liste, detail)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.description" approved="yes">
+        <source>Displays powermail mails in the frontend</source>
+        <target state="final">Viser powermail mails i frontend</target>
+      </trans-unit>
       <trans-unit id="powermail_pi3.title" approved="yes">
         <source>Powermail Frontend (Edit, Update, Delete)</source>
         <target state="final">Frontend for Powermail (redigering, opdatering, slet)</target>
