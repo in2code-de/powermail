@@ -519,21 +519,6 @@
 			<trans-unit id="flexform_pi2.main" resname="flexform_pi2.main">
 				<source>Main Settings</source>
 			</trans-unit>
-			<trans-unit id="flexform_pi2.main.switchableControllerActions" resname="flexform_pi2.main.switchableControllerActions">
-				<source>Choose your view</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.switchableControllerActions.0" resname="flexform_pi2.main.switchableControllerActions.0">
-				<source>List or Detail View</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.switchableControllerActions.1" resname="flexform_pi2.main.switchableControllerActions.1">
-				<source>Detail View</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.switchableControllerActions.2" resname="flexform_pi2.main.switchableControllerActions.2">
-				<source>Edit View</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.switchableControllerActions.3" resname="flexform_pi2.main.switchableControllerActions.3">
-				<source>All Views</source>
-			</trans-unit>
 			<trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form">
 				<source>Choose a form</source>
 			</trans-unit>
@@ -560,18 +545,6 @@
 			</trans-unit>
 			<trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0">
 				<source>Show only entries from logged in Frontend-User</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.export" resname="flexform_pi2.list.export">
-				<source>Export Formats</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.export.0" resname="flexform_pi2.list.export.0">
-				<source>XLS Export</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.export.1" resname="flexform_pi2.list.export.1">
-				<source>CSV Export</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.export.2" resname="flexform_pi2.list.export.2">
-				<source>RSS Feed</source>
 			</trans-unit>
 			<trans-unit id="flexform_pi2.single" resname="flexform_pi2.single">
 				<source>Detailview</source>
