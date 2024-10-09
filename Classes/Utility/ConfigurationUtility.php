@@ -43,19 +43,6 @@ class ConfigurationUtility
     }
 
     /**
-     * Check if disableBackendModule is active
-     *
-     * @return bool
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     */
-    public static function isDisableBackendModuleActive(): bool
-    {
-        $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['disableBackendModule'] === true;
-    }
-
-    /**
      * Check if disablePluginInformation is active
      *
      * @return bool
