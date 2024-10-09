@@ -31,14 +31,6 @@
         <source>Powerful and easy mailform extension optimized for editors.</source>
         <target state="final">Leistungsstarke und einfache Mailform-Erweiterung optimiert für Editoren.</target>
       </trans-unit>
-      <trans-unit id="powermail_pi2.title" approved="yes">
-        <source>Powermail Frontend (List, Detail, Export)</source>
-        <target state="final">Powermail-Frontend (Liste, Detail-Ansicht, Export)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi2.description" approved="yes">
-        <source>Displays powermail mails in the frontend with export possibilities</source>
-        <target state="final">Zeigt Powermail-Mails im Frontend mit Exportmöglichkeiten an</target>
-      </trans-unit>
       <trans-unit id="powermail_pi3.title" approved="yes">
         <source>Powermail Frontend (Edit, Update, Delete)</source>
         <target state="final">Powermail-Frontend (Edit, Update, Löschen)</target>
