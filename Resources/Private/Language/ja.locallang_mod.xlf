@@ -7,6 +7,14 @@
         <source>Mails</source>
         <target state="final">メール</target>
       </trans-unit>
+      <trans-unit id="powermail_pi2.title" approved="yes">
+        <source>Powermail Frontend (List, Detail)</source>
+        <target state="final">Powermail Frontend (リスト、詳細)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.description" approved="yes">
+        <source>Displays powermail mails in the frontend</source>
+        <target state="final">フロントエンドに powermail のメールを表示する</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
