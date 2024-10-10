@@ -395,10 +395,10 @@ class MailRepository extends AbstractRepository
      * Returns senderemail from a couple of arguments
      *
      * @param Mail $mail
-     * @param string $default
+     * @param string|array $default String as default or cObject array
      * @return string Sender Email
      */
-    public function getSenderMailFromArguments(Mail $mail, string $default = ''): string
+    public function getSenderMailFromArguments(Mail $mail, $default = null): string
     {
         $email = '';
         foreach ($mail->getAnswers() as $answer) {
@@ -410,8 +410,17 @@ class MailRepository extends AbstractRepository
                 break;
             }
         }
+        if (empty($email) && $default) {
+            if (!is_array($default)) {
+                $email = $default;
+            } else {
+                /** @var ContentObjectRenderer $contentObject */
+                $contentObject = ObjectUtility::getObjectManager()->get(ContentObjectRenderer::class);
+                $email = $contentObject->cObjGetSingle($default[0][$default[1]], $default[0][$default[1] . '.']);
+            }
+        }
         if (empty($email)) {
-            $email = $this->getSenderMailFromDefault($default);
+            $email = $this->getSenderMailFromSystemDefaults();
         }
         return $email;
     }
@@ -526,18 +535,14 @@ class MailRepository extends AbstractRepository
     /**
      * Get sender default email address
      *
-     * @param string $default
      * @return string
      */
-    protected function getSenderMailFromDefault(string $default): string
+    protected function getSenderMailFromSystemDefaults(): string
     {
         $email = LocalizationUtility::translate('error_no_sender_email') . '@';
         $email .= str_replace('www.', '', GeneralUtility::getIndpEnv('TYPO3_HOST_ONLY'));
         if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
             $email = ConfigurationUtility::getDefaultMailFromAddress();
-        }
-        if (!empty($default)) {
-            $email = $default;
         }
         return $email;
     }
