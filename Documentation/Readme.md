@@ -38,7 +38,7 @@ Some basic points:
   (funnel, browser, language, country, etc...)
 
 - For Developers: Powermail is a very flexible extension, which also
-  could be extended by your code or extension (hooks, eventdispatchers,
+  could be extended by your code or extension (hooks, events,
   own Finishers, own DataProcessors, own Spam-Prevention-Methods,
   own Validators, TypoScript cObjects and userFuncs, debugoutput, etc...).
 
@@ -87,6 +87,7 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 ## Documentation overview
 
 * [Introduction](/Documentation/Readme.md)
+* [Development Model](/Documentation/DevelopmentModel.md)
 * [Documentation for editors](/Documentation/ForEditors/Readme.md)
 * [Documentation for administrators](/Documentation/ForAdministrators/Readme.md)
 * [Documentation for developers](/Documentation/ForDevelopers/Readme.md)
