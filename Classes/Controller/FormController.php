@@ -44,10 +44,12 @@ use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 /**
  * Class FormController
@@ -63,6 +65,16 @@ class FormController extends AbstractController
      * @var DataProcessorRunner
      */
     protected DataProcessorRunner $dataProcessorRunner;
+
+    public function getView(): ?ViewInterface
+    {
+        return $this->view;
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->request;
+    }
 
     /**
      * @return ResponseInterface
