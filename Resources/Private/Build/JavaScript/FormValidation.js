@@ -425,25 +425,11 @@ class Form {
   };
 
   #addErrorAttribute(field) {
-    if (field.getAttribute(this.#errorContainerClass)) {
-      let elements = document.querySelectorAll(field.getAttribute(this.#errorContainerClass));
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].setAttribute('aria-invalid', 'true');
-      }
-    } else {
-      field.setAttribute('aria-invalid', 'true');
-    }
+    field.setAttribute('aria-invalid', 'true');
   };
 
   #removeErrorAttribute(field) {
-    if (field.getAttribute(this.#errorContainerClass)) {
-      let elements = document.querySelectorAll(field.getAttribute(this.#errorContainerClass));
-      for (let i = 0; i < elements.length; i++) {
-        elements[i].removeAttribute('aria-invalid');
-      }
-    } else {
-      field.removeAttribute('aria-invalid');
-    }
+    field.removeAttribute('aria-invalid');
   };
 
   #addErrorMessage(message, field) {
