@@ -32,6 +32,8 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 use function in_array;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -63,6 +65,16 @@ class FormController extends AbstractController
      * @var DataProcessorRunner
      */
     protected DataProcessorRunner $dataProcessorRunner;
+
+    public function getView(): ?ViewInterface
+    {
+        return $this->view;
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->request;
+    }
 
     /**
      * @return ResponseInterface
