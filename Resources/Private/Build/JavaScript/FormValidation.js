@@ -438,6 +438,7 @@ class Form {
     errorContainer.classList.add('filled');
     errorContainer.setAttribute('data-powermail-error', this.#getFieldIdentifier(field));
     errorContainer.setAttribute('id', this.#getFieldIdentifier(field) + '-errormessage');
+    errorContainer.setAttribute('aria-live', 'polite');
     field.setAttribute('aria-describedby', this.#getFieldIdentifier(field) + '-errormessage');
     let errorElement = document.createElement('li');
     errorContainer.appendChild(errorElement);
