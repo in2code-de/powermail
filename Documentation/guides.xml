@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<guides
+    xmlns="https://www.phpdoc.org/guides"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.phpdoc.org/guides vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
+    input-format="md"
+    index-name="Readme"
+    automatic-menu="true"
+>
+    <project
+        title="Powermail"
+        version="main"
+        release="main"
+        copyright="powermail is powered by http://www.in2code.de/"
+    />
+    <extension
+        class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+        edit-on-github="in2code-de/powermail"
+        edit-on-github-branch="typo3-v12"
+        interlink-shortcode="powermail"
+        project-contact="https://typo3.slack.com/archives/C0638JMJVLY"
+        project-home="https://github.com/in2code-de/powermail/issues"
+        project-issues="https://github.com/in2code-de/powermail/issues"
+        project-repository="https://github.com/in2code-de/powermail/issues"
+        typo3-core-preferred="stable"
+    />
+</guides>
