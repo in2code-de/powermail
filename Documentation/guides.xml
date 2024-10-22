@@ -17,7 +17,7 @@
         class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
         edit-on-github="in2code-de/powermail"
         edit-on-github-branch="typo3-v12"
-        interlink-shortcode="powermail"
+        interlink-shortcode="in2code/powermail"
         project-contact="https://typo3.slack.com/archives/C0638JMJVLY"
         project-home="https://github.com/in2code-de/powermail/issues"
         project-issues="https://github.com/in2code-de/powermail/issues"
