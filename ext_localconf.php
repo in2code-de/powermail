@@ -127,4 +127,10 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
         = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
+
+    /**
+     * Feature toggle
+     * ToDo: remove for TYPO3 v14 compatible version
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['powermailEditorsAreAllowedToSendAttachments'] ??= false;
 });

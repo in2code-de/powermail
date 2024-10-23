@@ -7,6 +7,7 @@ use In2code\Powermail\Exception\SoftwareIsMissingException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -190,11 +191,16 @@ class ConfigurationUtility
      * Merges Flexform, TypoScript and Extension Manager Settings
      * Note: If FF value is empty, we want the TypoScript value instead
      *
+     * ToDo v14: Maybe drop this method completely and stick to TYPO3 default behavior ore use the extbase option;
+     * see EXT:news -- overrideFlexFormsIfEmpty
+     * see Core:Extbase -- ignoreFlexFormSettingsIfEmpty
+     *
      * @param array $settings All settings
      * @param string $typoScriptLevel Startpoint
      */
     public static function mergeTypoScript2FlexForm(array $settings, string $typoScriptLevel = 'setup'): array
     {
+        $originalSettings = $settings;
         if (array_key_exists($typoScriptLevel, $settings) && array_key_exists('flexform', $settings)) {
             return ArrayUtility::arrayMergeRecursiveOverrule(
                 (array)$settings[$typoScriptLevel],
@@ -202,6 +208,18 @@ class ConfigurationUtility
                 false,
                 false
             );
+
+            // ToDo: remove for TYPO3 v14 compatible version
+            // Reason for this part is, the `emptyValuesOverride = true` in the arrayMergeRecursiveOverrule from above
+            $features = GeneralUtility::makeInstance(Features::class);
+            if ($features->isFeatureEnabled('powermailEditorsAreAllowedToSendAttachments')) {
+                if (isset($originalSettings['flexform']['receiver']['attachment'])) {
+                    $settings['receiver']['attachment'] = $originalSettings['flexform']['receiver']['attachment'];
+                }
+                if (isset($originalSettings['flexform']['sender']['attachment'])) {
+                    $settings['sender']['attachment'] = $originalSettings['flexform']['sender']['attachment'];
+                }
+            }
         }
 
         return $settings;

@@ -51,6 +51,9 @@ $changeSettings = [
         'sitename' => 'LOKAL: ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'],
         'displayErrors' => 1,
         'enableDeprecationLog' => 'file',
+        'features' => [
+            'powermailEditorsAreAllowedToSendAttachments' => true,
+        ],
         'systemLogLevel' => 0,
         'devIPmask' => '*',
         'clearCacheSystem' => 1,

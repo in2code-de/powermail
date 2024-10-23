@@ -2931,6 +2931,11 @@ parameters:
 			path: ../../Classes/UserFunc/DateConverter.php
 
 		-
+			message: "#^Method In2code\\\\Powermail\\\\UserFunc\\\\TestForFeature\\:\\:isFeatureEnabled\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../Classes/UserFunc/TestForFeature.php
+
+		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\ArrayUtility\\:\\:arrayMergeRecursiveOverrule\\(\\) has parameter \\$firstArray with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Utility/ArrayUtility.php
