@@ -58,9 +58,6 @@ return [
         'scheduler' => [
             'maxLifetime' => '1440',
         ],
-        'static_info_tables' => [
-            'enableManager' => '0',
-        ],
     ],
     'FE' => [
         'debug' => true,
@@ -71,8 +68,6 @@ return [
     ],
     'GFX' => [
         'processor' => 'GraphicsMagick',
-        'processor_allowTemporaryMasksAsPng' => false,
-        'processor_colorspace' => 'RGB',
         'processor_effects' => false,
         'processor_enabled' => true,
         'processor_path' => '/usr/bin/',
