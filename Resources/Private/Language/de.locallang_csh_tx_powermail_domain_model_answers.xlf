@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="value.description" resname="value.description" approved="yes">
+        <source>This is the Answer of a User within this field</source>
+        <target state="final">Antwort eines Besuchers</target>
+      </trans-unit>
+      <trans-unit id="value_type.description" resname="value_type.description" approved="yes">
+        <source>Datatype of this answer</source>
+        <target state="final">Datentyp der Antwort</target>
+      </trans-unit>
+      <trans-unit id="field.description" resname="field.description" approved="yes">
+        <source>The answer is related to this field</source>
+        <target state="final">Verknüpftes Feld</target>
+      </trans-unit>
+      <trans-unit id="mail.description" resname="mail.description" approved="yes">
+        <source>This is the related mail to this answer</source>
+        <target state="final">Mail, zu der die Antwort gehört</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
