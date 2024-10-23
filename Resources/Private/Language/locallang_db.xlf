@@ -489,6 +489,9 @@
 			<trans-unit id="flexform.receiver.body" resname="flexform.receiver.body">
 				<source>Bodytext for Email to Receiver</source>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment">
+				<source>Send uploaded files to receiver</source>
+			</trans-unit>
 			<trans-unit id="flexform.sender" resname="flexform.sender">
 				<source>Mail to User</source>
 			</trans-unit>
@@ -503,6 +506,9 @@
 			</trans-unit>
 			<trans-unit id="flexform.sender.body" resname="flexform.sender.body">
 				<source>Bodytext for Email to Sender</source>
+			</trans-unit>
+			<trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment">
+				<source>Send uploaded files to sender</source>
 			</trans-unit>
 			<trans-unit id="flexform.thx" resname="flexform.thx">
 				<source>Submit Page</source>
