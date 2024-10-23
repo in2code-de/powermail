@@ -43,7 +43,7 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
      */
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $result['html'] = $this->getHtml();

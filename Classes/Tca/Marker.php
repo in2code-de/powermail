@@ -16,7 +16,7 @@ class Marker extends AbstractFormElement
     /**
      * @return array
      */
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $result['html'] = $this->getHtml();

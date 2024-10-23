@@ -56,7 +56,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * @throws InvalidConfigurationTypeException
      * @throws RouteNotFoundException
      */
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $result['html'] = $this->getHtml();
