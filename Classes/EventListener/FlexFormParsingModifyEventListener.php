@@ -88,6 +88,7 @@ final class FlexFormParsingModifyEventListener
 
     private function getRequest(): ?ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'];
+        // ToDo
+        return null;
     }
 }

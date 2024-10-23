@@ -86,7 +86,7 @@ abstract class AbstractController extends ActionController
     /**
      * @var EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    protected EventDispatcherInterface $eventDispatcher;
 
     protected bool $isPhpSpreadsheetInstalled = false;
 
@@ -239,7 +239,7 @@ abstract class AbstractController extends ActionController
      *
      * @return void
      */
-    protected function initializeAction()
+    protected function initializeAction(): void
     {
         $this->piVars = $this->request->getArguments();
         $this->id = (int)GeneralUtility::_GP('id');
