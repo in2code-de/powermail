@@ -18,9 +18,6 @@ class LinkMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -34,9 +31,6 @@ class LinkMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -44,8 +38,6 @@ class LinkMethodTest extends UnitTestCase
 
     /**
      * Dataprovider spamCheckReturnsVoid()
-     *
-     * @return array
      */
     public static function spamCheckReturnsVoidDataProvider(): array
     {
@@ -77,17 +69,17 @@ class LinkMethodTest extends UnitTestCase
      * @param int $allowedLinks
      * @param string $text
      * @param bool $expectedResult
-     * @return void
      * @dataProvider spamCheckReturnsVoidDataProvider
      * @test
      * @covers ::spamCheck
      */
-    public function spamCheckReturnsVoid($allowedLinks, $text, $expectedResult)
+    public function spamCheckReturnsVoid($allowedLinks, $text, $expectedResult): void
     {
         $mail = new Mail();
         $answer = new Answer();
         $answer->setValueType(0);
         $answer->setValue($text);
+
         $mail->addAnswer($answer);
 
         $this->generalValidatorMock->_set('mail', $mail);

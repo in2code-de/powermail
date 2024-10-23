@@ -15,10 +15,7 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
      */
     protected $notAllowedSign = '"';
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('answers', 'array', 'Grouped Answers', true);
@@ -49,8 +46,9 @@ class GetValuesForChartsViewHelper extends AbstractViewHelper
 
         $string = substr($string, 0, -1);
         if ($this->arguments['urlEncode']) {
-            $string = urlencode($string);
+            return urlencode($string);
         }
+
         return $string;
     }
 }

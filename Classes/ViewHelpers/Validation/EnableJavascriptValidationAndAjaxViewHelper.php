@@ -14,15 +14,10 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
 {
     /**
      * Could be disabled for testing
-     *
-     * @var bool
      */
     protected bool $addRedirectUri = true;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('form', Form::class, 'Form', true);
@@ -36,7 +31,6 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
      */
     public function render(): array
     {
-        /** @var Form $field */
         $form = $this->arguments['form'];
         $additionalAttributes = $this->arguments['additionalAttributes'];
         if ($this->isClientValidationEnabled()) {

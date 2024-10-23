@@ -20,17 +20,11 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  */
 class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
 {
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'powermailLanguageUpdateWizard';
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return 'Powermail: Update language settings in mails and answers (relevant for entries from < 8.0.0)';
@@ -38,8 +32,6 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
 
     /**
      * Return the description for this wizard
-     *
-     * @return string
      */
     public function getDescription(): string
     {
@@ -47,9 +39,6 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             'tx_powermail_domain_model_answer.sys_language_uid=-1 for existing values';
     }
 
-    /**
-     * @return bool
-     */
     public function executeUpdate(): bool
     {
         try {
@@ -57,19 +46,22 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
             $connection->executeQuery('update ' . Mail::TABLE_NAME . ' set sys_language_uid=-1;');
             $connection = DatabaseUtility::getConnectionForTable(Answer::TABLE_NAME);
             $connection->executeQuery('update ' . Answer::TABLE_NAME . ' set sys_language_uid=-1;');
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return false;
         }
+
         return true;
     }
 
     /**
-     * @return bool
      * @throws DBALException
      */
     public function updateNecessary(): bool
     {
-        return $this->areMailsExistingInWrongLanguage() || $this->areAnswersExistingInWrongLanguage();
+        if ($this->areMailsExistingInWrongLanguage()) {
+            return true;
+        }
+        return $this->areAnswersExistingInWrongLanguage();
     }
 
     /**
@@ -83,7 +75,6 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
     }
 
     /**
-     * @return bool
      * @throws DBALException
      */
     protected function areMailsExistingInWrongLanguage(): bool
@@ -98,7 +89,6 @@ class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
     }
 
     /**
-     * @return bool
      * @throws DBALException
      */
     protected function areAnswersExistingInWrongLanguage(): bool

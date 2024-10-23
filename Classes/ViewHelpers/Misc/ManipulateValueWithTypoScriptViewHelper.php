@@ -14,9 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var array
-     */
     protected array $typeToTsType = [
         'createAction' => 'submitPage',
         'confirmationAction' => 'confirmationPage',
@@ -25,22 +22,14 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
         'optin' => 'optinMail',
     ];
 
-    /**
-     * @var ContentObjectRenderer
-     */
     protected ContentObjectRenderer $contentObjectRenderer;
 
     /**
      * TypoScript for manipulateVariablesInPowermailAllMarker
-     *
-     * @var array
      */
     protected array $typoScriptContext;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('answer', Answer::class, 'Answer', true);
@@ -49,41 +38,35 @@ class ManipulateValueWithTypoScriptViewHelper extends AbstractViewHelper
 
     /**
      * Manipulate values through TypoScript before rendering
-     *
-     * @return string
      */
     public function render(): string
     {
         $answer = $this->arguments['answer'];
         $type = $this->arguments['type'];
         $value = $this->renderChildren();
-        if ($answer->getField()) {
-            if (
-                isset($this->typeToTsType[$type]) &&
-                !empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()])) {
-                $properties = ['value' => $value];
-                if ($answer->getField()->getSettings()) {
-                    $settings = $answer->getField()->getModifiedSettings();
-                    $settings = array_combine(
-                        array_column($settings, 'value'),
-                        array_column($settings, 'label')
-                    );
-                    $properties['label'] = $settings[$value] ?? $value;
-                }
-                $this->contentObjectRenderer->start($properties);
-                $value = $this->contentObjectRenderer->cObjGetSingle(
-                    $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()],
-                    $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker() . '.']
+        if ($answer->getField() && (isset($this->typeToTsType[$type]) &&
+        !empty($this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()]))) {
+            $properties = ['value' => $value];
+            if ($answer->getField()->getSettings()) {
+                $settings = $answer->getField()->getModifiedSettings();
+                $settings = array_combine(
+                    array_column($settings, 'value'),
+                    array_column($settings, 'label')
                 );
+                $properties['label'] = $settings[$value] ?? $value;
             }
+
+            $this->contentObjectRenderer->start($properties);
+            $value = $this->contentObjectRenderer->cObjGetSingle(
+                $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker()],
+                $this->typoScriptContext[$this->typeToTsType[$type] . '.'][$answer->getField()->getMarker() . '.']
+            );
         }
+
         return (string)$value;
     }
 
-    /**
-     * @return void
-     */
-    public function initialize()
+    public function initialize(): void
     {
         $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);

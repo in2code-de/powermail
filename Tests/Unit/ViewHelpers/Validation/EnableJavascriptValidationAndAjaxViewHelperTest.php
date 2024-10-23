@@ -17,9 +17,6 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
      */
     protected $enableJavascriptValidationAndAjaxViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->enableJavascriptValidationAndAjaxViewHelperMock = $this->getAccessibleMock(
@@ -28,9 +25,6 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->enableJavascriptValidationAndAjaxViewHelperMock);
@@ -38,8 +32,6 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for render()
-     *
-     * @return array
      */
     public static function renderReturnsArrayDataProvider(): array
     {
@@ -160,18 +152,18 @@ class EnableJavascriptValidationAndAjaxViewHelperTest extends UnitTestCase
      * @param array $settings
      * @param array $additionalAttributes
      * @param array $expectedResult
-     * @return void
      * @dataProvider renderReturnsArrayDataProvider
      * @test
      * @covers ::render
      */
-    public function renderReturnsArray($settings, $additionalAttributes, $expectedResult)
+    public function renderReturnsArray($settings, $additionalAttributes, $expectedResult): void
     {
         $form = new Form();
         $form->_setProperty('uid', 123);
 
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('addRedirectUri', false);
         $this->enableJavascriptValidationAndAjaxViewHelperMock->_set('settings', $settings);
+
         $arguments = [
             'form' => $form,
             'additionalAttributes' => $additionalAttributes,

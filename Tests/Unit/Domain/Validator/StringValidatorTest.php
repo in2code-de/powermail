@@ -16,9 +16,6 @@ class StringValidatorTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -30,9 +27,6 @@ class StringValidatorTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -40,8 +34,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateMandatoryForStringOrArrayReturnsBool()
-     *
-     * @return array
      */
     public static function validateMandatoryForStringOrArrayReturnsBoolDataProvider(): array
     {
@@ -68,12 +60,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateMandatoryForStringOrArrayReturnsBoolDataProvider
      * @test
      * @covers ::validateMandatory
      */
-    public function validateMandatoryForStringOrArrayReturnsBool($value, $expectedResult)
+    public function validateMandatoryForStringOrArrayReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMandatory', $value);
         self::assertSame($expectedResult, $result);
@@ -81,8 +72,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateEmailReturnsBool()
-     *
-     * @return array
      */
     public static function validateEmailReturnsBoolDataProvider(): array
     {
@@ -125,12 +114,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateEmailReturnsBoolDataProvider
      * @test
      * @covers ::validateEmail
      */
-    public function validateEmailReturnsBool($value, $expectedResult)
+    public function validateEmailReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateEmail', $value);
         self::assertSame($expectedResult, $result);
@@ -138,8 +126,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateUrlReturnsBool()
-     *
-     * @return array
      */
     public static function validateUrlReturnsBoolDataProvider(): array
     {
@@ -178,12 +164,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateUrlReturnsBoolDataProvider
      * @test
      * @covers ::validateUrl
      */
-    public function validateUrlReturnsBool($value, $expectedResult)
+    public function validateUrlReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateUrl', $value);
         self::assertSame($expectedResult, $result);
@@ -191,8 +176,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validatePhoneReturnsBool()
-     *
-     * @return array
      */
     public static function validatePhoneReturnsBoolDataProvider(): array
     {
@@ -279,12 +262,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validatePhoneReturnsBoolDataProvider
      * @test
      * @covers ::validatePhone
      */
-    public function validatePhoneReturnsBool($value, $expectedResult)
+    public function validatePhoneReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validatePhone', $value);
         self::assertSame($expectedResult, $result);
@@ -292,8 +274,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateNumbersOnlyReturnsBool()
-     *
-     * @return array
      */
     public static function validateNumbersOnlyReturnsBoolDataProvider(): array
     {
@@ -328,12 +308,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateNumbersOnlyReturnsBoolDataProvider
      * @test
      * @covers ::validateNumbersOnly
      */
-    public function validateNumbersOnlyReturnsBool($value, $expectedResult)
+    public function validateNumbersOnlyReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateNumbersOnly', $value);
         self::assertSame($expectedResult, $result);
@@ -341,8 +320,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateLettersOnlyReturnsBool()
-     *
-     * @return array
      */
     public static function validateLettersOnlyReturnsBoolDataProvider(): array
     {
@@ -389,12 +366,11 @@ class StringValidatorTest extends UnitTestCase
     /**
      * @param string $value
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateLettersOnlyReturnsBoolDataProvider
      * @test
      * @covers ::validateLettersOnly
      */
-    public function validateLettersOnlyReturnsBool($value, $expectedResult)
+    public function validateLettersOnlyReturnsBool($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateLettersOnly', $value);
         self::assertSame($expectedResult, $result);
@@ -402,8 +378,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateMinNumberReturnsBool()
-     *
-     * @return array
      */
     public static function validateMinNumberReturnsBoolDataProvider(): array
     {
@@ -460,12 +434,11 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateMinNumberReturnsBoolDataProvider
      * @test
      * @covers ::validateMinNumber
      */
-    public function validateMinNumberReturnsBool($value, $configuration, $expectedResult)
+    public function validateMinNumberReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMinNumber', $value, $configuration);
         self::assertSame($expectedResult, $result);
@@ -473,8 +446,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateMaxNumberReturnsBool()
-     *
-     * @return array
      */
     public static function validateMaxNumberReturnsBoolDataProvider(): array
     {
@@ -531,12 +502,11 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateMaxNumberReturnsBoolDataProvider
      * @test
      * @covers ::validateMaxNumber
      */
-    public function validateMaxNumberReturnsBool($value, $configuration, $expectedResult)
+    public function validateMaxNumberReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateMaxNumber', $value, $configuration);
         self::assertSame($expectedResult, $result);
@@ -544,8 +514,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateRangeReturnsBool()
-     *
-     * @return array
      */
     public static function validateRangeReturnsBoolDataProvider(): array
     {
@@ -597,12 +565,11 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateRangeReturnsBoolDataProvider
      * @test
      * @covers ::validateRange
      */
-    public function validateRangeReturnsBool($value, $configuration, $expectedResult)
+    public function validateRangeReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateRange', $value, $configuration);
         self::assertSame($expectedResult, $result);
@@ -610,8 +577,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validateLengthReturnsBool()
-     *
-     * @return array
      */
     public static function validateLengthReturnsBoolDataProvider(): array
     {
@@ -663,12 +628,11 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validateLengthReturnsBoolDataProvider
      * @test
      * @covers ::validateLength
      */
-    public function validateLengthReturnsBool($value, $configuration, $expectedResult)
+    public function validateLengthReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validateLength', $value, $configuration);
         self::assertSame($expectedResult, $result);
@@ -676,8 +640,6 @@ class StringValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider validatePatternReturnsBool()
-     *
-     * @return array
      */
     public static function validatePatternReturnsBoolDataProvider(): array
     {
@@ -724,12 +686,11 @@ class StringValidatorTest extends UnitTestCase
      * @param string $value
      * @param string $configuration
      * @param bool $expectedResult
-     * @return void
      * @dataProvider validatePatternReturnsBoolDataProvider
      * @test
      * @covers ::validatePattern
      */
-    public function validatePatternReturnsBool($value, $configuration, $expectedResult)
+    public function validatePatternReturnsBool($value, $configuration, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('validatePattern', $value, $configuration);
         self::assertSame($expectedResult, $result);

@@ -48,7 +48,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
     /**
      * Show Note which form was selected
      *
-     * @return array
      * @throws DBALException
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -64,7 +63,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
     }
 
     /**
-     * @return string
      * @throws DBALException
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -90,9 +88,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
         return $standaloneView->render();
     }
 
-    /**
-     * @return array
-     */
     protected function getLabels(): array
     {
         return [
@@ -108,27 +103,21 @@ class ShowFormNoteEditForm extends AbstractFormElement
 
     /**
      * Get form uid of a localized form (only if needed)
-     *
-     * @param int $uid
-     * @param int $sysLanguageUid
-     * @return int
      */
     protected function getLocalizedFormUid(int $uid, int $sysLanguageUid): int
     {
         if ($sysLanguageUid > 0) {
-            $row = BackendUtilityCore::getRecordLocalization(Form::TABLE_NAME, (int)$uid, (int)$sysLanguageUid);
+            $row = BackendUtilityCore::getRecordLocalization(Form::TABLE_NAME, $uid, $sysLanguageUid);
             if (!empty($row['uid'])) {
                 $uid = (int)$row['uid'];
             }
         }
+
         return $uid;
     }
 
     /**
      * Get localized label
-     *
-     * @param string $key
-     * @return string
      */
     protected function getLabel(string $key): string
     {
@@ -139,7 +128,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
     /**
      * Build URI for edit link
      *
-     * @return string
      * @throws RouteNotFoundException
      */
     protected function getEditFormLink(): string
@@ -147,13 +135,13 @@ class ShowFormNoteEditForm extends AbstractFormElement
         if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
             return '';
         }
+
         return BackendUtility::createEditUri(Form::TABLE_NAME, (int)$this->getFormProperties()['uid']);
     }
 
     /**
      * Build URI for new link
      *
-     * @return string
      * @throws DeprecatedException
      * @throws RouteNotFoundException
      */
@@ -167,7 +155,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
      *      tx_powermail.flexForm.newFormPid = 123
      * If empty, the current pid will be taken
      *
-     * @return int
      * @throws DeprecatedException
      */
     protected function getPageIdentifierForNewForms(): int
@@ -175,17 +162,15 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int)$this->data['databaseRow']['pid']);
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
-            $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
+            return (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];
         }
+
         return $pageIdentifier;
     }
 
     /**
      * If there is already an existing content element in the same column, $params[row][pid] is filled with
      * (tt_content.uid * -1). This information helps to find the correct pageIdentifier.
-     *
-     * @param int $pageIdentifier
-     * @return int
      */
     protected function getPageIdentifierFromExistingContentElements(int $pageIdentifier): int
     {
@@ -193,27 +178,24 @@ class ShowFormNoteEditForm extends AbstractFormElement
             $parentRec = BackendUtilityCore::getRecord('tt_content', abs($pageIdentifier), 'pid');
             $pageIdentifier = (int)$parentRec['pid'];
         }
+
         return $pageIdentifier;
     }
 
-    /**
-     * @return array
-     */
     protected function getFormProperties(): array
     {
         if (empty($this->formProperties)) {
-            $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, (int)$this->getRelatedFormUid());
-            if (!empty($row)) {
+            $row = BackendUtilityCore::getRecord(Form::TABLE_NAME, $this->getRelatedFormUid());
+            if ($row !== null && $row !== []) {
                 $this->formProperties = $row;
             }
         }
+
         return $this->formProperties;
     }
 
     /**
      * Get related form
-     *
-     * @return int
      */
     protected function getRelatedFormUid(): int
     {
@@ -221,14 +203,11 @@ class ShowFormNoteEditForm extends AbstractFormElement
         $formUid = (int)($flexFormArray['settings.flexform.main.form']['vDEF'][0] ?? 0);
         $language = (int)($this->data['databaseRow']['sys_language_uid'][0]
             ?? $this->data['databaseRow']['sys_language_uid'] ?? 0);
-        $formUid = $this->getLocalizedFormUid($formUid, $language);
-        return $formUid;
+        return $this->getLocalizedFormUid($formUid, $language);
     }
 
     /**
      * pages.* form page where current form is stored
-     *
-     * @return array
      */
     protected function getStoragePageProperties(): array
     {
@@ -249,7 +228,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * Get array with related page titles to a form
      *      ["page1", "page2"]
      *
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws DBALException
@@ -263,8 +241,9 @@ class ShowFormNoteEditForm extends AbstractFormElement
         if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
             return [];
         }
+
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
-        $rows = (array)$queryBuilder
+        $rows = $queryBuilder
             ->select('p.title')
             ->from(Form::TABLE_NAME, 'fo')
             ->join('fo', Page::TABLE_NAME, 'p', 'p.form = fo.uid')
@@ -279,7 +258,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * Get array with related pages to a form
      * if replaceIrreWithElementBrowser is active
      *
-     * @return array
      * @throws DBALException
      */
     protected function getRelatedPagesAlternative(): array
@@ -305,6 +283,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
                 $pageTitlesReduced[] = $titleRow['title'];
             }
         }
+
         return $pageTitlesReduced;
     }
 
@@ -312,7 +291,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * Get array with related field titles to a form
      *      ["firstname", "lastname", "email"]
      *
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws DBALException
@@ -326,6 +304,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
         if (!CoreArrayUtility::isValidPath($this->getFormProperties(), 'uid')) {
             return [];
         }
+
         $titles = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME, true);
         $rows = $queryBuilder
@@ -340,6 +319,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
         foreach ($rows as $row) {
             $titles[] = $row['title'];
         }
+
         return $titles;
     }
 
@@ -347,7 +327,6 @@ class ShowFormNoteEditForm extends AbstractFormElement
      * Get array with related fields to a form
      * if replaceIrreWithElementBrowser is active
      *
-     * @return array
      * @throws DBALException
      */
     protected function getRelatedFieldsAlternative(): array
@@ -381,6 +360,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
                 }
             }
         }
+
         return $fieldTitlesReduced;
     }
 }

@@ -15,32 +15,22 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class DatabaseUtility
 {
-    /**
-     * @param string $tableName
-     * @param bool $removeRestrictions
-     * @return QueryBuilder
-     */
     public static function getQueryBuilderForTable(string $tableName, bool $removeRestrictions = false): QueryBuilder
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
-        if ($removeRestrictions === true) {
+        if ($removeRestrictions) {
             $queryBuilder->getRestrictions()->removeAll();
         }
+
         return $queryBuilder;
     }
 
-    /**
-     * @param string $tableName
-     * @return Connection
-     */
     public static function getConnectionForTable(string $tableName): Connection
     {
         return GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($tableName);
     }
 
     /**
-     * @param string $tableName
-     * @return bool
      * @throws DBALException
      */
     public static function isTableExisting(string $tableName): bool
@@ -49,11 +39,12 @@ class DatabaseUtility
         $connection = self::getConnectionForTable($tableName);
         $queryResult = $connection->executeQuery('show tables;')->fetchAllAssociative();
         foreach ($queryResult as $tableProperties) {
-            if (in_array($tableName, array_values($tableProperties))) {
+            if (in_array($tableName, $tableProperties)) {
                 $existing = true;
                 break;
             }
         }
+
         return $existing;
     }
 
@@ -71,9 +62,6 @@ class DatabaseUtility
     }
 
     /**
-     * @param string $fieldName
-     * @param string $tableName
-     * @return bool
      * @throws DBALException
      */
     public static function isFieldExistingInTable(string $fieldName, string $tableName): bool
@@ -87,15 +75,13 @@ class DatabaseUtility
                 break;
             }
         }
+
         return $found;
     }
 
     /**
      * Check if there are any values in a table field (don't care about deleted property)
      *
-     * @param string $fieldName
-     * @param string $tableName
-     * @return bool
      * @throws DBALException
      */
     public static function isFieldFilled(string $fieldName, string $tableName): bool
@@ -105,10 +91,11 @@ class DatabaseUtility
             return (int)$queryBuilder
                     ->count($fieldName)
                     ->from($tableName)
-                    ->where($fieldName . ' != \'\' and ' . $fieldName . ' != 0')
+                    ->where($fieldName . " != '' and " . $fieldName . ' != 0')
                     ->executeQuery()
                     ->fetchOne() > 0;
         }
+
         return false;
     }
 

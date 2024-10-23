@@ -12,11 +12,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class TypoScriptUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @test
      * @covers ::getCaptchaExtensionFromSettings
      */
-    public function getCaptchaExtensionFromSettingsReturnsString()
+    public function getCaptchaExtensionFromSettingsReturnsString(): void
     {
         $settings = [
             'captcha' => [

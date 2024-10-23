@@ -11,64 +11,23 @@ use In2code\Powermail\Utility\FrontendUtility;
  */
 abstract class AbstractMethod implements MethodInterface
 {
-    /**
-     * @var Mail|null
-     */
-    protected $mail = null;
+    protected array $arguments;
 
-    /**
-     * @var array
-     */
-    protected $configuration = [];
-
-    /**
-     * @var array
-     */
-    protected $arguments = [];
-
-    /**
-     * @var array
-     */
-    protected $settings = [];
-
-    /**
-     * @var array
-     */
-    protected $flexForm = [];
-
-    /**
-     * @param Mail $mail
-     * @param array $settings
-     * @param array $flexForm
-     * @param array $configuration
-     */
-    public function __construct(Mail $mail, array $settings, array $flexForm, array $configuration = [])
+    public function __construct(protected \In2code\Powermail\Domain\Model\Mail $mail, protected array $settings, protected array $flexForm, protected array $configuration = [])
     {
-        $this->mail = $mail;
-        $this->settings = $settings;
-        $this->flexForm = $flexForm;
-        $this->configuration = $configuration;
         $this->arguments = FrontendUtility::getArguments();
     }
 
-    /**
-     * @return void
-     */
     public function initialize(): void
     {
     }
 
-    /**
-     * @return void
-     */
     public function initializeSpamCheck(): void
     {
     }
 
     /**
      * Example spamcheck, return true if spam recocnized
-     *
-     * @return bool
      */
     public function spamCheck(): bool
     {

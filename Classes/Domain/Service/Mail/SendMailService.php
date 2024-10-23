@@ -27,44 +27,24 @@ use TYPO3\CMS\Extbase\Mvc\Request;
  */
 class SendMailService
 {
-    /**
-     * @var array
-     */
     protected array $settings;
 
-    /**
-     * @var array
-     */
     protected array $configuration;
 
-    /**
-     * @var array
-     */
     protected ?array $overwriteConfig = null;
 
-    /**
-     * @var Mail
-     */
     protected Mail $mail;
 
-    /**
-     * @var string
-     */
     protected string $type = 'receiver';
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private EventDispatcherInterface $eventDispatcher;
-    private Request $request;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
      * Constructor
      */
-    public function __construct(Request $request)
+    public function __construct(private readonly Request $request)
     {
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
-        $this->request = $request;
     }
 
     /**
@@ -81,7 +61,6 @@ class SendMailService
      *        $email['template'] = 'PathToTemplate/';
      *        $email['rteBody'] = 'This is the <b>content</b> of the RTE';
      *        $email['format'] = 'both'; // or plain or html
-     * @param Mail $mail
      * @param array $settings TypoScript Settings
      * @param string $type Email to "sender" or "receiver"
      * @return bool Mail successfully sent
@@ -93,23 +72,24 @@ class SendMailService
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
         if ($settings['debug']['mail']) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger = ObjectUtility::getLogger(self::class);
             $logger->info('Mail properties', [$email]);
         }
+
         if (GeneralUtility::validEmail($email['receiverEmail']) === false ||
             GeneralUtility::validEmail($email['senderEmail']) === false) {
             return false;
         }
+
         if (empty($email['subject'])) {
             // don't want an error flashmessage
             return true;
         }
+
         return $this->prepareAndSend($email);
     }
 
     /**
-     * @param array $email
-     * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws Exception
      */
@@ -139,9 +119,10 @@ class SendMailService
         );
         if ($event->isAllowedToSend() === false) {
             if ($this->settings['debug']['mail']) {
-                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger = ObjectUtility::getLogger(self::class);
                 $logger->info('Mail was not sent: Event set to abort sending. Email array after event:', [$email]);
             }
+
             return false;
         }
 
@@ -152,9 +133,6 @@ class SendMailService
 
     /**
      * Add CC receivers
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addCc(MailMessage $message): MailMessage
     {
@@ -165,14 +143,12 @@ class SendMailService
         if (!empty($ccValue)) {
             $message->setCc(GeneralUtility::trimExplode(',', $ccValue, true));
         }
+
         return $message;
     }
 
     /**
      * Add BCC receivers
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addBcc(MailMessage $message): MailMessage
     {
@@ -183,14 +159,12 @@ class SendMailService
         if (!empty($bccValue)) {
             $message->setBcc(GeneralUtility::trimExplode(',', $bccValue, true));
         }
+
         return $message;
     }
 
     /**
      * Add return path
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addReturnPath(MailMessage $message): MailMessage
     {
@@ -201,14 +175,12 @@ class SendMailService
         if (!empty($returnPathValue)) {
             $message->setReturnPath($returnPathValue);
         }
+
         return $message;
     }
 
     /**
      * Add reply addresses if replyToEmail and replyToName isset
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addReplyAddresses(MailMessage $message): MailMessage
     {
@@ -223,31 +195,28 @@ class SendMailService
         if (!empty($replyToEmail) && !empty($replyToName)) {
             $message->setReplyTo([$replyToEmail => $replyToName]);
         }
+
         return $message;
     }
 
     /**
      * Add mail priority
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addPriority(MailMessage $message): MailMessage
     {
         $message->priority(1);
         if ($this->type === 'sender') {
-            $this->settings['sender']['overwrite'] = $this->settings['sender']['overwrite']??[];
+            $this->settings['sender']['overwrite'] ??= [];
             $message->priority((int)($this->settings['sender']['overwrite']['priority']??0));
         } elseif ($this->type === 'receiver') {
-            $this->settings['receiver']['overwrite'] = $this->settings['receiver']['overwrite']??[];
+            $this->settings['receiver']['overwrite'] ??= [];
             $message->priority((int)($this->settings['receiver']['overwrite']['priority']??0));
         }
+
         return $message;
     }
 
     /**
-     * @param MailMessage $message
-     * @return MailMessage
      * @throws Exception
      */
     protected function addAttachmentsFromUploads(MailMessage $message): MailMessage
@@ -261,14 +230,12 @@ class SendMailService
                 }
             }
         }
+
         return $message;
     }
 
     /**
      * Add attachments from TypoScript definition
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addAttachmentsFromTypoScript(MailMessage $message): MailMessage
     {
@@ -283,18 +250,16 @@ class SendMailService
                 if (file_exists($fileAbsolute)) {
                     $message->attachFromPath($fileAbsolute);
                 } else {
-                    $logger = ObjectUtility::getLogger(__CLASS__);
+                    $logger = ObjectUtility::getLogger(self::class);
                     $logger->critical('File to attach does not exist', [$file]);
                 }
             }
         }
+
         return $message;
     }
 
     /**
-     * @param MailMessage $message
-     * @param array $email
-     * @return MailMessage
      * @throws InvalidConfigurationTypeException
      * @throws Exception
      */
@@ -303,13 +268,11 @@ class SendMailService
         if ($email['format'] !== 'plain') {
             $message->html($this->createEmailBody($email));
         }
+
         return $message;
     }
 
     /**
-     * @param MailMessage $message
-     * @param array $email
-     * @return MailMessage
      * @throws InvalidConfigurationTypeException
      * @throws Exception
      */
@@ -319,14 +282,12 @@ class SendMailService
             $plaintextService = GeneralUtility::makeInstance(PlaintextService::class);
             $message->text($plaintextService->makePlain($this->createEmailBody($email)));
         }
+
         return $message;
     }
 
     /**
      * Set Sender Header according to RFC 2822 - 3.6.2 Originator fields
-     *
-     * @param MailMessage $message
-     * @return MailMessage
      */
     protected function addSenderHeader(MailMessage $message): MailMessage
     {
@@ -348,14 +309,14 @@ class SendMailService
             if (empty($name)) {
                 $name = null;
             }
+
             $message->setSender($email, $name);
         }
+
         return $message;
     }
 
     /**
-     * @param array $email
-     * @return string
      * @throws InvalidConfigurationTypeException
      * @throws Exception
      */
@@ -396,9 +357,6 @@ class SendMailService
 
     /**
      * Update mail record with parsed fields
-     *
-     * @param array $email
-     * @return void
      */
     protected function updateMail(array $email): void
     {
@@ -410,10 +368,6 @@ class SendMailService
         }
     }
 
-    /**
-     * @param array $settings
-     * @return array
-     */
     protected function getConfigurationFromSettings(array $settings): array
     {
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
@@ -423,9 +377,6 @@ class SendMailService
     /**
      * Parsing variables with fluid engine to allow viewhelpers in flexform
      *
-     * @param array $email
-     * @param Mail $mail
-     * @return void
      * @throws Exception
      */
     protected function parseAndOverwriteVariables(array &$email, Mail $mail): void
@@ -469,6 +420,7 @@ class SendMailService
                 'email'
             );
         }
+
         $parse = [
             'receiverName',
             'receiverEmail',
@@ -487,10 +439,6 @@ class SendMailService
     }
 
     /**
-     * @param Mail $mail
-     * @param array $settings
-     * @param string $type
-     * @return void
      * @throws Exception
      */
     protected function initialize(Mail $mail, array $settings, string $type): void
@@ -501,46 +449,32 @@ class SendMailService
         if (ArrayUtilityCore::isValidPath($this->configuration, $type . './overwrite.')) {
             $this->overwriteConfig = $this->configuration[$type . '.']['overwrite.'];
         }
+
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         ObjectUtility::getContentObject()->start($mailRepository->getVariablesWithMarkersFromMail($mail));
         $this->type = $type;
     }
 
-    /**
-     * @return Mail
-     */
     public function getMail(): Mail
     {
         return $this->mail;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return array
-     */
     public function getSettings(): array
     {
         return $this->settings;
     }
 
-    /**
-     * @return array
-     */
     public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    /**
-     * @return array
-     */
     public function getOverwriteConfig(): array
     {
         return $this->overwriteConfig;

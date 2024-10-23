@@ -17,15 +17,13 @@ class FieldSelectorUserFunc
     /**
      * Create Array for Field Selector
      *
-     * @param array $params
-     * @return void
      * @throws DBALException
      */
     public function getFieldSelection(array &$params): void
     {
         $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $formUid = $this->getFormUidFromTtContentUid((int)$params['row']['uid']);
-        if (!$formUid) {
+        if ($formUid === 0) {
             $params['items'] = [
                 [
                     'Please select a form (Main Settings)',
@@ -34,6 +32,7 @@ class FieldSelectorUserFunc
             ];
             return;
         }
+
         foreach ((array)$formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
             $params['items'][] = [
                 $field['title'] . ' {' . $field['marker'] . '}',
@@ -44,19 +43,17 @@ class FieldSelectorUserFunc
 
     /**
      * Return Form Uid from content element
-     *
-     * @param int $ttContentUid
-     * @return int
      */
     protected function getFormUidFromTtContentUid(int $ttContentUid): int
     {
-        $row = BackendUtilityCore::getRecord('tt_content', (int)$ttContentUid, 'pi_flexform', '', false);
+        $row = BackendUtilityCore::getRecord('tt_content', $ttContentUid, 'pi_flexform', '', false);
         if (isset($row['pi_flexform'])) {
             $flexform = GeneralUtility::xml2array($row['pi_flexform']);
             if (isset($flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'])) {
                 return (int)$flexform['data']['main']['lDEF']['settings.flexform.main.form']['vDEF'];
             }
         }
+
         return 0;
     }
 }

@@ -22,7 +22,7 @@ class ResetMarkersCommand extends Command
     /**
      * @return void
      */
-    public function configure()
+    protected function configure()
     {
         $description = 'Reset all marker names in fields if there are broken fields without or duplicated markernames.';
         $this->setDescription($description);
@@ -40,13 +40,10 @@ class ResetMarkersCommand extends Command
      * Note: Only non-hidden and non-deleted fields in non-hidden and non-deleted pages will be respected.
      * Attention: If you add "0" as form Uid, all fields in all forms will be resetted!
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      * @throws DBALException
      * @throws ExceptionExtbaseObject
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $markerService = GeneralUtility::makeInstance(GetNewMarkerNamesForFormService::class);
         $markers = $markerService->getMarkersForFieldsDependingOnForm(
@@ -63,6 +60,7 @@ class ResetMarkersCommand extends Command
                     ->executeStatement();
             }
         }
+
         $output->writeln('Markers successfully resetted');
         // todo implement error handling
         return Command::SUCCESS;

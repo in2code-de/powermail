@@ -16,10 +16,7 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('columns', 'int', 'number of columns - 0 disables function', true);
         $this->registerArgument('iteration', 'array', 'Field iteration array', true);
@@ -40,17 +37,11 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
         );
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     * @return string
-     */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
         RenderingContextInterface $renderingContext
-    ) {
+    ): string {
         $content = '';
         if ((int)$arguments['columns'] > 0) {
             $content .= self::getBeginningTag($arguments);
@@ -59,52 +50,37 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
         } else {
             $content .= $renderChildrenClosure();
         }
+
         return $content;
     }
 
-    /**
-     * @param array $arguments
-     * @return string
-     */
     public static function getBeginningTag(array $arguments): string
     {
-        $content = '';
         if (self::shouldAddBeginningTag($arguments)) {
-            $content = '<' . self::getTagName($arguments) . self::getAttributes($arguments) . '>';
+            return '<' . self::getTagName($arguments) . self::getAttributes($arguments) . '>';
         }
-        return $content;
+
+        return '';
     }
 
-    /**
-     * @param array $arguments
-     * @return string
-     */
     public static function getEndingTag(array $arguments): string
     {
-        $content = '';
         if (self::shouldAddEndingTag($arguments)) {
-            $content = '</' . self::getTagName($arguments) . '>';
+            return '</' . self::getTagName($arguments) . '>';
         }
-        return $content;
+
+        return '';
     }
 
-    /**
-     * @param array $arguments
-     * @return string
-     */
     protected static function getTagName(array $arguments): string
     {
-        $tagName = 'div';
         if (!empty($arguments['tagName'])) {
-            $tagName = $arguments['tagName'];
+            return $arguments['tagName'];
         }
-        return $tagName;
+
+        return 'div';
     }
 
-    /**
-     * @param array $arguments
-     * @return string
-     */
     protected static function getAttributes(array $arguments): string
     {
         $attributes = '';
@@ -113,26 +89,20 @@ class CreateRowTagsViewHelper extends AbstractViewHelper
                 $attributes .= ' ' . $key . '="' . $value . '"';
             }
         }
+
         if (!empty($arguments['class'])) {
             $attributes .= ' class="' . $arguments['class'] . '"';
         }
+
         return $attributes;
     }
 
-    /**
-     * @param array $arguments
-     * @return bool
-     */
     protected static function shouldAddBeginningTag(array $arguments): bool
     {
         return $arguments['iteration']['isFirst'] === true
             || !(($arguments['iteration']['cycle'] - 1) % $arguments['columns']);
     }
 
-    /**
-     * @param array $arguments
-     * @return bool
-     */
     protected static function shouldAddEndingTag(array $arguments): bool
     {
         return $arguments['iteration']['isLast'] === true

@@ -26,19 +26,8 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected ContentObjectRenderer $contentObjectLocal;
 
-    /**
-     * @var array
-     */
     protected array $dataArray = [];
 
-    /**
-     * @param Mail $mail
-     * @param array $configuration
-     * @param array $settings
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @param ContentObjectRenderer $contentObject
-     */
     public function __construct(
         Mail $mail,
         array $configuration,
@@ -48,14 +37,13 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         ContentObjectRenderer $contentObject
     ) {
         parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        $this->contentObjectLocal = $configurationManager->getContentObject();
+        GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->contentObjectLocal = $this->request->getAttribute('currentContentObject');
     }
 
     /**
      * Preperation function for every table
      *
-     * @return void
      * @throws DBALException
      * @throws DatabaseFieldMissingException
      * @throws PropertiesMissingException
@@ -77,9 +65,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * Preperation function for a single table
      *
-     * @param int $numberKey
-     * @param array $tableConfiguration
-     * @return void
      * @throws DBALException
      * @throws DatabaseFieldMissingException
      * @throws PropertiesMissingException
@@ -99,10 +84,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * Set all properties for a table configuration
-     *
-     * @param SaveToAnyTableService $saveService
-     * @param array $tableConfiguration
-     * @return void
      */
     protected function setPropertiesInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
@@ -120,10 +101,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * Set mode and uniqueField in saveToAnyTableService
-     *
-     * @param SaveToAnyTableService $saveService
-     * @param array $tableConfiguration
-     * @return void
      */
     protected function setModeInSaveService(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
@@ -144,10 +121,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      *      or
      *
      *      _ifUniqueWhereClause = AND pid = 123
-     *
-     * @param SaveToAnyTableService $saveService
-     * @param array $tableConfiguration
-     * @return void
      */
     protected function addAdditionalWhereClause(SaveToAnyTableService $saveService, array $tableConfiguration): void
     {
@@ -156,6 +129,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
             && empty($tableConfiguration['_ifUniqueWhereClause.'])) {
             $whereClause = $tableConfiguration['_ifUniqueWhereClause'];
         }
+
         if (!empty($tableConfiguration['_ifUniqueWhereClause'])
             && !empty($tableConfiguration['_ifUniqueWhereClause.'])) {
             $whereClause = $this->contentObjectLocal->cObjGetSingle(
@@ -163,6 +137,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
                 $tableConfiguration['_ifUniqueWhereClause.']
             );
         }
+
         if (!empty($whereClause)) {
             $saveService->setAdditionalWhere($whereClause);
         }
@@ -172,9 +147,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
      * Read configuration from TypoScript
      *      _table = TEXT
      *      _table.value = tableName
-     *
-     * @param array $tableConfiguration
-     * @return string
      */
     protected function getTableName(array $tableConfiguration): string
     {
@@ -183,7 +155,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * @param array $tableConfiguration
-     * @return bool
      */
     protected function isSaveToAnyTableActivatedForSpecifiedTable($tableConfiguration): bool
     {
@@ -196,30 +167,25 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * Check if plugin.tx_powermail.settings.setup.dbEntry is not empty
-     *
-     * @return bool
      */
     protected function isConfigurationAvailable(): bool
     {
-        return !empty($this->configuration) && is_array($this->configuration);
+        return $this->configuration !== [] && is_array($this->configuration);
     }
 
     /**
      * Should this key skipped because it starts with _ or ends with .
-     *
-     * @param string $key
-     * @return bool
      */
     protected function isSkippedKey(string $key): bool
     {
-        return StringUtility::startsWith($key, '_') || StringUtility::endsWith($key, '.');
+        if (StringUtility::startsWith($key, '_')) {
+            return true;
+        }
+        return StringUtility::endsWith($key, '.');
     }
 
     /**
      * Add array to dataArray
-     *
-     * @param array $array
-     * @return void
      */
     protected function addArrayToDataArray(array $array): void
     {
@@ -228,27 +194,17 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         $this->setDataArray($dataArray);
     }
 
-    /**
-     * @return array
-     */
     public function getDataArray(): array
     {
         return $this->dataArray;
     }
 
-    /**
-     * @param array $dataArray
-     * @return SaveToAnyTableFinisher
-     */
     public function setDataArray(array $dataArray): SaveToAnyTableFinisher
     {
         $this->dataArray = $dataArray;
         return $this;
     }
 
-    /**
-     * @return void
-     */
     public function initializeFinisher(): void
     {
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
@@ -256,6 +212,7 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         if (!empty($configuration['dbEntry.'])) {
             $this->configuration = $configuration['dbEntry.'];
         }
+
         if ($this->isConfigurationAvailable()) {
             $this->addArrayToDataArray(['uid' => $this->mail->getUid()]);
             $mailRepository = GeneralUtility::makeInstance(MailRepository::class);

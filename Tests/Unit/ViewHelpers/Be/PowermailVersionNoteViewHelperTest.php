@@ -16,9 +16,6 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      */
     protected $powermailVersionNoteViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->powermailVersionNoteViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -37,8 +31,6 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for renderReturnsInt()
-     *
-     * @return array
      */
     public static function renderReturnsIntDataProvider(): array
     {
@@ -94,7 +86,6 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
      * @param bool $currentVersionInExtensionTableExists
      * @param bool $isCurrentVersionUnsecure
      * @param int $expectedResult
-     * @return void
      * @dataProvider renderReturnsIntDataProvider
      * @test
      * @covers ::render
@@ -105,7 +96,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
         $currentVersionInExtensionTableExists,
         $isCurrentVersionUnsecure,
         $expectedResult
-    ) {
+    ): void {
         $this->powermailVersionNoteViewHelperMock->setVersion('1.0.0');
         $this->powermailVersionNoteViewHelperMock->_set('checkFromDatabase', false);
         $this->powermailVersionNoteViewHelperMock->_call('setExtensionTableExists', $extensionTableExists);
@@ -115,6 +106,7 @@ class PowermailVersionNoteViewHelperTest extends UnitTestCase
             $currentVersionInExtensionTableExists
         );
         $this->powermailVersionNoteViewHelperMock->_call('setIsCurrentVersionUnsecure', $isCurrentVersionUnsecure);
+
         $result = $this->powermailVersionNoteViewHelperMock->_call('render');
         self::assertSame($expectedResult, $result);
     }

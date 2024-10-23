@@ -13,8 +13,6 @@ class IsAdminViewHelper extends AbstractViewHelper
 {
     /**
      * Is Backend Admin?
-     *
-     * @return bool
      */
     public function render(): bool
     {

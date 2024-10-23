@@ -15,10 +15,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class CountriesViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('key', 'string', 'key', false, 'isoCodeA3');
@@ -30,7 +27,6 @@ class CountriesViewHelper extends AbstractViewHelper
     /**
      * Get array with countries
      *
-     * @return array
      * @throws PropertyNotAccessibleException
      */
     public function render(): array
@@ -51,12 +47,10 @@ class CountriesViewHelper extends AbstractViewHelper
 
     /**
      * Build an country array
-     *
-     * @return array
      */
     protected function getCountries(): array
     {
-        $countries = [
+        return [
             'AND' => 'Andorra',
             'ARE' => 'الإمارات العربيّة المتّحدة',
             'AFG' => 'افغانستان',
@@ -267,7 +261,7 @@ class CountriesViewHelper extends AbstractViewHelper
             'TKM' => 'Türkmenistan',
             'TUN' => 'التونسية',
             'TON' => 'Tonga',
-            'TLS' => 'Timor Lorosa\'e',
+            'TLS' => "Timor Lorosa'e",
             'TUR' => 'Türkiye',
             'TTO' => 'Trinidad and Tobago',
             'TUV' => 'Tuvalu',
@@ -309,6 +303,5 @@ class CountriesViewHelper extends AbstractViewHelper
             'SXM' => 'Sint Maarten',
             'SSD' => 'South Sudan',
         ];
-        return $countries;
     }
 }

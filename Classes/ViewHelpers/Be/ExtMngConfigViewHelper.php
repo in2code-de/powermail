@@ -16,7 +16,6 @@ class ExtMngConfigViewHelper extends AbstractViewHelper
     /**
      * Check if Extension Manager Settings are available
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */

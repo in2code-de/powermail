@@ -29,22 +29,23 @@ class ValueBlacklistMethod extends AbstractMethod
             if (is_array($answer->getValue())) {
                 continue;
             }
+
             if (is_bool($answer->getValue())) {
                 continue;
             }
+
             foreach ($this->getValues() as $blackword) {
                 if ($this->isStringInString((string)$answer->getValue(), $blackword)) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
     /**
      * Get blacklisted values
-     *
-     * @return array
      */
     protected function getValues(): array
     {
@@ -57,9 +58,6 @@ class ValueBlacklistMethod extends AbstractMethod
 
     /**
      * reduce ; and "\n" to ,
-     *
-     * @param string $string
-     * @return string
      */
     protected function reduceDelimiters(string $string): string
     {
@@ -75,10 +73,6 @@ class ValueBlacklistMethod extends AbstractMethod
      *        "_sex_bla" => TRUE
      *        "tst sex.seems.to.be.nice" => TRUE
      *        "email@sex.org" => TRUE
-     *
-     * @param string $haystack
-     * @param string $needle
-     * @return bool
      */
     protected function isStringInString(string $haystack, string $needle): bool
     {

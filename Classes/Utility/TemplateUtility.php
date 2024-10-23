@@ -22,7 +22,6 @@ class TemplateUtility
      *        paths pointing to the EXT:powermail-resources.
      *
      * @param string $part "template", "partial", "layout"
-     * @return array
      * @throws InvalidConfigurationTypeException
      */
     public static function getTemplateFolders(string $part = 'template'): array
@@ -37,14 +36,17 @@ class TemplateUtility
             ksort($templatePaths, SORT_NUMERIC);
             $templatePaths = array_values($templatePaths);
         }
-        if (empty($templatePaths)) {
+
+        if ($templatePaths === []) {
             $templatePaths[] = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
         }
+
         $templatePaths = array_unique($templatePaths);
         $absolutePaths = [];
         foreach ($templatePaths as $templatePath) {
             $absolutePaths[] = StringUtility::addTrailingSlash(GeneralUtility::getFileAbsFileName($templatePath));
         }
+
         return $absolutePaths;
     }
 
@@ -61,7 +63,7 @@ class TemplateUtility
     public static function getTemplatePath(string $pathAndFilename, string $part = 'template'): string
     {
         $matches = self::getTemplatePaths($pathAndFilename, $part);
-        return !empty($matches) ? end($matches) : '';
+        return $matches === [] ? '' : end($matches);
     }
 
     /**
@@ -83,6 +85,7 @@ class TemplateUtility
                 $matches[] = $absolutePath . $pathAndFilename;
             }
         }
+
         return $matches;
     }
 
@@ -91,8 +94,6 @@ class TemplateUtility
      *
      * @param string $extensionName
      * @param string $pluginName
-     * @param string $format
-     * @return StandaloneView
      * @throws InvalidConfigurationTypeException
      */
     public static function getDefaultStandAloneView(
@@ -109,11 +110,7 @@ class TemplateUtility
     /**
      * This functions renders the powermail_all Template (e.g. useage in Mails)
      *
-     * @param Mail $mail
-     * @param string $section
-     * @param array $settings
      * @param ?string $type
-     * @return string
      * @throws InvalidConfigurationTypeException
      */
     public static function powermailAll(
@@ -144,13 +141,14 @@ class TemplateUtility
      */
     public static function fluidParseString(string $string, array $variables = []): string
     {
-        if (empty($string)
+        if ($string === '' || $string === '0'
             || ConfigurationUtility::isDatabaseConnectionAvailable() === false
             || BackendUtility::isBackendContext()
             || Environment::isCli()
         ) {
             return $string;
         }
+
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setTemplateSource($string);

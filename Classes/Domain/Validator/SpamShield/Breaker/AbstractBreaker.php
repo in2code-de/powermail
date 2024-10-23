@@ -13,7 +13,7 @@ abstract class AbstractBreaker implements BreakerInterface
     /**
      * @var Mail
      */
-    protected $mail = null;
+    protected $mail;
 
     /**
      * @var array
@@ -30,12 +30,6 @@ abstract class AbstractBreaker implements BreakerInterface
      */
     protected $flexForm = [];
 
-    /**
-     * @param Mail $mail
-     * @param array $settings
-     * @param array $flexForm
-     * @param array $configuration
-     */
     public function __construct(Mail $mail, array $settings, array $flexForm, array $configuration = [])
     {
         $this->setMail($mail);
@@ -44,23 +38,16 @@ abstract class AbstractBreaker implements BreakerInterface
         $this->setConfiguration($configuration);
     }
 
-    /**
-     * @return void
-     */
     public function initialize(): void
     {
     }
 
-    /**
-     * @return Mail
-     */
     public function getMail(): Mail
     {
         return $this->mail;
     }
 
     /**
-     * @param Mail $mail
      * @return AbstractBreaker
      */
     public function setMail(Mail $mail): BreakerInterface
@@ -69,16 +56,12 @@ abstract class AbstractBreaker implements BreakerInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
     /**
-     * @param array $configuration
      * @return AbstractBreaker
      */
     public function setConfiguration(array $configuration): BreakerInterface
@@ -87,16 +70,12 @@ abstract class AbstractBreaker implements BreakerInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getSettings(): array
     {
         return $this->settings;
     }
 
     /**
-     * @param array $settings
      * @return AbstractBreaker
      */
     public function setSettings(array $settings): BreakerInterface
@@ -105,16 +84,12 @@ abstract class AbstractBreaker implements BreakerInterface
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getFlexForm(): array
     {
         return $this->flexForm;
     }
 
     /**
-     * @param array $flexForm
      * @return AbstractBreaker
      */
     public function setFlexForm(array $flexForm): BreakerInterface

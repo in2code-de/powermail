@@ -25,18 +25,12 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         8 => 'range',
     ];
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         /** @var Field $field */
@@ -44,9 +38,11 @@ class FieldTypeFromValidationViewHelper extends AbstractValidationViewHelper
         if (!$this->isNativeValidationEnabled()) {
             return 'text';
         }
+
         if (array_key_exists($field->getValidation(), $this->html5InputTypes)) {
             return $this->html5InputTypes[$field->getValidation()];
         }
+
         return 'text';
     }
 }

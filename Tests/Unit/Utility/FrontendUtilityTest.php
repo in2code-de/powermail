@@ -12,9 +12,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class FrontendUtilityTest extends UnitTestCase
 {
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -22,45 +19,41 @@ class FrontendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getStoragePage
      */
-    public function getStoragePageReturnsInt()
+    public function getStoragePageReturnsInt(): void
     {
         self::assertSame(123, FrontendUtility::getStoragePage(123));
         self::assertNotSame(1, FrontendUtility::getStoragePage());
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getCurrentPageIdentifier
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTyposcriptFrontendController
      */
-    public function getCurrentPageIdentifierReturnsInt()
+    public function getCurrentPageIdentifierReturnsInt(): void
     {
         $result = FrontendUtility::getCurrentPageIdentifier();
         self::assertSame(0, $result);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getSysLanguageUid
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTyposcriptFrontendController
      */
-    public function getSysLanguageUidReturnsInt()
+    public function getSysLanguageUidReturnsInt(): void
     {
         self::assertSame(0, FrontendUtility::getSysLanguageUid());
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @covers ::getPluginName
      */
-    public function testGetPluginNameReturnsString()
+    public function testGetPluginNameReturnsString(): void
     {
         self::assertSame('tx_powermail_pi1', FrontendUtility::getPluginName());
 
@@ -74,11 +67,10 @@ class FrontendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @covers ::getActionName
      */
-    public function testGetActionName()
+    public function testGetActionName(): void
     {
         $_GET['tx_powermail_pi1']['action'] = '';
         self::assertSame('', FrontendUtility::getActionName());
@@ -87,23 +79,21 @@ class FrontendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isLoggedInFrontendUser
      */
-    public function isLoggedInFrontendUserReturnsBool()
+    public function isLoggedInFrontendUserReturnsBool(): void
     {
         self::assertFalse(FrontendUtility::isLoggedInFrontendUser());
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::getPropertyFromLoggedInFrontendUser
      */
-    public function getPropertyFromLoggedInFrontendUserReturnsString()
+    public function getPropertyFromLoggedInFrontendUserReturnsString(): void
     {
         self::assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('uid'));
         self::assertSame('', FrontendUtility::getPropertyFromLoggedInFrontendUser('foobar'));
@@ -111,8 +101,6 @@ class FrontendUtilityTest extends UnitTestCase
 
     /**
      * Data Provider for getDomainFromUriReturnsString()
-     *
-     * @return array
      */
     public static function getDomainFromUriReturnsStringDataProvider(): array
     {
@@ -136,19 +124,16 @@ class FrontendUtilityTest extends UnitTestCase
      * @param string $value
      * @param string $expectedResult
      * @dataProvider getDomainFromUriReturnsStringDataProvider
-     * @return void
      * @test
      * @covers ::getDomainFromUri
      */
-    public function getDomainFromUriReturnsString($value, $expectedResult)
+    public function getDomainFromUriReturnsString($value, $expectedResult): void
     {
         self::assertSame($expectedResult, FrontendUtility::getDomainFromUri($value));
     }
 
     /**
      * Data Provider for getCountryFromIpReturnsString()
-     *
-     * @return array
      */
     public static function getCountryFromIpReturnsStringDataProvider(): array
     {
@@ -180,19 +165,16 @@ class FrontendUtilityTest extends UnitTestCase
      * @param string $ipAddress
      * @param string $expectedResult
      * @dataProvider getCountryFromIpReturnsStringDataProvider
-     * @return void
      * @test
      * @covers ::getCountryFromIp
      */
-    public function getCountryFromIpReturnsString($ipAddress, $expectedResult)
+    public function getCountryFromIpReturnsString($ipAddress, $expectedResult): void
     {
         self::assertSame($expectedResult, FrontendUtility::getCountryFromIp($ipAddress));
     }
 
     /**
      * Dataprovider getSubFolderOfCurrentUrlReturnsString()
-     *
-     * @return array
      */
     public static function getSubFolderOfCurrentUrlReturnsStringDataProvider(): array
     {
@@ -262,12 +244,11 @@ class FrontendUtilityTest extends UnitTestCase
      * @param string $host
      * @param string $url
      * @param string $expectedResult
-     * @return void
      * @dataProvider getSubFolderOfCurrentUrlReturnsStringDataProvider
      * @test
      * @covers ::getSubFolderOfCurrentUrl
      */
-    public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult)
+    public function getSubFolderOfCurrentUrlReturnsString($leadingSlash, $trailingSlash, $host, $url, $expectedResult): void
     {
         $result = FrontendUtility::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
         self::assertSame($expectedResult, $result);

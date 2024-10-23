@@ -11,25 +11,19 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class LinkViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('path', 'string', 'like "uploads/tx_powermail/file.txt"', true);
         $this->registerArgument('absolute', 'bool', 'Want an absolute path?', false, false);
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         $path = $this->arguments['path'];
 
         // Path already absolute?
-        if (!is_null(parse_url($path, PHP_URL_HOST))) {
+        if (!is_null(parse_url((string) $path, PHP_URL_HOST))) {
             return $path;
         }
 
@@ -40,6 +34,6 @@ class LinkViewHelper extends AbstractViewHelper
             $uri .= trim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
 
-        return rtrim($uri, '/') . '/' . ltrim($path, '/');
+        return rtrim($uri, '/') . '/' . ltrim((string) $path, '/');
     }
 }

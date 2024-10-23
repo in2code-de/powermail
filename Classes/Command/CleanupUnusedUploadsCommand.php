@@ -19,7 +19,7 @@ class CleanupUnusedUploadsCommand extends Command
     /**
      * @return void
      */
-    public function configure()
+    protected function configure()
     {
         $this->setDescription('Remove unused uploaded Files with a scheduler task');
         $this->addArgument('uploadPath', InputArgument::OPTIONAL, 'Define the upload Path', 'uploads/tx_powermail/');
@@ -27,12 +27,8 @@ class CleanupUnusedUploadsCommand extends Command
 
     /**
      * This task can clean up unused uploaded files with powermail from your server
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $usedUploads = $this->getUsedUploads();
         $allUploads = BasicFileUtility::getFilesFromRelativePath($input->getArgument('uploadPath'));
@@ -46,15 +42,13 @@ class CleanupUnusedUploadsCommand extends Command
                 }
             }
         }
+
         $output->writeln('Overall Files: ' . count($allUploads));
         $output->writeln('Removed Files: ' . $removeCounter);
         // todo implement error handling
         return Command::SUCCESS;
     }
 
-    /**
-     * @return array
-     */
     protected function getUsedUploads(): array
     {
         $answerRepository = GeneralUtility::makeInstance(AnswerRepository::class);
@@ -65,6 +59,7 @@ class CleanupUnusedUploadsCommand extends Command
                 $usedUploads[] = $singleUpload;
             }
         }
+
         return $usedUploads;
     }
 }

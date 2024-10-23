@@ -16,8 +16,6 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
 
     /**
      * Return timestamp from last updated TER
-     *
-     * @return int
      */
     public function render(): int
     {
@@ -32,12 +30,10 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
                 return $rows[0]['last_update'];
             }
         }
+
         return 0;
     }
 
-    /**
-     * @return bool
-     */
     protected function extensionTableExists(): bool
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(self::TABLE_NAME);
@@ -45,10 +41,11 @@ class LastUpdateExtensionRepositoryViewHelper extends AbstractViewHelper
         $tableExists = true;
         try {
             $queryBuilder->execute();
-        } catch (Throwable $exception) {
-            unset($exception);
+        } catch (Throwable $throwable) {
+            unset($throwable);
             $tableExists = false;
         }
+
         return $tableExists;
     }
 }

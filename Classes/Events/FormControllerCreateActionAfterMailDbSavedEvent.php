@@ -8,31 +8,8 @@ use In2code\Powermail\Domain\Model\Mail;
 
 final class FormControllerCreateActionAfterMailDbSavedEvent
 {
-    /**
-     * @var Mail
-     */
-    protected Mail $mail;
-
-    /**
-     * @var string
-     */
-    protected string $hash;
-
-    /**
-     * @var FormController
-     */
-    protected FormController $formController;
-
-    /**
-     * @param Mail $mail
-     * @param string $hash
-     * @param FormController $formController
-     */
-    public function __construct(Mail $mail, FormController $formController, string $hash = '')
+    public function __construct(protected Mail $mail, protected FormController $formController, protected string $hash = '')
     {
-        $this->mail = $mail;
-        $this->hash = $hash;
-        $this->formController = $formController;
     }
 
     public function setMail(Mail $mail): void
@@ -40,9 +17,6 @@ final class FormControllerCreateActionAfterMailDbSavedEvent
         $this->mail = $mail;
     }
 
-    /**
-     * @return Mail
-     */
     public function getMail(): Mail
     {
         return $this->mail;
@@ -58,9 +32,6 @@ final class FormControllerCreateActionAfterMailDbSavedEvent
         $this->hash = $hash;
     }
 
-    /**
-     * @return FormController
-     */
     public function getFormController(): FormController
     {
         return $this->formController;

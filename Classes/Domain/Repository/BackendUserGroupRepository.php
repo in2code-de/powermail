@@ -9,7 +9,7 @@ use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 class BackendUserGroupRepository extends AbstractRepository
 {
-    public function initializeObject()
+    public function initializeObject(): void
     {
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);

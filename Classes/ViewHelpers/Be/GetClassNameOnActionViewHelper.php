@@ -11,10 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetClassNameOnActionViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('actionName', 'string', 'Given action name', true);
@@ -24,26 +21,23 @@ class GetClassNameOnActionViewHelper extends AbstractViewHelper
 
     /**
      * Return className if actionName fits to current action
-     *
-     * @return string
      */
     public function render(): string
     {
         if ($this->getCurrentActionName() === $this->arguments['actionName']) {
             return $this->arguments['className'];
         }
+
         return $this->arguments['fallbackClassName'];
     }
 
-    /**
-     * @return string
-     */
     protected function getCurrentActionName(): string
     {
         $actionName = FrontendUtility::getActionName();
         if ($actionName === '') {
-            $actionName = 'list';
+            return 'list';
         }
+
         return $actionName;
     }
 }

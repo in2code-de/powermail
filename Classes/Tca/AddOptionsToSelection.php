@@ -28,8 +28,6 @@ class AddOptionsToSelection
 
     /**
      * @param string $type "type", "validation", "feUserProperty"
-     * @param array $params
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function initialize(string $type, array &$params): void
@@ -44,9 +42,6 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.type.addFieldOptions.newfield = New Field Name
      *            tx_powermail.flexForm.type.addFieldOptions.newfield =
      *                LLL:fileadmin/locallang.xlf:key
-     *
-     * @param array $params
-     * @return void
      */
     public function addOptionsForType(array &$params): void
     {
@@ -60,9 +55,6 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.validation.addFieldOptions.100 = New Validation
      *            tx_powermail.flexForm.validation.addFieldOptions.100 =
      *                LLL:fileadmin/locallang.xlf:key
-     *
-     * @param array $params
-     * @return void
      */
     public function addOptionsForValidation(array &$params): void
     {
@@ -76,9 +68,6 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield = New fe_user
      *            tx_powermail.flexForm.feUserProperty.addFieldOptions.newfield =
      *                LLL:fileadmin/locallang.xlf:key
-     *
-     * @param array $params
-     * @return void
      */
     public function addOptionsForFeUserProperty(array &$params): void
     {
@@ -92,9 +81,6 @@ class AddOptionsToSelection
      *            tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 = receivers #1
      *            tx_powermail.flexForm.predefinedReceivers.addFieldOptions.receivers1 =
      *                LLL:fileadmin/locallang.xlf:key
-     *
-     * @param array $params
-     * @return void
      */
     public function addOptionsForPredefinedReceivers(array &$params): void
     {
@@ -104,8 +90,6 @@ class AddOptionsToSelection
 
     /**
      * Add options to FlexForm Selection
-     *
-     * @return void
      */
     protected function addOptions(): void
     {
@@ -118,8 +102,6 @@ class AddOptionsToSelection
 
     /**
      * Get field options from page TSConfig
-     *
-     * @return array
      */
     protected function getFieldOptionsFromTsConfig(): array
     {
@@ -140,9 +122,7 @@ class AddOptionsToSelection
     /**
      * Add item to $this->params['items'] with value and label
      *
-     * @param string $value
      * @param string|null $label
-     * @return void
      */
     protected function addOption(string $value, string $label = null): void
     {
@@ -156,51 +136,41 @@ class AddOptionsToSelection
      * Return label
      *        if LLL parse
      *        if empty take value
-     *
-     * @param string $label
-     * @param string $fallback
-     * @return string
      */
     protected function getLabel(string $label, string $fallback): string
     {
-        if (strpos($label, 'LLL:') === 0) {
+        if (str_starts_with($label, 'LLL:')) {
             $label = ObjectUtility::getLanguageService()->sL($label);
         }
-        if (empty($label)) {
-            $label = $fallback;
+
+        if ($label === '' || $label === '0') {
+            return $fallback;
         }
+
         return $label;
     }
 
     /**
      * Get current PID (starting from TCA or FlexForm)
-     *
-     * @return int
      */
     protected function getPageIdentifier(): int
     {
-        $pageIdentifier = 0;
         if (!empty($this->params['row']['pid'])) {
-            $pageIdentifier = (int)$this->params['row']['pid'];
+            return (int)$this->params['row']['pid'];
         }
+
         if (!empty($this->params['flexParentDatabaseRow']['pid'])) {
-            $pageIdentifier = (int)$this->params['flexParentDatabaseRow']['pid'];
+            return (int)$this->params['flexParentDatabaseRow']['pid'];
         }
-        return $pageIdentifier;
+
+        return 0;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @param string $type
-     * @return AddOptionsToSelection
-     */
     public function setType(string $type): AddOptionsToSelection
     {
         $this->type = $type;

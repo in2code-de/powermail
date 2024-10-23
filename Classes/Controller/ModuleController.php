@@ -38,30 +38,19 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 class ModuleController extends AbstractController
 {
     protected ?ModuleData $moduleData = null;
+
     protected ModuleTemplate $moduleTemplate;
-    protected ModuleTemplateFactory $moduleTemplateFactory;
-    protected IconFactory $iconFactory;
-    protected PageRenderer $pageRenderer;
 
-    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
+
+
+    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory, protected IconFactory $iconFactory, protected PageRenderer $pageRenderer)
     {
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
     }
 
-    public function injectIconFactory(IconFactory $iconFactory)
-    {
-        $this->iconFactory = $iconFactory;
-    }
-
-    public function injectPageRenderer(PageRenderer $pageRenderer)
-    {
-        $this->pageRenderer = $pageRenderer;
-    }
-
-    public function initializeAction(): void
+    protected function initializeAction(): void
     {
         $this->piVars = $this->request->getArguments();
-        $this->id = (int)GeneralUtility::_GP('id');
+        $this->id = (int)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? null);
 
         $this->moduleData = $this->request->getAttribute('moduleData');
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -71,7 +60,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
@@ -82,7 +70,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws NoSuchArgumentException
@@ -90,8 +77,8 @@ class ModuleController extends AbstractController
      */
     public function listAction(): ResponseInterface
     {
-        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
-        $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
+        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
+        $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
 
         $currentPage = (int)($this->request->getQueryParams()['currentPage'] ?? 1);
         $currentPage = $currentPage > 0 ? $currentPage : 1;
@@ -125,7 +112,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface|null
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -159,11 +145,11 @@ class ModuleController extends AbstractController
                 ->withAddedHeader('Pragma', 'no-cache')
                 ->withBody($this->streamFactory->createStreamFromFile($tmpFilename));
         }
+
         return null;
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -189,7 +175,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
@@ -215,7 +200,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws PropertyNotAccessibleException
@@ -242,7 +226,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
@@ -256,17 +239,11 @@ class ModuleController extends AbstractController
         return $this->moduleTemplate->renderResponse('OverviewBe');
     }
 
-    /**
-     * @return void
-     */
     public function initializeCheckBeAction(): void
     {
         $this->checkAdminPermissions();
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function checkBeAction(): ResponseInterface
     {
         $this->moduleTemplate->assign('pid', $this->id);
@@ -275,10 +252,6 @@ class ModuleController extends AbstractController
         return $this->moduleTemplate->renderResponse('CheckBe');
     }
 
-    /**
-     * @param null $email
-     * @return void
-     */
     protected function sendTestEmail($email = null): void
     {
         if ($email !== null && GeneralUtility::validEmail($email)) {
@@ -295,7 +268,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeConverterBeAction(): void
@@ -304,7 +276,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixUploadFolderAction(): void
@@ -323,7 +294,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedFormsAction(): void
@@ -341,7 +311,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedPagesAction(): void
@@ -362,14 +331,13 @@ class ModuleController extends AbstractController
     /**
      * Check if admin is logged in
      *        If not, forward to tools overview
-     *
-     * @return ResponseInterface|null
      */
     protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
             return new ForwardResponse('toolsBe');
         }
+
         return null;
     }
 }

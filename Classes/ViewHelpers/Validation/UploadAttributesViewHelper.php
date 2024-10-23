@@ -13,10 +13,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class UploadAttributesViewHelper extends AbstractValidationViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
@@ -26,7 +23,6 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
     /**
      * Array for multiple upload
      *
-     * @return array
      * @throws DBALException
      */
     public function render(): array
@@ -39,10 +35,12 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
         if ($field->getMultiselectForField()) {
             $additionalAttributes['multiple'] = 'multiple';
         }
+
         if (!empty($this->settings['misc']['file']['extension'])) {
             $additionalAttributes['accept'] =
                 $this->getDottedListOfExtensions($this->settings['misc']['file']['extension']);
         }
+
         if ($this->isClientValidationEnabled()) {
             if (!empty($this->settings['misc']['file']['size'])) {
                 $additionalAttributes['data-powermail-powermailfilesize'] =
@@ -50,12 +48,14 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
                 $additionalAttributes['data-powermail-powermailfilesize-message'] =
                     LocalizationUtility::translate('validationerror_upload_size');
             }
+
             if (!empty($this->settings['misc']['file']['extension'])) {
                 $additionalAttributes['data-powermail-powermailfileextensions'] = $field->getMarker();
                 $additionalAttributes['data-powermail-powermailfileextensions-message'] =
                     LocalizationUtility::translate('validationerror_upload_extension');
             }
         }
+
         return $additionalAttributes;
     }
 
@@ -63,17 +63,15 @@ class UploadAttributesViewHelper extends AbstractValidationViewHelper
      * Get extensions with dot as prefix
      *      before: jpg,png,gif
      *      after: .jpg,.png,.gif
-     *
-     * @param string $extensionList
-     * @return string
      */
     protected function getDottedListOfExtensions(string $extensionList): string
     {
         $extensions = GeneralUtility::trimExplode(',', $extensionList, true);
         $dottedList = implode(',.', $extensions);
-        if (!empty($dottedList)) {
-            $dottedList = '.' . $dottedList;
+        if ($dottedList !== '' && $dottedList !== '0') {
+            return '.' . $dottedList;
         }
+
         return $dottedList;
     }
 }

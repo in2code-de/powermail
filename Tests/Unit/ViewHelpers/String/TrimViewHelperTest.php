@@ -16,9 +16,6 @@ class TrimViewHelperTest extends UnitTestCase
      */
     protected $trimViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->trimViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class TrimViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->trimViewHelperMock);
@@ -37,8 +31,6 @@ class TrimViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for renderReturnsString()
-     *
-     * @return array
      */
     public static function renderReturnsStringDataProvider(): array
     {
@@ -48,15 +40,15 @@ class TrimViewHelperTest extends UnitTestCase
                 'abc',
             ],
             [
-                "\t" . 'abc' . "\t",
+                '	abc	',
                 'abc',
             ],
             [
-                'a' . " \t  " . 'b' . " \t " . 'c',
+                'a 	  b 	 c',
                 'a b c',
             ],
             [
-                'a' . "\t\t\t\t" . 'b' . "\t\t\t" . 'c',
+                'a				b			c',
                 'a b c',
             ],
             [
@@ -85,12 +77,11 @@ class TrimViewHelperTest extends UnitTestCase
     /**
      * @param string $string
      * @param string $expectedResult
-     * @return void
      * @dataProvider renderReturnsStringDataProvider
      * @test
      * @covers ::render
      */
-    public function renderReturnsString($string, $expectedResult)
+    public function renderReturnsString($string, $expectedResult): void
     {
         $this->trimViewHelperMock->_set('renderChildrenString', $string);
         self::assertSame($expectedResult, $this->trimViewHelperMock->_call('render'));
@@ -98,8 +89,6 @@ class TrimViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for removeDuplicatedWhitespaceReturnsString()
-     *
-     * @return array
      */
     public static function removeDuplicatedWhitespaceReturnsStringDataProvider(): array
     {
@@ -122,12 +111,11 @@ class TrimViewHelperTest extends UnitTestCase
     /**
      * @param string $string
      * @param string $expectedResult
-     * @return void
      * @dataProvider removeDuplicatedWhitespaceReturnsStringDataProvider
      * @test
      * @covers ::removeDuplicatedWhitespace
      */
-    public function removeDuplicatedWhitespaceReturnsString($string, $expectedResult)
+    public function removeDuplicatedWhitespaceReturnsString($string, $expectedResult): void
     {
         self::assertSame($expectedResult, $this->trimViewHelperMock->_call('removeDuplicatedWhitespace', $string));
     }

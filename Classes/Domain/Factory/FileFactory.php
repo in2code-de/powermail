@@ -22,26 +22,14 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
  */
 class FileFactory
 {
-    /**
-     * @var array
-     */
-    protected array $settings = [];
-
-    /**
-     * @param array $settings
-     */
-    public function __construct(array $settings)
+    public function __construct(protected array $settings)
     {
-        $this->settings = $settings;
     }
 
     /**
      * Get instance of File from Files Array
      *
      * @param array $filesArray normally $_FILES['tx_powermail_pi1']
-     * @param string $marker
-     * @param int $key
-     * @return File|null
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -56,16 +44,13 @@ class FileFactory
         if (!empty($originalName) && !empty($temporaryName) && $size > 0) {
             return $this->makeFileInstance($marker, $originalName, $size, $type, $temporaryName);
         }
+
         return null;
     }
 
     /**
      * Get instance of File from arguments
      *
-     * @param string $marker
-     * @param string $value
-     * @param array $arguments
-     * @return File|null
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -76,18 +61,16 @@ class FileFactory
     {
         $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByMarkerAndForm($marker, (int)$arguments['mail']['form']);
-        if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && !empty($value)) {
+        if ($field !== null && $field->dataTypeFromFieldType($field->getType()) === 3 && ($value !== '' && $value !== '0')) {
             return $this->makeFileInstance($marker, $value, 0, '', '', true);
         }
+
         return null;
     }
 
     /**
      * Get instance of File from existing answer
      *
-     * @param string $fileName
-     * @param Answer $answer
-     * @return File
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -104,14 +87,7 @@ class FileFactory
      * This subfunction is used to create a file instance. E.g. when a file was just uploaded or when a confirmation
      * page is active, when a file was already uploaded in the step before.
      *
-     * @param string $marker
-     * @param string $originalName
-     * @param int $size
-     * @param string $type
-     * @param string $temporaryName
-     * @param bool $uploaded
      * @param ?Form $form
-     * @return File
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -132,10 +108,12 @@ class FileFactory
         if ($size === 0) {
             $size = (int)filesize($file->getNewPathAndFilename(true));
         }
+
         $file->setSize($size);
         if ($type === '') {
             $type = (new FileInfo($file->getTemporaryName()))->getMimeType() ?: 'application/octet-stream';
         }
+
         $file->setType($type);
         $file->setUploaded($uploaded);
 
@@ -145,9 +123,6 @@ class FileFactory
         return $file;
     }
 
-    /**
-     * @return string
-     */
     protected function getUploadFolder(): string
     {
         return $this->settings['misc']['file']['folder'];
@@ -155,14 +130,14 @@ class FileFactory
 
     /**
      * @param ?Form $form
-     * @return int
      */
     protected function getFormUid(Form $form = null): int
     {
-        if ($form === null) {
+        if (!$form instanceof \In2code\Powermail\Domain\Model\Form) {
             $arguments = FrontendUtility::getArguments(FrontendUtility::getPluginName());
             return (int)$arguments['mail']['form'];
         }
+
         return $form->getUid();
     }
 }

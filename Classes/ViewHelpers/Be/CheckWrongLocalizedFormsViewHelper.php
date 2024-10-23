@@ -15,8 +15,6 @@ class CheckWrongLocalizedFormsViewHelper extends AbstractViewHelper
     /**
      * Check if there are localized records with
      *        tx_powermail_domain_model_form.pages = ""
-     *
-     * @return bool
      */
     public function render(): bool
     {

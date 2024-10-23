@@ -13,8 +13,6 @@ class TrimViewHelper extends AbstractViewHelper
 {
     /**
      * Trim outer and inner HTML for CSV files
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -22,15 +20,11 @@ class TrimViewHelper extends AbstractViewHelper
         $string = $this->removeDuplicatedWhitespace($string);
         $string = StringUtility::br2nl($string);
         $string = $this->removeWhiteSpaceForEveryLine($string);
-        $string = $this->removeCsvWhitespace($string);
-        return $string;
+        return $this->removeCsvWhitespace($string);
     }
 
     /**
      * Replace duplicated whitespace with a single space
-     *
-     * @param string $string
-     * @return string
      */
     protected function removeDuplicatedWhitespace(string $string): string
     {
@@ -39,9 +33,6 @@ class TrimViewHelper extends AbstractViewHelper
 
     /**
      * Trim every single line
-     *
-     * @param string $string
-     * @return string
      */
     protected function removeWhiteSpaceForEveryLine(string $string): string
     {
@@ -50,9 +41,6 @@ class TrimViewHelper extends AbstractViewHelper
 
     /**
      * Remove space in csv list (separated with semicolons)
-     *
-     * @param string $string
-     * @return string
      */
     protected function removeCsvWhitespace(string $string): string
     {

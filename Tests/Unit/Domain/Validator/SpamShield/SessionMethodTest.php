@@ -20,9 +20,6 @@ class SessionMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -36,20 +33,16 @@ class SessionMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::spamCheck
      */
-    public function spamCheckReturnsVoid()
+    public function spamCheckReturnsVoid(): void
     {
         $settings = [
             'spamshield' => [

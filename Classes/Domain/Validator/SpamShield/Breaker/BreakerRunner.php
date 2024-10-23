@@ -15,40 +15,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BreakerRunner
 {
-    /**
-     * @var string
-     */
     protected string $interface = BreakerInterface::class;
 
     /**
-     * @var ?Mail
-     */
-    protected ?Mail $mail = null;
-
-    /**
-     * @var array
-     */
-    protected array $settings = [];
-
-    /**
-     * @var array
-     */
-    protected array $flexForm = [];
-
-    /**
      * @param Mail $mail
-     * @param array $settings
-     * @param array $flexForm
      */
-    public function __construct(Mail $mail, array $settings, array $flexForm)
+    public function __construct(protected ?Mail $mail, protected array $settings, protected array $flexForm)
     {
-        $this->mail = $mail;
-        $this->settings = $settings;
-        $this->flexForm = $flexForm;
     }
 
     /**
-     * @return bool
      * @throws ClassDoesNotExistException
      * @throws ConfigurationIsMissingException
      * @throws InterfaceNotImplementedException
@@ -62,18 +38,21 @@ class BreakerRunner
                     1516024297083
                 );
             }
+
             if (!class_exists($breaker['class'])) {
                 throw new ClassDoesNotExistException(
                     'Class ' . $breaker['class'] . ' does not exists - check if file was loaded with autoloader',
                     1516024305363
                 );
             }
+
             if (!is_subclass_of($breaker['class'], $this->interface)) {
                 throw new InterfaceNotImplementedException(
                     'Breaker method does not implement ' . $this->interface,
                     1516024315548
                 );
             }
+
             /** @var AbstractBreaker $breakerInstance */
             $breakerInstance = GeneralUtility::makeInstance(
                 $breaker['class'],
@@ -87,20 +66,19 @@ class BreakerRunner
                 return true;
             }
         }
+
         return false;
     }
 
-    /**
-     * @return array
-     */
     protected function getBreaker(): array
     {
         $breakerConfiguration = [];
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $settings = $configurationService->getTypoScriptSettings();
         if (!empty($settings['spamshield']['_disable'])) {
-            $breakerConfiguration = $settings['spamshield']['_disable'];
+            return $settings['spamshield']['_disable'];
         }
+
         return $breakerConfiguration;
     }
 }

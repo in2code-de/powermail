@@ -15,9 +15,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class MailRepositoryTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
     protected bool $resetSingletonInstances = true;
 
     /**
@@ -25,9 +22,6 @@ class MailRepositoryTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -81,12 +75,11 @@ class MailRepositoryTest extends UnitTestCase
     /**
      * @param array $values
      * @param string $expectedResult
-     * @return void
      * @dataProvider getLabelsWithMarkersFromMailReturnsArrayDataProvider
      * @test
      * @covers ::getLabelsWithMarkersFromMail
      */
-    public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult)
+    public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult): void
     {
         $mail = new Mail();
         if (is_array($values)) {
@@ -167,7 +160,6 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @return void
      * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
      * @test
      * @covers ::getSenderMailFromArguments
@@ -177,7 +169,7 @@ class MailRepositoryTest extends UnitTestCase
         $fallback,
         $defaultMailFromAddress,
         $expectedResult
-    ) {
+    ): void {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $defaultMailFromAddress;
         $mail = new Mail();
         if (is_array($values)) {
@@ -252,7 +244,6 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @return void
      * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
      * @test
      * @covers ::getSenderMailFromArguments
@@ -262,7 +253,7 @@ class MailRepositoryTest extends UnitTestCase
         $fallback,
         $defaultMailFromAddress,
         $expectedResult
-    ) {
+    ): void {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $defaultMailFromAddress;
         $mail = new Mail();
         if (is_array($values)) {
@@ -285,11 +276,10 @@ class MailRepositoryTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::cleanStringForQuery
      */
-    public function cleanStringForQueryReturnsString()
+    public function cleanStringForQueryReturnsString(): void
     {
         $str = '1a2b3+üßT$st';
         $result = $this->generalValidatorMock->_call('cleanStringForQuery', $str);

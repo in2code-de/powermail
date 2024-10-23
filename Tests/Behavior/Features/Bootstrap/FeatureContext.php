@@ -16,13 +16,13 @@ class FeatureContext extends MinkContext
      * @Given /^I wait "([^"]*)" seconds$/
      *
      * @param string|int $seconds
-     * @return void
      */
-    public function iWaitSeconds($seconds)
+    public function iWaitSeconds($seconds): void
     {
         if ($seconds === 'a few') {
             $seconds = 10;
         }
+
         sleep($seconds);
     }
 
@@ -31,7 +31,6 @@ class FeatureContext extends MinkContext
      *
      * @param string $datetime like "23.01.2022 14:15"
      * @param string $field input name
-     * @return void
      */
     public function fillDateTimeField(string $datetime, string $field): void
     {
@@ -46,10 +45,9 @@ class FeatureContext extends MinkContext
      * @Then /^the sourcecode should contain \'([^\']*)\'$/
      *
      * @param string $html
-     * @return void
      * @throws \Behat\Mink\Exception\ExpectationException
      */
-    public function theSourcecodeShouldContain($html)
+    public function theSourcecodeShouldContain($html): void
     {
         $html = str_replace('\n', PHP_EOL, $html);
         $this->assertSession()->responseContains($this->fixStepArgument($html));
@@ -61,10 +59,9 @@ class FeatureContext extends MinkContext
      * @When /^(?:|I )click on the element "([^"]*)"$/
      *
      * @param string $locator
-     * @return void
      * @throws ElementNotFoundException
      */
-    public function iClickOnTheElement($locator)
+    public function iClickOnTheElement($locator): void
     {
         $session = $this->getSession();
         $element = $session->getPage()->find('css', $locator);
@@ -85,9 +82,8 @@ class FeatureContext extends MinkContext
      * @Given /^I switch to iframe "([^"]*)"$/
      *
      * @param string $arg1
-     * @return void
      */
-    public function iSwitchToIframe($arg1 = null)
+    public function iSwitchToIframe(?string $arg1 = null): void
     {
         $this->getSession()->switchToIFrame($arg1);
     }
@@ -97,12 +93,10 @@ class FeatureContext extends MinkContext
      *
      * @Given /^I switch to iframe number ([0-9]+)$/
      *
-     * @param int $arg1
-     * @return void
      * @throws DriverException
      * @throws UnsupportedDriverActionException
      */
-    public function iSwitchToIframeNumber(int $arg1 = 0)
+    public function iSwitchToIframeNumber(int $arg1 = 0): void
     {
         $this->getSession()->getDriver()->switchToIFrame($arg1);
     }
@@ -112,10 +106,9 @@ class FeatureContext extends MinkContext
      *
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random value$/
      * @param string $field
-     * @return void
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function fillWithRandomValue($field)
+    public function fillWithRandomValue($field): void
     {
         $value = $this->createRandomString();
         $field = $this->fixStepArgument($field);
@@ -128,10 +121,9 @@ class FeatureContext extends MinkContext
      *
      * @When /^(?:|I )fill in "(?P<field>(?:[^"]|\\")*)" with a random email$/
      * @param string $field
-     * @return void
      * @throws \Behat\Mink\Exception\ElementNotFoundException
      */
-    public function fillWithRandomEmail($field)
+    public function fillWithRandomEmail($field): void
     {
         $value = $this->createRandomString() . '@email.org';
         $field = $this->fixStepArgument($field);
@@ -146,12 +138,6 @@ class FeatureContext extends MinkContext
      */
     public function scrollToTop()
     {
-        $function = <<<JS
-(function(){
-  var elem = document.querySelector("body");
-  elem.scrollIntoView(false);
-})()
-JS;
     }
 
     /**
@@ -160,7 +146,7 @@ JS;
      * @param string $selector Allowed selectors: #id, .className, //xpath
      * @throws \Exception
      */
-    public function scrollIntoView($selector)
+    public function scrollIntoView($selector): void
     {
         $locator = substr($selector, 0, 1);
 
@@ -169,7 +155,7 @@ JS;
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
-  var elem = document.querySelector("$selector");
+  var elem = document.querySelector("{$selector}");
   elem.scrollIntoView(false);
 })()
 JS;
@@ -178,7 +164,7 @@ JS;
             case '/': // XPath selector
                 $function = <<<JS
 (function(){
-  var elem = document.evaluate("$selector", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+  var elem = document.evaluate("{$selector}", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
   elem.scrollIntoView(false);
 })()
 JS;
@@ -188,7 +174,7 @@ JS;
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
-  var elem = document.getElementById("$selector");
+  var elem = document.getElementById("{$selector}");
   elem.scrollIntoView(false);
 })()
 JS;
@@ -198,21 +184,20 @@ JS;
                 $selector = substr($selector, 1);
                 $function = <<<JS
 (function(){
-  var elem = document.getElementsByClassName("$selector");
+  var elem = document.getElementsByClassName("{$selector}");
   elem[0].scrollIntoView(false);
 })()
 JS;
                 break;
 
             default:
-                throw new \Exception(__METHOD__ . ' Couldn\'t find selector: ' . $selector . ' - Allowed selectors: #id, .className, //xpath');
-                break;
+                throw new \Exception(__METHOD__ . " Couldn't find selector: " . $selector . ' - Allowed selectors: #id, .className, //xpath', 4947440907);
         }
 
         try {
             $this->getSession()->executeScript($function);
-        } catch (Exception $e) {
-            throw new \Exception(__METHOD__ . ' failed');
+        } catch (Exception) {
+            throw new \Exception(__METHOD__ . ' failed', 6253197633);
         }
     }
 
@@ -221,19 +206,20 @@ JS;
      *
      * @param int $length
      * @param bool $lowerAndUpperCase
-     * @return string
      */
-    protected function createRandomString($length = 32, $lowerAndUpperCase = true)
+    protected function createRandomString($length = 32, $lowerAndUpperCase = true): string
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyz';
         if ($lowerAndUpperCase) {
             $characters .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         }
+
         $fileName = '';
         for ($i = 0; $i < $length; $i++) {
             $key = mt_rand(0, strlen($characters) - 1);
             $fileName .= $characters[$key];
         }
+
         return $fileName;
     }
 }

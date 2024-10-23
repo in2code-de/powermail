@@ -16,9 +16,6 @@ class ExportServiceTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class ExportServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -61,11 +55,10 @@ class ExportServiceTest extends UnitTestCase
      * @param string $format
      * @param string $expectedResult
      * @dataProvider getRelativeTemplatePathAndFileNameReturnsStringDataProvider
-     * @return void
      * @test
      * @covers ::getRelativeTemplatePathAndFileName
      */
-    public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult)
+    public function getRelativeTemplatePathAndFileNameReturnsString($format, $expectedResult): void
     {
         $this->generalValidatorMock->setFormat($format);
         self::assertSame($this->generalValidatorMock->_call('getRelativeTemplatePathAndFileName'), $expectedResult);
@@ -101,11 +94,10 @@ class ExportServiceTest extends UnitTestCase
      * @param string $format
      * @param string $expectedResult
      * @dataProvider getFormatReturnsStringDataProvider
-     * @return void
      * @test
      * @covers ::getFormat
      */
-    public function getFormatReturnsString($format, $expectedResult)
+    public function getFormatReturnsString($format, $expectedResult): void
     {
         $this->generalValidatorMock->setFormat($format);
         self::assertSame($this->generalValidatorMock->_call('getFormat'), $expectedResult);

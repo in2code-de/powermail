@@ -9,37 +9,11 @@ use In2code\Powermail\Domain\Model\Mail;
 final class PrefillFieldViewHelperEvent
 {
     /**
-     * @var string|array
-     */
-    protected $value;
-
-    /**
-     * @var Field
-     */
-    protected Field $field;
-
-    /**
-     * @var ?Mail
-     */
-    protected ?Mail $mail;
-
-    /**
-     * @var string|array|null
-     */
-    protected $default;
-
-    /**
      * @param string|array $value
-     * @param Field $field
-     * @param ?Mail $mail
      * @param string|array|null $default
      */
-    public function __construct($value, Field $field, ?Mail $mail, $default)
+    public function __construct(protected $value, protected Field $field, protected ?Mail $mail, protected $default)
     {
-        $this->value = $value;
-        $this->field = $field;
-        $this->mail = $mail;
-        $this->default = $default;
     }
 
     /**
@@ -52,7 +26,6 @@ final class PrefillFieldViewHelperEvent
 
     /**
      * @param array|string $value
-     * @return PrefillFieldViewHelperEvent
      */
     public function setValue($value): PrefillFieldViewHelperEvent
     {
@@ -60,17 +33,11 @@ final class PrefillFieldViewHelperEvent
         return $this;
     }
 
-    /**
-     * @return Field
-     */
     public function getField(): Field
     {
         return $this->field;
     }
 
-    /**
-     * @return ?Mail
-     */
     public function getMail(): ?Mail
     {
         return $this->mail;

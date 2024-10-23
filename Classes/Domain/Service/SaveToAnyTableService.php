@@ -19,7 +19,9 @@ use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 class SaveToAnyTableService
 {
     const MODE_INSERT = 'insert';
+
     const MODE_UPDATE = 'update';
+
     const MODE_NONE = 'none';
 
     /**
@@ -72,7 +74,6 @@ class SaveToAnyTableService
     protected $devLog = false;
 
     /**
-     * @param string $table
      * @throws PropertiesMissingException
      */
     public function __construct(string $table)
@@ -102,6 +103,7 @@ class SaveToAnyTableService
             default:
                 $uid = $this->insert();
         }
+
         $this->writeToDevLog();
         return $uid;
     }
@@ -115,7 +117,7 @@ class SaveToAnyTableService
     {
         $connection = $this->getConnection();
         $connection->insert($this->getTable(), $this->getProperties());
-        return (int)$connection->lastInsertId($this->getTable());
+        return (int)$connection->lastInsertId();
     }
 
     /**
@@ -148,12 +150,11 @@ class SaveToAnyTableService
     /**
      * Check if there are properties
      *
-     * @return void
      * @throws PropertiesMissingException
      */
     protected function checkProperties(): void
     {
-        if (empty($this->getProperties())) {
+        if ($this->getProperties() === []) {
             throw new PropertiesMissingException('No properties to insert/update given', 1578607503);
         }
     }
@@ -161,23 +162,20 @@ class SaveToAnyTableService
     /**
      * Set TableName
      *
-     * @param string $table
-     * @return void
      * @throws PropertiesMissingException
      */
     public function setTable(string $table): void
     {
-        if (empty($table)) {
+        if ($table === '' || $table === '0') {
             throw new PropertiesMissingException('No tablename given', 1578607506);
         }
+
         $this->removeNotAllowedSigns($table);
         $this->table = $table;
     }
 
     /**
      * Get TableName
-     *
-     * @return string
      */
     public function getTable(): string
     {
@@ -186,8 +184,6 @@ class SaveToAnyTableService
 
     /**
      * Read properties
-     *
-     * @return array
      */
     public function getProperties(): array
     {
@@ -196,26 +192,20 @@ class SaveToAnyTableService
 
     /**
      * Get one property value
-     *
-     * @param string $propertyName
-     * @return string
      */
     public function getProperty(string $propertyName): string
     {
         $currentProperty = '';
         $properties = $this->getProperties();
         if (array_key_exists($propertyName, $properties)) {
-            $currentProperty = $properties[$propertyName];
+            return $properties[$propertyName];
         }
+
         return $currentProperty;
     }
 
     /**
      * Add property/value pair to array
-     *
-     * @param string $propertyName
-     * @param string $value
-     * @return void
      */
     public function addProperty(string $propertyName, string $value): void
     {
@@ -223,10 +213,6 @@ class SaveToAnyTableService
         $this->properties[$propertyName] = $value;
     }
 
-    /**
-     * @param string $mode
-     * @return void
-     */
     public function setMode(string $mode): void
     {
         $possibleModes = [
@@ -239,68 +225,41 @@ class SaveToAnyTableService
         }
     }
 
-    /**
-     * @return string
-     */
     public function getMode(): string
     {
         return $this->mode;
     }
 
-    /**
-     * @param string $uniqueField
-     * @return void
-     */
     public function setUniqueField(string $uniqueField): void
     {
         $this->uniqueField = $uniqueField;
     }
 
-    /**
-     * @return string
-     */
     public function getUniqueField(): string
     {
         return $this->uniqueField;
     }
 
-    /**
-     * @return string
-     */
     public function getUniqueIdentifier(): string
     {
         return $this->uniqueIdentifier;
     }
 
-    /**
-     * @param bool $devLog
-     * @return void
-     */
     public function setDevLog(bool $devLog): void
     {
         $this->devLog = $devLog;
     }
 
-    /**
-     * @return bool
-     */
     public function isDevLog(): bool
     {
         return $this->devLog;
     }
 
-    /**
-     * @return string
-     */
     public function getAdditionalWhere(): string
     {
         return $this->additionalWhere;
     }
 
-    /**
-     * @param string $additionalWhere
-     * @return void
-     */
     public function setAdditionalWhere(string $additionalWhere): void
     {
         $this->additionalWhere = ' ' . $additionalWhere;
@@ -308,9 +267,6 @@ class SaveToAnyTableService
 
     /**
      * Remove not allowed signs
-     *
-     * @param string $string
-     * @return void
      */
     protected function removeNotAllowedSigns(string &$string): void
     {
@@ -319,8 +275,6 @@ class SaveToAnyTableService
 
     /**
      * Write settings to devlog
-     *
-     * @return void
      */
     protected function writeToDevLog(): void
     {
@@ -328,7 +282,7 @@ class SaveToAnyTableService
             $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
             $subject .= ', Mode: ' . $this->getMode();
             $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
-            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger = ObjectUtility::getLogger(self::class);
             $logger->info($subject, $this->getProperties());
         }
     }
@@ -336,7 +290,6 @@ class SaveToAnyTableService
     /**
      * Find existing record in database
      *
-     * @return array
      * @throws DBALException
      */
     protected function getExistingEntry(): array
@@ -356,7 +309,6 @@ class SaveToAnyTableService
     }
 
     /**
-     * @return string
      * @throws DBALException
      */
     protected function getDeletedWhereClause(): string
@@ -365,11 +317,11 @@ class SaveToAnyTableService
         if ($this->isFieldExisting('deleted')) {
             $where .= ' and deleted = 0';
         }
+
         return $where;
     }
 
     /**
-     * @return void
      * @throws DatabaseFieldMissingException
      * @throws DBALException
      */
@@ -378,15 +330,13 @@ class SaveToAnyTableService
         if (!$this->isFieldExisting($this->getUniqueIdentifier())) {
             throw new DatabaseFieldMissingException(
                 'Field ' . $this->getUniqueIdentifier() . ' in table ' . $this->getTable() . ' does not exist,' .
-                ' but it\'s needed for _ifUnique functionality',
+                " but it's needed for _ifUnique functionality",
                 1579186701
             );
         }
     }
 
     /**
-     * @param string $field
-     * @return bool
      * @throws DBALException
      */
     protected function isFieldExisting(string $field): bool
@@ -394,17 +344,11 @@ class SaveToAnyTableService
         return DatabaseUtility::isFieldExistingInTable($field, $this->getTable());
     }
 
-    /**
-     * @return Connection
-     */
     protected function getConnection(): Connection
     {
         return DatabaseUtility::getConnectionForTable($this->getTable());
     }
 
-    /**
-     * @return QueryBuilder
-     */
     protected function getQueryBuilder(): QueryBuilder
     {
         return DatabaseUtility::getQueryBuilderForTable($this->getTable(), true);

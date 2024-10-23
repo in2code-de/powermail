@@ -16,9 +16,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
  */
 class CaptchaViewHelper extends AbstractTagBasedViewHelper
 {
-    /**
-     * @var string|null
-     */
     protected ?string $error = null;
 
     /**
@@ -26,7 +23,7 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
      *
      * @api
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'powermail field', true);
@@ -50,7 +47,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     }
 
     /**
-     * @return string
      * @throws ExceptionCore
      */
     protected function getImage(): string
@@ -63,10 +59,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
         return $this->tag->render();
     }
 
-    /**
-     * @param Exception $exception
-     * @return string
-     */
     protected function getErrorMessage(Exception $exception): string
     {
         $this->tag->setTagName('p');
@@ -77,7 +69,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
     }
 
     /**
-     * @param Field $field
      * @return string image URL
      * @throws ExceptionCore
      */
@@ -87,9 +78,6 @@ class CaptchaViewHelper extends AbstractTagBasedViewHelper
         return  $captchaService->render($field);
     }
 
-    /**
-     * @return array
-     */
     public function getSettings(): array
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);

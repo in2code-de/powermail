@@ -22,19 +22,15 @@ class ObjectUtility
      */
     public static function getTyposcriptFrontendController(): ?TypoScriptFrontendController
     {
-        return array_key_exists('TSFE', $GLOBALS) ? $GLOBALS['TSFE'] : null;
+        return $GLOBALS['TSFE'] ?? null;
     }
 
-    /**
-     * @return ContentObjectRenderer
-     */
     public static function getContentObject(): ContentObjectRenderer
     {
         return GeneralUtility::makeInstance(ContentObjectRenderer::class);
     }
 
     /**
-     * @return ConfigurationManager
      * @codeCoverageIgnore
      */
     public static function getConfigurationManager(): ConfigurationManager
@@ -43,16 +39,14 @@ class ObjectUtility
     }
 
     /**
-     * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getFilesArray(): array
     {
-        return (array)$_FILES;
+        return $_FILES;
     }
 
     /**
-     * @return LanguageService
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getLanguageService(): LanguageService
@@ -60,10 +54,6 @@ class ObjectUtility
         return $GLOBALS['LANG'];
     }
 
-    /**
-     * @param string $className
-     * @return Logger
-     */
     public static function getLogger(string $className): Logger
     {
         return GeneralUtility::makeInstance(LogManager::class)->getLogger($className);

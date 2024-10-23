@@ -17,9 +17,6 @@ class IpBlacklistMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -33,20 +30,16 @@ class IpBlacklistMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::reduceDelimiters
      */
-    public function reduceDelimitersReturnsString()
+    public function reduceDelimitersReturnsString(): void
     {
         $string = ',;,' . PHP_EOL . ',';
         self::assertSame(',,,,,', $this->generalValidatorMock->_call('reduceDelimiters', $string));

@@ -12,8 +12,6 @@ class EvaluateEmail
 {
     /**
      * Adds new JavaScript function for evaluation of the TCA fields in backend
-     *
-     * @return string
      */
     public function returnFieldJS(): string
     {
@@ -54,7 +52,6 @@ class EvaluateEmail
      * @param string $value The field value to be evaluated.
      * @param string $isIn The "isIn" value of the field configuration from TCA
      * @param bool $set defining if the value is written to the database or not.
-     * @return string
      */
     public function evaluateFieldValue(string $value, string $isIn, bool &$set): string
     {
@@ -65,6 +62,7 @@ class EvaluateEmail
             $set = 0;
             $value = 'errorinemail@tryagain.com';
         }
+
         return $value;
     }
 }

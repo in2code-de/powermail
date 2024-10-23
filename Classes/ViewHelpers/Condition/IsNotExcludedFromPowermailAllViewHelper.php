@@ -25,10 +25,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         'optin' => 'optinMail',
     ];
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('answer', Answer::class, 'Answer', true);
@@ -39,7 +36,6 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
     /**
      * View helper check if value should be returned or not
      *
-     * @return bool
      * @throws DBALException
      */
     public function render(): bool
@@ -58,18 +54,12 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
         ) {
             return false;
         }
-
         // excludeFromMarkerNames
-        if ($answer->getField() &&
+        return !($answer->getField() &&
             in_array(
                 $answer->getField()->getMarker(),
                 $this->getExcludedValues($type, $settings, 'excludeFromMarkerNames')
-            )
-        ) {
-            return false;
-        }
-
-        return true;
+            ));
     }
 
     /**
@@ -78,11 +68,6 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
      *            submitPage.excludeFromMarkerNames = marker1, marker2
      *            submitPage.excludeFromFieldTypes = marker1, marker2
      *        }
-     *
-     * @param string $type
-     * @param array $settings
-     * @param string $configurationType
-     * @return array
      */
     protected function getExcludedValues(
         string $type,
@@ -100,6 +85,7 @@ class IsNotExcludedFromPowermailAllViewHelper extends AbstractViewHelper
                 true
             );
         }
+
         return [];
     }
 }

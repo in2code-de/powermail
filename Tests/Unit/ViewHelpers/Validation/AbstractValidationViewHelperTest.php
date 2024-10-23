@@ -16,9 +16,6 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class AbstractValidationViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -39,8 +33,6 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      * Dataprovider for
      *        isNativeValidationEnabledReturnsBool()
      *        isClientValidationEnabledReturnsBool()
-     *
-     * @return array
      */
     public static function isValidationEnabledReturnsBoolDataProvider(): array
     {
@@ -92,12 +84,11 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      * @param array $settings
      * @param bool $expectedNativeResult
      * @param bool $expectedClientResult
-     * @return void
      * @dataProvider isValidationEnabledReturnsBoolDataProvider
      * @test
      * @covers ::isNativeValidationEnabled
      */
-    public function isNativeValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult)
+    public function isNativeValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult): void
     {
         unset($expectedClientResult);
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
@@ -109,12 +100,11 @@ class AbstractValidationViewHelperTest extends UnitTestCase
      * @param array $settings
      * @param bool $expectedNativeResult
      * @param bool $expectedClientResult
-     * @return void
      * @dataProvider isValidationEnabledReturnsBoolDataProvider
      * @test
      * @covers ::isClientValidationEnabled
      */
-    public function isClientValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult)
+    public function isClientValidationEnabledReturnsBool($settings, $expectedNativeResult, $expectedClientResult): void
     {
         unset($expectedNativeResult);
         $this->abstractValidationViewHelperMock->_set('settings', $settings);

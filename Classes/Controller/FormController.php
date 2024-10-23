@@ -8,11 +8,15 @@ use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Factory\MailFactory;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\FieldRepository;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
+use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Events\CheckIfMailIsAllowedToSaveEvent;
 use In2code\Powermail\Events\FormControllerConfirmationActionEvent;
 use In2code\Powermail\Events\FormControllerCreateActionAfterMailDbSavedEvent;
@@ -32,6 +36,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use function in_array;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -54,18 +59,24 @@ use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
  */
 class FormController extends AbstractController
 {
-    /**
-     * @var PersistenceManager
-     */
-    protected PersistenceManager $persistenceManager;
+    public function __construct(
+        protected FormRepository $formRepository,
+        protected FieldRepository $fieldRepository,
+        protected MailRepository $mailRepository,
+        protected UploadService $uploadService,
+        protected EventDispatcherInterface $eventDispatcher,
+        protected DataProcessorRunner $dataProcessorRunner,
+        protected PersistenceManager $persistenceManager,
+    ) {
+    }
+
+    public function initializeAction(): void
+    {
+        parent::initializeAction();
+        $this->contentObject = $this->request->getAttribute('currentContentObject');
+    }
 
     /**
-     * @var DataProcessorRunner
-     */
-    protected DataProcessorRunner $dataProcessorRunner;
-
-    /**
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function formAction(): ResponseInterface
@@ -73,6 +84,7 @@ class FormController extends AbstractController
         if (!ArrayUtility::isValidPath($this->settings, 'main/form')) {
             return $this->htmlResponse();
         }
+
         /** @var Form $form */
         $form = $this->formRepository->findByUid($this->settings['main']['form']);
 
@@ -95,8 +107,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -107,13 +117,13 @@ class FormController extends AbstractController
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
 
-        if ($response !== null) {
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
             return $response;
         }
 
         $response = $this->forwardIfMailParamEmpty();
 
-        if ($response !== null) {
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
             return $response;
         }
 
@@ -121,7 +131,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @return void
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -132,13 +141,13 @@ class FormController extends AbstractController
     {
         // ToDo -- v13: move exceptions to methods
         $response = $this->forwardIfMailParamEmpty();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
+            throw new PropagateResponseException($response, 1438223918);
         }
 
         $response = $this->forwardIfFormParamsDoNotMatch();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
+            throw new PropagateResponseException($response, 6696086777);
         }
 
         $this->reformatParamsForAction();
@@ -148,19 +157,17 @@ class FormController extends AbstractController
     /**
      * Show a "Are your values ok?" message before final submit (if turned on)
      *
-     * @param Mail $mail
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UploadValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\PasswordValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CaptchaValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\SpamShieldValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
-     * @return ResponseInterface
      * @throws InvalidConfigurationTypeException
      * @noinspection PhpUnused
      */
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UploadValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\InputValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\PasswordValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\CaptchaValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\SpamShieldValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UniqueValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\ForeignValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\CustomValidator::class, 'param' => 'mail'])]
     public function confirmationAction(Mail $mail): ResponseInterface
     {
         if ($mail->getUid() !== null) {
@@ -184,8 +191,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -201,13 +206,13 @@ class FormController extends AbstractController
         );
         $response = $this->forwardIfFormParamsDoNotMatch();
 
-        if ($response !== null) {
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
             return $response;
         }
 
         $response = $this->forwardIfMailParamEmpty();
 
-        if ($response !== null) {
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
             return $response;
         }
 
@@ -215,7 +220,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @return void
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -226,13 +230,13 @@ class FormController extends AbstractController
     {
         // ToDo -- v13: move exceptions to methods
         $response = $this->forwardIfMailParamEmpty();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
+            throw new PropagateResponseException($response, 7727362337);
         }
 
         $response = $this->forwardIfFormParamsDoNotMatch();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
+        if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
+            throw new PropagateResponseException($response, 7970163134);
         }
 
         $this->reformatParamsForAction();
@@ -240,28 +244,26 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @param string $hash
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UploadValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\PasswordValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CaptchaValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\SpamShieldValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\UniqueValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\ForeignValidator", param="mail")
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\CustomValidator", param="mail")
-     * @return ResponseInterface
      * @throws IllegalObjectTypeException
      * @throws InvalidConfigurationTypeException
      * @throws UnknownObjectException
      * @throws Exception
      * @noinspection PhpUnused
      */
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UploadValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\InputValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\PasswordValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\CaptchaValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\SpamShieldValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UniqueValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\ForeignValidator::class, 'param' => 'mail'])]
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\CustomValidator::class, 'param' => 'mail'])]
     public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
         if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
             return (new ForwardResponse('form'))->withoutArguments();
         }
+
         $event = GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
@@ -300,6 +302,7 @@ class FormController extends AbstractController
             $mailPreflight->sendOptinConfirmationMail($mail);
             $this->view->assign('optinActive', true);
         }
+
         if ($this->isMailPersistActive($hash) && $isSavingOfMailAllowed) {
             $this->mailRepository->update($mail);
             $this->persistenceManager->persistAll();
@@ -325,11 +328,6 @@ class FormController extends AbstractController
         return $this->htmlResponse();
     }
 
-    /**
-     * @param Mail $mail
-     * @param string $hash
-     * @return void
-     */
     protected function sendMailPreflight(Mail $mail, string $hash = ''): void
     {
         try {
@@ -342,6 +340,7 @@ class FormController extends AbstractController
                 );
                 $mailPreflight->sendSenderMail($mail);
             }
+
             if ($this->isReceiverMailEnabled()) {
                 $mailPreflight = GeneralUtility::makeInstance(
                     SendReceiverMailPreflight::class,
@@ -358,15 +357,13 @@ class FormController extends AbstractController
                     $this->messageClass = 'error';
                 }
             }
-        } catch (Throwable $exception) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->critical('Mail could not be sent', [$exception->getMessage()]);
+        } catch (Throwable $throwable) {
+            $logger = ObjectUtility::getLogger(self::class);
+            $logger->critical('Mail could not be sent', [$throwable->getMessage()]);
         }
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws InvalidConfigurationTypeException
      * @throws Exception
      */
@@ -389,8 +386,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -401,6 +396,7 @@ class FormController extends AbstractController
     {
         $mailFactory = GeneralUtility::makeInstance(MailFactory::class);
         $mailFactory->prepareMailForPersistence($mail, $this->settings);
+
         $this->mailRepository->add($mail);
         $this->persistenceManager->persistAll();
     }
@@ -410,7 +406,6 @@ class FormController extends AbstractController
      *
      * @param int $mailUid
      * @param string $hash Given Hash String
-     * @return ResponseInterface
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws Exception
@@ -422,7 +417,7 @@ class FormController extends AbstractController
         $labelKey = 'failed';
 
         /** @noinspection PhpUnhandledExceptionInspection */
-        if ($mail !== null && HashUtility::isHashValid($hash, $mail)) {
+        if ($mail instanceof \In2code\Powermail\Domain\Model\Mail && HashUtility::isHashValid($hash, $mail)) {
             $event = GeneralUtility::makeInstance(
                 FormControllerOptinConfirmActionBeforeRenderViewEvent::class,
                 $mail,
@@ -435,7 +430,7 @@ class FormController extends AbstractController
             $hash = $event->getHash();
 
             $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
-            if ($response !== null) {
+            if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
                 return $response;
             }
 
@@ -457,22 +452,22 @@ class FormController extends AbstractController
 
                 return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
             }
+
             if ($mail->getHidden() && !$this->isPersistActive()) {
                 $this->prepareOutput($mail);
                 DatabaseUtility::deleteMailAndAnswersFromDatabase($mail->getUid());
                 return (new ForwardResponse('create'))->withArguments(['mail' => $mail, 'hash' => $hash]);
             }
+
             $labelKey = 'done';
         }
+
         $this->view->assign('labelKey', $labelKey);
 
         return $this->htmlResponse();
     }
 
     /**
-     * @param int $mail
-     * @param string $hash
-     * @return ResponseInterface
      * @throws Exception
      * @noinspection PhpUnused
      */
@@ -481,7 +476,7 @@ class FormController extends AbstractController
         $mail = $this->mailRepository->findByUid($mail);
         $status = false;
 
-        if ($mail !== null && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
+        if ($mail instanceof \In2code\Powermail\Domain\Model\Mail && HashUtility::isHashValid($hash, $mail, 'disclaimer')) {
             $event = GeneralUtility::makeInstance(
                 FormControllerDisclaimerActionBeforeRenderViewEvent::class,
                 $mail,
@@ -502,6 +497,7 @@ class FormController extends AbstractController
             $this->mailRepository->removeFromDatabase($mail->getUid());
             $status = true;
         }
+
         $this->view->assign('status', $status);
 
         return $this->htmlResponse();
@@ -512,7 +508,6 @@ class FormController extends AbstractController
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
-     * @return ResponseInterface
      * @noinspection PhpUnused
      * @codeCoverageIgnore
      */
@@ -530,14 +525,11 @@ class FormController extends AbstractController
     }
 
     /**
-     * @return void
      * @codeCoverageIgnore
      * @throws Exception
      */
     public function initializeObject(): void
     {
-        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-        $this->contentObject = $this->configurationManager->getContentObject();
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->conf = $configurationService->getTypoScriptConfiguration();
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
@@ -547,7 +539,7 @@ class FormController extends AbstractController
         );
         $this->settings = $event->getSettings();
         if (ArrayUtility::isValidPath($this->settings, 'debug/settings') && $this->settings['debug']['settings']) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger = ObjectUtility::getLogger(self::class);
             $logger->info('Powermail settings', $this->settings);
         }
     }
@@ -571,27 +563,27 @@ class FormController extends AbstractController
             }
 
             $formsToContent = GeneralUtility::intExplode(',', ($this->settings['main']['form'] ?? ''));
-            if (!($formUid === null || in_array($formUid, $formsToContent, false))) {
+            if ($formUid !== null && !in_array($formUid, $formsToContent, false)) {
                 return new ForwardResponse('form');
             }
         }
+
         return null;
     }
 
     /**
      * Forward to formAction if no mail param given
-     *
-     * @return ForwardResponse|null
      */
     protected function forwardIfMailParamEmpty(): ?ForwardResponse
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger = ObjectUtility::getLogger(self::class);
             $logger->warning('Redirect (mail empty)', $arguments);
 
             return new ForwardResponse('form');
         }
+
         return null;
     }
 
@@ -600,19 +592,19 @@ class FormController extends AbstractController
      *        used in optinConfirmAction()
      *
      * @param Mail|null $mail
-     * @return ForwardResponse|null
      */
     protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ForwardResponse
     {
-        if ($mail !== null) {
+        if ($mail instanceof \In2code\Powermail\Domain\Model\Mail) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
-                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger = ObjectUtility::getLogger(self::class);
                 $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
 
                 return new ForwardResponse('form');
             }
         }
+
         return null;
     }
 
@@ -620,8 +612,6 @@ class FormController extends AbstractController
      * Always forward to formAction if a validation fails. Otherwise, it could happen that when
      * a validator for createAction fails, confirmationAction is called (if function is turned on) and same validators
      * are firing again
-     *
-     * @return ResponseInterface|null
      */
     protected function forwardToReferringRequest(): ?ResponseInterface
     {
@@ -634,9 +624,6 @@ class FormController extends AbstractController
      *        persist if
      *            - enabled with TypoScript AND hash is not set OR
      *            - optin is enabled AND hash is not set (even if disabled in TS)
-     *
-     * @param string $hash
-     * @return bool
      */
     protected function isMailPersistActive(string $hash = ''): bool
     {
@@ -649,9 +636,6 @@ class FormController extends AbstractController
      *            - optin is deaktivated OR
      *            - optin is active AND hash is correct
      *
-     * @param Mail $mail
-     * @param string $hash
-     * @return bool
      * @throws Exception
      */
     protected function isNoOptin(Mail $mail, string $hash = ''): bool
@@ -661,56 +645,28 @@ class FormController extends AbstractController
     }
 
     /**
-     * @return void
      * @codeCoverageIgnore
      */
     protected function debugVariables(): void
     {
         if (!empty($this->settings['debug']['variables'])) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->info('Variables', GeneralUtility::_POST());
+            $logger = ObjectUtility::getLogger(self::class);
+            $logger->info('Variables', $this->request->getParsedBody());
         }
     }
 
-    /**
-     * @return bool
-     */
     protected function isPersistActive(): bool
     {
         return $this->settings['db']['enable'] === '1';
     }
 
-    /**
-     * @return bool
-     */
     protected function isSenderMailEnabled(): bool
     {
         return $this->settings['sender']['enable'] === '1';
     }
 
-    /**
-     * @return bool
-     */
     protected function isReceiverMailEnabled(): bool
     {
         return $this->settings['receiver']['enable'] === '1';
-    }
-
-    /**
-     * @param DataProcessorRunner $dataProcessorRunner
-     * @return void
-     */
-    public function injectDataProcessorRunner(DataProcessorRunner $dataProcessorRunner): void
-    {
-        $this->dataProcessorRunner = $dataProcessorRunner;
-    }
-
-    /**
-     * @param PersistenceManager $persistenceManager
-     * @return void
-     */
-    public function injectPersistenceManager(PersistenceManager $persistenceManager): void
-    {
-        $this->persistenceManager = $persistenceManager;
     }
 }

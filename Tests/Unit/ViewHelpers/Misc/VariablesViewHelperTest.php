@@ -16,9 +16,6 @@ class VariablesViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class VariablesViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -37,8 +31,6 @@ class VariablesViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for removePowermailAllParagraphTagWrapReturnsString()
-     *
-     * @return array
      */
     public static function removePowermailAllParagraphTagWrapReturnsStringDataProvider(): array
     {
@@ -85,12 +77,11 @@ class VariablesViewHelperTest extends UnitTestCase
     /**
      * @param string $content
      * @param string $expectedResult
-     * @return void
      * @dataProvider removePowermailAllParagraphTagWrapReturnsStringDataProvider
      * @test
      * @covers ::removePowermailAllParagraphTagWrap
      */
-    public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult)
+    public function removePowermailAllParagraphTagWrapReturnsString($content, $expectedResult): void
     {
         $result = $this->abstractValidationViewHelperMock->_call('removePowermailAllParagraphTagWrap', $content);
         self::assertSame($expectedResult, $result);

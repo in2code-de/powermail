@@ -22,9 +22,6 @@ class FieldRepository extends AbstractRepository
     /**
      * Find all records from given uids and
      * respect the sorting
-     *
-     * @param array $uids
-     * @return array
      */
     public function findByUids(array $uids): array
     {
@@ -38,15 +35,13 @@ class FieldRepository extends AbstractRepository
                 $result[] = $field;
             }
         }
+
         return $result;
     }
 
     /**
      * Return uid from given field marker and form
      *
-     * @param string $marker
-     * @param int $formUid
-     * @return Field|null
      * @throws InvalidQueryException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -75,8 +70,6 @@ class FieldRepository extends AbstractRepository
     /**
      * Find all localized records with
      *        tx_powermail_domain_model_field.marker != ""
-     *
-     * @return QueryResultInterface
      */
     public function findAllFieldsWithFilledMarkerrsInLocalizedFields(): QueryResultInterface
     {
@@ -96,55 +89,41 @@ class FieldRepository extends AbstractRepository
      * Find all localized records with
      *        tx_powermail_domain_model_field.page = "0"
      *
-     * @return array
      * @throws Exception
      */
     public function findAllWrongLocalizedFields(): array
     {
-        $pages = [];
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Field::TABLE_NAME, true);
-        $rows = $queryBuilder
+        return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Field::TABLE_NAME)
-            ->where('(page = \'\' or page = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where("(page = '' or page = 0) and sys_language_uid > 0 and deleted = 0")
             ->executeQuery()
             ->fetchAllAssociative();
-        foreach ($rows as $row) {
-            $pages[] = $row;
-        }
-        return $pages;
     }
 
     /**
      * Get parent page uid form given field uid
-     *
-     * @param int $fieldUid
-     * @return int
      */
     protected function getPageUidFromFieldUid(int $fieldUid): int
     {
         $query = $this->createQuery();
         $sql = 'select page';
         $sql .= ' from ' . Field::TABLE_NAME;
-        $sql .= ' where uid = ' . (int)$fieldUid;
+        $sql .= ' where uid = ' . $fieldUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
         return (int)$row[0]['page'];
     }
 
-    /**
-     * @param int $pageUid
-     * @param int $sysLanguageUid
-     * @return int
-     */
     protected function getLocalizedPageUidFromPageUid(int $pageUid, int $sysLanguageUid): int
     {
         $query = $this->createQuery();
         $sql = 'select uid';
         $sql .= ' from ' . Page::TABLE_NAME;
-        $sql .= ' where l10n_parent = ' . (int)$pageUid;
-        $sql .= ' and sys_language_uid = ' . (int)$sysLanguageUid;
+        $sql .= ' where l10n_parent = ' . $pageUid;
+        $sql .= ' and sys_language_uid = ' . $sysLanguageUid;
         $sql .= ' and deleted = 0';
         $row = $query->statement($sql)->execute(true);
         return (int)$row[0]['uid'];
@@ -153,9 +132,6 @@ class FieldRepository extends AbstractRepository
     /**
      * Return uid from given field marker and form (if no IRRE)
      *
-     * @param string $marker
-     * @param int $formUid
-     * @return Field|null
      * @throws InvalidQueryException
      */
     protected function findByMarkerAndFormAlternative(string $marker, int $formUid = 0): ?Field
@@ -199,6 +175,7 @@ class FieldRepository extends AbstractRepository
         if (method_exists($field, 'getType')) {
             return $field->getType();
         }
+
         return '';
     }
 
@@ -218,12 +195,11 @@ class FieldRepository extends AbstractRepository
         if (method_exists($field, 'getUid')) {
             return $field->getUid();
         }
+
         return 0;
     }
 
     /**
-     * @param int $uid
-     * @return string
      * @throws Exception
      */
     public function getMarkerFromUid(int $uid): string
@@ -232,7 +208,7 @@ class FieldRepository extends AbstractRepository
         $result = $queryBuilder
             ->select('marker')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)
+            ->where('uid=' . $uid)
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchAssociative();
@@ -241,8 +217,6 @@ class FieldRepository extends AbstractRepository
     }
 
     /**
-     * @param int $uid
-     * @return string
      * @throws Exception
      */
     public function getTypeFromUid(int $uid): string
@@ -251,7 +225,7 @@ class FieldRepository extends AbstractRepository
         return (string)$queryBuilder
             ->select('type')
             ->from(Field::TABLE_NAME)
-            ->where('uid=' . (int)$uid)
+            ->where('uid=' . $uid)
             ->setMaxResults(1)
             ->executeQuery()
             ->fetchOne();

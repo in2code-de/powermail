@@ -31,8 +31,6 @@ class SessionViewHelper extends AbstractViewHelper
 
     /**
      * Check if FE Sessions work in this instance
-     *
-     * @return bool
      */
     public function render(): bool
     {
@@ -41,7 +39,6 @@ class SessionViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected function checkSession(): bool
@@ -51,16 +48,12 @@ class SessionViewHelper extends AbstractViewHelper
         return $GLOBALS['TSFE']->fe_user->getKey('ses', $this->sessionKey) === $value;
     }
 
-    /**
-     * @return string
-     */
     protected function getRandomValue(): string
     {
         return md5((string)time());
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @throws Exception
      */
@@ -80,9 +73,10 @@ class SessionViewHelper extends AbstractViewHelper
         $frontendUser = new FrontendUserAuthentication();
         try {
             $cacheManager->registerCache($nullFrontend);
-        } catch (Throwable $exception) {
-            unset($exception);
+        } catch (Throwable $throwable) {
+            unset($throwable);
         }
+
         $GLOBALS['TSFE'] = new TypoScriptFrontendController(
             GeneralUtility::makeInstance(Context::class),
             $site,

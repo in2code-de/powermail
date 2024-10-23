@@ -26,22 +26,16 @@ class ExportService
 {
     /**
      * Contains mails for export
-     *
-     * @var QueryResult|null
      */
     protected ?QueryResult $mails = null;
 
     /**
      * Receiver email addresses
-     *
-     * @var array
      */
     protected array $receiverEmails = [];
 
     /**
      * Sender email addresses
-     *
-     * @var array
      */
     protected array $senderEmails = [
         'powermail@domain.org',
@@ -49,15 +43,11 @@ class ExportService
 
     /**
      * Mail subject
-     *
-     * @var string
      */
     protected string $subject = '';
 
     /**
      * Export format can be 'xls' or 'csv'
-     *
-     * @var string
      */
     protected string $format = 'xls';
 
@@ -83,34 +73,17 @@ class ExportService
      *        "sender_ip"
      *        "uid"
      *        "feuser"
-     *
-     * @var array
      */
     protected array $fieldList = [];
 
-    /**
-     * @var string
-     */
     protected string $fileName = '';
 
-    /**
-     * @var array
-     */
     protected array $additionalProperties = [];
 
-    /**
-     * @var bool
-     */
     protected bool $addAttachment = true;
 
-    /**
-     * @var string
-     */
     protected string $storageFolder = 'typo3temp/assets/tx_powermail/';
 
-    /**
-     * @var string
-     */
     protected string $emailTemplate = 'Module/ExportTaskMail.html';
 
     /**
@@ -131,7 +104,6 @@ class ExportService
     }
 
     /**
-     * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
@@ -141,13 +113,13 @@ class ExportService
         if (!$result) {
             return false;
         }
+
         return $this->sendEmail();
     }
 
     /**
      * Send the export mail
      *
-     * @return bool
      * @throws Exception
      */
     protected function sendEmail(): bool
@@ -160,6 +132,7 @@ class ExportService
         if ($this->isAddAttachment()) {
             $email->attachFromPath($this->getAbsolutePathAndFileName());
         }
+
         $email->send();
         return $email->isSent();
     }
@@ -167,7 +140,6 @@ class ExportService
     /**
      * Create bodytext for export mail
      *
-     * @return string
      * @throws Exception
      */
     protected function createMailBody(): string
@@ -195,7 +167,6 @@ class ExportService
     /**
      * Create export file content
      *
-     * @return string
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      * @throws Exception
@@ -215,9 +186,6 @@ class ExportService
         return $standaloneView->render();
     }
 
-    /**
-     * @return string
-     */
     protected function getRelativeTemplatePathAndFileName(): string
     {
         return 'Module/Export' . ucfirst($this->getFormat()) . '.html';
@@ -227,7 +195,6 @@ class ExportService
      * Get a list with all default fields
      *
      * @param QueryResultInterface|null $mails
-     * @return array
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -235,7 +202,7 @@ class ExportService
     protected function getDefaultFieldListFromFirstMail(QueryResultInterface $mails = null): array
     {
         $fieldList = [];
-        if ($mails !== null) {
+        if ($mails instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
             /** @var Mail $mail */
             $mail = $mails->getFirst();
             if ($mail !== null) {
@@ -244,30 +211,21 @@ class ExportService
                 }
             }
         }
+
         return $fieldList;
     }
 
-    /**
-     * @return QueryResultInterface
-     */
     public function getMails(): QueryResultInterface
     {
         return $this->mails;
     }
 
-    /**
-     * @param QueryResultInterface|null $mails
-     * @return ExportService
-     */
     public function setMails(?QueryResultInterface $mails): ExportService
     {
         $this->mails = $mails;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getFormat(): string
     {
         $allowedFormats = [
@@ -277,22 +235,16 @@ class ExportService
         if (!in_array($this->format, $allowedFormats)) {
             return 'xls';
         }
+
         return $this->format;
     }
 
-    /**
-     * @param string $format
-     * @return ExportService
-     */
     public function setFormat(string $format): ExportService
     {
         $this->format = $format;
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getFieldList(): array
     {
         return $this->fieldList;
@@ -300,7 +252,6 @@ class ExportService
 
     /**
      * @param string|array $fieldList
-     * @return ExportService
      */
     public function setFieldList($fieldList): ExportService
     {
@@ -308,8 +259,10 @@ class ExportService
             if (is_string($fieldList)) {
                 $fieldList = GeneralUtility::trimExplode(',', $fieldList, true);
             }
+
             $this->fieldList = $fieldList;
         }
+
         return $this;
     }
 
@@ -319,8 +272,6 @@ class ExportService
      *            'mail1@mail.org' => '',
      *            'mail2@mail.org' => ''
      *        )
-     *
-     * @return array
      */
     public function getReceiverEmails(): array
     {
@@ -328,18 +279,19 @@ class ExportService
         foreach ($this->receiverEmails as $email) {
             $mailArray[$email] = '';
         }
+
         return $mailArray;
     }
 
     /**
      * @param string|array $emails
-     * @return ExportService
      */
     public function setReceiverEmails($emails): ExportService
     {
         if (is_string($emails)) {
             $emails = GeneralUtility::trimExplode(',', $emails, true);
         }
+
         $this->receiverEmails = $emails;
         return $this;
     }
@@ -350,8 +302,6 @@ class ExportService
      *            'mail1@mail.org' => 'Sender',
      *            'mail2@mail.org' => 'Sender'
      *        )
-     *
-     * @return array
      */
     public function getSenderEmails(): array
     {
@@ -359,34 +309,25 @@ class ExportService
         foreach ($this->senderEmails as $email) {
             $mailArray[$email] = 'Sender';
         }
+
         return $mailArray;
     }
 
-    /**
-     * @param mixed $senderEmails
-     * @return ExportService
-     */
-    public function setSenderEmails($senderEmails): ExportService
+    public function setSenderEmails(mixed $senderEmails): ExportService
     {
         if (is_string($senderEmails)) {
             $senderEmails = GeneralUtility::trimExplode(',', $senderEmails, true);
         }
+
         $this->senderEmails = $senderEmails;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getSubject(): string
     {
         return $this->subject;
     }
 
-    /**
-     * @param string $subject
-     * @return ExportService
-     */
     public function setSubject(string $subject): ExportService
     {
         $this->subject = $subject;
@@ -395,8 +336,6 @@ class ExportService
 
     /**
      * Create a random filename
-     *
-     * @return void
      */
     protected function createRandomFileName(): void
     {
@@ -411,9 +350,6 @@ class ExportService
         $this->fileName = $fileName;
     }
 
-    /**
-     * @return string
-     */
     public function getFileName(): string
     {
         return $this->fileName;
@@ -423,20 +359,18 @@ class ExportService
      * Set a user defined filename
      *
      * @param string|null $fileName
-     * @return ExportService
      */
     public function setFileName(string $fileName = null): ExportService
     {
         if ($fileName) {
             $this->fileName = $fileName . '.' . $this->getFormat();
         }
+
         return $this;
     }
 
     /**
      * Get relative path and filename
-     *
-     * @return string
      */
     public function getRelativePathAndFileName(): string
     {
@@ -445,100 +379,66 @@ class ExportService
 
     /**
      * Get absolute path and filename
-     *
-     * @return string
      */
     public function getAbsolutePathAndFileName(): string
     {
         return GeneralUtility::getFileAbsFileName($this->getRelativePathAndFileName());
     }
 
-    /**
-     * @return array
-     */
     public function getAdditionalProperties(): array
     {
         return $this->additionalProperties;
     }
 
-    /**
-     * @param array $additionalProperties
-     * @return ExportService
-     */
     public function setAdditionalProperties(array $additionalProperties): ExportService
     {
         $this->additionalProperties = $additionalProperties;
         return $this;
     }
 
-    /**
-     * @param string $additionalProperty
-     * @param string $propertyName
-     * @return void
-     */
     public function addAdditionalProperty(string $additionalProperty, string $propertyName): void
     {
         $this->additionalProperties[$propertyName] = $additionalProperty;
     }
 
-    /**
-     * @return bool
-     */
     public function isAddAttachment(): bool
     {
         return $this->addAttachment;
     }
 
-    /**
-     * @param bool $addAttachment
-     * @return ExportService
-     */
     public function setAddAttachment(bool $addAttachment): ExportService
     {
         $this->addAttachment = $addAttachment;
         return $this;
     }
 
-    /**
-     * @param bool $absolute
-     * @return string
-     */
     public function getStorageFolder(bool $absolute = false): string
     {
         $storageFolder = $this->storageFolder;
         if ($absolute) {
-            $storageFolder = GeneralUtility::getFileAbsFileName($storageFolder);
+            return GeneralUtility::getFileAbsFileName($storageFolder);
         }
+
         return $storageFolder;
     }
 
-    /**
-     * @param string $storageFolder
-     * @return ExportService
-     */
     public function setStorageFolder(string $storageFolder): ExportService
     {
         $this->storageFolder = $storageFolder;
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getEmailTemplate(): string
     {
         return $this->emailTemplate;
     }
 
-    /**
-     * @param string $emailTemplate
-     * @return ExportService
-     */
     public function setEmailTemplate(string $emailTemplate): ExportService
     {
-        if (!empty($emailTemplate)) {
+        if ($emailTemplate !== '' && $emailTemplate !== '0') {
             $this->emailTemplate = $emailTemplate;
         }
+
         return $this;
     }
 }

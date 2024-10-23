@@ -17,9 +17,6 @@ class HoneyPodMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -33,9 +30,6 @@ class HoneyPodMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -43,8 +37,6 @@ class HoneyPodMethodTest extends UnitTestCase
 
     /**
      * Dataprovider spamCheckReturnsVoid()
-     *
-     * @return array
      */
     public static function spamCheckReturnsVoidDataProvider(): array
     {
@@ -67,12 +59,11 @@ class HoneyPodMethodTest extends UnitTestCase
     /**
      * @param string $pot if $piVars['field']['__hp'] filled
      * @param bool $expectedResult
-     * @return void
      * @dataProvider spamCheckReturnsVoidDataProvider
      * @test
      * @covers ::spamCheck
      */
-    public function spamCheckReturnsVoid($pot, $expectedResult)
+    public function spamCheckReturnsVoid($pot, $expectedResult): void
     {
         $this->generalValidatorMock->_set('arguments', ['field' => ['__hp' => $pot]]);
         self::assertSame($expectedResult, $this->generalValidatorMock->_call('spamCheck'));

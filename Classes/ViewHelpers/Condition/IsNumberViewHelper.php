@@ -13,14 +13,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class IsNumberViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
     /**
      * Initialize arguments.
      *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('val', 'string', 'Value');
@@ -33,11 +31,8 @@ class IsNumberViewHelper extends AbstractViewHelper implements ViewHelperInterfa
      *
      * @return string
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
-        return is_numeric($arguments['val']);
+    public function render()
+    {
+        return is_numeric($this->arguments['val']);
     }
 }

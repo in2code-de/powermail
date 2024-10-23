@@ -17,9 +17,6 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -28,9 +25,6 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -38,8 +32,6 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for renderReturnsArray()
-     *
-     * @return array
      */
     public static function renderReturnsArrayDataProvider(): array
     {
@@ -140,17 +132,17 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
      * @param array $fieldProperties
      * @param array $additionalAttributes
      * @param array $expectedResult
-     * @return void
      * @dataProvider renderReturnsArrayDataProvider
      * @test
      * @covers ::render
      */
-    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult)
+    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $expectedResult): void
     {
         $field = new Field();
         foreach ($fieldProperties as $propertyName => $propertyValue) {
             $field->_setProperty($propertyName, $propertyValue);
         }
+
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $arguments = [
             'field' => $field,
@@ -163,8 +155,6 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for getDottedListOfExtensions()
-     *
-     * @return array
      */
     public static function getDottedListOfExtensionsReturnsStringDataProvider(): array
     {
@@ -191,12 +181,11 @@ class UploadDataAttributeViewHelperTest extends UnitTestCase
     /**
      * @param string $string
      * @param string $expectedResult
-     * @return void
      * @dataProvider getDottedListOfExtensionsReturnsStringDataProvider
      * @test
      * @covers ::getDottedListOfExtensions
      */
-    public function getDottedListOfExtensionsReturnsString($string, $expectedResult)
+    public function getDottedListOfExtensionsReturnsString($string, $expectedResult): void
     {
         $result = $this->abstractValidationViewHelperMock->_call('getDottedListOfExtensions', $string);
         self::assertSame($expectedResult, $result);

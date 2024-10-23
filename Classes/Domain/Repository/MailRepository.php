@@ -34,7 +34,6 @@ class MailRepository extends AbstractRepository
     /**
      * Find all mails in given PID (BE List)
      *
-     * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */
     public function findAllInPid(int $pid = 0, array $settings = [], array $piVars = []): QueryResultInterface
@@ -47,16 +46,12 @@ class MailRepository extends AbstractRepository
             $this->getSorting($settings['sortby'] ?? '', $settings['order'] ?? '', $piVars)
         );
         $mails = $query->execute();
-        $mails = $this->makeUniqueQuery($mails, $query);
-        return $mails;
+        return $this->makeUniqueQuery($mails, $query);
     }
 
     /**
      * Workarround for "group by uid"
      *
-     * @param QueryResultInterface $result
-     * @param QueryInterface $query
-     * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */
     protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query): QueryResultInterface
@@ -68,17 +63,16 @@ class MailRepository extends AbstractRepository
                     $items[] = $resultItem->getUid();
                 }
             }
+
             $query->matching($query->in('uid', $items));
             return $query->execute();
         }
+
         return $result;
     }
 
     /**
      * Find first mail in given PID
-     *
-     * @param int $pid
-     * @return Mail|null
      */
     public function findFirstInPid(int $pid = 0): ?Mail
     {
@@ -91,6 +85,7 @@ class MailRepository extends AbstractRepository
         $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(['crdate' => QueryInterface::ORDER_DESCENDING]);
         $query->setLimit(1);
+
         $mails = $query->execute();
         $mail = $mails->getFirst();
         /** @var Mail $mail */
@@ -121,11 +116,6 @@ class MailRepository extends AbstractRepository
     }
 
     /**
-     * @param string $marker
-     * @param string $value
-     * @param Form $form
-     * @param int $pageUid
-     * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -158,9 +148,6 @@ class MailRepository extends AbstractRepository
     }
 
     /**
-     * @param array $settings
-     * @param array $piVars
-     * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */
     public function findListBySettings(array $settings, array $piVars): QueryResultInterface
@@ -177,7 +164,6 @@ class MailRepository extends AbstractRepository
         // FILTER: form
         $mainSettings = $settings['main'] ?? [];
         $listSettings = $settings['list'] ?? [];
-        $searchSettings = $settings['search'] ?? [];
         if ((int)($mainSettings['form'] ?? 0) > 0) {
             $and[] = $query->equals('form', $mainSettings['form']);
         }
@@ -223,10 +209,10 @@ class MailRepository extends AbstractRepository
                 }
             }
 
-            if (count($filter) > 0) {
+            if ($filter !== []) {
                 // switch between AND and OR
                 if (!empty($settings['search']['logicalRelation']) &&
-                    strtolower($settings['search']['logicalRelation']) === 'and') {
+                    strtolower((string) $settings['search']['logicalRelation']) === 'and') {
                     $and[] = $query->logicalAnd(...$filter);
                 } else {
                     $and[] = $query->logicalOr(...$filter);
@@ -251,9 +237,6 @@ class MailRepository extends AbstractRepository
 
     /**
      * Get all form uids from all mails stored on a given page
-     *
-     * @param int $pageUid
-     * @return array
      */
     public function findGroupedFormUidsToGivenPageUid(int $pageUid = 0): array
     {
@@ -261,7 +244,7 @@ class MailRepository extends AbstractRepository
         $query = $this->createQuery();
         $tableName = $query->getSource()->getSelectorName();
         $sql = 'SELECT MIN(uid) uid, form FROM ' . $tableName
-            . ' WHERE pid = ' . (int)$pageUid . ' AND deleted = 0 GROUP BY form';
+            . ' WHERE pid = ' . $pageUid . ' AND deleted = 0 GROUP BY form';
         $query->statement($sql);
         $queryResult = $query->execute();
 
@@ -269,12 +252,11 @@ class MailRepository extends AbstractRepository
         foreach ($queryResult as $mail) {
             /** @var Form $form */
             $form = $mail->getForm();
-            if ($form !== null) {
-                if ((int)$form->getUid() > 0 && !in_array($form->getUid(), $forms)) {
-                    $forms[$form->getUid()] = $form->getTitle();
-                }
+            if ($form !== null && ((int)$form->getUid() > 0 && !in_array($form->getUid(), $forms))) {
+                $forms[$form->getUid()] = $form->getTitle();
             }
         }
+
         $this->persistenceManager->clearState();
         return $forms;
     }
@@ -284,7 +266,6 @@ class MailRepository extends AbstractRepository
      *
      * @param string $uidList Commaseparated UID List of mails
      * @param array $sorting array('field' => 'asc')
-     * @return QueryResultInterface
      * @throws InvalidQueryExceptionAlias
      */
     public function findByUidList(string $uidList, array $sorting = []): QueryResultInterface
@@ -297,21 +278,19 @@ class MailRepository extends AbstractRepository
         ];
         $query->matching($query->logicalAnd(...$and));
         $query->setOrderings($this->getSorting('crdate', 'desc'));
-        foreach ((array)$sorting as $field => $order) {
+        foreach ($sorting as $field => $order) {
             if (empty($order)) {
                 continue;
             }
+
             $query->setOrderings($this->getSorting($field, $order));
         }
+
         return $query->execute();
     }
 
     /**
      * Find the latest three mails by given form uid
-     *
-     * @param int $formUid
-     * @param int $limit
-     * @return QueryResultInterface
      */
     public function findLatestByForm(int $formUid, int $limit = 3): QueryResultInterface
     {
@@ -336,9 +315,6 @@ class MailRepository extends AbstractRepository
     /**
      * Generate a new array with labels
      *        label_firstname => Firstname
-     *
-     * @param Mail $mail
-     * @return array
      */
     public function getLabelsWithMarkersFromMail(Mail $mail): array
     {
@@ -348,16 +324,13 @@ class MailRepository extends AbstractRepository
                 $variables['label_' . $answer->getField()->getMarker()] = $answer->getField()->getTitle();
             }
         }
+
         return $variables;
     }
 
     /**
      * Generate a new array with markers and their values
      *        firstname => value
-     *
-     * @param Mail $mail
-     * @param bool $htmlSpecialChars
-     * @return array
      */
     public function getVariablesWithMarkersFromMail(Mail $mail, bool $htmlSpecialChars = false): array
     {
@@ -366,18 +339,24 @@ class MailRepository extends AbstractRepository
             /**
              * @var $answer Answer
              */
-            if (!method_exists($answer, 'getField') || !method_exists($answer->getField(), 'getMarker')) {
+            if (!method_exists($answer, 'getField')) {
                 continue;
             }
+            if (!method_exists($answer->getField(), 'getMarker')) {
+                continue;
+            }
+
             $value = $answer->getValue();
             if (is_array($value)) {
                 $value = implode(', ', $value);
             }
+
             $variables[$answer->getField()->getMarker()] = $value;
             if ($answer->getOriginalValue() !== $answer->getStringValue()) {
                 $variables[$answer->getField()->getMarker() . '_originalValue'] = $answer->getOriginalValue();
             }
         }
+
         if ($htmlSpecialChars) {
             $variables = ArrayUtility::htmlspecialcharsOnArray($variables);
         }
@@ -394,8 +373,6 @@ class MailRepository extends AbstractRepository
     /**
      * Returns senderemail from a couple of arguments
      *
-     * @param Mail $mail
-     * @param string $default
      * @return string Sender Email
      */
     public function getSenderMailFromArguments(Mail $mail, string $default = ''): string
@@ -410,9 +387,11 @@ class MailRepository extends AbstractRepository
                 break;
             }
         }
-        if (empty($email)) {
-            $email = $this->getSenderMailFromDefault($default);
+
+        if ($email === '' || $email === '0') {
+            return $this->getSenderMailFromDefault($default);
         }
+
         return $email;
     }
 
@@ -421,7 +400,6 @@ class MailRepository extends AbstractRepository
      *
      * @param Mail $mail Given Params
      * @param string|array $default String as default or cObject array
-     * @param string $glue
      * @return string Sender Name
      * @throws DeprecatedException
      */
@@ -431,11 +409,8 @@ class MailRepository extends AbstractRepository
         foreach ($mail->getAnswers() as $answer) {
             /** @var Answer $answer */
             if (method_exists($answer->getField(), 'getUid') && $answer->getField()->isSenderName()) {
-                if (!is_array($answer->getValue())) {
-                    $value = $answer->getValue();
-                } else {
-                    $value = implode($glue, $answer->getValue());
-                }
+                $value = is_array($answer->getValue()) ? implode($glue, $answer->getValue()) : $answer->getValue();
+
                 $name .= $value . $glue;
             }
         }
@@ -450,13 +425,14 @@ class MailRepository extends AbstractRepository
             }
         }
 
-        if (empty($name) && !empty(ConfigurationUtility::getDefaultMailFromName())) {
+        if (empty($name) && (ConfigurationUtility::getDefaultMailFromName() !== '' && ConfigurationUtility::getDefaultMailFromName() !== '0')) {
             $name = ConfigurationUtility::getDefaultMailFromName();
         }
 
-        if (!trim($name)) {
+        if (trim($name) === '' || trim($name) === '0') {
             $name = LocalizationUtility::translate('error_no_sender_name');
         }
+
         return trim($name);
     }
 
@@ -466,11 +442,6 @@ class MailRepository extends AbstractRepository
      *        return array(
      *            'property' => 'asc'
      *        )
-     *
-     * @param string $sortby
-     * @param string $order
-     * @param array $piVars
-     * @return array
      */
     protected function getSorting(string $sortby, string $order, array $piVars = []): array
     {
@@ -480,42 +451,34 @@ class MailRepository extends AbstractRepository
         ];
         if (!empty($piVars['tx_powermail_web_powermailm1']['sorting'])) {
             $sorting = [];
-            foreach ((array)array_reverse($piVars['tx_powermail_web_powermailm1']['sorting']) as $property => $sortOrderName) {
+            foreach (array_reverse($piVars['tx_powermail_web_powermailm1']['sorting']) as $property => $sortOrderName) {
                 $sorting[$this->cleanStringForQuery(StringUtility::conditionalVariable($property, 'crdate'))] = $this->getSortOrderByString($sortOrderName);
             }
         }
+
         return $sorting;
     }
 
     /**
      * Get sort order (ascending or descending) by given string
-     *
-     * @param string $sortOrderString
-     * @return string
      */
     protected function getSortOrderByString(string $sortOrderString): string
     {
-        $sortOrder = QueryInterface::ORDER_ASCENDING;
         if ($sortOrderString !== 'asc') {
-            $sortOrder = QueryInterface::ORDER_DESCENDING;
+            return QueryInterface::ORDER_DESCENDING;
         }
-        return $sortOrder;
+
+        return QueryInterface::ORDER_ASCENDING;
     }
 
     /**
      * Make in impossible to hack a sql string if we just remove as much unneeded characters as possible
-     *
-     * @param string $string
-     * @return string
      */
     protected function cleanStringForQuery(string $string): string
     {
         return preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
     }
 
-    /**
-     * @return void
-     */
     public function initializeObject(): void
     {
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
@@ -525,9 +488,6 @@ class MailRepository extends AbstractRepository
 
     /**
      * Get sender default email address
-     *
-     * @param string $default
-     * @return string
      */
     protected function getSenderMailFromDefault(string $default): string
     {
@@ -536,17 +496,15 @@ class MailRepository extends AbstractRepository
         if (GeneralUtility::validEmail(ConfigurationUtility::getDefaultMailFromAddress())) {
             $email = ConfigurationUtility::getDefaultMailFromAddress();
         }
-        if (!empty($default)) {
-            $email = $default;
+
+        if ($default !== '' && $default !== '0') {
+            return $default;
         }
+
         return $email;
     }
 
     /**
-     * @param array $piVars
-     * @param QueryInterface $query
-     * @param int $pid
-     * @return array
      * @throws InvalidQueryExceptionAlias
      */
     protected function getConstraintsForFindAllInPid(array $piVars, QueryInterface $query, int $pid): array
@@ -571,9 +529,9 @@ class MailRepository extends AbstractRepository
                     } elseif ($field === 'form' && !empty($value)) {
                         $and[] = $query->equals('form', $value);
                     } elseif ($field === 'start' && !empty($value)) {
-                        $and[] = $query->greaterThan('crdate', strtotime($value));
+                        $and[] = $query->greaterThan('crdate', strtotime((string) $value));
                     } elseif ($field === 'stop' && !empty($value)) {
-                        $and[] = $query->lessThan('crdate', strtotime($value));
+                        $and[] = $query->lessThan('crdate', strtotime((string) $value));
                     } elseif ($field === 'hidden' && !empty($value)) {
                         $and[] = $query->equals($field, ($value - 1));
                     } elseif (!empty($value)) {
@@ -583,7 +541,7 @@ class MailRepository extends AbstractRepository
 
                 // Answer Fields
                 if (is_array($value)) {
-                    foreach ((array)$value as $answerField => $answerValue) {
+                    foreach ($value as $answerField => $answerValue) {
                         if (!empty($answerValue) && $answerField !== 'crdate') {
                             $and[] = $query->equals('answers.field', $answerField);
                             $and[] = $query->like('answers.value', '%' . $answerValue . '%');
@@ -592,12 +550,11 @@ class MailRepository extends AbstractRepository
                 }
             }
         }
+
         return $and;
     }
 
     /**
-     * @param int $mailIdentifier
-     * @return void
      * @throws DBALException
      */
     public function removeFromDatabase(int $mailIdentifier): void
@@ -605,10 +562,10 @@ class MailRepository extends AbstractRepository
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Mail::TABLE_NAME);
         $queryBuilder
             ->delete(Mail::TABLE_NAME)
-            ->where('uid=' . (int)$mailIdentifier)->executeStatement();
+            ->where('uid=' . $mailIdentifier)->executeStatement();
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Answer::TABLE_NAME);
         $queryBuilder
             ->delete(Answer::TABLE_NAME)
-            ->where('mail=' . (int)$mailIdentifier)->executeStatement();
+            ->where('mail=' . $mailIdentifier)->executeStatement();
     }
 }

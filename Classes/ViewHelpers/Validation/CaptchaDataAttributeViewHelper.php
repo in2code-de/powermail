@@ -27,6 +27,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
         if ($field->getType() !== 'captcha') {
             return $this->arguments['additionalAttributes'];
         }
+
         $dataArray = parent::render();
 
         if ($this->isNativeValidationEnabled()) {
@@ -34,6 +35,7 @@ class CaptchaDataAttributeViewHelper extends ValidationDataAttributeViewHelper
         } elseif ($this->isClientValidationEnabled()) {
             $dataArray['data-powermail-required'] = 'true';
         }
+
         if ($this->isClientValidationEnabled()) {
             $dataArray['data-powermail-errors-container'] = '.powermail_field_error_container_' . $field->getMarker();
             $dataArray['data-powermail-class-handler'] = '#powermail_field_' . $field->getMarker();

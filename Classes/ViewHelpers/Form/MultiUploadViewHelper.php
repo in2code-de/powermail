@@ -27,8 +27,6 @@ class MultiUploadViewHelper extends AbstractFormFieldViewHelper
 
     /**
      * Renders the upload field.
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -37,6 +35,7 @@ class MultiUploadViewHelper extends AbstractFormFieldViewHelper
         foreach ($allowedFields as $fieldName) {
             $this->registerFieldNameForFormTokenGeneration($name . '[' . $fieldName . '][]');
         }
+
         $this->tag->addAttribute('type', 'file');
         $name .= '[]';
         $this->tag->addAttribute('name', $name);

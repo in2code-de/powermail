@@ -21,6 +21,7 @@ class UniqueMethod extends AbstractMethod
                 $answers[] = $answer->getValue();
             }
         }
+
         return count($answers) !== count(array_unique($answers));
     }
 }

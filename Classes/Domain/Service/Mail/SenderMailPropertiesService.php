@@ -19,30 +19,17 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
 class SenderMailPropertiesService
 {
     /**
-     * TypoScript settings as plain array
-     *
-     * @var array
-     */
-    protected array $settings = [];
-
-    /**
      * TypoScript configuration for cObject parsing
-     *
-     * @var array
      */
     protected array $configuration = [];
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private EventDispatcherInterface $eventDispatcher;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
-    /**
-     * @param array $settings
+    public function __construct(/**
+     * TypoScript settings as plain array
      */
-    public function __construct(array $settings)
+    protected array $settings)
     {
-        $this->settings = $settings;
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
@@ -51,7 +38,6 @@ class SenderMailPropertiesService
     /**
      * Get sender email from form settings. If empty, take default from TypoScript or TYPO3 configuration
      *
-     * @return string
      * @throws ExceptionExtbaseObject
      */
     public function getSenderEmail(): string
@@ -77,7 +63,6 @@ class SenderMailPropertiesService
     /**
      * Get sender name from form settings. If empty, take default from TypoScript or TYPO3 configuration.
      *
-     * @return string
      * @throws ExceptionExtbaseObject
      */
     public function getSenderName(): string

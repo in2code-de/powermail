@@ -12,7 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class IpBreaker extends AbstractBreaker
 {
     /**
-     * @return bool
      * @throws ConfigurationIsMissingException
      */
     public function isDisabled(): bool
@@ -22,13 +21,13 @@ class IpBreaker extends AbstractBreaker
                 return true;
             }
         }
+
         return false;
     }
 
     /**
      * @param string $givenIp like "127.0.0.1"
      * @param string $ipRange like "127.0.0.1" or "192.168.*.*"
-     * @return bool
      */
     protected function isIpMatching(string $givenIp, string $ipRange): bool
     {
@@ -41,18 +40,20 @@ class IpBreaker extends AbstractBreaker
                     1516024779382
                 );
             }
+
             foreach (array_keys($rangeParts) as $key) {
                 if ($rangeParts[$key] === '*') {
                     $givenParts[$key] = '*';
                 }
             }
+
             $givenIp = implode('.', $givenParts);
         }
+
         return $givenIp === $ipRange;
     }
 
     /**
-     * @return array
      * @throws ConfigurationIsMissingException
      */
     protected function getIpAddresses(): array
@@ -64,6 +65,7 @@ class IpBreaker extends AbstractBreaker
                 1516024283512
             );
         }
+
         return GeneralUtility::trimExplode(',', $configuration['ipWhitelist'], true);
     }
 }

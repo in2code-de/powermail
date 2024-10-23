@@ -10,19 +10,13 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class OrViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('array', 'array', 'Array with strings', true);
         $this->registerArgument('string', 'string', 'String to compare', false, '');
     }
 
-    /**
-     * @return bool
-     */
     public function render(): bool
     {
         $string = $this->arguments['string'];
@@ -30,10 +24,12 @@ class OrViewHelper extends AbstractViewHelper
             if (!empty($string) && $value) {
                 return true;
             }
+
             if (!empty($string) && $value === $string) {
                 return true;
             }
         }
+
         return false;
     }
 }

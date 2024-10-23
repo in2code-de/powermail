@@ -7,6 +7,7 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -17,14 +18,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
-    /**
-     * @var ConfigurationManagerInterface
-     */
     protected ConfigurationManagerInterface $configurationManager;
 
-    /**
-     * @var ContentObjectRenderer
-     */
     protected ContentObjectRenderer $contentObject;
 
     /**
@@ -32,15 +27,10 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
      */
     protected array $settings = [];
 
-    /**
-     * @var string
-     */
     protected string $extensionName = '';
 
     /**
      * Check if native validation is activated
-     *
-     * @return bool
      */
     protected function isNativeValidationEnabled(): bool
     {
@@ -49,8 +39,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 
     /**
      * Check if javascript validation is activated
-     *
-     * @return bool
      */
     protected function isClientValidationEnabled(): bool
     {
@@ -60,21 +48,17 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * Set mandatory attributes
      *
-     * @param array $additionalAttributes
-     * @param Field|null $field
-     * @return array
      * @throws DBALException
      */
     protected function addMandatoryAttributes(array $additionalAttributes, ?Field $field): array
     {
-        if ($field !== null && $field->isMandatory()) {
+        if ($field instanceof \In2code\Powermail\Domain\Model\Field && $field->isMandatory()) {
             if ($this->isNativeValidationEnabled()) {
                 $additionalAttributes['required'] = 'required';
-            } else {
-                if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-powermail-required'] = 'true';
-                }
+            } elseif ($this->isClientValidationEnabled()) {
+                $additionalAttributes['data-powermail-required'] = 'true';
             }
+
             $additionalAttributes['aria-required'] = 'true';
 
             if ($this->isClientValidationEnabled()) {
@@ -91,15 +75,13 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                 }
             }
         }
+
         return $additionalAttributes;
     }
 
     /**
      * Define where to show errors in markup
      *
-     * @param array $additionalAttributes
-     * @param Field $field
-     * @return array
      * @throws DBALException
      */
     protected function addErrorContainer(array $additionalAttributes, Field $field): array
@@ -112,9 +94,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     /**
      * Define where to set the error class in markup
      *
-     * @param array $additionalAttributes
-     * @param Field $field
-     * @return array
      * @throws DBALException
      */
     protected function addClassHandler(array $additionalAttributes, Field $field): array
@@ -124,19 +103,24 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         return $additionalAttributes;
     }
 
-    /**
-     * @return void
-     */
-    public function initialize()
+    public function initialize(): void
     {
         $this->configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $this->extensionName = 'Powermail';
-        // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-        $this->contentObject = $this->configurationManager->getContentObject();
+        $this->contentObject = $this->getRequest()->getAttribute('currentContentObject');
         if (isset($this->arguments['extensionName']) && $this->arguments['extensionName'] !== '') {
             $this->extensionName = $this->arguments['extensionName'];
         }
+
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
+    }
+
+    protected function getRequest(): ServerRequestInterface|null
+    {
+        if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
+            return $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        }
+        return null;
     }
 }

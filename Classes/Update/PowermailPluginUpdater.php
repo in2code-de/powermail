@@ -35,24 +35,18 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
     ];
 
     /** @var FlexFormService */
-    protected $flexFormService;
+    protected object $flexFormService;
 
     public function __construct()
     {
         $this->flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
     }
 
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'powermailPluginUpdater';
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return 'Powermail: Migrate list types and switchable controller actions to CTypes';
@@ -60,8 +54,6 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
 
     /**
      * Return the description for this wizard
-     *
-     * @return string
      */
     public function getDescription(): string
     {
@@ -69,8 +61,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         $description .= 'This update wizard migrates all existing plugin settings and changes the plugin';
         $description .= 'to use the new plugins available.';
         $description .= 'Count of plugins "Powermail": ' . count($this->getMigrationRecords('powermail_pi1'));
-        $description .= 'Count of plugins "Powermail Frontend": ' . count($this->getMigrationRecords('powermail_pi2'));
-        return $description;
+        return $description . ('Count of plugins "Powermail Frontend": ' . count($this->getMigrationRecords('powermail_pi2')));
     }
 
     public function getPrerequisites(): array
@@ -91,6 +82,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         foreach (self::LIST_TYPES as $list_type) {
             $success = $this->performMigration($list_type);
         }
+
         return $success;
     }
 
@@ -100,6 +92,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         foreach (self::LIST_TYPES as $list_type) {
             $recordsToUpdate += count($this->getMigrationRecords($list_type));
         }
+
         return $recordsToUpdate > 0;
     }
 
@@ -126,12 +119,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
                         unset($flexFormData['data'][$sheetKey]);
                     }
                 }
-
-                if (count($flexFormData['data']) > 0) {
-                    $newFlexform = $this->array2xml($flexFormData);
-                } else {
-                    $newFlexform = '';
-                }
+                $newFlexform = count($flexFormData['data']) > 0 ? $this->array2xml($flexFormData) : '';
             } else {
                 $targetCType = 'powermail_pi1';
                 $newFlexform = $record['pi_flexform'] ?? '';
@@ -185,7 +173,8 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         if (!$flexFormFile) {
             return [];
         }
-        $flexFormContent = file_get_contents(GeneralUtility::getFileAbsFileName(substr(trim($flexFormFile), 5)));
+
+        $flexFormContent = file_get_contents(GeneralUtility::getFileAbsFileName(substr(trim((string) $flexFormFile), 5)));
         $flexFormData = GeneralUtility::xml2array($flexFormContent);
 
         // Iterate each sheet and extract all settings
@@ -201,10 +190,6 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
 
     /**
      * Updates list_type and pi_flexform of the given content element UID
-     *
-     * @param int $uid
-     * @param string $newCType
-     * @param string $flexform
      */
     protected function updateContentElement(int $uid, string $newCType, string $flexform): void
     {
@@ -224,9 +209,6 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
 
     /**
      * Transforms the given array to FlexForm XML
-     *
-     * @param array $input
-     * @return string
      */
     protected function array2xml(array $input = []): string
     {
@@ -245,7 +227,6 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         ];
         $spaceInd = 4;
         $output = GeneralUtility::array2xml($input, '', 0, 'T3FlexForms', $spaceInd, $options);
-        $output = '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>' . LF . $output;
-        return $output;
+        return '<?xml version="1.0" encoding="utf-8" standalone="yes" ?>' . LF . $output;
     }
 }

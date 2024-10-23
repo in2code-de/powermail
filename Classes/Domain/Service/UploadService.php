@@ -37,20 +37,12 @@ class UploadService implements SingletonInterface
 
     /**
      * Temporary filenames array to find duplicates
-     *
-     * @var array
      */
     protected array $fileNames = [];
 
-    /**
-     * @var array
-     */
     protected array $settings = [];
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private EventDispatcherInterface $eventDispatcher;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
      * Constructor
@@ -61,8 +53,6 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * @param array $settings
-     * @return void
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -88,18 +78,17 @@ class UploadService implements SingletonInterface
     {
         $result = false;
         foreach ($this->getFiles() as $file) {
-            if (!$file->isUploaded() && $file->isValid()) {
-                if ($this->isFileExtensionAllowed($file, $this->getAllowedExtensions())) {
-                    BasicFileUtility::createFolderIfNotExists($file->getUploadFolder());
-                    if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
-                        $file->setUploaded(true);
-                        $result = true;
-                    } else {
-                        return false;
-                    }
+            if (!$file->isUploaded() && $file->isValid() && $this->isFileExtensionAllowed($file, $this->getAllowedExtensions())) {
+                BasicFileUtility::createFolderIfNotExists($file->getUploadFolder());
+                if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
+                    $file->setUploaded(true);
+                    $result = true;
+                } else {
+                    return false;
                 }
             }
         }
+
         return $result;
     }
 
@@ -107,8 +96,6 @@ class UploadService implements SingletonInterface
      * Get all new filenames by given marker (to show filenames on confirmation page again, etc...)
      * If empty, use values from arguments
      *
-     * @param string $marker
-     * @return array
      * @throws Exception
      */
     public function getNewFileNamesByMarker(string $marker): array
@@ -119,35 +106,25 @@ class UploadService implements SingletonInterface
                 $newFileNames[] = $file->getNewName();
             }
         }
+
         return $newFileNames;
     }
 
     /**
-     * @param File $file
      * @param string $fileExtensions allowed file extensions as commaseparated list
-     * @return bool
      */
     public function isFileExtensionAllowed(File $file, string $fileExtensions = ''): bool
     {
         $filename = $file->getOriginalName();
         $fileInfo = pathinfo($filename);
         $extension = strtolower($fileInfo['extension']);
-        if (!empty($extension) &&
-            !empty($fileExtensions) &&
+        return $extension !== '' && $extension !== '0' &&
+            ($fileExtensions !== '' && $fileExtensions !== '0') &&
             GeneralUtility::inList($fileExtensions, $extension) &&
             GeneralUtility::makeInstance(FileNameValidator::class)->isValid($filename) &&
-            GeneralUtility::validPathStr($filename)
-        ) {
-            return true;
-        }
-        return false;
+            GeneralUtility::validPathStr($filename);
     }
 
-    /**
-     * @param File $file
-     * @param int $maximumSize
-     * @return bool
-     */
     public function isFileSizeSmallerThenAllowed(File $file, int $maximumSize): bool
     {
         return $file->getSize() <= $maximumSize;
@@ -157,7 +134,6 @@ class UploadService implements SingletonInterface
      * Prepares files from $_FILES array to $this->files
      * This will be used by the first submit (before confirmation page will be submitted)
      *
-     * @return void
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -166,10 +142,10 @@ class UploadService implements SingletonInterface
     protected function fillFilesFromFilesArray(): void
     {
         $filesArrayPowermail = ObjectUtility::getFilesArray();
-        if (!empty($filesArrayPowermail)) {
+        if ($filesArrayPowermail !== []) {
             $filesArray = (array)$filesArrayPowermail[FrontendUtility::getPluginName()];
             foreach ((array)$filesArray['name']['field'] as $marker => $files) {
-                foreach ((array)array_keys($files) as $key) {
+                foreach (array_keys($files) as $key) {
                     /** @var FileFactory $fileFactory */
                     $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
                     $file = $fileFactory->getInstanceFromFilesArray($filesArray, $marker, $key);
@@ -185,7 +161,6 @@ class UploadService implements SingletonInterface
      * Fill files from hidden field values to $this->files only if same marker from $_FILES is empty
      * This will happen, if a confirmation page is in use and file values are no more stored in $_FILES per default
      *
-     * @return void
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -196,7 +171,7 @@ class UploadService implements SingletonInterface
         $arguments = $this->getArguments();
         foreach ((array)($arguments['field'] ?? []) as $marker => $values) {
             $fileNames = $this->getNewFileNamesByMarker($marker);
-            if (empty($fileNames)) {
+            if ($fileNames === []) {
                 foreach ((array)$values as $value) {
                     /** @var FileFactory $fileFactory */
                     $fileFactory = GeneralUtility::makeInstance(FileFactory::class, $this->settings);
@@ -213,7 +188,6 @@ class UploadService implements SingletonInterface
      * Fill files from existing mail object. Mail was saved some times before but is hidden (normal functionality if
      * optin is activated in powermail). So try to search for uploaded files from given values in answers.
      *
-     * @return void
      * @throws Exception
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -254,7 +228,6 @@ class UploadService implements SingletonInterface
      * Check if given filenames are unique and does not exist in target folder
      * Rename filenames if needed
      *
-     * @return void
      * @throws Exception
      */
     protected function makeUniqueFilenames(): void
@@ -269,10 +242,12 @@ class UploadService implements SingletonInterface
                     );
                     $file->renameName($fileName);
                 }
+
                 for ($i = 1; $this->isNotUniqueFilename($file); $i++) {
                     $fileName = $this->makeNewFilenameWithAppendix($file->getNewName(), $i);
                     $file->renameName($fileName);
                 }
+
                 $this->fileNames[] = $fileName;
             }
         }
@@ -283,16 +258,13 @@ class UploadService implements SingletonInterface
      *
      *  image.png => image_01.png
      *  image_01.png => image_02.png
-     *
-     * @param string $filename
-     * @param int $iteration
-     * @return string
      */
     protected function makeNewFilenameWithAppendix(string $filename, int $iteration): string
     {
         if ($iteration >= 100) {
             return $this->randomizeFileName($filename);
         }
+
         $fileInfo = GeneralUtility::split_fileref($filename);
         $fileBody = $this->removeAppendingNumbersInString($fileInfo['filebody']);
         $appendix = '_' . sprintf('%02d', $iteration);
@@ -300,8 +272,6 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * @param File $file
-     * @return bool
      * @throws Exception
      */
     protected function isFileExistingInUploadFolder(File $file): bool
@@ -310,9 +280,7 @@ class UploadService implements SingletonInterface
     }
 
     /**
-     * @param string $filename
      * @param false $prependOriginalFileName
-     * @return string
      */
     protected function randomizeFileName(string $filename, bool $prependOriginalFileName = false): string
     {
@@ -321,9 +289,9 @@ class UploadService implements SingletonInterface
         if ($prependOriginalFileName) {
             $randomizedFileName .= $fileInfo['filename'] . '-';
         }
+
         $randomizedFileName .= StringUtility::getRandomString(32, false);
-        $randomizedFileName .= '.' . $fileInfo['extension'];
-        return $randomizedFileName;
+        return $randomizedFileName . ('.' . $fileInfo['extension']);
     }
 
     /**
@@ -338,7 +306,6 @@ class UploadService implements SingletonInterface
 
     /**
      * @param File[] $files
-     * @return UploadService
      */
     public function setFiles(array $files): UploadService
     {
@@ -346,42 +313,26 @@ class UploadService implements SingletonInterface
         return $this;
     }
 
-    /**
-     * @param File $file
-     * @return void
-     */
     public function addFile(File $file): void
     {
         $this->files[] = $file;
     }
 
-    /**
-     * @return bool
-     */
     protected function isRandomizeFileNameConfigured(): bool
     {
         return $this->settings['misc']['file']['randomizeFileName'] === '1';
     }
 
-    /**
-     * @return bool
-     */
     protected function isPrependOriginalFileNameConfigured(): bool
     {
         return $this->settings['misc']['file']['randomizePrependOriginalFileName'] === '1';
     }
 
-    /**
-     * @return string
-     */
     protected function getAllowedExtensions(): string
     {
         return $this->settings['misc']['file']['extension'];
     }
 
-    /**
-     * @return array
-     */
     protected function getArguments(): array
     {
         return FrontendUtility::getArguments(FrontendUtility::getPluginName());
@@ -391,9 +342,6 @@ class UploadService implements SingletonInterface
      * Remove appending numbers in filename strings
      *        image_01 => image
      *        image_01_02 => image_01
-     *
-     * @param string $string
-     * @return string
      */
     protected function removeAppendingNumbersInString(string $string): string
     {
@@ -405,8 +353,6 @@ class UploadService implements SingletonInterface
      * - This filename was used before
      * - Or if there is a file with this name in the target upload folder
      *
-     * @param File $file
-     * @return bool
      * @throws Exception
      */
     protected function isNotUniqueFilename(File $file): bool
@@ -414,10 +360,6 @@ class UploadService implements SingletonInterface
         return in_array($file->getNewName(), $this->fileNames) || $this->isFileExistingInUploadFolder($file);
     }
 
-    /**
-     * @param array $arguments
-     * @return bool
-     */
     protected function isOptinConfirmWithExistingMail(array $arguments): bool
     {
         return !empty($arguments['hash']) && $arguments['action'] === 'optinConfirm' && $arguments['mail'] > 0;

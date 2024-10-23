@@ -16,9 +16,6 @@ class SpamShieldValidatorTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -30,9 +27,6 @@ class SpamShieldValidatorTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -40,8 +34,6 @@ class SpamShieldValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider getCalculatedSpamFactorReturnsVoid()
-     *
-     * @return array
      */
     public static function getCalculatedSpamFactorReturnsVoidDataProvider(): array
     {
@@ -84,12 +76,11 @@ class SpamShieldValidatorTest extends UnitTestCase
     /**
      * @param int $spamIndicator
      * @param float $expectedCalculateMailSpamFactor
-     * @return void
      * @dataProvider getCalculatedSpamFactorReturnsVoidDataProvider
      * @test
      * @covers ::getCalculatedSpamFactor
      */
-    public function getCalculatedSpamFactorReturnsVoid($spamIndicator, $expectedCalculateMailSpamFactor)
+    public function getCalculatedSpamFactorReturnsVoid($spamIndicator, $expectedCalculateMailSpamFactor): void
     {
         $this->generalValidatorMock->_call('setSpamIndicator', $spamIndicator);
         $this->generalValidatorMock->_call('calculateMailSpamFactor');
@@ -101,8 +92,6 @@ class SpamShieldValidatorTest extends UnitTestCase
 
     /**
      * Dataprovider formatSpamFactorReturnsString()
-     *
-     * @return array
      */
     public static function formatSpamFactorReturnsStringDataProvider(): array
     {
@@ -129,20 +118,17 @@ class SpamShieldValidatorTest extends UnitTestCase
     /**
      * @param float $factor
      * @param string $expectedResult
-     * @return void
      * @dataProvider formatSpamFactorReturnsStringDataProvider
      * @test
      * @covers ::formatSpamFactor
      */
-    public function formatSpamFactorReturnsString($factor, $expectedResult)
+    public function formatSpamFactorReturnsString($factor, $expectedResult): void
     {
         self::assertSame($expectedResult, $this->generalValidatorMock->_call('formatSpamFactor', $factor));
     }
 
     /**
      * Dataprovider isSpamToleranceLimitReachedReturnsBool()
-     *
-     * @return array
      */
     public static function isSpamToleranceLimitReachedReturnsBoolDataProvider(): array
     {
@@ -184,12 +170,11 @@ class SpamShieldValidatorTest extends UnitTestCase
      * @param float $calculatedSpamFactor
      * @param float $spamFactorLimit
      * @param bool $expectedResult
-     * @return void
      * @dataProvider isSpamToleranceLimitReachedReturnsBoolDataProvider
      * @test
      * @covers ::isSpamToleranceLimitReached
      */
-    public function isSpamToleranceLimitReachedReturnsBool($calculatedSpamFactor, $spamFactorLimit, $expectedResult)
+    public function isSpamToleranceLimitReachedReturnsBool($calculatedSpamFactor, $spamFactorLimit, $expectedResult): void
     {
         $this->generalValidatorMock->_set('calculatedSpamFactor', $calculatedSpamFactor);
         $this->generalValidatorMock->_set('spamFactorLimit', $spamFactorLimit);

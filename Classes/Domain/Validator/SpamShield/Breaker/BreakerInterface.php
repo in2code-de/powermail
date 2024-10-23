@@ -8,8 +8,5 @@ namespace In2code\Powermail\Domain\Validator\SpamShield\Breaker;
  */
 interface BreakerInterface
 {
-    /**
-     * @return bool
-     */
     public function isDisabled(): bool;
 }

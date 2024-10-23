@@ -32,7 +32,6 @@ use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 class OutputController extends AbstractController
 {
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -59,8 +58,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function showAction(Mail $mail): ResponseInterface
@@ -82,7 +79,6 @@ class OutputController extends AbstractController
 
     /**
      * @param Mail|null $mail
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function editAction(Mail $mail = null): ResponseInterface
@@ -108,7 +104,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @return void
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
      * @throws DBALException
@@ -118,21 +113,19 @@ class OutputController extends AbstractController
      * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
      */
-    public function initializeUpdateAction()
+    public function initializeUpdateAction(): void
     {
         $this->reformatParamsForAction();
     }
 
     /**
-     * @param Mail $mail
-     * @ExtbaseAnnotation\Validate("In2code\Powermail\Domain\Validator\InputValidator", param="mail")
-     * @return ResponseInterface
      * @throws StopActionException
      * @throws IllegalObjectTypeException
      * @throws UnknownObjectException
      * @throws Exception
      * @noinspection PhpUnused
      */
+    #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\InputValidator::class, 'param' => 'mail'])]
     public function updateAction(Mail $mail): ResponseInterface
     {
         if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
@@ -151,8 +144,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
-     * @return ResponseInterface
      * @throws IllegalObjectTypeException
      * @noinspection PhpUnused
      */
@@ -175,7 +166,6 @@ class OutputController extends AbstractController
 
     /**
      * @param array $export Field Array with mails and format
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -184,6 +174,7 @@ class OutputController extends AbstractController
         if (!$this->settings['list']['export']) {
             return $this->htmlResponse(null);
         }
+
         $mails = $this->mailRepository->findByUidList($export['fields']);
 
         // get field array for output
@@ -192,18 +183,19 @@ class OutputController extends AbstractController
         } else {
             $fieldArray = $this->formRepository->getFieldUidsFromForm((int)$this->settings['main']['form']);
         }
+
         $fields = $this->fieldRepository->findByUids($fieldArray);
 
         if ($export['format'] === 'xls') {
             return (new ForwardResponse('exportXls'))->withArguments(['mails' => $mails, 'fields' => $fields]);
         }
+
         return (new ForwardResponse('exportCsv'))->withArguments(['mails' => $mails, 'fields' => $fields]);
     }
 
     /**
      * @param QueryResult|null $mails mails objects
      * @param array $fields uid field list
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function exportXlsAction(QueryResult $mails = null, array $fields = []): ResponseInterface
@@ -216,7 +208,6 @@ class OutputController extends AbstractController
     /**
      * @param QueryResult|null $mails mails objects
      * @param array $fields uid field list
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function exportCsvAction(QueryResult $mails = null, array $fields = []): ResponseInterface
@@ -227,7 +218,6 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -239,9 +229,6 @@ class OutputController extends AbstractController
         return $this->htmlResponse();
     }
 
-    /**
-     * @return void
-     */
     public function initializeObject(): void
     {
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings, 'Pi2');
@@ -249,36 +236,34 @@ class OutputController extends AbstractController
 
     /**
      * Get fieldlist from list or from database
-     *
-     * @param string $list
-     * @return array
      */
     protected function getFieldList(string $list = ''): array
     {
-        if (!empty($list)) {
+        if ($list !== '' && $list !== '0') {
             return GeneralUtility::trimExplode(',', $list, true);
         }
 
         if (\TYPO3\CMS\Core\Utility\ArrayUtility::isValidPath($this->settings, 'main/form')) {
             return $this->formRepository->getFieldUidsFromForm(((int)$this->settings['main']['form']));
         }
+
         return [];
     }
 
-    /**
-     * @return void
-     */
     protected function assignMultipleActions(): void
     {
         if (empty($this->settings['single']['pid'])) {
             $this->settings['single']['pid'] = FrontendUtility::getCurrentPageIdentifier();
         }
+
         if (empty($this->settings['list']['pid'])) {
             $this->settings['list']['pid'] = FrontendUtility::getCurrentPageIdentifier();
         }
+
         if (empty($this->settings['edit']['pid'])) {
             $this->settings['edit']['pid'] = FrontendUtility::getCurrentPageIdentifier();
         }
+
         $this->view->assign('singlePid', $this->settings['single']['pid']);
         $this->view->assign('listPid', $this->settings['list']['pid']);
         $this->view->assign('editPid', $this->settings['edit']['pid']);
@@ -286,15 +271,11 @@ class OutputController extends AbstractController
 
     /**
      * Add parameters to piVars from TypoScript
-     *
-     * @param array $pluginVariables
-     * @param array $parameters
-     * @return void
      */
     protected function prepareFilterPluginVariables(array &$pluginVariables, array $parameters): void
     {
         if (!empty($parameters['filter'])) {
-            $pluginVariables = (array)$pluginVariables + (array)$parameters;
+            $pluginVariables += (array)$parameters;
         }
     }
 }

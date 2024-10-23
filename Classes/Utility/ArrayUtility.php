@@ -13,8 +13,6 @@ class ArrayUtility
 {
     /**
      * Returns array with alphabetical letters
-     *
-     * @return array
      */
     public static function getAbcArray(): array
     {
@@ -23,15 +21,13 @@ class ArrayUtility
 
     /**
      * Check if String is JSON Array
-     *
-     * @param string $string
-     * @return bool
      */
     public static function isJsonArray(string $string): bool
     {
         if (!is_string($string)) {
             return false;
         }
+
         return is_array(json_decode($string, true));
     }
 
@@ -51,6 +47,7 @@ class ArrayUtility
                 $newArray[htmlspecialchars((string)$key)] = htmlspecialchars((string)$value);
             }
         }
+
         unset($array);
         return $newArray;
     }
@@ -68,11 +65,12 @@ class ArrayUtility
     {
         try {
             $value = ArrayUtilityCore::getValueByPath($array, $path, $delimiter);
-        } catch (Throwable $exception) {
+        } catch (Throwable $throwable) {
             // If path is not available in array
-            unset($exception);
+            unset($throwable);
             $value = '';
         }
+
         return $value;
     }
 
@@ -94,10 +92,6 @@ class ArrayUtility
      *  'abc',
      *  'def'
      * ]
-     *
-     * @param array $array
-     * @param string $key
-     * @return array
      */
     public static function flatten(array $array, string $key): array
     {
@@ -107,6 +101,7 @@ class ArrayUtility
                 $result[] = $sub[$key];
             }
         }
+
         return $result;
     }
 
@@ -140,22 +135,17 @@ class ArrayUtility
                 } else {
                     $firstArray[$key] = $secondArray[$key];
                 }
-            } else {
-                if ($dontAddNewKeys) {
-                    // @codeCoverageIgnoreStart
-                    if (array_key_exists($key, $firstArray)) {
-                        if ($emptyValuesOverride || !empty($value)) {
-                            $firstArray[$key] = $value;
-                        }
-                    }
-                    // @codeCoverageIgnoreEnd
-                } else {
-                    if ($emptyValuesOverride || !empty($value)) {
-                        $firstArray[$key] = $value;
-                    }
+            } elseif ($dontAddNewKeys) {
+                // @codeCoverageIgnoreStart
+                if (array_key_exists($key, $firstArray) && ($emptyValuesOverride || !empty($value))) {
+                    $firstArray[$key] = $value;
                 }
+                // @codeCoverageIgnoreEnd
+            } elseif ($emptyValuesOverride || !empty($value)) {
+                $firstArray[$key] = $value;
             }
         }
+
         reset($firstArray);
         return $firstArray;
     }

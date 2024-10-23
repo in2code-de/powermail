@@ -10,9 +10,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsComposerModeViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return bool
-     */
     public function render(): bool
     {
         return defined('TYPO3_COMPOSER_MODE');

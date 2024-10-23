@@ -12,10 +12,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class BackendEditLinkViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('tableName', 'string', 'tableName', true);
@@ -24,7 +21,6 @@ class BackendEditLinkViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return string
      * @throws RouteNotFoundException
      */
     public function render(): string

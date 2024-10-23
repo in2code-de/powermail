@@ -10,20 +10,14 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class UpperViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('string', 'string', 'Any string', true);
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
-        return ucfirst($this->arguments['string']);
+        return ucfirst((string) $this->arguments['string']);
     }
 }

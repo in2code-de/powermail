@@ -16,7 +16,7 @@ class CleanupUploadsCommand extends AbstractCleanupCommand
     /**
      * @return void
      */
-    public function configure()
+    protected function configure()
     {
         $this->setDescription('Remove all uploaded files in uploads/tx_powermail/');
         $this->addArgument(
@@ -28,12 +28,8 @@ class CleanupUploadsCommand extends AbstractCleanupCommand
 
     /**
      * This task will clean up all (!) files which are located in uploads/tx_powermail/
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->removeFilesFromRelativeDirectory($output, 'uploads/tx_powermail/', (int)$input->getArgument('period'));
         // todo implement error handling
