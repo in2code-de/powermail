@@ -12,22 +12,15 @@ use In2code\Powermail\Exception\ConfigurationIsMissingException;
 class HashUtility
 {
     /**
-     * @param string $hash
-     * @param Mail $mail
-     * @param string $role
-     * @return bool
      * @throws \Exception
      */
     public static function isHashValid(string $hash, Mail $mail, string $role = 'optin'): bool
     {
         $newHash = self::createHashFromMail($mail, $role);
-        return !empty($hash) && $newHash === $hash;
+        return $hash !== '' && $hash !== '0' && $newHash === $hash;
     }
 
     /**
-     * @param Mail $mail
-     * @param string $role
-     * @return string
      * @throws \Exception
      */
     public static function getHash(Mail $mail, string $role = 'optin'): string
@@ -38,9 +31,6 @@ class HashUtility
     /**
      * Create Hash from Mail properties and TYPO3 Encryption Key
      *
-     * @param Mail $mail
-     * @param string $role
-     * @return string
      * @throws \Exception
      */
     private static function createHashFromMail(Mail $mail, string $role = 'optin'): string
@@ -49,10 +39,6 @@ class HashUtility
         return self::createHashFromString($string);
     }
 
-    /**
-     * @param string $string
-     * @return string
-     */
     private static function createHashFromString(string $string): string
     {
         return hash('sha256', $string);
@@ -61,7 +47,6 @@ class HashUtility
     /**
      * Get TYPO3 encryption key
      *
-     * @return string
      * @SuppressWarnings(PHPMD.Superglobals)
      * @throws ConfigurationIsMissingException
      */
@@ -74,6 +59,7 @@ class HashUtility
                 1514910284796
             );
         }
+
         return $confVars['SYS']['encryptionKey'];
     }
 }

@@ -14,7 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class IsMarketingInformationEnabledGloballyViewHelper extends AbstractViewHelper
 {
     /**
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */

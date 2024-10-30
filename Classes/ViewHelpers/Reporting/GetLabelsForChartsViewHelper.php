@@ -15,10 +15,7 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
      */
     protected $notAllowedSign = '"';
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('answers', 'array', 'Grouped Answers', true);
@@ -31,8 +28,6 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
 
     /**
      * Get labels string for charts JavaScript like "label1|label2|label3"
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -52,14 +47,16 @@ class GetLabelsForChartsViewHelper extends AbstractViewHelper
             if (strlen($value) > $crop) {
                 $value = substr($value, 0, $crop) . $append;
             }
+
             $string .= $value;
             $string .= $separator;
         }
-        $string = rtrim($string, $separator);
 
+        $string = rtrim($string, $separator);
         if ($this->arguments['urlEncode']) {
-            $string = urlencode($string);
+            return urlencode($string);
         }
+
         return $string;
     }
 }

@@ -13,18 +13,12 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class GetLocationEidTest extends UnitTestCase
 {
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
         TestingHelper::setDefaultConstants();
     }
 
-    /**
-     * @return array
-     */
     public static function mainDataProvider(): array
     {
         return [
@@ -47,10 +41,6 @@ class GetLocationEidTest extends UnitTestCase
     }
 
     /**
-     * @param float $latitude
-     * @param float $longitude
-     * @param string $expectedResult
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @dataProvider mainDataProvider
      * @covers ::main

@@ -14,19 +14,18 @@ class LocalizationUtility
      * Translate function with predefined extensionName
      * Could also be used together with unit tests
      *
-     * @param string $key
-     * @param string $extensionName
      * @param array|null $arguments
-     * @return string
      */
     public static function translate(string $key, string $extensionName = 'powermail', array $arguments = null): string
     {
         if (ConfigurationUtility::isDatabaseConnectionAvailable() === false) {
-            if (stristr((string)$key, 'datepicker_format')) {
+            if (stristr($key, 'datepicker_format')) {
                 return 'Y-m-d H:i';
             }
-            return (string)$key;
+
+            return $key;
         }
+
         // @codeCoverageIgnoreStart
         return (string)LocalizationUtilityExtbase::translate($key, $extensionName, $arguments);
     }

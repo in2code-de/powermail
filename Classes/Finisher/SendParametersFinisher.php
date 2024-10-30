@@ -22,9 +22,6 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      */
     protected ConfigurationManagerInterface $configurationManager;
 
-    /**
-     * @var ?ContentObjectRenderer
-     */
     protected ?ContentObjectRenderer $contentObjectLocal = null;
 
     /**
@@ -44,19 +41,9 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      *          }
      *      }
      * }
-     *
-     * @var array
      */
     protected array $configuration;
 
-    /**
-     * @param Mail $mail
-     * @param array $configuration
-     * @param array $settings
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @param ContentObjectRenderer $contentObject
-     */
     public function __construct(
         Mail $mail,
         array $configuration,
@@ -66,14 +53,12 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
         ContentObjectRenderer $contentObject
     ) {
         parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        $this->contentObjectLocal = $configurationManager->getContentObject();
+        GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $this->contentObjectLocal = $this->request->getAttribute('currentContentObject');
     }
 
     /**
      * Send values via curl to a third party software
-     *
-     * @return void
      */
     public function sendFinisher(): void
     {
@@ -88,26 +73,21 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
                 curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
                 curl_setopt($curl, CURLOPT_USERPWD, $curlSettings['username'] . ':' . $curlSettings['password']);
             }
+
             curl_exec($curl);
             curl_close($curl);
             $this->writeToDevelopmentLog();
         }
     }
 
-    /**
-     * @return void
-     */
     protected function writeToDevelopmentLog(): void
     {
         if (!empty($this->configuration['debug'])) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger = ObjectUtility::getLogger(self::class);
             $logger->info('SendPost Values', $this->getCurlSettings());
         }
     }
 
-    /**
-     * @return array
-     */
     protected function getCurlSettings(): array
     {
         return [
@@ -120,8 +100,6 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
 
     /**
      * Get parameters
-     *
-     * @return string
      */
     protected function getValues(): string
     {
@@ -135,8 +113,6 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
      * Check if sendPost is activated
      *      - if it's enabled via TypoScript
      *      - if form was final submitted (without optin)
-     *
-     * @return bool
      */
     protected function isEnabled(): bool
     {
@@ -146,9 +122,6 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
         ) === '1' && $this->isFormSubmitted();
     }
 
-    /**
-     * @return void
-     */
     public function initializeFinisher(): void
     {
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);

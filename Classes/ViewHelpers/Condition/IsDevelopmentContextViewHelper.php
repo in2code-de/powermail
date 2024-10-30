@@ -11,9 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsDevelopmentContextViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return bool
-     */
     public function render(): bool
     {
         return Environment::getContext()->isDevelopment();

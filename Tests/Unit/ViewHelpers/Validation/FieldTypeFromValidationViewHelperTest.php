@@ -17,9 +17,6 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -28,9 +25,6 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -38,8 +32,6 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for render()
-     *
-     * @return array
      */
     public static function renderReturnsStringDataProvider(): array
     {
@@ -111,12 +103,11 @@ class FieldTypeFromValidationViewHelperTest extends UnitTestCase
      * @param string $validation
      * @param string $expectedResult
      * @param bool $nativeValidationEnabled
-     * @return void
      * @dataProvider renderReturnsStringDataProvider
      * @test
      * @covers ::render
      */
-    public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled)
+    public function renderReturnsString($validation, $expectedResult, $nativeValidationEnabled): void
     {
         $this->abstractValidationViewHelperMock->_set(
             'settings',

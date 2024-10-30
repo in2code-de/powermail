@@ -14,15 +14,11 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class RedirectFinisher extends AbstractFinisher implements FinisherInterface
 {
-    /**
-     * @var array
-     */
     protected array $arguments = [];
 
     /**
      * Redirect user after form submit
      *
-     * @return void
      * @throws PropagateResponseException
      */
     public function redirectToUriFinisher(): void
@@ -34,13 +30,10 @@ class RedirectFinisher extends AbstractFinisher implements FinisherInterface
             $response = $responseFactory
                 ->createResponse(303)
                 ->withAddedHeader('location', $uri);
-            throw new PropagateResponseException($response);
+            throw new PropagateResponseException($response, 4843079763);
         }
     }
 
-    /**
-     * @return bool
-     */
     protected function isRedirectEnabled(): bool
     {
         return !(!empty($this->settings['main']['optin']) && empty($this->arguments['hash']));

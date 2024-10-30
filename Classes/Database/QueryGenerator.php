@@ -54,7 +54,7 @@ class QueryGenerator
      * @return string comma separated list of descendant pages
      * @throws Exception
      */
-    public function getTreeList($id, $depth, $begin = 0, $permClause = '')
+    public function getTreeList($id, $depth, $begin = 0, $permClause = ''): int|string|float
     {
         $depth = (int)$depth;
         $begin = (int)$begin;
@@ -62,11 +62,9 @@ class QueryGenerator
         if ($id < 0) {
             $id = abs($id);
         }
-        if ($begin === 0) {
-            $theList = $id;
-        } else {
-            $theList = '';
-        }
+
+        $theList = $begin === 0 ? $id : '';
+
         if ($id && $depth > 0) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
             $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
@@ -80,20 +78,24 @@ class QueryGenerator
             if ($permClause !== '') {
                 $queryBuilder->andWhere($this->stripLogicalOperatorPrefix($permClause));
             }
+
             $statement = $queryBuilder->executeQuery();
             while ($row = $statement->fetchAssociative()) {
                 if ($begin <= 0) {
                     $theList .= ',' . $row['uid'];
                 }
+
                 if ($depth > 1) {
                     $theSubList = $this->getTreeList($row['uid'], $depth - 1, $begin - 1, $permClause);
                     if (!empty($theList) && !empty($theSubList) && ($theSubList[0] !== ',')) {
                         $theList .= ',';
                     }
+
                     $theList .= $theSubList;
                 }
             }
         }
+
         return $theList;
     }
 }

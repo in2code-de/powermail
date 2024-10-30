@@ -17,9 +17,6 @@ use TYPO3\CMS\Extbase\Error\Result;
  */
 class InputValidator extends StringValidator
 {
-    /**
-     * @var array
-     */
     protected array $mandatoryValidationFieldTypes = [
         'input',
         'textarea',
@@ -32,9 +29,6 @@ class InputValidator extends StringValidator
         'date',
     ];
 
-    /**
-     * @var array
-     */
     protected array $stringValidationFieldTypes = [
         'input',
         'textarea',
@@ -48,9 +42,10 @@ class InputValidator extends StringValidator
     {
         $this->result = new Result();
         // execute validation if it's turned on
-        if ($this->isServerValidationEnabled() === true) {
+        if ($this->isServerValidationEnabled()) {
             $this->isValid($mail);
         }
+
         return $this->result;
     }
 
@@ -58,11 +53,10 @@ class InputValidator extends StringValidator
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
         // iterate through all fields of current form
         foreach ($mail->getForm()->getPages() as $page) {
@@ -77,8 +71,6 @@ class InputValidator extends StringValidator
     /**
      * Get Answer from given field out of Mail object
      *
-     * @param Field $field
-     * @param Mail $mail
      * @return string|array
      */
     protected function getAnswerFromField(Field $field, Mail $mail)
@@ -89,34 +81,25 @@ class InputValidator extends StringValidator
                 return $answer->getValue();
             }
         }
+
         return '';
     }
 
     /**
      * Validate a single field for mandatory validation
-     *
-     * @param Field $field
-     * @param mixed $value
-     * @return void
      */
-    protected function isValidFieldInMandatoryValidation(Field $field, $value): void
+    protected function isValidFieldInMandatoryValidation(Field $field, mixed $value): void
     {
         // Mandatory Check
-        if (in_array($field->getType(), $this->mandatoryValidationFieldTypes) && $field->isMandatory()) {
-            if (!$this->validateMandatory($value)) {
-                $this->setErrorAndMessage($field, 'mandatory');
-            }
+        if (in_array($field->getType(), $this->mandatoryValidationFieldTypes) && $field->isMandatory() && !$this->validateMandatory($value)) {
+            $this->setErrorAndMessage($field, 'mandatory');
         }
     }
 
     /**
      * Validate a single field for any string validation
-     *
-     * @param Field $field
-     * @param mixed $value
-     * @return void
      */
-    protected function isValidFieldInStringValidation(Field $field, $value): void
+    protected function isValidFieldInStringValidation(Field $field, mixed $value): void
     {
         if (!empty($value) && in_array($field->getType(), $this->stringValidationFieldTypes)) {
             switch ($field->getValidation()) {
@@ -125,6 +108,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateEmail($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // URL
@@ -132,6 +116,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateUrl($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // phone
@@ -139,6 +124,7 @@ class InputValidator extends StringValidator
                     if (!$this->validatePhone($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // numbers only
@@ -146,6 +132,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateNumbersOnly($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // letters only
@@ -153,6 +140,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateLettersOnly($value)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // min number
@@ -160,6 +148,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateMinNumber($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // max number
@@ -167,6 +156,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateMaxNumber($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // range
@@ -174,6 +164,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateRange($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // length
@@ -181,6 +172,7 @@ class InputValidator extends StringValidator
                     if (!$this->validateLength($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     // pattern
@@ -188,6 +180,7 @@ class InputValidator extends StringValidator
                     if (!$this->validatePattern($value, $field->getValidationConfiguration())) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
+
                     break;
 
                     /**
@@ -206,19 +199,17 @@ class InputValidator extends StringValidator
                      *            Error happens!
                      */
                 default:
-                    if ($field->getValidation()) {
+                    if ($field->getValidation() !== 0) {
                         $validation = $field->getValidation();
                         if (!empty($this->settings['validation']['customValidation'][$validation])) {
                             $extendedValidator = GeneralUtility::makeInstance(
                                 $this->settings['validation']['customValidation'][$validation]
                             );
-                            if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation))) {
-                                if (!$extendedValidator->{'validate' . ucfirst((string)$validation)}(
-                                    $value,
-                                    $field->getValidationConfiguration()
-                                )) {
-                                    $this->setErrorAndMessage($field, 'validation.' . $validation);
-                                }
+                            if (method_exists($extendedValidator, 'validate' . ucfirst((string)$validation)) && !$extendedValidator->{'validate' . ucfirst((string)$validation)}(
+                                $value,
+                                $field->getValidationConfiguration()
+                            )) {
+                                $this->setErrorAndMessage($field, 'validation.' . $validation);
                             }
                         }
                     }

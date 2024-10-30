@@ -12,10 +12,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
  */
 class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
@@ -41,28 +38,25 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
             $additionalAttributes['data-date-value'] = $value;
         }
 
-        $additionalAttributes = $this->addMandatoryAttributes($additionalAttributes, $field);
-
-        return $additionalAttributes;
+        return $this->addMandatoryAttributes($additionalAttributes, $field);
     }
 
     /**
      * Get Datepicker Settings
      *
      * @param Field|null $field
-     * @return string
      */
     protected function getDatepickerSettings(Field $field = null): string
     {
-        if ($field === null) {
+        if (!$field instanceof \In2code\Powermail\Domain\Model\Field) {
             return 'datetime';
         }
+
         return $field->getDatepickerSettings();
     }
 
     /**
      * @param Field|null $field
-     * @return string
      */
     protected function getFormat(Field $field = null): string
     {
@@ -73,8 +67,6 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
     /**
      * Because moment.js needs a different format writings, we need to convert this
      * "Y-m-d H:i" => "YYYY-MM-DD HH:mm"
-     * @param string $format
-     * @return string
      */
     protected function convertFormatForMomentJs(string $format): string
     {

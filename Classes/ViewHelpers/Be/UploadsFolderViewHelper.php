@@ -20,8 +20,6 @@ class UploadsFolderViewHelper extends AbstractViewHelper
 
     /**
      * Check if uploads folder exists
-     *
-     * @return bool
      */
     public function render(): bool
     {

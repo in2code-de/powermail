@@ -23,21 +23,15 @@ use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
  */
 class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 {
-    /**
-     * @var string
-     */
     protected string $templatePathAndFile =
         'EXT:powermail/Resources/Private/Templates/Tca/ShowFormNoteIfNoEmailOrNameSelected.html';
 
     /**
      * Path to locallang file (with : as postfix)
-     *
-     * @var string
      */
     protected string $locallangPath = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:';
 
     /**
-     * @return array
      * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -51,7 +45,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     }
 
     /**
-     * @return string
      * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -72,11 +65,11 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
             );
             return $standaloneView->render();
         }
+
         return '';
     }
 
     /**
-     * @return bool
      * @throws DBALException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -88,8 +81,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 
     /**
      * Check if notefield was disabled
-     *
-     * @return bool
      */
     protected function isNoteMuted(): bool
     {
@@ -101,7 +92,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
      *      - Do we have a form uid (form is stored) AND
      *      - Is ReplaceIrre Feature disabled
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -115,7 +105,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     /**
      * Check if sender_email or sender_name was set
      *
-     * @return bool
      * @throws DBALException
      */
     protected function senderEmailOrSenderNameSet(): bool
@@ -128,17 +117,16 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
                 if ($column === 'sender_email' && (int)$value === 1) {
                     return true;
                 }
+
                 if ($column === 'sender_name' && (int)$value === 1) {
                     return true;
                 }
             }
         }
+
         return false;
     }
 
-    /**
-     * @return array
-     */
     protected function getLabels(): array
     {
         return [
@@ -153,9 +141,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
 
     /**
      * Get localized label
-     *
-     * @param string $key
-     * @return string
      */
     protected function getLabel(string $key): string
     {
@@ -166,7 +151,6 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
     /**
      * Check if form has unique and filled field markers
      *
-     * @return bool
      * @throws DBALException
      */
     protected function hasFormUniqueAndFilledFieldMarkers(): bool
@@ -178,8 +162,10 @@ class ShowFormNoteIfNoEmailOrNameSelected extends AbstractFormElement
             if (empty($field['marker'])) {
                 return false;
             }
+
             $markers[] = $field['marker'];
         }
+
         return array_unique($markers) === $markers;
     }
 }

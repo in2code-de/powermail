@@ -19,9 +19,6 @@ class NameMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -35,9 +32,6 @@ class NameMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -45,8 +39,6 @@ class NameMethodTest extends UnitTestCase
 
     /**
      * Dataprovider spamCheckReturnsVoid()
-     *
-     * @return array
      */
     public static function spamCheckReturnsVoidDataProvider(): array
     {
@@ -81,12 +73,11 @@ class NameMethodTest extends UnitTestCase
     /**
      * @param array $answerProperties
      * @param bool $expectedOverallSpamIndicator
-     * @return void
      * @dataProvider spamCheckReturnsVoidDataProvider
      * @test
      * @covers ::spamCheck
      */
-    public function spamCheckReturnsVoid($answerProperties, $expectedOverallSpamIndicator)
+    public function spamCheckReturnsVoid($answerProperties, $expectedOverallSpamIndicator): void
     {
         $mail = new Mail();
         foreach ($answerProperties as $fieldName => $value) {

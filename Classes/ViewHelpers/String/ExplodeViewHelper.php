@@ -11,10 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ExplodeViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('string', 'string', 'Any list (e.g. "a,b,c,d")', false, '');
@@ -22,9 +19,6 @@ class ExplodeViewHelper extends AbstractViewHelper
         $this->registerArgument('trim', 'bool', 'Should be trimmed?', false, true);
     }
 
-    /**
-     * @return array
-     */
     public function render(): array
     {
         return GeneralUtility::trimExplode(

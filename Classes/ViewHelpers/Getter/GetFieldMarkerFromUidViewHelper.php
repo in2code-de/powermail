@@ -12,10 +12,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetFieldMarkerFromUidViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('uid', 'int', 'UID', true);
@@ -23,8 +20,6 @@ class GetFieldMarkerFromUidViewHelper extends AbstractViewHelper
 
     /**
      * Get tx_powermail_domain_model_field.marker from .uid
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -32,8 +27,9 @@ class GetFieldMarkerFromUidViewHelper extends AbstractViewHelper
         $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByUid($this->arguments['uid']);
         if (method_exists($field, 'getMarker')) {
-            $result = $field->getMarker();
+            return $field->getMarker();
         }
+
         return $result;
     }
 }

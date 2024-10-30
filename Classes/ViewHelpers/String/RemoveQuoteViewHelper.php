@@ -10,11 +10,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class RemoveQuoteViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return string
-     */
     public function render(): string
     {
-        return str_replace('"', '\'', $this->renderChildren());
+        return str_replace('"', "'", $this->renderChildren());
     }
 }

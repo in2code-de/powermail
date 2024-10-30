@@ -188,7 +188,6 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      * @param array $variables
      * @param array $configuration
      * @param string $expectedResult
-     * @return void
      * @dataProvider getDefaultValueReturnsStringDataProvider
      * @test
      * @covers ::render
@@ -196,12 +195,13 @@ class PrefillFieldViewHelperTest extends UnitTestCase
      * @covers ::buildValue
      * @throws \TYPO3\CMS\Extbase\Object\Exception
      */
-    public function getDefaultValueReturnsString($fieldValues, $variables, $configuration, $expectedResult)
+    public function getDefaultValueReturnsString($fieldValues, $variables, $configuration, $expectedResult): void
     {
         $field = new Field();
         foreach ($fieldValues as $name => $value) {
             $field->_setProperty($name, $value);
         }
+
         $this->abstractValidationViewHelperMock->_set('contentObject', new ContentObjectRenderer());
         $this->abstractValidationViewHelperMock->_set('variables', $variables);
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
@@ -248,18 +248,17 @@ class PrefillFieldViewHelperTest extends UnitTestCase
     }
 
     /**
-     * @param array $configuration
      * @param string $marker
      * @param string $expectedResult
-     * @return void
      * @dataProvider getFromTypoScriptRawReturnsStringDataProvider
      * @test
      * @covers ::getFromTypoScriptRaw
      */
-    public function getFromTypoScriptRawReturnsString(array $configuration, $marker, $expectedResult)
+    public function getFromTypoScriptRawReturnsString(array $configuration, $marker, $expectedResult): void
     {
         $this->abstractValidationViewHelperMock->_set('configuration', $configuration);
         $this->abstractValidationViewHelperMock->_set('marker', $marker);
+
         $value = '';
         self::assertSame(
             $expectedResult,

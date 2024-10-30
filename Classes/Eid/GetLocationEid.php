@@ -19,20 +19,12 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class GetLocationEid
 {
-    /**
-     * @var ServerRequestInterface
-     */
     protected ServerRequestInterface $request;
 
-    /**
-     * @var string
-     */
     protected string $content = '';
 
     /**
      * Language settings for google maps
-     *
-     * @var string
      */
     protected string $language = 'en';
 
@@ -48,26 +40,29 @@ class GetLocationEid
                 isset($this->request->getQueryParams()['lat']) ? (float)$this->request->getQueryParams()['lat'] : 0.0,
                 isset($this->request->getQueryParams()['lng']) ? (float)$this->request->getQueryParams()['lng'] : 0.0,
             );
-            if (empty($address)) {
+            if ($address === []) {
                 throw new Exception();
             }
 
             if (!empty($address['route'])) {
                 $this->content .= $address['route'];
             }
+
             if (!empty($address['locality'])) {
                 $this->content .= ', ' . $address['locality'];
             }
+
             if (!empty($address['country'])) {
                 $this->content .= ', ' . $address['country'];
             }
+
             $response = new Response();
             $response->getBody()->write($this->content);
             return $response;
-        } catch (InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             // add a 410 "gone" if invalid parameters given
             return (new Response())->withStatus(410);
-        } catch (Exception $e) {
+        } catch (Exception) {
             return (new Response())->withStatus(404);
         }
     }
@@ -76,8 +71,6 @@ class GetLocationEid
      * Get Address from geo coordinates
      *      with service from nominatim.openstreetmap.org (since google needs an API key)
      *
-     * @param float $lat
-     * @param float $lng
      * @return array all location infos
      *        ['route'] = 'Kunstmuehlstr.';
      *        ['locality'] = 'Rosenheim';
@@ -108,14 +101,15 @@ class GetLocationEid
 
                     $result = [
                         'route' => isset($data['address']['road']) ? (string)$data['address']['road'] : '',
-                        'locality' => $locality !== ''? $locality : '',
+                        'locality' => $locality,
                         'country' => isset($data['address']['country']) ? (string)$data['address']['country'] : '',
                         'postal_code' => isset($data['address']['postcode']) ? (string)$data['address']['postcode'] : '',
                     ];
                 }
             }
-        } catch (Throwable $e) {
+        } catch (Throwable) {
         }
+
         return $result;
     }
 }

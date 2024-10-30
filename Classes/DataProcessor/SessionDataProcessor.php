@@ -12,8 +12,6 @@ class SessionDataProcessor extends AbstractDataProcessor
 {
     /**
      * Save values to session to prefill forms if needed
-     *
-     * @return void
      */
     public function saveSessionDataProcessor(): void
     {

@@ -12,13 +12,12 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class LocalizationUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @test
      * @covers ::translate
      */
-    public function translateReturnsString()
+    public function translateReturnsString(): void
     {
-        $value = (string)rand();
+        $value = (string)random_int(0, mt_getrandmax());
         self::assertSame($value, LocalizationUtility::translate($value));
         self::assertSame('Y-m-d H:i', LocalizationUtility::translate('datepicker_format'));
     }

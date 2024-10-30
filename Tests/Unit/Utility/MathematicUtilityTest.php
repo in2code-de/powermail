@@ -13,8 +13,6 @@ class MathematicUtilityTest extends UnitTestCase
 {
     /**
      * Data Provider for mathematicOperationReturnsInt()
-     *
-     * @return array
      */
     public static function mathematicOperationReturnsIntDataProvider(): array
     {
@@ -52,11 +50,10 @@ class MathematicUtilityTest extends UnitTestCase
      * @param string $operator
      * @param string $expectedResult
      * @dataProvider mathematicOperationReturnsIntDataProvider
-     * @return void
      * @test
      * @covers ::mathematicOperation
      */
-    public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult)
+    public function mathematicOperationReturnsInt($number1, $number2, $operator, $expectedResult): void
     {
         $result = MathematicUtility::mathematicOperation($number1, $number2, $operator);
         self::assertSame($expectedResult, $result);

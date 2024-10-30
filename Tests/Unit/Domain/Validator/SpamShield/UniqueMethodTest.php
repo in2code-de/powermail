@@ -18,9 +18,6 @@ class UniqueMethodTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(
@@ -34,9 +31,6 @@ class UniqueMethodTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -44,8 +38,6 @@ class UniqueMethodTest extends UnitTestCase
 
     /**
      * Dataprovider spamCheckReturnsVoid()
-     *
-     * @return array
      */
     public static function spamCheckReturnsVoidDataProvider(): array
     {
@@ -78,12 +70,11 @@ class UniqueMethodTest extends UnitTestCase
     /**
      * @param array $answerProperties
      * @param bool $expectedResult
-     * @return void
      * @dataProvider spamCheckReturnsVoidDataProvider
      * @test
      * @covers ::spamCheck
      */
-    public function spamCheckReturnsVoid($answerProperties, $expectedResult)
+    public function spamCheckReturnsVoid($answerProperties, $expectedResult): void
     {
         $mail = new Mail();
         foreach ($answerProperties as $value) {

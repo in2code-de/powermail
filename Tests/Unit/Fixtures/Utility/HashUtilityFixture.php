@@ -11,10 +11,9 @@ use In2code\Powermail\Utility\HashUtility;
 class HashUtilityFixture extends HashUtility
 {
     /**
-     * @return string
      * @throws ConfigurationIsMissingException
      */
-    public static function getEncryptionKeyForTesting()
+    public static function getEncryptionKeyForTesting(): string
     {
         return parent::getEncryptionKey();
     }

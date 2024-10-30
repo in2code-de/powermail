@@ -14,12 +14,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
     /**
      * Initialize arguments.
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('val', 'string', 'Value');
@@ -31,14 +29,9 @@ class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implement
      * @param array $arguments
      * @param \Closure $renderChildrenClosure
      * @param RenderingContextInterface $renderingContext
-     *
-     * @return string
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ): string {
-        return GeneralUtility::underscoredToLowerCamelCase($arguments['val']);
+    public function render(): string
+    {
+        return GeneralUtility::underscoredToLowerCamelCase($this->arguments['val']);
     }
 }

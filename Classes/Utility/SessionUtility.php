@@ -23,8 +23,6 @@ class SessionUtility
 
     /**
      * Session methods
-     *
-     * @var array
      */
     protected static array $methods = [
         'temporary' => 'ses',
@@ -35,12 +33,10 @@ class SessionUtility
      * Save current timestamp to session
      *
      * @param ?Form $form
-     * @param array $settings
-     * @return void
      */
     public static function saveFormStartInSession(array $settings, Form $form = null): void
     {
-        if ($form !== null && self::sessionCheckEnabled($settings)) {
+        if ($form instanceof \In2code\Powermail\Domain\Model\Form && self::sessionCheckEnabled($settings)) {
             ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey(
                 'ses',
                 'powermailFormstart' . $form->getUid(),
@@ -53,7 +49,6 @@ class SessionUtility
      * Read form rendering timestamp from session
      *
      * @param int $formUid Form UID
-     * @param array $settings
      * @return int Timestamp
      */
     public static function getFormStartFromSession(int $formUid, array $settings): int
@@ -64,6 +59,7 @@ class SessionUtility
                 'powermailFormstart' . $formUid
             );
         }
+
         return 0;
     }
 
@@ -82,8 +78,6 @@ class SessionUtility
      * @param int $language Frontend Language Uid
      * @param int $pid Page Id
      * @param bool $mobileDevice Is mobile device?
-     * @param array $settings
-     * @return void
      */
     public static function storeMarketingInformation(
         string $referer = '',
@@ -94,7 +88,7 @@ class SessionUtility
     ): void {
         $marketingInfo = self::getSessionValue('powermail_marketing');
         // initially create array with marketing info
-        if (empty($marketingInfo)) {
+        if ($marketingInfo === []) {
             $marketingInfo = self::initMarketingInfo($referer, $language, $pid, $mobileDevice, $settings);
         } else {
             // add current pid to funnel
@@ -112,24 +106,21 @@ class SessionUtility
 
     /**
      * Read MarketingInfos from Session
-     *
-     * @return array
      */
     public static function getMarketingInfos(): array
     {
         $marketingInfo = self::getSessionValue('powermail_marketing');
-        if (empty($marketingInfo)) {
-            $marketingInfo = self::initMarketingInfo();
+        if ($marketingInfo === []) {
+            return self::initMarketingInfo();
         }
+
         return $marketingInfo;
     }
 
     /**
      * Save values to session for prefilling on upcoming form renderings
      *
-     * @param Mail $mail
      * @param array $settings Settings array
-     * @return void
      */
     public static function saveSessionValuesForPrefill(Mail $mail, array $settings): void
     {
@@ -153,7 +144,8 @@ class SessionUtility
                 }
             }
         }
-        if (count($valuesToSave)) {
+
+        if ($valuesToSave !== []) {
             self::setSessionValue(
                 'pss',
                 $valuesToSave,
@@ -168,53 +160,38 @@ class SessionUtility
      * Get session for prefilling forms
      *
      * @param array $configuration TypoScript configuration
-     * @return array
      */
     public static function getSessionValuesForPrefill(array $configuration): array
     {
-        $values = [];
         if (!empty($configuration['saveSession.']) &&
-            array_key_exists($configuration['saveSession.']['_method'], self::$methods)
-        ) {
-            $values = self::getSessionValue(
+            array_key_exists($configuration['saveSession.']['_method'], self::$methods)) {
+            return self::getSessionValue(
                 'pss',
                 self::$methods[$configuration['saveSession.']['_method']],
                 'powermailSaveSession'
             );
         }
-
-        return $values;
+        return [];
     }
 
-    /**
-     * @param string $result
-     * @param int $fieldUid
-     * @return void
-     */
     public static function setCaptchaSession(string $result, int $fieldUid): void
     {
         self::setSessionValue('captcha', [$fieldUid => $result], false, 'ses', 'powermail_captcha');
     }
 
-    /**
-     * @param int $fieldUid
-     * @return int
-     */
     public static function getCaptchaSession(int $fieldUid): int
     {
         $sessionArray = self::getSessionValue('captcha', 'ses', 'powermail_captcha');
         if (array_key_exists($fieldUid, $sessionArray)) {
             return (int)$sessionArray[$fieldUid];
         }
+
         return 0;
     }
 
     /**
      * Check if spamshield is turned on generally
      * and if ther is a sessioncheck agains spamshield enabled
-     *
-     * @param array $settings
-     * @return bool
      */
     protected static function sessionCheckEnabled(array $settings): bool
     {
@@ -223,8 +200,6 @@ class SessionUtility
 
     /**
      * Get spam factor from session
-     *
-     * @return string
      */
     public static function getSpamFactorFromSession(): string
     {
@@ -241,37 +216,32 @@ class SessionUtility
      */
     protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = ''): array
     {
-        if (empty($key)) {
+        if ($key === '' || $key === '0') {
             $key = self::$extKey;
         }
+
         $powermailSession = ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey($method, $key);
-        if (!empty($name) && isset($powermailSession[$name])) {
+        if ($name !== '' && $name !== '0' && isset($powermailSession[$name])) {
             return $powermailSession[$name];
         }
+
         return [];
     }
 
-    /**
-     * @param string $referer
-     * @param int $language
-     * @param int $pid
-     * @param bool $mobileDevice
-     * @param array $settings
-     * @return array
-     */
     protected static function initMarketingInfo(
         string $referer = '',
         int $language = 0,
         int $pid = 0,
         bool $mobileDevice = false,
         array $settings = []
-    ) {
+    ): array {
         $country = LocalizationUtility::translate('MarketingInformationCountryDisabled');
         if (isset($settings['setup']['marketing']['determineCountry'])
             && $settings['setup']['marketing']['determineCountry'] == 1) {
             $country = FrontendUtility::getCountryFromIp();
         }
-        $marketingInfo = [
+
+        return [
             'refererDomain' => FrontendUtility::getDomainFromUri($referer),
             'referer' => $referer,
             'country' => $country,
@@ -280,8 +250,6 @@ class SessionUtility
             'browserLanguage' => GeneralUtility::getIndpEnv('HTTP_ACCEPT_LANGUAGE'),
             'pageFunnel' => [$pid],
         ];
-
-        return $marketingInfo;
     }
 
     /**
@@ -292,7 +260,6 @@ class SessionUtility
      * @param bool $overwrite Overwrite existing values
      * @param string $method "user" or "ses"
      * @param string $key name to save session
-     * @return void
      */
     protected static function setSessionValue(
         string $name,
@@ -301,15 +268,17 @@ class SessionUtility
         string $method = 'ses',
         string $key = ''
     ): void {
-        if (empty($key)) {
+        if ($key === '' || $key === '0') {
             $key = self::$extKey;
         }
+
         if (!$overwrite) {
             $oldValues = self::getSessionValue($name, $method, $key);
-            if ($oldValues) {
-                $values = ArrayUtility::arrayMergeRecursiveOverrule((array)$oldValues, (array)$values);
+            if ($oldValues !== []) {
+                $values = ArrayUtility::arrayMergeRecursiveOverrule((array)$oldValues, $values);
             }
         }
+
         $newValues = [
             $name => $values,
         ];

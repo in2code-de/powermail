@@ -23,10 +23,7 @@ class IsImageViewHelper extends AbstractViewHelper
         'png',
     ];
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('path', 'string', 'Path', true);
@@ -34,12 +31,10 @@ class IsImageViewHelper extends AbstractViewHelper
 
     /**
      * Check if Path or File is an image
-     *
-     * @return bool
      */
     public function render(): bool
     {
-        $fileInfo = pathinfo($this->arguments['path']);
+        $fileInfo = pathinfo((string) $this->arguments['path']);
         return in_array($fileInfo['extension'], $this->imageExtensions);
     }
 }

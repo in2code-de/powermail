@@ -16,17 +16,11 @@ class PlaintextServiceTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(PlaintextService::class, null);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -34,8 +28,6 @@ class PlaintextServiceTest extends UnitTestCase
 
     /**
      * Data Provider for makePlainReturnString()
-     *
-     * @return array
      */
     public static function makePlainReturnStringDataProvider(): array
     {
@@ -94,22 +86,20 @@ class PlaintextServiceTest extends UnitTestCase
      * @param string $content
      * @param string $expectedResult
      * @dataProvider makePlainReturnStringDataProvider
-     * @return void
      * @test
      * @covers ::makePlain
      */
-    public function makePlainReturnString($content, $expectedResult)
+    public function makePlainReturnString($content, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('makePlain', $content);
         self::assertSame($expectedResult, $result);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::removeInvisibleElements
      */
-    public function removeInvisibleElementsReturnString()
+    public function removeInvisibleElementsReturnString(): void
     {
         $content = "<b>abc</b><head>\n\t<title>test</title>\n</head><style>\n\ta {color: blue;}\n</style>test<script>\n\talert('hello');\n</script>";
         $expectedResult = '<b>abc</b>test';
@@ -118,11 +108,10 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::removeLinebreaksAndTabs
      */
-    public function removeLinebreaksAndTabsReturnString()
+    public function removeLinebreaksAndTabsReturnString(): void
     {
         $content = "\t\t\r\ntest\t\r\n";
         $expectedResult = 'test';
@@ -131,11 +120,10 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::addLineBreaks
      */
-    public function addLineBreaksReturnString()
+    public function addLineBreaksReturnString(): void
     {
         $content = '<p>test</p><ul><li>list1</li><li>list1</li></ul>';
         $expectedResult = '<p>test</p><br /></p><br /><li>list1</p><br /><li>list1</p><br /></ul>';
@@ -144,11 +132,10 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::addSpaceToTableCells
      */
-    public function addSpaceToTableCellsReturnString()
+    public function addSpaceToTableCellsReturnString(): void
     {
         $content = '<th>head</th><td>cell</td>';
         $expectedResult = '<th>head</td> <td>cell</td> ';
@@ -157,11 +144,10 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::removeTags
      */
-    public function removeTagsReturnString()
+    public function removeTagsReturnString(): void
     {
         $content = '<a>a</a><b>b</b><br /><address>address</address><div>div</div>';
         $expectedResult = 'ab<br /><address>address</address>div';
@@ -170,11 +156,10 @@ class PlaintextServiceTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::extractLinkForPlainTextContent
      */
-    public function extractLinkForPlainTextContentReturnString()
+    public function extractLinkForPlainTextContentReturnString(): void
     {
         $content = 'Please click <a href="http://domain.org/index.php?id=1&amp;x=y">this</a> link';
         $expectedResult = 'Please click this [http://domain.org/index.php?id=1&x=y] link';

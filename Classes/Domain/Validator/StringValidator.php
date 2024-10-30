@@ -14,9 +14,6 @@ class StringValidator extends AbstractValidator
 {
     /**
      * Mandatory Check
-     *
-     * @param mixed $value
-     * @return bool
      */
     protected function validateMandatory(mixed $value): bool
     {
@@ -25,9 +22,6 @@ class StringValidator extends AbstractValidator
 
     /**
      * Test string if valid email
-     *
-     * @param string $value
-     * @return bool
      */
     protected function validateEmail(string $value): bool
     {
@@ -36,9 +30,6 @@ class StringValidator extends AbstractValidator
 
     /**
      * Test string if its an URL
-     *
-     * @param string $value
-     * @return bool
      */
     protected function validateUrl(string $value): bool
     {
@@ -58,32 +49,23 @@ class StringValidator extends AbstractValidator
      *        +12 3456 7890123
      *        +49 (0) 123 3456789
      *        +49 (0)123 / 34567 - 89
-     *
-     * @param string $value
-     * @return bool
      */
     protected function validatePhone(string $value): bool
     {
-        preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', (string)$value, $result);
-        return !empty($result[0]) && $result[0] === $value;
+        preg_match('/^(\+\d{1,4}|0+\d{1,5}|\(\d{1,5})[\d\s\/\(\)-]*\d+$/', $value, $result);
+        return isset($result[0]) && ($result[0] !== '' && $result[0] !== '0') && $result[0] === $value;
     }
 
     /**
      * Test string if there are only numbers
-     *
-     * @param string $value
-     * @return bool
      */
     protected function validateNumbersOnly(string $value): bool
     {
-        return (string)((int)$value) === (string)$value;
+        return (string)((int)$value) === $value;
     }
 
     /**
      * Test string if there are only letters
-     *
-     * @param string $value
-     * @return bool
      */
     protected function validateLettersOnly(string $value): bool
     {
@@ -93,9 +75,7 @@ class StringValidator extends AbstractValidator
     /**
      * Test if number is greater than configuration
      *
-     * @param string $value
      * @param string $configuration e.g. "4"
-     * @return bool
      */
     protected function validateMinNumber(string $value, string $configuration): bool
     {
@@ -105,9 +85,7 @@ class StringValidator extends AbstractValidator
     /**
      * Test if number is less than configuration
      *
-     * @param string $value
      * @param string $configuration e.g. "4"
-     * @return bool
      */
     protected function validateMaxNumber(string $value, string $configuration): bool
     {
@@ -117,9 +95,7 @@ class StringValidator extends AbstractValidator
     /**
      * Test if number is in range
      *
-     * @param string $value
      * @param string $configuration e.g. "1,6" or "6"
-     * @return bool
      */
     protected function validateRange(string $value, string $configuration): bool
     {
@@ -127,19 +103,19 @@ class StringValidator extends AbstractValidator
         if (!isset($values[0]) || (int)$values[0] <= 0) {
             return true;
         }
+
         if (!isset($values[1])) {
             $values[1] = $values[0];
             $values[0] = 1;
         }
+
         return $value >= $values[0] && $value <= $values[1];
     }
 
     /**
      * Test if stringlength is in range
      *
-     * @param string $value
      * @param string $configuration e.g. "1,6" or "6"
-     * @return bool
      */
     protected function validateLength(string $value, string $configuration): bool
     {
@@ -147,10 +123,12 @@ class StringValidator extends AbstractValidator
         if (!isset($values[0]) || (int)$values[0] <= 0) {
             return true;
         }
+
         if (!isset($values[1])) {
             $values[1] = $values[0];
             $values[0] = 1;
         }
+
         return StringUtility::getStringLength($value) >= $values[0]
             && StringUtility::getStringLength($value) <= $values[1];
     }
@@ -158,20 +136,17 @@ class StringValidator extends AbstractValidator
     /**
      * Test if value is ok with RegEx
      *
-     * @param string $value
      * @param string $configuration e.g. "https?://.+"
-     * @return bool
      */
     protected function validatePattern(string $value, string $configuration): bool
     {
-        return preg_match('~' . $configuration . '~', (string)$value) === 1;
+        return preg_match('~' . $configuration . '~', $value) === 1;
     }
 
     /**
      * @param string $value
-     * @return void
      */
-    public function isValid($value): void
+    protected function isValid($value): void
     {
     }
 }

@@ -13,12 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class IsArrayViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('val', 'string', 'Value');
@@ -31,11 +26,8 @@ class IsArrayViewHelper extends AbstractViewHelper implements ViewHelperInterfac
      *
      * @return string
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
-        return is_array($arguments['val']);
+    public function render()
+    {
+        return is_array($this->arguments['val']);
     }
 }

@@ -26,10 +26,9 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 class TestingHelper
 {
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      */
-    public static function setDefaultConstants()
+    public static function setDefaultConstants(): void
     {
         $_SERVER['REMOTE_ADDR'] = '';
         $_SERVER['SSL_SESSION_ID'] = '';
@@ -56,6 +55,7 @@ class TestingHelper
         } catch (\Exception $exception) {
             unset($exception);
         }
+
         defined('LF') ?: define('LF', chr(10));
         defined('CR') ?: define('CR', chr(13));
         defined('CRLF') ?: define('CRLF', CR . LF);
@@ -63,11 +63,10 @@ class TestingHelper
 
     /**
      * @param int pid
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @throws Exception
      */
-    public static function initializeTypoScriptFrontendController($pid = 1)
+    public static function initializeTypoScriptFrontendController($pid = 1): void
     {
         TestingHelper::setDefaultConstants();
         $configurationManager = new ConfigurationManager();
@@ -94,6 +93,7 @@ class TestingHelper
         } catch (\Exception $exception) {
             unset($exception);
         }
+
         $GLOBALS['TSFE'] = GeneralUtility::makeInstance(
             TypoScriptFrontendController::class,
             GeneralUtility::makeInstance(Context::class),
@@ -105,18 +105,12 @@ class TestingHelper
         $GLOBALS['LANG'] = new LanguageService();
     }
 
-    /**
-     * @return string
-     */
     public static function getWebRoot(): string
     {
         return realpath(__DIR__ . '/../../.build/public') . '/';
     }
 
-    /**
-     * @return ObjectManager
-     */
-    public static function getObjectManager()
+    public static function getObjectManager(): \In2code\Powermail\Tests\Helper\ObjectManager
     {
         return new ObjectManager();
     }

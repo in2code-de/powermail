@@ -22,6 +22,6 @@ class SessionMethod extends AbstractMethod
             $this->settings
         );
         $referrer = $this->arguments['__referrer']['@action'];
-        return $referrer !== 'optinConfirm' && empty($timeFromSession);
+        return $referrer !== 'optinConfirm' && $timeFromSession === 0;
     }
 }

@@ -18,42 +18,26 @@ class Page extends AbstractEntity
 {
     const TABLE_NAME = 'tx_powermail_domain_model_page';
 
-    /**
-     * @var string
-     */
     protected string $title = '';
 
-    /**
-     * @var string
-     */
     protected string $css = '';
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Field>
      */
-    protected $fields = null;
+    protected $fields;
 
-    /**
-     * @var ?Form
-     */
     protected ?Form $form = null;
 
-    /**
-     * @var int
-     */
     protected int $sorting = 0;
 
     /**
      * Container for fields with marker as key
-     *
-     * @var array
      */
     protected array $fieldsByFieldMarker = [];
 
     /**
      * Container for fields with uid as key
-     *
-     * @var array
      */
     protected array $fieldsByFieldUid = [];
 
@@ -65,111 +49,67 @@ class Page extends AbstractEntity
         $this->initStorageObjects();
     }
 
-    /**
-     * @return void
-     */
     protected function initStorageObjects(): void
     {
         $this->fields = new ObjectStorage();
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return void
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getCss(): string
     {
         return $this->css;
     }
 
-    /**
-     * @param string $css
-     * @return void
-     */
     public function setCss(string $css): void
     {
         $this->css = $css;
     }
 
-    /**
-     * @param Field $field
-     * @return void
-     */
     public function addField(Field $field): void
     {
         $this->fields->attach($field);
     }
 
-    /**
-     * @param Field $fieldToRemove
-     * @return void
-     */
     public function removeField(Field $fieldToRemove): void
     {
         $this->fields->detach($fieldToRemove);
     }
 
-    /**
-     * @return ObjectStorage
-     */
     public function getFields(): ObjectStorage
     {
         return $this->fields;
     }
 
-    /**
-     * @param ObjectStorage $fields
-     * @return void
-     */
     public function setFields(ObjectStorage $fields): void
     {
         $this->fields = $fields;
     }
 
-    /**
-     * @return int
-     */
     public function getSorting(): int
     {
         return $this->sorting;
     }
 
-    /**
-     * @param int $sorting
-     * @return void
-     */
     public function setSorting(int $sorting): void
     {
         $this->sorting = $sorting;
     }
 
-    /**
-     * @param Form $form
-     * @return void
-     */
     public function setForm(Form $form): void
     {
         $this->form = $form;
     }
 
     /**
-     * @return Form
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -180,6 +120,7 @@ class Page extends AbstractEntity
             $formRepository = GeneralUtility::makeInstance(FormRepository::class);
             $form = $formRepository->findByPages($this->uid);
         }
+
         return $form;
     }
 
@@ -189,17 +130,14 @@ class Page extends AbstractEntity
      *      Example to get a field title by markername {firstname} use:
      *          PHP: $page->getFieldsByFieldMarker()['firstname']->getTitle();
      *          FLUID: {page.fieldsByFieldMarker.firstname.title}
-     *
-     * @return array
      */
     public function getFieldsByFieldMarker(): array
     {
-        if (empty($this->fieldsByFieldMarker)) {
+        if ($this->fieldsByFieldMarker === []) {
             $fieldsArray = $this->getFields()->toArray();
-            $this->fieldsByFieldMarker = array_combine(array_map(function (Field $field) {
-                return $field->getMarker();
-            }, $fieldsArray), $fieldsArray);
+            $this->fieldsByFieldMarker = array_combine(array_map(fn(Field $field): string => $field->getMarker(), $fieldsArray), $fieldsArray);
         }
+
         return $this->fieldsByFieldMarker;
     }
 
@@ -209,17 +147,14 @@ class Page extends AbstractEntity
      *      Example to get a field title by uid use:
      *          PHP: $page->getFieldsByFieldUid()[123]->getTitle();
      *          FLUID: {page.fieldsByFieldUid.123.title}
-     *
-     * @return array
      */
     public function getFieldsByFieldUid(): array
     {
-        if (empty($this->fieldsByFieldUid)) {
+        if ($this->fieldsByFieldUid === []) {
             $fieldsArray = $this->getFields()->toArray();
-            $this->fieldsByFieldUid = array_combine(array_map(function (Field $field) {
-                return $field->getUid();
-            }, $fieldsArray), $fieldsArray);
+            $this->fieldsByFieldUid = array_combine(array_map(fn(Field $field): ?int => $field->getUid(), $fieldsArray), $fieldsArray);
         }
+
         return $this->fieldsByFieldUid;
     }
 }

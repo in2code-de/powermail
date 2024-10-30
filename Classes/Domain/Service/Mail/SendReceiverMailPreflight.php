@@ -15,31 +15,17 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
  */
 class SendReceiverMailPreflight
 {
-    /**
-     * @var SendMailService
-     */
     protected SendMailService $sendMailService;
-
-    /**
-     * @var array
-     */
-    protected array $settings = [];
 
     protected Request $request;
 
-    /**
-     * @param array $settings
-     */
-    public function __construct(array $settings, Request $request)
+    public function __construct(protected array $settings, Request $request)
     {
-        $this->settings = $settings;
         $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
     }
 
     /**
-     * @param Mail $mail
      * @param string|null $hash
-     * @return bool
      * @throws InvalidConfigurationTypeException
      * @throws ExceptionExtbaseObject
      */
@@ -61,6 +47,7 @@ class SendReceiverMailPreflight
             // avoid error flashmessage if subject is deliberately empty (and thus deactivates mailing)
             return true;
         }
+
         foreach ($receiverService->getReceiverEmails() as $receiver) {
             $email = [
                 'template' => 'Mail/ReceiverMail',
@@ -80,6 +67,7 @@ class SendReceiverMailPreflight
             ];
             $isSent = $this->sendMailService->sendMail($email, $mail, $this->settings, 'receiver');
         }
+
         return $isSent;
     }
 }

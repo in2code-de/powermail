@@ -13,36 +13,29 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 class RedirectUriService
 {
     /**
-     * @var ContentObjectRenderer
-     */
-    protected ContentObjectRenderer $contentObject;
-
-    /**
      * Get redirect URI from FlexForm or TypoScript
-     *
-     * @return string|null
      */
     public function getRedirectUri(): ?string
     {
         $uri = null;
         $target = $this->getTarget();
         if ($target !== null) {
-            $uri = $this->contentObject->typoLink_URL(['parameter' => $target]);
+            return $this->contentObject->typoLink_URL(['parameter' => $target]);
         }
+
         return $uri;
     }
 
     /**
      * Get target
-     *
-     * @return string|null
      */
     protected function getTarget(): ?string
     {
         $target = $this->getTargetFromTypoScript();
         if ($target === null) {
-            $target = $this->getTargetFromFlexForm();
+            return $this->getTargetFromFlexForm();
         }
+
         return $target;
     }
 
@@ -50,16 +43,15 @@ class RedirectUriService
      * Get target from FlexForm
      *
      *      settings.flexform.thx.redirect
-     *
-     * @return string|null
      */
     protected function getTargetFromFlexForm(): ?string
     {
         $target = null;
         $flexFormArray = $this->getFlexFormArray();
         if (!empty($flexFormArray['settings']['flexform']['thx']['redirect'])) {
-            $target = $flexFormArray['settings']['flexform']['thx']['redirect'];
+            return $flexFormArray['settings']['flexform']['thx']['redirect'];
         }
+
         return $target;
     }
 
@@ -68,23 +60,20 @@ class RedirectUriService
      *
      *      plugin.tx_powermail.settings.setup.thx.overwrite.redirect = TEXT
      *      plugin.tx_powermail.settings.setup.thx.overwrite.redirect.value = 123
-     *
-     * @return string|null
      */
     protected function getTargetFromTypoScript(): ?string
     {
         $target = null;
         $overwriteConfig = $this->getOverwriteTypoScript();
         if (!empty($overwriteConfig['redirect.'])) {
-            $target = $this->contentObject->cObjGetSingle($overwriteConfig['redirect'], $overwriteConfig['redirect.']);
+            return $this->contentObject->cObjGetSingle($overwriteConfig['redirect'], $overwriteConfig['redirect.']);
         }
+
         return $target;
     }
 
     /**
      * Get FlexForm array from contentObject
-     *
-     * @return array|null
      */
     protected function getFlexFormArray(): ?array
     {
@@ -94,8 +83,6 @@ class RedirectUriService
 
     /**
      * Get TypoScript array
-     *
-     * @return array|null
      */
     protected function getOverwriteTypoScript(): ?array
     {
@@ -104,14 +91,11 @@ class RedirectUriService
         if (!empty($configuration['thx.']['overwrite.'])) {
             return $configuration['thx.']['overwrite.'];
         }
+
         return null;
     }
 
-    /**
-     * @param ContentObjectRenderer $contentObject
-     */
-    public function __construct(ContentObjectRenderer $contentObject)
+    public function __construct(protected ContentObjectRenderer $contentObject)
     {
-        $this->contentObject = $contentObject;
     }
 }

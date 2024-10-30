@@ -13,8 +13,6 @@ class StringUtilityTest extends UnitTestCase
 {
     /**
      * Dataprovider isNotEmptyReturnsBool()
-     *
-     * @return array
      */
     public static function isNotEmptyReturnsBoolDataProvider(): array
     {
@@ -89,20 +87,17 @@ class StringUtilityTest extends UnitTestCase
     /**
      * @param string $value
      * @param array $expectedResult
-     * @return void
      * @dataProvider isNotEmptyReturnsBoolDataProvider
      * @test
      * @covers ::isNotEmpty
      */
-    public function isNotEmptyReturnsBool($value, $expectedResult)
+    public function isNotEmptyReturnsBool($value, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::isNotEmpty($value));
     }
 
     /**
      * Data Provider for getRandomStringAlwaysReturnsStringsOfGivenLength
-     *
-     * @return array
      */
     public static function getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider(): array
     {
@@ -131,12 +126,11 @@ class StringUtilityTest extends UnitTestCase
      *
      * @param int $length
      * @param bool $uppercase
-     * @return void
      * @dataProvider getRandomStringAlwaysReturnsStringsOfGivenLengthDataProvider
      * @test
      * @covers ::getRandomString
      */
-    public function getRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase)
+    public function getRandomStringAlwaysReturnsStringsOfGivenLength($length, $uppercase): void
     {
         for ($i = 0; $i < 100; $i++) {
             $string = StringUtility::getRandomString($length, $uppercase);
@@ -152,8 +146,6 @@ class StringUtilityTest extends UnitTestCase
 
     /**
      * Data Provider for conditionalVariableReturnsMixed()
-     *
-     * @return array
      */
     public static function conditionalVariableReturnsMixedDataProvider(): array
     {
@@ -187,23 +179,17 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     * @param mixed $variable
-     * @param mixed $fallback
-     * @param mixed $expectedResult
-     * @return void
      * @dataProvider conditionalVariableReturnsMixedDataProvider
      * @test
      * @covers ::conditionalVariable
      */
-    public function conditionalVariableReturnsMixed($variable, $fallback, $expectedResult)
+    public function conditionalVariableReturnsMixed(mixed $variable, mixed $fallback, mixed $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::conditionalVariable($variable, $fallback));
     }
 
     /**
      * Data Provider for endsWithReturnsString()
-     *
-     * @return array
      */
     public static function endsWithReturnsStringDataProvider(): array
     {
@@ -250,20 +236,17 @@ class StringUtilityTest extends UnitTestCase
      * @param string $haystack
      * @param string $needle
      * @param bool $expectedResult
-     * @return void
      * @dataProvider endsWithReturnsStringDataProvider
      * @test
      * @covers ::endsWith
      */
-    public function endsWithReturnsString($haystack, $needle, $expectedResult)
+    public function endsWithReturnsString($haystack, $needle, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::endsWith($haystack, $needle));
     }
 
     /**
      * Data Provider for startsWithReturnsString()
-     *
-     * @return array
      */
     public static function startsWithReturnsStringDataProvider(): array
     {
@@ -300,20 +283,17 @@ class StringUtilityTest extends UnitTestCase
      * @param string $haystack
      * @param string $needle
      * @param bool $expectedResult
-     * @return void
      * @dataProvider startsWithReturnsStringDataProvider
      * @test
      * @covers ::startsWith
      */
-    public function startsWithReturnsString($haystack, $needle, $expectedResult)
+    public function startsWithReturnsString($haystack, $needle, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::startsWith($haystack, $needle));
     }
 
     /**
      * Data Provider for removeLastDotReturnsString()
-     *
-     * @return array
      */
     public static function removeLastDotReturnsStringDataProvider(): array
     {
@@ -344,20 +324,17 @@ class StringUtilityTest extends UnitTestCase
     /**
      * @param string $string
      * @param string $expectedResult
-     * @return void
      * @dataProvider removeLastDotReturnsStringDataProvider
      * @test
      * @covers ::removeLastDot
      */
-    public function removeLastDotReturnsString($string, $expectedResult)
+    public function removeLastDotReturnsString($string, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::removeLastDot($string));
     }
 
     /**
      * Data Provider for br2nlReturnString()
-     *
-     * @return array
      */
     public static function br2nlReturnStringDataProvider(): array
     {
@@ -380,20 +357,17 @@ class StringUtilityTest extends UnitTestCase
     /**
      * @param string $content
      * @param string $expectedResult
-     * @return void
      * @dataProvider br2nlReturnStringDataProvider
      * @test
      * @covers ::br2nl
      */
-    public function br2nlReturnString($content, $expectedResult)
+    public function br2nlReturnString($content, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::br2nl($content));
     }
 
     /**
      * Data Provider for getStringLengthReturnInt()
-     *
-     * @return array
      */
     public static function getStringLengthReturnIntDataProvider(): array
     {
@@ -420,32 +394,29 @@ class StringUtilityTest extends UnitTestCase
     /**
      * @param string $string
      * @param int $expectedResult
-     * @return void
      * @dataProvider getStringLengthReturnIntDataProvider
      * @test
      * @covers ::getStringLength
      */
-    public function getStringLengthReturnInt($string, $expectedResult)
+    public function getStringLengthReturnInt($string, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::getStringLength($string));
     }
 
     /**
-     * @return void
      * @test
      * @covers ::cleanString
      */
-    public function cleanStringReturnsString()
+    public function cleanStringReturnsString(): void
     {
         self::assertSame('iu.asd__________-3test', StringUtility::cleanString('iu.asd?ßü**^%_-3test'));
     }
 
     /**
-     * @return void
      * @test
      * @covers ::integerList
      */
-    public function integerListReturnsString()
+    public function integerListReturnsString(): void
     {
         self::assertSame('5,8,0', StringUtility::integerList('5,8,a4'));
         self::assertSame('5,8,4', StringUtility::integerList('5,8,4a'));
@@ -453,19 +424,15 @@ class StringUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getSrcFromImageTag
      */
-    public function getSrcFromImageTagReturnsString()
+    public function getSrcFromImageTagReturnsString(): void
     {
         $tag = '<img id="ab3src" src="test.jpg" class="src=" data-action="test" />';
         self::assertSame('test.jpg', StringUtility::getSrcFromImageTag($tag));
     }
 
-    /**
-     * @return array
-     */
     public static function addTrailingSlashReturnStringDataProvider(): array
     {
         return [
@@ -496,10 +463,9 @@ class StringUtilityTest extends UnitTestCase
      * @param string $string
      * @param string $expectedResult
      * @dataProvider addTrailingSlashReturnStringDataProvider
-     * @return void
      * @covers ::addTrailingSlash
      */
-    public function testAddTrailingSlashReturnString($string, $expectedResult)
+    public function testAddTrailingSlashReturnString($string, $expectedResult): void
     {
         self::assertSame($expectedResult, StringUtility::addTrailingSlash($string));
     }

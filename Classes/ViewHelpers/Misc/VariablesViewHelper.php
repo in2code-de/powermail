@@ -31,8 +31,6 @@ class VariablesViewHelper extends AbstractViewHelper
 
     /**
      * Configuration
-     *
-     * @var array
      */
     protected array $settings = [];
 
@@ -41,10 +39,7 @@ class VariablesViewHelper extends AbstractViewHelper
      */
     protected $renderingContext;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('mail', Mail::class, 'Mail', true);
@@ -55,7 +50,6 @@ class VariablesViewHelper extends AbstractViewHelper
     /**
      * Enable variables within variable {powermail_rte} - so string will be parsed again
      *
-     * @return string
      * @throws InvalidConfigurationTypeException
      */
     public function render(): string
@@ -86,17 +80,13 @@ class VariablesViewHelper extends AbstractViewHelper
     public function renderChildren()
     {
         $content = parent::renderChildren();
-        $content = str_replace('-&gt;', '->', $content);
-        return $content;
+        return str_replace('-&gt;', '->', $content);
     }
 
     /**
      * Get renderChildren
      *        <p>{powermail_all}</p> =>
      *            {powermail_all}
-     *
-     * @param string $content
-     * @return string
      */
     protected function removePowermailAllParagraphTagWrap(string $content): string
     {
@@ -105,10 +95,8 @@ class VariablesViewHelper extends AbstractViewHelper
 
     /**
      * Init to get TypoScript Configuration
-     *
-     * @return void
      */
-    public function initialize()
+    public function initialize(): void
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();

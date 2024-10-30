@@ -21,31 +21,15 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
 {
     /**
      * Return variable
-     *
-     * @var bool
      */
     protected bool $validState = true;
 
-    /**
-     * @var array
-     */
     protected array $settings;
 
-    /**
-     * @var array
-     */
     protected array $flexForm;
 
-    /**
-     * @var array
-     */
     protected array $configuration = [];
 
-    /**
-     * @param Field $field
-     * @param string $label
-     * @return void
-     */
     public function setErrorAndMessage(Field $field, string $label): void
     {
         $this->setValidState(false);
@@ -54,50 +38,31 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
 
     /**
      * Check if javascript validation is activated
-     *
-     * @return bool
      */
     public function isServerValidationEnabled(): bool
     {
         return $this->settings['validation']['server'] === '1';
     }
 
-    /**
-     * @return void
-     */
     public function initialize(): void
     {
     }
 
-    /**
-     * @param bool $validState
-     * @return void
-     */
     public function setValidState(bool $validState): void
     {
         $this->validState = $validState;
     }
 
-    /**
-     * @return bool
-     */
     public function isValidState(): bool
     {
         return $this->validState;
     }
 
-    /**
-     * @return array
-     */
     public function getConfiguration(): array
     {
         return $this->configuration;
     }
 
-    /**
-     * @param array $configuration
-     * @return ValidatorInterface
-     */
     public function setConfiguration(array $configuration): ValidatorInterface
     {
         $this->configuration = $configuration;
@@ -109,8 +74,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      * turned on, validation should work in most cases on the confirmationAction.
      *
      * ToDo: for v13 rename the actions in the condition
-     *
-     * @return bool
      */
     public function isFirstActionForValidation(): bool
     {
@@ -118,6 +81,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         if ($this->isConfirmationActivated()) {
             return $arguments['action'] === 'checkConfirmation';
         }
+
         return $arguments['action'] === 'checkCreate';
     }
 
@@ -129,7 +93,7 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
      */
     public function __construct()
     {
-        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
@@ -137,13 +101,10 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
             // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
             // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
             // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-            $configurationManager->getContentObject()->data['pi_flexform'] ?? ''
+            $this->request->getAttribute('currentContentObject')->data['pi_flexform'] ?? ''
         );
     }
 
-    /**
-     * @return bool
-     */
     public function isConfirmationActivated(): bool
     {
         return $this->flexForm['settings']['flexform']['main']['confirmation'] === '1';

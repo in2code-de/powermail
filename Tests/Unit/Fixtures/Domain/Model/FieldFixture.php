@@ -11,9 +11,6 @@ class FieldFixture extends Field
 {
     /**
      * Extend dataType with TSConfig
-     *
-     * @param array $types
-     * @return array
      */
     protected function extendTypeArrayWithTypoScriptTypes(array $types): array
     {

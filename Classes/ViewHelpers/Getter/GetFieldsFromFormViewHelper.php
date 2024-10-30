@@ -23,10 +23,7 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('form', Form::class, 'Form', true);
@@ -38,7 +35,6 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
     /**
      * Get all fields from a form
      *
-     * @return array
      * @throws PropertyNotAccessibleException
      */
     public function render(): array
@@ -51,8 +47,10 @@ class GetFieldsFromFormViewHelper extends AbstractViewHelper
             if ($this->arguments['htmlSpecialChars']) {
                 $fieldProperty = htmlspecialchars((string)$fieldProperty);
             }
+
             $fields[] = $fieldProperty;
         }
+
         return $fields;
     }
 }

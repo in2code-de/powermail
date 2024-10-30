@@ -14,7 +14,7 @@ class MailRepositoryFixture extends MailRepository
      * @param int $uid
      * @return Mail
      */
-    public function findByUid($uid)
+    public function findByUid($uid): ?\In2code\Powermail\Domain\Model\Mail
     {
         $mail = new Mail();
         $mail->_setProperty('uid', $uid);
@@ -23,9 +23,8 @@ class MailRepositoryFixture extends MailRepository
 
     /**
      * @param object $object
-     * @return void
      */
-    public function add($object)
+    public function add($object): void
     {
         unset($object);
         throw new \UnexpectedValueException('Object stored', 1515088469408);

@@ -15,7 +15,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class OptinUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::getHash
@@ -23,7 +22,7 @@ class OptinUtilityTest extends UnitTestCase
      * @covers \In2code\Powermail\Utility\AbstractUtility::getEncryptionKey
      * @throws \Exception
      */
-    public function createHashReturnsString()
+    public function createHashReturnsString(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         $result = HashUtility::getHash($this->getDummyMail());
@@ -36,13 +35,12 @@ class OptinUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isHashValid
      * @throws \Exception
      */
-    public function checkOptinHashReturnsBool()
+    public function checkOptinHashReturnsBool(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         self::assertFalse(HashUtility::isHashValid('abc123', $this->getDummyMail()));
@@ -68,6 +66,7 @@ class OptinUtilityTest extends UnitTestCase
     {
         $form = new Form();
         $form->_setProperty('uid', 123);
+
         $mail = new Mail();
         $mail->_setProperty('uid', 123);
         $mail->_setProperty('pid', 124);

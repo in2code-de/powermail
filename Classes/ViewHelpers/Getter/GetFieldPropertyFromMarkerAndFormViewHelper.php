@@ -18,10 +18,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('marker', 'string', 'markername', true);
@@ -47,6 +44,7 @@ class GetFieldPropertyFromMarkerAndFormViewHelper extends AbstractViewHelper
         if ($field !== null) {
             return ObjectAccess::getProperty($field, $this->arguments['property']);
         }
+
         return '';
     }
 }

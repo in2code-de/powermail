@@ -18,9 +18,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -29,9 +26,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -39,8 +33,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for render()
-     *
-     * @return array
      */
     public static function renderReturnsArrayDataProvider(): array
     {
@@ -134,18 +126,18 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
      * @param array $additionalAttributes
      * @param string $value
      * @param array $expectedResult
-     * @return void
      * @dataProvider renderReturnsArrayDataProvider
      * @test
      * @covers ::render
      * @throws InvalidExtensionNameException
      */
-    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult)
+    public function renderReturnsArray($settings, $fieldProperties, $additionalAttributes, $value, $expectedResult): void
     {
         $field = new Field();
         foreach ($fieldProperties as $propertyName => $propertyValue) {
             $field->_setProperty($propertyName, $propertyValue);
         }
+
         $this->abstractValidationViewHelperMock->_set('settings', $settings);
         $this->abstractValidationViewHelperMock->_set('extensionName', 'powermail');
         $this->abstractValidationViewHelperMock->_set('test', true);

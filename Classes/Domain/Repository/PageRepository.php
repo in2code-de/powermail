@@ -15,40 +15,32 @@ use In2code\Powermail\Utility\DatabaseUtility;
  */
 class PageRepository extends AbstractRepository
 {
-    /**
-     * @param int $uid
-     * @return string
-     */
     public function getPageNameFromUid(int $uid): string
     {
         $pageName = '';
         $query = $this->createQuery();
-        $sql = 'select uid,title from pages where uid = ' . (int)$uid . ' limit 1';
+        $sql = 'select uid,title from pages where uid = ' . $uid . ' limit 1';
         $result = $query->statement($sql)->execute(true);
         if (!empty($result[0]['title'])) {
-            $pageName = $result[0]['title'];
+            return $result[0]['title'];
         }
+
         return $pageName;
     }
 
     /**
-     * @param int $uid
-     * @return array
      * @throws Exception
      * @throws ExceptionDbal
      */
     public function getPropertiesFromUid(int $uid): array
     {
         $connection = DatabaseUtility::getConnectionForTable('pages');
-        $properties = $connection->executeQuery('select * from pages where uid=' . (int)$uid . ' limit 1')->fetchAssociative();
+        $properties = $connection->executeQuery('select * from pages where uid=' . $uid . ' limit 1')->fetchAssociative();
         return $properties ?: [];
     }
 
     /**
      * Get all pages with tt_content with a Powermail Plugin
-     *
-     * @param Form $form
-     * @return array
      */
     public function getPagesWithContentRelatedToForm(Form $form): array
     {
@@ -69,7 +61,6 @@ class PageRepository extends AbstractRepository
      * Find all localized records with
      *        tx_powermail_domain_model_page.form = "0"
      *
-     * @return array
      * @throws ExceptionDbal
      */
     public function findAllWrongLocalizedPages(): array
@@ -78,15 +69,13 @@ class PageRepository extends AbstractRepository
         return $queryBuilder
             ->select('uid', 'pid', 'title', 'l10n_parent', 'sys_language_uid')
             ->from(Page::TABLE_NAME)
-            ->where('(form = \'\' or form = 0) and sys_language_uid > 0 and deleted = 0')
+            ->where("(form = '' or form = 0) and sys_language_uid > 0 and deleted = 0")
             ->executeQuery()
             ->fetchAllAssociative();
     }
 
     /**
      * Fix wrong localized forms
-     *
-     * @return void
      */
     public function fixWrongLocalizedPages(): void
     {
@@ -117,39 +106,32 @@ class PageRepository extends AbstractRepository
         foreach ($rows as $row) {
             $pids[] = (int)$row['uid'];
         }
+
         return $pids;
     }
 
     /**
      * Get parent form uid form given page uid
-     *
-     * @param int $pageUid
-     * @return int
      */
     protected function getFormUidFromPageUid(int $pageUid): int
     {
         $query = $this->createQuery();
         $sql = 'select form';
         $sql .= ' from ' . Page::TABLE_NAME;
-        $sql .= ' where uid = ' . (int)$pageUid;
+        $sql .= ' where uid = ' . $pageUid;
         $sql .= ' and deleted = 0';
         $sql .= ' limit 1';
         $row = $query->statement($sql)->execute(true);
         return (int)$row[0]['form'];
     }
 
-    /**
-     * @param int $formUid
-     * @param int $sysLanguageUid
-     * @return int
-     */
     protected function getLocalizedFormUidFromFormUid(int $formUid, int $sysLanguageUid): int
     {
         $query = $this->createQuery();
         $sql = 'select uid';
         $sql .= ' from ' . Form::TABLE_NAME;
-        $sql .= ' where l10n_parent = ' . (int)$formUid;
-        $sql .= ' and sys_language_uid = ' . (int)$sysLanguageUid;
+        $sql .= ' where l10n_parent = ' . $formUid;
+        $sql .= ' and sys_language_uid = ' . $sysLanguageUid;
         $sql .= ' and deleted = 0';
         $row = $query->statement($sql)->execute(true);
         return (int)$row[0]['uid'];

@@ -12,30 +12,25 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ObjectUtilityTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
     protected bool $resetSingletonInstances = true;
 
     /**
-     * @return void
      * @test
      * @covers ::getFilesArray
      * @covers \In2code\Powermail\Utility\AbstractUtility::getFilesArray
      */
-    public function getFilesArray()
+    public function getFilesArray(): void
     {
         $result = ObjectUtility::getFilesArray();
         self::assertTrue(is_array($result));
     }
 
     /**
-     * @return void
      * @covers ::getLogger
      */
-    public function testGetLogger()
+    public function testGetLogger(): void
     {
-        $logger = ObjectUtility::getLogger(__CLASS__);
+        $logger = ObjectUtility::getLogger(self::class);
         self::assertInstanceOf(Logger::class, $logger);
     }
 }

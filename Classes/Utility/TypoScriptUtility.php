@@ -17,7 +17,6 @@ class TypoScriptUtility
      * @param string $string Value to overwrite
      * @param array|null $conf TypoScript Configuration Array
      * @param string $key Key for TypoScript Configuration
-     * @return string
      * @codeCoverageIgnore
      */
     public static function overwriteValueFromTypoScript(
@@ -26,37 +25,35 @@ class TypoScriptUtility
         string $key = ''
     ): string {
         if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key]??'', $conf[$key . '.']??[])) {
-            $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
+            return ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
+
         return $string;
     }
 
     /**
      * Parse TypoScript from path like lib.blabla
      *
-     * @param string $typoScriptObjectPath
-     * @return string
      * @codeCoverageIgnore
      */
     public static function parseTypoScriptFromTypoScriptPath(string $typoScriptObjectPath): string
     {
-        if (empty($typoScriptObjectPath)) {
+        if ($typoScriptObjectPath === '' || $typoScriptObjectPath === '0') {
             return '';
         }
+
         $setup = ObjectUtility::getTyposcriptFrontendController()->tmpl->setup;
         $pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
         $lastSegment = array_pop($pathSegments);
         foreach ($pathSegments as $segment) {
             $setup = $setup[$segment . '.'];
         }
+
         return ObjectUtility::getContentObject()->cObjGetSingle($setup[$lastSegment], $setup[$lastSegment . '.']);
     }
 
     /**
      * Return configured captcha extension
-     *
-     * @param array $settings
-     * @return string
      */
     public static function getCaptchaExtensionFromSettings(array $settings): string
     {
@@ -69,6 +66,7 @@ class TypoScriptUtility
             return $settings['captcha']['use'];
             // @codeCoverageIgnoreEnd
         }
+
         return 'default';
     }
 }

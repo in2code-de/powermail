@@ -16,12 +16,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('obj', 'object', 'Object', true);
@@ -38,15 +33,12 @@ class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implemen
      * @return string
      * @throws PropertyNotAccessibleException
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
+    public function render()
+    {
         return is_a(
             ObjectAccess::getProperty(
-                $arguments['obj'],
-                GeneralUtility::underscoredToLowerCamelCase($arguments['prop'])
+                $this->arguments['obj'],
+                GeneralUtility::underscoredToLowerCamelCase($this->arguments['prop'])
             ),
             \DateTime::class
         );

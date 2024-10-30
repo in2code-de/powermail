@@ -10,26 +10,11 @@ use In2code\Powermail\Domain\Model\Mail;
  */
 interface MethodInterface
 {
-    /**
-     * @param Mail $mail
-     * @param array $settings
-     * @param array $flexForm
-     * @param array $configuration
-     */
     public function __construct(Mail $mail, array $settings, array $flexForm, array $configuration = []);
 
-    /**
-     * @return void
-     */
     public function initialize(): void;
 
-    /**
-     * @return void
-     */
     public function initializeSpamCheck(): void;
 
-    /**
-     * @return bool
-     */
     public function spamCheck(): bool;
 }

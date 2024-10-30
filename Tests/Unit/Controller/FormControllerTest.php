@@ -36,9 +36,6 @@ class FormControllerTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
@@ -57,9 +54,6 @@ class FormControllerTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -70,6 +64,7 @@ class FormControllerTest extends UnitTestCase
     {
         $form = new Form();
         $form->_setProperty('uid', 2);
+
         $mail = new Mail();
         $mail->setForm($form);
         return [
@@ -173,9 +168,10 @@ class FormControllerTest extends UnitTestCase
         $this->setDefaultControllerProperties($arguments);
 
         $response = $this->generalValidatorMock->_call('forwardIfMailParamEmpty');
-        if ($forward === true) {
+        if ($forward) {
             self::assertInstanceOf(ForwardResponse::class, $response);
         }
+
         self::assertTrue(true);
     }
 
@@ -214,15 +210,18 @@ class FormControllerTest extends UnitTestCase
         $this->generalValidatorMock->_set('settings', $settings);
         $form = new Form();
         $form->_setProperty('uid', $formUid);
+
         $mail = new Mail();
         $mail->setForm($form);
 
         $this->generalValidatorMock->injectResponseFactory(new ResponseFactory());
         $this->generalValidatorMock->injectStreamFactory(new StreamFactory());
+
         $response = $this->generalValidatorMock->_call('forwardIfFormParamsDoNotMatchForOptinConfirm', $mail);
-        if ($forward === true) {
+        if ($forward) {
             self::assertInstanceOf(ForwardResponse::class, $response);
         }
+
         self::assertTrue(true);
     }
 
@@ -285,12 +284,11 @@ class FormControllerTest extends UnitTestCase
      * @param int $optin
      * @param string|null $hash
      * @param bool $expectedResult
-     * @return void
      * @dataProvider isMailPersistActiveReturnBoolDataProvider
      * @test
      * @covers ::isMailPersistActive
      */
-    public function isMailPersistActiveReturnBool($store, $optin, $hash, $expectedResult)
+    public function isMailPersistActiveReturnBool($store, $optin, $hash, $expectedResult): void
     {
         $settings = [
             'db' => [
@@ -305,22 +303,20 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::isNoOptin
      */
-    public function isNoOptinReturnsBool()
+    public function isNoOptinReturnsBool(): void
     {
         $this->generalValidatorMock->_set('settings', []);
         self::assertTrue($this->generalValidatorMock->_call('isNoOptin', new Mail(), ''));
     }
 
     /**
-     * @return void
      * @test
      * @covers ::isPersistActive
      */
-    public function isPersistActiveReturnsBool()
+    public function isPersistActiveReturnsBool(): void
     {
         $settings = [
             'db' => [
@@ -332,11 +328,10 @@ class FormControllerTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::isSenderMailEnabled
      */
-    public function isSenderMailEnabledReturnsBool()
+    public function isSenderMailEnabledReturnsBool(): void
     {
         $settings = [
             'sender' => [
@@ -371,6 +366,7 @@ class FormControllerTest extends UnitTestCase
         foreach ($arguments as $key => $argument) {
             $request = $request->withAttribute($key, $arguments[$key]);
         }
+
         $this->generalValidatorMock->_set('request', new Request($request));
         $this->generalValidatorMock->_set('response', new Response());
         $this->generalValidatorMock->_set('uriBuilder', new UriBuilder());

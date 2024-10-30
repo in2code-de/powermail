@@ -13,10 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsAllowedToEditViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('mail', Mail::class, 'Mail object', true);
@@ -26,7 +23,6 @@ class IsAllowedToEditViewHelper extends AbstractViewHelper
     /**
      * Check if logged in User is allowed to edit
      *
-     * @return bool
      * @throws DBALException
      */
     public function render(): bool

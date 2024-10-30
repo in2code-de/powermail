@@ -14,8 +14,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 class UserRepository extends AbstractRepository
 {
     /**
-     * @param int $uid
-     * @return QueryResultInterface
      * @throws InvalidQueryException
      */
     public function findByUsergroup(int $uid): QueryResultInterface
@@ -30,7 +28,6 @@ class UserRepository extends AbstractRepository
      * Find by Uid but don't respect storage page
      *
      * @param int $uid
-     * @return User
      */
     public function findByUid($uid): User
     {
@@ -61,6 +58,7 @@ class UserRepository extends AbstractRepository
                 $groups[] = (int)$row['uid'];
             }
         }
+
         return $groups;
     }
 }

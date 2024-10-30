@@ -12,10 +12,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('uid', 'int', 'UID', true);
@@ -23,8 +20,6 @@ class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
 
     /**
      * get tx_powermail_domain_model_field.title from .uid
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -32,8 +27,9 @@ class GetFieldLabelFromUidViewHelper extends AbstractViewHelper
         $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
         $field = $fieldRepository->findByUid($this->arguments['uid']);
         if (method_exists($field, 'getTitle')) {
-            $result = $field->getTitle();
+            return $field->getTitle();
         }
+
         return $result;
     }
 }

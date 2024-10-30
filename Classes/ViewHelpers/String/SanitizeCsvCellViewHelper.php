@@ -14,9 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class SanitizeCsvCellViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return string
-     */
     public function render(): string
     {
         return CsvUtility::sanitizeCell((string)$this->renderChildren());

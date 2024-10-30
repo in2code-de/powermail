@@ -20,17 +20,11 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  */
 class PowermailRelationUpdateWizard implements UpgradeWizardInterface
 {
-    /**
-     * @return string
-     */
     public function getIdentifier(): string
     {
         return 'powermailRelationUpdateWizard';
     }
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return 'Powermail: Update relations in database (relevant for entries from < 8.0.0)';
@@ -38,8 +32,6 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
 
     /**
      * Return the description for this wizard
-     *
-     * @return string
      */
     public function getDescription(): string
     {
@@ -47,9 +39,6 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
             'tx_powermail_domain_model_pages.forms to .form with two simple queries';
     }
 
-    /**
-     * @return bool
-     */
     public function executeUpdate(): bool
     {
         try {
@@ -57,14 +46,14 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
             $connection->executeQuery('update ' . Field::TABLE_NAME . ' set page=pages;');
             $connection = DatabaseUtility::getConnectionForTable(Page::TABLE_NAME);
             $connection->executeQuery('update ' . Page::TABLE_NAME . ' set form=forms;');
-        } catch (Throwable $exception) {
+        } catch (Throwable) {
             return false;
         }
+
         return true;
     }
 
     /**
-     * @return bool
      * @throws DBALException
      * @throws DatabaseFieldMissingException
      */
@@ -84,7 +73,6 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
     }
 
     /**
-     * @return bool
      * @throws DBALException
      */
     protected function areOldFieldsExistingAndFilled(): bool
@@ -94,7 +82,6 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
     }
 
     /**
-     * @return bool
      * @throws DBALException
      * @throws DatabaseFieldMissingException
      */
@@ -106,12 +93,14 @@ class PowermailRelationUpdateWizard implements UpgradeWizardInterface
                 1580560323
             );
         }
+
         if (DatabaseUtility::isFieldExistingInTable('form', Page::TABLE_NAME) === false) {
             throw new DatabaseFieldMissingException(
                 'Field tx_powermail_domain_model_page.form is missing. Did you forget a database compare?',
                 1580560354
             );
         }
+
         return DatabaseUtility::isFieldFilled('page', Field::TABLE_NAME) === false &&
             DatabaseUtility::isFieldFilled('form', Page::TABLE_NAME) === false;
     }

@@ -19,15 +19,10 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
  */
 class GetNewMarkerNamesForFormService
 {
-    /**
-     * @var string
-     */
     protected static string $defaultMarker = 'marker';
 
     /**
      * Restricted Marker Names
-     *
-     * @var array
      */
     protected array $restrictedMarkers = [
         'mail',
@@ -35,9 +30,6 @@ class GetNewMarkerNamesForFormService
         'powermail_all',
     ];
 
-    /**
-     * @var int
-     */
     protected int $iterations = 99;
 
     /**
@@ -50,9 +42,6 @@ class GetNewMarkerNamesForFormService
      *      ]
      *  ]
      *
-     * @param int $formUid
-     * @param bool $forceReset
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws ExceptionExtbaseObject
@@ -66,11 +55,13 @@ class GetNewMarkerNamesForFormService
         } elseif ($form = $formRepository->findByUid($formUid)) {
             $forms = [$form];
         }
+
         $markers = [];
         /** @var Form $form */
         foreach ($forms as $form) {
             $markers[$form->getUid()] = $this->makeUniqueValueInArray($this->getFieldsToForm($form), $forceReset);
         }
+
         return $markers;
     }
 
@@ -89,9 +80,6 @@ class GetNewMarkerNamesForFormService
      *      234 => 'markername2'
      *  ]
      *
-     * @param array $fieldArray
-     * @param bool $forceReset
-     * @return array
      * @throws ExceptionExtbaseObject
      */
     public function makeUniqueValueInArray(array $fieldArray, bool $forceReset = false): array
@@ -119,14 +107,13 @@ class GetNewMarkerNamesForFormService
                 }
             }
         }
+
         return $markerArray;
     }
 
     /**
      * Get all fields to a form
      *
-     * @param Form $form
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -140,6 +127,7 @@ class GetNewMarkerNamesForFormService
                 $fields[] = $field;
             }
         }
+
         return $fields;
     }
 
@@ -150,7 +138,6 @@ class GetNewMarkerNamesForFormService
      * "new123abc" before they are persisted in database. It could be that, they are temporary
      * stored in field description. In this case the uid is always empty
      *
-     * @param Field $field
      * @return int|string
      */
     protected function getUid(Field $field)
@@ -158,35 +145,32 @@ class GetNewMarkerNamesForFormService
         $uid = 0;
         if ($field->getUid()) {
             $uid = $field->getUid();
-        } elseif ($field->getDescription()) {
+        } elseif ($field->getDescription() !== '' && $field->getDescription() !== '0') {
             $uid = $field->getDescription();
         }
+
         return $uid;
     }
 
     /**
-     * @param Field $field
-     * @param bool $forceReset
-     * @return string
      * @throws ExceptionExtbaseObject
      */
     protected function fallbackMarkerIfEmpty(Field $field, bool $forceReset): string
     {
         $marker = $field->getMarkerOriginal();
-        if (empty($marker) || $forceReset) {
+        if ($marker === '' || $marker === '0' || $forceReset) {
             $marker = $this->cleanString($field->getTitle());
         }
-        if (empty($marker)) {
-            $marker = self::$defaultMarker;
+
+        if ($marker === '' || $marker === '0') {
+            return self::$defaultMarker;
         }
+
         return $marker;
     }
 
     /**
      * remove appendix "_xx"
-     *
-     * @param string $string
-     * @return string
      */
     protected function removeAppendix(string $string): string
     {
@@ -195,41 +179,30 @@ class GetNewMarkerNamesForFormService
         for ($i = 0; $i < strlen((string)$this->iterations); $i++) {
             $pattern .= $part;
         }
+
         return $string = preg_replace('/_' . $pattern . '$/', '', $string);
     }
 
     /**
      * add appendix "_xx"
-     *
-     * @param string $string
-     * @param int $iteration
-     * @return string
      */
     protected function addAppendix(string $string, int $iteration): string
     {
-        $string .= '_' . str_pad((string)$iteration, strlen((string)$this->iterations), '0', STR_PAD_LEFT);
-        return $string;
+        return $string . ('_' . str_pad((string)$iteration, strlen((string)$this->iterations), '0', STR_PAD_LEFT));
     }
 
     /**
      * add appendix "marker" if marker is only a number
-     *
-     * @param string $marker
-     * @return string
      */
     protected function dontAllowNumbersOnly(string $marker): string
     {
         if (is_numeric($marker)) {
-            $marker = 'marker' . $marker;
+            return 'marker' . $marker;
         }
+
         return $marker;
     }
 
-    /**
-     * @param string $marker
-     * @param array $newArray
-     * @return bool
-     */
     protected function isMarkerAllowed(string $marker, array $newArray): bool
     {
         return !in_array($marker, $newArray) && !in_array($marker, $this->restrictedMarkers);
@@ -240,7 +213,6 @@ class GetNewMarkerNamesForFormService
      *        "My Field ?1$2§3" => "myfield123"
      *
      * @param string $string Any String
-     * @return string
      */
     protected function cleanString(string $string): string
     {
@@ -248,13 +220,9 @@ class GetNewMarkerNamesForFormService
         $string = $csConverter->specCharsToASCII('utf-8', $string);
         $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
         $string = str_replace('-', '_', $string);
-        $string = strtolower($string);
-        return $string;
+        return strtolower($string);
     }
 
-    /**
-     * @return string
-     */
     public static function getRandomMarkerName(): string
     {
         return self::$defaultMarker . '_' . StringUtility::getRandomString(8, false);
