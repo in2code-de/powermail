@@ -20,7 +20,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
 {
     protected ConfigurationManagerInterface $configurationManager;
 
-    protected ContentObjectRenderer $contentObject;
+    protected ?ContentObjectRenderer $contentObject = null;
 
     /**
      * Configuration
@@ -45,11 +45,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         return !empty($this->settings['validation']['client']) && $this->settings['validation']['client'] === '1';
     }
 
-    /**
-     * Set mandatory attributes
-     *
-     * @throws DBALException
-     */
     protected function addMandatoryAttributes(array $additionalAttributes, ?Field $field): array
     {
         if ($field instanceof \In2code\Powermail\Domain\Model\Field && $field->isMandatory()) {
@@ -79,11 +74,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         return $additionalAttributes;
     }
 
-    /**
-     * Define where to show errors in markup
-     *
-     * @throws DBALException
-     */
     protected function addErrorContainer(array $additionalAttributes, Field $field): array
     {
         $additionalAttributes['data-powermail-errors-container'] =
@@ -91,11 +81,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         return $additionalAttributes;
     }
 
-    /**
-     * Define where to set the error class in markup
-     *
-     * @throws DBALException
-     */
     protected function addClassHandler(array $additionalAttributes, Field $field): array
     {
         $additionalAttributes['data-powermail-class-handler'] =
@@ -107,7 +92,12 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
     {
         $this->configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $this->extensionName = 'Powermail';
-        $this->contentObject = $this->getRequest()->getAttribute('currentContentObject');
+
+        $request = $this->getRequest();
+        if ($request instanceof ServerRequestInterface) {
+            $this->contentObject = $request->getAttribute('currentContentObject');
+        }
+
         if (isset($this->arguments['extensionName']) && $this->arguments['extensionName'] !== '') {
             $this->extensionName = $this->arguments['extensionName'];
         }
@@ -116,7 +106,7 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
         $this->settings = $configurationService->getTypoScriptSettings();
     }
 
-    protected function getRequest(): ServerRequestInterface|null
+    protected function getRequest(): ?ServerRequestInterface
     {
         if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
             return $this->renderingContext->getAttribute(ServerRequestInterface::class);
