@@ -48,9 +48,7 @@ class VariablesViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Enable variables within variable {powermail_rte} - so string will be parsed again
-     *
-     * @throws InvalidConfigurationTypeException
+     * @return string
      */
     public function render(): string
     {

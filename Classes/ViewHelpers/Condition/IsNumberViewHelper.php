@@ -14,8 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 class IsNumberViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
     /**
-     * Initialize arguments.
-     *
      * @throws \TYPO3\CMS\Fluid\Core\ViewHelper\Exception
      */
     public function initializeArguments(): void
@@ -24,14 +22,7 @@ class IsNumberViewHelper extends AbstractViewHelper implements ViewHelperInterfa
         $this->registerArgument('val', 'string', 'Value');
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string
-     */
-    public function render()
+    public function render(): bool
     {
         return is_numeric($this->arguments['val']);
     }

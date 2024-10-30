@@ -25,13 +25,6 @@ class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implemen
 
     /**
      * Is {outer.{inner}} a datetime?
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string
-     * @throws PropertyNotAccessibleException
      */
     public function render()
     {

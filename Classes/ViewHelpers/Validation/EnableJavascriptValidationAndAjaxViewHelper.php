@@ -26,8 +26,6 @@ class EnableJavascriptValidationAndAjaxViewHelper extends AbstractValidationView
 
     /**
      * Returns Data Attribute Array to enable validation
-     *
-     * @return array for data attributes
      */
     public function render(): array
     {

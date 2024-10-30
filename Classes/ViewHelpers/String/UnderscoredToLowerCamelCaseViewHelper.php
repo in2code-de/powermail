@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\String;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,10 +26,6 @@ class UnderscoredToLowerCamelCaseViewHelper extends AbstractViewHelper implement
 
     /**
      * Underscored value to lower camel case value (nice_field => niceField)
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
      */
     public function render(): string
     {

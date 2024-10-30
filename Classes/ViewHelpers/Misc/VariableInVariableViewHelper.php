@@ -28,11 +28,6 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHel
 
     /**
      * Solution for {outer.{inner}} call in fluid
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
      * @return mixed
      * @throws PropertyNotAccessibleException
      */
@@ -43,11 +38,11 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHel
         if (is_array($obj) && array_key_exists($prop, $obj)) {
             return $obj[$prop];
         }
-        
+
         if (is_object($obj)) {
             return ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop));
         }
-        
+
         return null;
     }
 }

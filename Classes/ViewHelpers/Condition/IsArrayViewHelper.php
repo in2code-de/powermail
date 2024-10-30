@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
@@ -19,14 +20,7 @@ class IsArrayViewHelper extends AbstractViewHelper implements ViewHelperInterfac
         $this->registerArgument('val', 'string', 'Value');
     }
 
-    /**
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string
-     */
-    public function render()
+    public function render(): bool
     {
         return is_array($this->arguments['val']);
     }
