@@ -9,7 +9,7 @@ This documentation helps
 
 ## What does powermail do?
 
-Powermail is a powerful and – in addition – a very easy mailform
+Powermail is a powerful and a very easy mailform
 extension with a wide range of tools and features for editors, admins
 and developers. Define your form in the backend with a few clicks and
 look at the final output in the frontend.
