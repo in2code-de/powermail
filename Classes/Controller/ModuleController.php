@@ -6,6 +6,8 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Domain\Service\SlidingWindowPagination;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
@@ -41,11 +43,14 @@ class ModuleController extends AbstractController
 
     protected ModuleTemplate $moduleTemplate;
 
-
-
-    public function __construct(protected ModuleTemplateFactory $moduleTemplateFactory, protected IconFactory $iconFactory, protected PageRenderer $pageRenderer)
-    {
-    }
+    public function __construct(
+        protected FormRepository $formRepository,
+        protected MailRepository $mailRepository,
+        protected ModuleTemplateFactory $moduleTemplateFactory,
+        protected IconFactory $iconFactory,
+        protected PageRenderer $pageRenderer,
+    )
+    { }
 
     protected function initializeAction(): void
     {
@@ -108,7 +113,7 @@ class ModuleController extends AbstractController
         ]);
 
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
-        return $this->moduleTemplate->renderResponse('List');
+        return $this->moduleTemplate->renderResponse('Module/List');
     }
 
     /**
@@ -196,7 +201,7 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->moduleTemplate->renderResponse('ReportingFormBe');
+        return $this->moduleTemplate->renderResponse('Module/ReportingFormBe');
     }
 
     /**
@@ -222,7 +227,7 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->moduleTemplate->renderResponse('ReportingMarketingBe');
+        return $this->moduleTemplate->renderResponse('Module/ReportingMarketingBe');
     }
 
     /**
@@ -236,7 +241,7 @@ class ModuleController extends AbstractController
         $this->moduleTemplate->assign('forms', $forms);
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
-        return $this->moduleTemplate->renderResponse('OverviewBe');
+        return $this->moduleTemplate->renderResponse('Module/OverviewBe');
     }
 
     public function initializeCheckBeAction(): void
@@ -249,7 +254,7 @@ class ModuleController extends AbstractController
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
         $this->sendTestEmail($this->piVars['email'] ?? null);
-        return $this->moduleTemplate->renderResponse('CheckBe');
+        return $this->moduleTemplate->renderResponse('Module/CheckBe');
     }
 
     protected function sendTestEmail($email = null): void

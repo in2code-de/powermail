@@ -112,7 +112,7 @@ class FormRepository extends AbstractRepository
 
         if ($pid > 0) {
             $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
-            $pids = GeneralUtility::trimExplode(',', $queryGenerator->getTreeList($pid, 20, 0, 1), true);
+            $pids = GeneralUtility::trimExplode(',', (string)$queryGenerator->getTreeList($pid, 20, 0, 1), true);
             $pids = BackendUtility::filterPagesForAccess($pids);
             $query->matching($query->in('pid', $pids));
         } elseif (!BackendUtility::isBackendAdmin()) {
