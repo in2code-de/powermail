@@ -7,9 +7,9 @@ namespace In2code\Powermail\Domain\Validator;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\FrontendUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Service\FlexFormService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractValidator;
@@ -19,14 +19,11 @@ use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator as ExtbaseAbstractV
  */
 abstract class AbstractValidator extends ExtbaseAbstractValidator implements ValidatorInterface
 {
-    /**
-     * Return variable
-     */
     protected bool $validState = true;
 
-    protected array $settings;
+    protected array $settings = [];
 
-    protected array $flexForm;
+    protected array $flexForm = [];
 
     protected array $configuration = [];
 
@@ -85,24 +82,21 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
         return $arguments['action'] === 'checkCreate';
     }
 
-    /**
-     * Constructs the validator and sets validation options
-     *
-     * @param array $options Options for the validator
-     * @throws InvalidValidationOptionsException
-     */
     public function __construct()
     {
-        GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
-        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
-        $this->flexForm = $flexFormService->convertFlexFormContentToArray(
+
+        $request = $GLOBALS['TYPO3_REQUEST'];
+        if ($request instanceof ServerRequestInterface) {
+            /** @var FlexFormService $flexFormService */
+            $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+            $this->flexForm = $flexFormService->convertFlexFormContentToArray(
             // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
             // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
-            // @extensionScannerIgnoreLine Seems to be a false positive: getContentObject() is still correct in 9.0
-            $this->request->getAttribute('currentContentObject')->data['pi_flexform'] ?? ''
-        );
+                $request->getAttribute('currentContentObject')->data['pi_flexform'] ?? ''
+            );
+        }
     }
 
     public function isConfirmationActivated(): bool
