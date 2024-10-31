@@ -33,9 +33,9 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      */
     protected $value;
 
-    protected array $configuration;
+    protected array $configuration = [];
 
-    protected array $variables;
+    protected array $variables = [];
 
     protected ?Field $field = null;
 
@@ -69,10 +69,8 @@ class PrefillFieldViewHelper extends AbstractViewHelper
      *        date
      *        location
      *
-     * @return string|array Prefill field
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws DBALException
      */
     public function render()
     {
@@ -118,14 +116,12 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     /**
      * Get value from existing answer for edit view
-     *
-     * @return string|array
      */
-    protected function getFromMail(string $value)
+    protected function getFromMail(string $value): string
     {
-        if (($value === '' || $value === '0') && $this->getMail() instanceof \In2code\Powermail\Domain\Model\Mail && $this->getMail()->getAnswers()) {
+        if (($value === '' || $value === '0') && $this->getMail() !== null && $this->getMail()->getAnswers()) {
             foreach ($this->getMail()->getAnswers() as $answer) {
-                if ($answer->getField() === $this->getField()) {
+                if ($answer !== null && $answer->getField() === $this->getField()) {
                     return $answer->getValue();
                 }
             }
@@ -362,13 +358,16 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     public function initialize(): void
     {
-        $this->variables = FrontendUtility::getArguments($this->getRequest());
+        $request = $this->getRequest();
+        if ($request instanceof ServerRequestInterface) {
+            $this->variables = $request->getAttributes();
+        }
         $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
     }
 
-    private function getRequest(): ServerRequestInterface|null
+    private function getRequest(): ?ServerRequestInterface
     {
         if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
             return $this->renderingContext->getAttribute(ServerRequestInterface::class);
