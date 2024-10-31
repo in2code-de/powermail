@@ -297,7 +297,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      */
     protected function isFromPrefillValue(): bool
     {
-        return $this->options[$this->index]['selected'] ?? false;
+        return (bool)$this->options[$this->index]['selected'];
     }
 
     /**
