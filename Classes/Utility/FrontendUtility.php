@@ -39,11 +39,7 @@ class FrontendUtility
      */
     public static function getCurrentPageIdentifier(): int
     {
-        if (ObjectUtility::getTyposcriptFrontendController() instanceof \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController) {
-            return ObjectUtility::getTyposcriptFrontendController()->id;
-        }
-
-        return 0;
+        return self::getRequest()->getAttribute('frontend.page.information')->getId() ?? 0;
     }
 
     /**
@@ -51,14 +47,7 @@ class FrontendUtility
      */
     public static function getSysLanguageUid(): int
     {
-        $tsfe = ObjectUtility::getTyposcriptFrontendController();
-        if ($tsfe instanceof \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController) {
-            /** @var SiteLanguage $siteLanguage */
-            $siteLanguage = $tsfe->getLanguage();
-            return $siteLanguage->getLanguageId();
-        }
-
-        return 0;
+        return self::getRequest()->getAttribute('language')->getLanguageId();
     }
 
     public static function getPluginName(): string
@@ -90,6 +79,8 @@ class FrontendUtility
     }
 
     /**
+     * ToDo: Pi2 -- v13 compatibility
+     *
      * Check if logged in user is allowed to make changes in Pi2
      *
      * @param array $settings $settings TypoScript and Flexform Settings
@@ -138,6 +129,9 @@ class FrontendUtility
         return (bool) count(array_intersect($usergroups, $usergroupsSettings));
     }
 
+    /**
+     * ToDo: Pi2 -- v13 compatibility
+     */
     public static function isAllowedToView(array $settings, Mail $mail): bool
     {
         $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
@@ -159,7 +153,7 @@ class FrontendUtility
      */
     public static function isLoggedInFrontendUser(): bool
     {
-        return !empty(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid']);
+        return self::getRequest()->getAttribute('frontend.user')->isActiveLogin(self::getRequest());
     }
 
     /**
@@ -167,12 +161,8 @@ class FrontendUtility
      */
     public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
-        $tsfe = ObjectUtility::getTyposcriptFrontendController();
-        if (!empty($tsfe->fe_user->user[$propertyName])) {
-            return (string)$tsfe->fe_user->user[$propertyName];
-        }
-
-        return '';
+        $feUser = self::getRequest()->getAttribute('frontend.user');
+        return (string)$feUser->user[$propertyName];
     }
 
     /**
@@ -275,16 +265,21 @@ class FrontendUtility
 
     protected static function getArgumentsFromGetOrPostRequest(string $key): array
     {
-        return (array)($GLOBALS['TYPO3_REQUEST']->getParsedBody()[$key] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()[$key] ?? null);
+        return $GLOBALS['TYPO3_REQUEST']->getParsedBody()[$key] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()[$key] ?? [];
     }
 
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
-        $pageArguments = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing');
+        $pageArguments = self::getRequest()->getAttribute('routing');
         $arguments = $pageArguments->getArguments();
         if (array_key_exists($key, $arguments)) {
             return (array)$arguments[$key];
         }
         return [];
+    }
+
+    protected static function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
