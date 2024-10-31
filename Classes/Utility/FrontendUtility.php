@@ -7,6 +7,7 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Routing\PageArguments;
@@ -264,10 +265,10 @@ class FrontendUtility
      * and on the other hand some POST params are still available when a form is submitted, we need a function that
      * merges both sources
      */
-    public static function getArguments($request, string $key = 'tx_powermail_pi1'): array
+    public static function getArguments(string $key = 'tx_powermail_pi1'): array
     {
         return array_merge(
-            self::getArgumentsFromRequest($request, $key),
+            self::getArgumentsFromTyposcriptFrontendController($key),
             self::getArgumentsFromGetOrPostRequest($key)
         );
     }
@@ -279,14 +280,10 @@ class FrontendUtility
 
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
-        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
-        if ($typoScriptFrontend !== null) {
-            /** @var PageArguments $pageArguments */
-            $pageArguments = $typoScriptFrontend->getPageArguments();
-            $arguments = $pageArguments->getArguments();
-            if (array_key_exists($key, $arguments)) {
-                return (array)$arguments[$key];
-            }
+        $pageArguments = $GLOBALS['TYPO3_REQUEST']->getAttribute('routing');
+        $arguments = $pageArguments->getArguments();
+        if (array_key_exists($key, $arguments)) {
+            return (array)$arguments[$key];
         }
         return [];
     }
