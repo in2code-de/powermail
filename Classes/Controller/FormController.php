@@ -157,8 +157,9 @@ class FormController extends AbstractController
     /**
      * Show a "Are your values ok?" message before final submit (if turned on)
      *
-     * @throws InvalidConfigurationTypeException
-     * @noinspection PhpUnused
+     * @param Mail $mail
+     * @return ResponseInterface
+     * @throws Exception
      */
     #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UploadValidator::class, 'param' => 'mail'])]
     #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\InputValidator::class, 'param' => 'mail'])]
@@ -191,12 +192,8 @@ class FormController extends AbstractController
     }
 
     /**
-     * @throws DeprecatedException
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidQueryException
-     * @throws NoSuchArgumentException
-     * @deprecated since version 12.3.2, will be removed in version 13.0.0
+     * @param Mail $mail
+     * @return ResponseInterface
      */
     public function checkCreateAction(Mail $mail): ResponseInterface
     {
@@ -244,11 +241,15 @@ class FormController extends AbstractController
     }
 
     /**
+     * @param Mail $mail
+     * @param string $hash
+     * @return ResponseInterface
+     * @throws ExtensionConfigurationExtensionNotConfiguredException
+     * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws IllegalObjectTypeException
-     * @throws InvalidConfigurationTypeException
      * @throws UnknownObjectException
-     * @throws Exception
-     * @noinspection PhpUnused
+     * @throws \In2code\Powermail\Exception\ClassDoesNotExistException
+     * @throws \In2code\Powermail\Exception\InterfaceNotImplementedException
      */
     #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\UploadValidator::class, 'param' => 'mail'])]
     #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\InputValidator::class, 'param' => 'mail'])]
