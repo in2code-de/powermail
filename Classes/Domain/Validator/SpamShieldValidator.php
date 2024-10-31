@@ -308,8 +308,8 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function saveSpamFactorInSession(): void
     {
-        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
-        $typoScriptFrontend->fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
+        $fe_user = $this->request->getAttribute('frontend.user');
+        $fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
     }
 
     /**
