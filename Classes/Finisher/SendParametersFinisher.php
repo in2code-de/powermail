@@ -54,7 +54,7 @@ class SendParametersFinisher extends AbstractFinisher implements FinisherInterfa
     ) {
         parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
         GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        $this->contentObjectLocal = $this->request->getAttribute('currentContentObject');
+        $this->contentObjectLocal = $this->contentObject;
     }
 
     /**

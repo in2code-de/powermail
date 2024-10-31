@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Finisher;
 
 use Doctrine\DBAL\DBALException;
@@ -38,13 +39,10 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     ) {
         parent::__construct($mail, $configuration, $settings, $formSubmitted, $actionMethodName, $contentObject);
         GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
-        $this->contentObjectLocal = $this->request->getAttribute('currentContentObject');
+        $this->contentObjectLocal = $this->contentObject;
     }
 
     /**
-     * Preperation function for every table
-     *
-     * @throws DBALException
      * @throws DatabaseFieldMissingException
      * @throws PropertiesMissingException
      */
