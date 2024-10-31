@@ -7,6 +7,7 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Validator\SpamShield\SessionMethod;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\TypoScript\TypoScriptService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -37,7 +38,7 @@ class SessionUtility
     public static function saveFormStartInSession(array $settings, Form $form = null): void
     {
         if ($form instanceof \In2code\Powermail\Domain\Model\Form && self::sessionCheckEnabled($settings)) {
-            ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey(
+            self::getRequest()->getAttribute('frontend.user')->setKey(
                 'ses',
                 'powermailFormstart' . $form->getUid(),
                 time()
@@ -54,7 +55,7 @@ class SessionUtility
     public static function getFormStartFromSession(int $formUid, array $settings): int
     {
         if (self::sessionCheckEnabled($settings)) {
-            return (int)ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey(
+            return (int)self::getRequest()->getAttribute('frontend.user')->getKey(
                 'ses',
                 'powermailFormstart' . $formUid
             );
@@ -203,24 +204,16 @@ class SessionUtility
      */
     public static function getSpamFactorFromSession(): string
     {
-        return (string)ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey('ses', 'powermail_spamfactor');
+        return self::getRequest()->getAttribute('frontend.user')->getKey('ses', 'powermail_spamfactor');
     }
 
-    /**
-     * Read a powermail session
-     *
-     * @param string $name session name
-     * @param string $method "user" or "ses"
-     * @param string $key name to save session
-     * @return array values from session
-     */
     protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = ''): array
     {
         if ($key === '' || $key === '0') {
             $key = self::$extKey;
         }
 
-        $powermailSession = ObjectUtility::getTyposcriptFrontendController()->fe_user->getKey($method, $key);
+        $powermailSession = self::getRequest()->getAttribute('frontend.user')->getKey($method, $key);
         if ($name !== '' && $name !== '0' && isset($powermailSession[$name])) {
             return $powermailSession[$name];
         }
@@ -282,6 +275,11 @@ class SessionUtility
         $newValues = [
             $name => $values,
         ];
-        ObjectUtility::getTyposcriptFrontendController()->fe_user->setKey($method, $key, $newValues);
+        self::getRequest()->getAttribute('frontend.user')->setKey($method, $key, $newValues);
+    }
+
+    private static function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
