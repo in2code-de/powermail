@@ -6,6 +6,7 @@ services:
 
   In2code\Powermail\:
     resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
 
   In2code\Powermail\Domain\Factory\MailFactory:
     public: true
