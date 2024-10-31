@@ -52,7 +52,7 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * @param Mail $mail
-     * @return bool
+     * @return Result
      * @throws Exception
      */
     public function validate($mail): Result
@@ -66,7 +66,6 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
     protected function isValid($mail): void
@@ -150,10 +149,7 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Send spam notification mail to admin
-     *
-     * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
-     * @throws Exception
      */
     protected function sendSpamNotificationMail(Mail $mail): void
     {
@@ -191,13 +187,11 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Create message for spam logging
-     *        - bodytext for spamnotification mail OR
-     *        - log entry
-     *
-     * @param string $path relative path to mail
-     * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws Exception
+     *     - bodytext for spamnotification mail OR
+     *     - log entry
+     * @param string $path
+     * @param array $multipleAssign
+     * @return string
      */
     protected function createSpamNotificationMessage(string $path, array $multipleAssign = []): string
     {
@@ -308,12 +302,14 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function saveSpamFactorInSession(): void
     {
-        $fe_user = $this->request->getAttribute('frontend.user');
-        $fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
+        if ($this->request !== null) {
+            $fe_user = $this->request->getAttribute('frontend.user');
+            $fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
+        }
     }
 
     /**
-     * Save spam properties in development log
+     *  Save spam properties in development log
      */
     protected function saveSpamPropertiesInDevelopmentLog(): void
     {

@@ -63,7 +63,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
     /**
      * Preperation function for a single table
      *
-     * @throws DBALException
      * @throws DatabaseFieldMissingException
      * @throws PropertiesMissingException
      */

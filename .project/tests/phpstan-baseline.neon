@@ -16,6 +16,11 @@ parameters:
 			path: ../../Classes/Command/ExportCommand.php
 
 		-
+			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Exception\\\\InvalidExtensionNameException\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Exception\\\\InvalidQueryException is not subtype of Throwable$#"
+			count: 1
+			path: ../../Classes/Command/ExportCommand.php
+
+		-
 			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException\\|TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\Exception is not subtype of Throwable$#"
 			count: 1
 			path: ../../Classes/Command/ResetMarkersCommand.php
@@ -24,6 +29,11 @@ parameters:
 			message: "#^Method In2code\\\\Powermail\\\\Condition\\\\PowermailConditionFunctionsProvider\\:\\:isPluginExistingOnCurrentPageInCurrentLanguage\\(\\) has parameter \\$plugins with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Condition/PowermailConditionFunctionsProvider.php
+
+		-
+			message: "#^Cannot access offset 'id' on array\\|object\\.$#"
+			count: 1
+			path: ../../Classes/Controller/AbstractController.php
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\AbstractController\\:\\:getSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -61,6 +71,11 @@ parameters:
 			path: ../../Classes/Controller/FormController.php
 
 		-
+			message: "#^PHPDoc tag @throws with type Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
+			count: 1
+			path: ../../Classes/Controller/FormController.php
+
+		-
 			message: "#^Parameter \\#1 \\$mailIdentifier of method In2code\\\\Powermail\\\\Domain\\\\Repository\\\\MailRepository\\:\\:removeFromDatabase\\(\\) expects int, int\\<1, max\\>\\|null given\\.$#"
 			count: 1
 			path: ../../Classes/Controller/FormController.php
@@ -76,7 +91,7 @@ parameters:
 			path: ../../Classes/Controller/FormController.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Controller\\\\AbstractController\\:\\:\\$contentObject \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\|null\\.$#"
+			message: "#^Parameter \\#2 \\$context of method TYPO3\\\\CMS\\\\Core\\\\Log\\\\Logger\\:\\:info\\(\\) expects array, array\\|object\\|null given\\.$#"
 			count: 1
 			path: ../../Classes/Controller/FormController.php
 
@@ -91,32 +106,32 @@ parameters:
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\ModuleController\\:\\:injectIconFactory\\(\\) has no return type specified\\.$#"
+			message: "#^Call to method loadFromString\\(\\) on an unknown class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\.$#"
 			count: 1
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\ModuleController\\:\\:injectModuleTemplateFactory\\(\\) has no return type specified\\.$#"
+			message: "#^Call to static method createWriter\\(\\) on an unknown class PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\.$#"
 			count: 1
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\ModuleController\\:\\:injectPageRenderer\\(\\) has no return type specified\\.$#"
+			message: "#^Cannot access offset 'id' on array\\|object\\.$#"
+			count: 1
+			path: ../../Classes/Controller/ModuleController.php
+
+		-
+			message: "#^Instantiated class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html not found\\.$#"
+			count: 1
+			path: ../../Classes/Controller/ModuleController.php
+
+		-
+			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\ModuleController\\:\\:sendTestEmail\\(\\) has parameter \\$email with no type specified\\.$#"
 			count: 1
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
 			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Exception\\\\InvalidQueryException is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Controller/ModuleController.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: ../../Classes/Controller/ModuleController.php
-
-		-
-			message: "#^Strict comparison using \\!\\=\\= between null and null will always evaluate to false\\.$#"
 			count: 1
 			path: ../../Classes/Controller/ModuleController.php
 
@@ -206,7 +221,7 @@ parameters:
 			path: ../../Classes/DataProcessor/AbstractDataProcessor.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\DataProcessor\\\\AbstractDataProcessor\\:\\:\\$actionMethodName \\(null\\) does not accept string\\.$#"
+			message: "#^Property In2code\\\\Powermail\\\\DataProcessor\\\\AbstractDataProcessor\\:\\:\\$actionMethodName has no type specified\\.$#"
 			count: 1
 			path: ../../Classes/DataProcessor/AbstractDataProcessor.php
 
@@ -261,7 +276,7 @@ parameters:
 			path: ../../Classes/DataProcessor/DataProcessorRunner.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Database\\\\QueryGenerator\\:\\:getTreeList\\(\\) should return string but returns int\\<0, max\\>\\|string\\.$#"
+			message: "#^Cannot access offset 0 on float\\|int\\<min, \\-1\\>\\|int\\<1, max\\>\\|non\\-falsy\\-string\\.$#"
 			count: 1
 			path: ../../Classes/Database/QueryGenerator.php
 
@@ -316,11 +331,6 @@ parameters:
 			path: ../../Classes/Domain/Factory/FileFactory.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Factory\\\\FileFactory\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/FileFactory.php
-
-		-
 			message: "#^Cannot call method getUid\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Form\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\LazyLoadingProxy\\|null\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
@@ -351,16 +361,6 @@ parameters:
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
 		-
-			message: "#^Class In2code\\\\Powermail\\\\Domain\\\\Factory\\\\MailFactory has an uninitialized readonly property \\$eventDispatcher\\. Assign it in the constructor\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Factory\\\\MailFactory\\:\\:injectEventDispatcherInterface\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Factory\\\\MailFactory\\:\\:prepareMailForPersistence\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
@@ -386,6 +386,11 @@ parameters:
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
 		-
+			message: "#^Parameter \\#1 \\$pid of method In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\:\\:setPid\\(\\) expects int\\<0, max\\>, int given\\.$#"
+			count: 1
+			path: ../../Classes/Domain/Factory/MailFactory.php
+
+		-
 			message: "#^Parameter \\#1 \\$senderIp of method In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\:\\:setSenderIp\\(\\) expects string, array\\<string, bool\\|string\\|null\\>\\|bool\\|string\\|null given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
@@ -397,11 +402,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$userAgent of method In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\:\\:setUserAgent\\(\\) expects string, array\\<string, bool\\|string\\|null\\>\\|bool\\|string\\|null given\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
-			message: "#^Readonly property In2code\\\\Powermail\\\\Domain\\\\Factory\\\\MailFactory\\:\\:\\$eventDispatcher is assigned outside of the constructor\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
@@ -431,11 +431,6 @@ parameters:
 			path: ../../Classes/Domain/Model/Answer.php
 
 		-
-			message: "#^PHPDoc type int\\|null of property In2code\\\\Powermail\\\\Domain\\\\Model\\\\Answer\\:\\:\\$_languageUid is not covariant with PHPDoc type int\\<\\-1, max\\>\\|null of overridden property TYPO3\\\\CMS\\\\Extbase\\\\DomainObject\\\\AbstractDomainObject\\:\\:\\$_languageUid\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/Answer.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\Answer\\:\\:\\$value \\(string\\) does not accept int\\|string\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/Answer.php
@@ -446,127 +441,7 @@ parameters:
 			path: ../../Classes/Domain/Model/Answer.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setDescription\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setEmail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setEndDateAndTime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setIsAdministrator\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setIsDisabled\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setLastLoginDateAndTime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setRealName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setStartDateAndTime\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUser\\:\\:setUserName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUser.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:addSubGroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:getSubGroups\\(\\) return type with generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage does not specify its types\\: TEntity$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:removeAllSubGroups\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:removeSubGroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setAllowedExcludeFields\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setAllowedLanguages\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setDatabaseMounts\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setDescription\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setDirectoryCopyAllowed\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setDirectoryOperationAllowed\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setDirectoryRemoveRecursivelyAllowed\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setExplicitlyAllowAndDeny\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setFileOperationAllowed\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setFileOperationPermissions\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setModules\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setPageTypes\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/BackendUserGroup.php
 
@@ -576,37 +451,7 @@ parameters:
 			path: ../../Classes/Domain/Model/BackendUserGroup.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setSubGroups\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setSubGroups\\(\\) has parameter \\$subGroups with generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage but does not specify its types\\: TEntity$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setTablesListening\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setTablesModify\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setTitle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setTsConfig\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/BackendUserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\BackendUserGroup\\:\\:setWorkspacePermissions\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/BackendUserGroup.php
 
@@ -826,11 +671,6 @@ parameters:
 			path: ../../Classes/Domain/Model/Mail.php
 
 		-
-			message: "#^PHPDoc type int\\|null of property In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\:\\:\\$_languageUid is not covariant with PHPDoc type int\\<\\-1, max\\>\\|null of overridden property TYPO3\\\\CMS\\\\Extbase\\\\DomainObject\\\\AbstractDomainObject\\:\\:\\$_languageUid\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/Mail.php
-
-		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(object\\)\\: mixed\\)\\|null, Closure\\(In2code\\\\Powermail\\\\Domain\\\\Model\\\\Answer\\)\\: \\(int\\<1, max\\>\\|null\\) given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/Mail.php
@@ -842,11 +682,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, array\\<int, int\\<1, max\\>\\|null\\> given\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/Mail.php
-
-		-
-			message: "#^Parameter \\#1 \\$pid of method TYPO3\\\\CMS\\\\Extbase\\\\DomainObject\\\\AbstractDomainObject\\:\\:setPid\\(\\) expects int\\<0, max\\>, int given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/Mail.php
 
@@ -926,154 +761,19 @@ parameters:
 			path: ../../Classes/Domain/Model/Page.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:addUsergroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:getLastlogin\\(\\) should return DateTime but returns DateTime\\|null\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/User.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:initializeObject\\(\\) has no return type specified\\.$#"
+			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:\\$image \\(TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\<TYPO3\\\\CMS\\\\Extbase\\\\Domain\\\\Model\\\\FileReference\\>\\) on left side of \\?\\?\\= is not nullable\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/User.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:removeUsergroup\\(\\) has no return type specified\\.$#"
+			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:\\$usergroup \\(TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\<In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\>\\) on left side of \\?\\?\\= is not nullable\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setAddress\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setCity\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setCompany\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setCountry\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setEmail\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setFax\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setFirstName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setImage\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setLastName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setLastlogin\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setMiddleName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setName\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setPassword\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setTelephone\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setTitle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setUsergroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setUsername\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setWww\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:setZip\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:\\$image \\(TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\<TYPO3\\\\CMS\\\\Extbase\\\\Domain\\\\Model\\\\FileReference\\>\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\User\\:\\:\\$usergroup \\(TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\ObjectStorage\\<In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\>\\) on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/User.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\:\\:addSubgroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/UserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\:\\:removeSubgroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/UserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\:\\:setDescription\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/UserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\:\\:setSubgroup\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/UserGroup.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Model\\\\UserGroup\\:\\:setTitle\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/UserGroup.php
 
 		-
 			message: "#^Class In2code\\\\Powermail\\\\Domain\\\\Repository\\\\AbstractRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: T$#"
@@ -1086,17 +786,7 @@ parameters:
 			path: ../../Classes/Domain/Repository/AnswerRepository.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Repository\\\\BackendUserGroupRepository\\:\\:initializeObject\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Repository/BackendUserGroupRepository.php
-
-		-
 			message: "#^Class In2code\\\\Powermail\\\\Domain\\\\Repository\\\\BackendUserRepository extends generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Repository but does not specify its types\\: T$#"
-			count: 1
-			path: ../../Classes/Domain/Repository/BackendUserRepository.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Repository\\\\BackendUserRepository\\:\\:initializeObject\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Repository/BackendUserRepository.php
 
@@ -1182,6 +872,11 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Repository\\\\FormRepository\\:\\:hasPassword\\(\\) return type with generic interface TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\QueryResultInterface does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: ../../Classes/Domain/Repository/FormRepository.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:trimExplode\\(\\) expects string, float\\|int\\|string given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Repository/FormRepository.php
 
@@ -1631,6 +1326,16 @@ parameters:
 			path: ../../Classes/Domain/Service/ExportService.php
 
 		-
+			message: "#^PHPDoc tag @throws with type Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
+			count: 2
+			path: ../../Classes/Domain/Service/ExportService.php
+
+		-
+			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Exception\\\\InvalidExtensionNameException is not subtype of Throwable$#"
+			count: 1
+			path: ../../Classes/Domain/Service/ExportService.php
+
+		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\ExportService\\:\\:\\$additionalProperties type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/ExportService.php
@@ -1821,11 +1526,6 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/ReceiverMailReceiverPropertiesService.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\ReceiverMailReceiverPropertiesService\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/ReceiverMailReceiverPropertiesService.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\ReceiverMailSenderPropertiesService\\:\\:__construct\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/ReceiverMailSenderPropertiesService.php
@@ -1851,11 +1551,6 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/ReceiverMailSenderPropertiesService.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\ReceiverMailSenderPropertiesService\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/ReceiverMailSenderPropertiesService.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendDisclaimedMailPreflight\\:\\:__construct\\(\\) has parameter \\$conf with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendDisclaimedMailPreflight.php
@@ -1867,16 +1562,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException\\|TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\Exception is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendDisclaimedMailPreflight.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendDisclaimedMailPreflight\\:\\:\\$conf type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendDisclaimedMailPreflight.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendDisclaimedMailPreflight\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendDisclaimedMailPreflight.php
 
@@ -1956,6 +1641,11 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/SendMailService.php
 
 		-
+			message: "#^PHPDoc tag @throws with type Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
+			count: 5
+			path: ../../Classes/Domain/Service/Mail/SendMailService.php
+
+		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendMailService\\:\\:\\$configuration type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendMailService.php
@@ -1981,12 +1671,7 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/SendOptinConfirmationMailPreflight.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendOptinConfirmationMailPreflight\\:\\:\\$conf type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendOptinConfirmationMailPreflight.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendOptinConfirmationMailPreflight\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
+			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendOptinConfirmationMailPreflight.php
 
@@ -1997,11 +1682,6 @@ parameters:
 
 		-
 			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException\\|TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\Exception is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendReceiverMailPreflight.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendReceiverMailPreflight\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SendReceiverMailPreflight.php
 
@@ -2021,16 +1701,6 @@ parameters:
 			path: ../../Classes/Domain/Service/Mail/SendSenderMailPreflight.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendSenderMailPreflight\\:\\:\\$conf type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendSenderMailPreflight.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SendSenderMailPreflight\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SendSenderMailPreflight.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SenderMailPropertiesService\\:\\:__construct\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SenderMailPropertiesService.php
@@ -2042,11 +1712,6 @@ parameters:
 
 		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SenderMailPropertiesService\\:\\:\\$configuration type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/Mail/SenderMailPropertiesService.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\Mail\\\\SenderMailPropertiesService\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/Mail/SenderMailPropertiesService.php
 
@@ -2089,11 +1754,6 @@ parameters:
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Service\\\\SaveToAnyTableService\\:\\:\\$properties type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/SaveToAnyTableService.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Service\\\\SlidingWindowPagination\\:\\:getAllPageNumbers\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Service/SlidingWindowPagination.php
 
 		-
 			message: "#^If condition is always false\\.$#"
@@ -2161,11 +1821,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/AbstractValidator.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$options$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/AbstractValidator.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\AbstractValidator\\:\\:\\$configuration type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/AbstractValidator.php
@@ -2186,12 +1841,7 @@ parameters:
 			path: ../../Classes/Domain/Validator/CaptchaValidator.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\AbstractValidator\\:\\:__construct\\(\\) invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/CaptchaValidator.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\CaptchaValidator\\:\\:__construct\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$options$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/CaptchaValidator.php
 
@@ -2211,27 +1861,12 @@ parameters:
 			path: ../../Classes/Domain/Validator/CaptchaValidator.php
 
 		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type void\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/CustomValidator.php
-
-		-
 			message: "#^Parameter \\#1 \\$mail \\(In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\) of method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\CustomValidator\\:\\:isValid\\(\\) should be compatible with parameter \\$value \\(string\\) of method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\StringValidator\\:\\:isValid\\(\\)$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/CustomValidator.php
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\ForeignValidator\\:\\:loadFile\\(\\) has parameter \\$validatorConf with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/ForeignValidator.php
-
-		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type void\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/ForeignValidator.php
-
-		-
-			message: "#^Variable \\$result in PHPDoc tag @var does not exist\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/ForeignValidator.php
 
@@ -2247,11 +1882,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\InputValidator\\:\\:getAnswerFromField\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/InputValidator.php
-
-		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type void\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/InputValidator.php
 
@@ -2302,21 +1932,6 @@ parameters:
 
 		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\AbstractMethod\\:\\:\\$arguments type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/AbstractMethod.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\AbstractMethod\\:\\:\\$configuration type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/AbstractMethod.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\AbstractMethod\\:\\:\\$flexForm type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/AbstractMethod.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\AbstractMethod\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/AbstractMethod.php
 
@@ -2396,16 +2011,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/BreakerRunner.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\Breaker\\\\BreakerRunner\\:\\:\\$flexForm type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/Breaker/BreakerRunner.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\Breaker\\\\BreakerRunner\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/Breaker/BreakerRunner.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\Breaker\\\\IpBreaker\\:\\:getIpAddresses\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/IpBreaker.php
@@ -2429,11 +2034,6 @@ parameters:
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\IpBlacklistMethod\\:\\:getValues\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/IpBlacklistMethod.php
-
-		-
-			message: "#^Cannot call method getAnswers\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/LinkMethod.php
 
 		-
 			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
@@ -2461,11 +2061,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/MethodInterface.php
 
 		-
-			message: "#^Cannot call method getAnswers\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
-
-		-
 			message: "#^Cannot call method getField\\(\\) on object\\|null\\.$#"
 			count: 2
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
@@ -2474,11 +2069,6 @@ parameters:
 			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
-
-		-
-			message: "#^Cannot call method getForm\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/SessionMethod.php
 
 		-
 			message: "#^Cannot call method getUid\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Form\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\LazyLoadingProxy\\|null\\.$#"
@@ -2491,19 +2081,9 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/SessionMethod.php
 
 		-
-			message: "#^Cannot call method getAnswers\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/UniqueMethod.php
-
-		-
 			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/UniqueMethod.php
-
-		-
-			message: "#^Cannot call method getAnswers\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/ValueBlacklistMethod.php
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\ValueBlacklistMethod\\:\\:getValues\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -2512,11 +2092,6 @@ parameters:
 
 		-
 			message: "#^Binary operation \"\\.\" between 'powermail@' and array\\<string, bool\\|string\\|null\\>\\|bool\\|string\\|null results in an error\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
-
-		-
-			message: "#^Cannot access property \\$fe_user on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
 
@@ -2561,22 +2136,12 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
 
 		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type TYPO3\\\\CMS\\\\Extbase\\\\Error\\\\Result\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShieldValidator\\:\\:\\$messages type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
 
 		-
 			message: "#^Cannot call method getMarker\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Field\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/UniqueValidator.php
-
-		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type void\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/UniqueValidator.php
 
@@ -2611,11 +2176,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/UploadValidator.php
 
 		-
-			message: "#^PHPDoc tag @return with type bool is incompatible with native type void\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/UploadValidator.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\ValidatorInterface\\:\\:getConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/ValidatorInterface.php
@@ -2632,6 +2192,11 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\EventListener\\\\FlexFormParsingModifyEventListener\\:\\:getFieldConfiguration\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
+
+		-
+			message: "#^Method In2code\\\\Powermail\\\\EventListener\\\\FlexFormParsingModifyEventListener\\:\\:getRequest\\(\\) never returns Psr\\\\Http\\\\Message\\\\ServerRequestInterface so it can be removed from the return type\\.$#"
 			count: 1
 			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
 
@@ -2666,11 +2231,6 @@ parameters:
 			path: ../../Classes/Events/FormControllerInitializeObjectEvent.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\FormControllerInitializeObjectEvent\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/FormControllerInitializeObjectEvent.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$mail with type int is incompatible with native type In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\.$#"
 			count: 1
 			path: ../../Classes/Events/FormControllerOptinConfirmActionBeforeRenderViewEvent.php
@@ -2687,11 +2247,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\MailRepositoryGetVariablesWithMarkersFromMailEvent\\:\\:setVariables\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/MailRepositoryGetVariablesWithMarkersFromMailEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\MailRepositoryGetVariablesWithMarkersFromMailEvent\\:\\:\\$variables type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/MailRepositoryGetVariablesWithMarkersFromMailEvent.php
 
@@ -2721,16 +2276,6 @@ parameters:
 			path: ../../Classes/Events/PrefillFieldViewHelperEvent.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\PrefillFieldViewHelperEvent\\:\\:\\$default type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/PrefillFieldViewHelperEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\PrefillFieldViewHelperEvent\\:\\:\\$value type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/PrefillFieldViewHelperEvent.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent\\:\\:__construct\\(\\) has parameter \\$emailArray with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent.php
@@ -2742,11 +2287,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent\\:\\:setEmailArray\\(\\) has parameter \\$emailArray with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent\\:\\:\\$emailArray type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/ReceiverMailReceiverPropertiesServiceSetReceiverEmailsEvent.php
 
@@ -2766,11 +2306,6 @@ parameters:
 			path: ../../Classes/Events/SendMailServiceCreateEmailBodyEvent.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\SendMailServiceCreateEmailBodyEvent\\:\\:\\$email type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/SendMailServiceCreateEmailBodyEvent.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\SendMailServicePrepareAndSendEvent\\:\\:__construct\\(\\) has parameter \\$email with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/SendMailServicePrepareAndSendEvent.php
@@ -2782,11 +2317,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\SendMailServicePrepareAndSendEvent\\:\\:setEmail\\(\\) has parameter \\$email with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/SendMailServicePrepareAndSendEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\SendMailServicePrepareAndSendEvent\\:\\:\\$email type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/SendMailServicePrepareAndSendEvent.php
 
@@ -2817,16 +2347,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Events\\\\ValidationDataAttributeViewHelperEvent\\:\\:setIteration\\(\\) has parameter \\$iteration with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/ValidationDataAttributeViewHelperEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\ValidationDataAttributeViewHelperEvent\\:\\:\\$additionalAttributes type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Events/ValidationDataAttributeViewHelperEvent.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Events\\\\ValidationDataAttributeViewHelperEvent\\:\\:\\$iteration type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Events/ValidationDataAttributeViewHelperEvent.php
 
@@ -2966,17 +2486,7 @@ parameters:
 			path: ../../Classes/Finisher/SaveToAnyTableFinisher.php
 
 		-
-			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException\\|In2code\\\\Powermail\\\\Exception\\\\DatabaseFieldMissingException\\|In2code\\\\Powermail\\\\Exception\\\\PropertiesMissingException is not subtype of Throwable$#"
-			count: 2
-			path: ../../Classes/Finisher/SaveToAnyTableFinisher.php
-
-		-
 			message: "#^Parameter \\#1 \\$uniqueField of method In2code\\\\Powermail\\\\Domain\\\\Service\\\\SaveToAnyTableService\\:\\:setUniqueField\\(\\) expects string, int\\|string given\\.$#"
-			count: 1
-			path: ../../Classes/Finisher/SaveToAnyTableFinisher.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\Finisher\\\\SaveToAnyTableFinisher\\:\\:\\$contentObjectLocal \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\|null\\.$#"
 			count: 1
 			path: ../../Classes/Finisher/SaveToAnyTableFinisher.php
 
@@ -3106,7 +2616,7 @@ parameters:
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Hook\\\\PluginPreviewRenderer\\:\\:getLatestMails\\(\\) has parameter \\$row with no type specified\\.$#"
+			message: "#^Method In2code\\\\Powermail\\\\Hook\\\\PluginPreviewRenderer\\:\\:getLatestMails\\(\\) has parameter \\$row with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
@@ -3121,7 +2631,17 @@ parameters:
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
+			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationExtensionNotConfiguredException\\|TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationPathDoesNotExistException\\|TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\Exception\\\\InvalidConfigurationTypeException is not subtype of Throwable$#"
+			count: 2
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
 			message: "#^Property In2code\\\\Powermail\\\\Hook\\\\PluginPreviewRenderer\\:\\:\\$flexFormData type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../Classes/Hook/PluginPreviewRenderer.php
+
+		-
+			message: "#^Property In2code\\\\Powermail\\\\Hook\\\\PluginPreviewRenderer\\:\\:\\$row has no type specified\\.$#"
 			count: 1
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
@@ -3366,6 +2886,16 @@ parameters:
 			path: ../../Classes/Update/PowermailPluginUpdater.php
 
 		-
+			message: "#^Offset 'data' does not exist on array\\|string\\.$#"
+			count: 1
+			path: ../../Classes/Update/PowermailPluginUpdater.php
+
+		-
+			message: "#^Offset 'sheets' does not exist on array\\|string\\.$#"
+			count: 1
+			path: ../../Classes/Update/PowermailPluginUpdater.php
+
+		-
 			message: "#^Parameter \\#1 \\$string of static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:xml2array\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: ../../Classes/Update/PowermailPluginUpdater.php
@@ -3456,6 +2986,11 @@ parameters:
 			path: ../../Classes/Utility/BackendUtility.php
 
 		-
+			message: "#^Cannot assign offset 'query' to array\\<string, int\\|string\\>\\|false\\.$#"
+			count: 1
+			path: ../../Classes/Utility/BackendUtility.php
+
+		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\BackendUtility\\:\\:filterPagesForAccess\\(\\) has parameter \\$pids with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Utility/BackendUtility.php
@@ -3487,11 +3022,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\BackendUtility\\:\\:getRoute\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Utility/BackendUtility.php
-
-		-
-			message: "#^PHPDoc tag @param for parameter \\$property with type int\\|string is not subtype of native type string\\.$#"
 			count: 1
 			path: ../../Classes/Utility/BackendUtility.php
 
@@ -3563,6 +3093,11 @@ parameters:
 		-
 			message: "#^Binary operation \"\\.\" between array\\<string, bool\\|string\\|null\\>\\|bool\\|string\\|null and '/' results in an error\\.$#"
 			count: 2
+			path: ../../Classes/Utility/FrontendUtility.php
+
+		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:getLanguage\\(\\)\\.$#"
+			count: 1
 			path: ../../Classes/Utility/FrontendUtility.php
 
 		-
@@ -3701,11 +3236,6 @@ parameters:
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
-			message: "#^Cannot access property \\$fe_user on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 5
-			path: ../../Classes/Utility/SessionUtility.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\SessionUtility\\:\\:getFormStartFromSession\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Utility/SessionUtility.php
@@ -3781,16 +3311,6 @@ parameters:
 			path: ../../Classes/Utility/StringUtility.php
 
 		-
-			message: "#^Variable \\$value in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: ../../Classes/Utility/StringUtility.php
-
-		-
-			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
-			count: 1
-			path: ../../Classes/Utility/TemplateUtility.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\TemplateUtility\\:\\:fluidParseString\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Utility/TemplateUtility.php
@@ -3807,16 +3327,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\TemplateUtility\\:\\:powermailAll\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Utility/TemplateUtility.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$extensionName$#"
-			count: 1
-			path: ../../Classes/Utility/TemplateUtility.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$pluginName$#"
 			count: 1
 			path: ../../Classes/Utility/TemplateUtility.php
 
@@ -3851,9 +3361,24 @@ parameters:
 			path: ../../Classes/ViewHelpers/Be/EditLinkViewHelper.php
 
 		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Core\\\\Database\\\\Query\\\\QueryBuilder\\:\\:execute\\(\\)\\.$#"
+			count: 1
+			path: ../../Classes/ViewHelpers/Be/LastUpdateExtensionRepositoryViewHelper.php
+
+		-
 			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException\\|TYPO3\\\\CMS\\\\Core\\\\Package\\\\Exception is not subtype of Throwable$#"
 			count: 2
 			path: ../../Classes/ViewHelpers/Be/PowermailVersionNoteViewHelper.php
+
+		-
+			message: "#^Access to an undefined property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$fe_user\\.$#"
+			count: 2
+			path: ../../Classes/ViewHelpers/Be/SessionViewHelper.php
+
+		-
+			message: "#^Class TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController constructor invoked with 5 parameters, 0 required\\.$#"
+			count: 1
+			path: ../../Classes/ViewHelpers/Be/SessionViewHelper.php
 
 		-
 			message: "#^Cannot access offset 'constraints' on false\\.$#"
@@ -3864,26 +3389,6 @@ parameters:
 			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException is not subtype of Throwable$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Condition/IsAllowedToEditViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsArrayViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsArrayViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsArrayViewHelper\\:\\:renderStatic\\(\\) should return string but returns bool\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsArrayViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsDateTimeVariableInVariableViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsDateTimeVariableInVariableViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsDateTimeVariableInVariableViewHelper\\:\\:renderStatic\\(\\) should return string but returns bool\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsDateTimeVariableInVariableViewHelper.php
 
 		-
 			message: "#^Offset 'extension' does not exist on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\}\\.$#"
@@ -3914,21 +3419,6 @@ parameters:
 			message: "#^Property In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsNotExcludedFromPowermailAllViewHelper\\:\\:\\$typeToTypoScriptType type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Condition/IsNotExcludedFromPowermailAllViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsNumberViewHelper\\:\\:initializeArguments\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsNumberViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsNumberViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsNumberViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Condition\\\\IsNumberViewHelper\\:\\:renderStatic\\(\\) should return string but returns bool\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Condition/IsNumberViewHelper.php
 
 		-
 			message: "#^PHPDoc tag @throws with type TYPO3\\\\CMS\\\\Fluid\\\\Core\\\\ViewHelper\\\\Exception is not subtype of Throwable$#"
@@ -4126,17 +3616,17 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/ManipulateValueWithTypoScriptViewHelper.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:getField\\(\\)\\.$#"
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:getValue\\(\\)\\.$#"
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
 			message: "#^Cannot access property \\$no_cache on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
-			message: "#^Cannot call method getField\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
-			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
@@ -4167,11 +3657,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:getFromFrontendUser\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:getFromMail\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
@@ -4246,17 +3731,7 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:render\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:setValue\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
-			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException\\|TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationExtensionNotConfiguredException\\|TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationPathDoesNotExistException is not subtype of Throwable$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
@@ -4331,16 +3806,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\VariableInVariableViewHelper\\:\\:initializeArguments\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/VariableInVariableViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\VariableInVariableViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/VariableInVariableViewHelper.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\VariablesViewHelper\\:\\:removePowermailAllParagraphTagWrap\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/VariablesViewHelper.php
@@ -4376,21 +3841,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/String/TrimViewHelper.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\String\\\\UnderscoredToLowerCamelCaseViewHelper\\:\\:initializeArguments\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/String/UnderscoredToLowerCamelCaseViewHelper.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\String\\\\UnderscoredToLowerCamelCaseViewHelper\\:\\:renderStatic\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/String/UnderscoredToLowerCamelCaseViewHelper.php
-
-		-
-			message: "#^Binary operation \"\\.\\=\" between non\\-falsy\\-string and array\\<int, string\\>\\|string\\|false results in an error\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/String/Utf8ToUtf16ViewHelper.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\AbstractValidationViewHelper\\:\\:addClassHandler\\(\\) has parameter \\$additionalAttributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
@@ -4421,16 +3871,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
 
 		-
-			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException is not subtype of Throwable$#"
-			count: 3
-			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
-
-		-
-			message: "#^Property In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\AbstractValidationViewHelper\\:\\:\\$contentObject \\(TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\) does not accept TYPO3\\\\CMS\\\\Frontend\\\\ContentObject\\\\ContentObjectRenderer\\|null\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
-
-		-
 			message: "#^Property In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\AbstractValidationViewHelper\\:\\:\\$settings type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/AbstractValidationViewHelper.php
@@ -4456,11 +3896,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Validation/CaptchaViewHelper.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\CaptchaViewHelper\\:\\:initializeArguments\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Validation/CaptchaViewHelper.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\DatepickerDataAttributeViewHelper\\:\\:render\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/DatepickerDataAttributeViewHelper.php
@@ -4472,11 +3907,6 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Validation\\\\EnableJavascriptValidationAndAjaxViewHelper\\:\\:render\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Validation/EnableJavascriptValidationAndAjaxViewHelper.php
-
-		-
-			message: "#^Variable \\$field in PHPDoc tag @var does not match assigned variable \\$form\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Validation/EnableJavascriptValidationAndAjaxViewHelper.php
 
