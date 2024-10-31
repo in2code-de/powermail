@@ -15,7 +15,7 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
  */
 class Answer extends AbstractEntity
 {
-    public $translateFormat;
+
     const TABLE_NAME = 'tx_powermail_domain_model_answer';
 
     const VALUE_TYPE_TEXT = 0;
@@ -31,7 +31,7 @@ class Answer extends AbstractEntity
     /**
      * @var string
      */
-    protected $value = '';
+    protected string $value = '';
 
     /**
      * Use when password is hashed so that the originally entered value is available in the finishers
@@ -61,6 +61,8 @@ class Answer extends AbstractEntity
      * @var Field
      */
     protected $field;
+
+    protected string $translateFormat = '';
 
     /**
      * All mails and answers should be stored with sys_language_uid=-1 to get those values from persisted objects
