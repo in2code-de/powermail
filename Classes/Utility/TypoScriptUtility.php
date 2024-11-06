@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -42,7 +43,8 @@ class TypoScriptUtility
             return '';
         }
 
-        $setup = ObjectUtility::getTyposcriptFrontendController()->tmpl->setup;
+        $request = self::getRequest();
+        $setup = $request->getAttribute('frontend.typoscript')->getSetupArray();
         $pathSegments = GeneralUtility::trimExplode('.', $typoScriptObjectPath);
         $lastSegment = array_pop($pathSegments);
         foreach ($pathSegments as $segment) {
@@ -68,5 +70,10 @@ class TypoScriptUtility
         }
 
         return 'default';
+    }
+
+    private static function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }
