@@ -103,7 +103,7 @@ class Answer extends AbstractEntity
     public function setValue(mixed $value): Answer
     {
         $value = $this->convertToJson($value);
-        $value = $this->convertToTimestamp($value);
+        $value = (string)$this->convertToTimestamp($value);
         $this->value = $value;
         return $this;
     }
