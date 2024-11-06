@@ -876,11 +876,6 @@ parameters:
 			path: ../../Classes/Domain/Repository/FormRepository.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of static method TYPO3\\\\CMS\\\\Core\\\\Utility\\\\GeneralUtility\\:\\:trimExplode\\(\\) expects string, float\\|int\\|string given\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Repository/FormRepository.php
-
-		-
 			message: "#^Parameter \\#4 \\$permClause of method In2code\\\\Powermail\\\\Database\\\\QueryGenerator\\:\\:getTreeList\\(\\) expects string, int given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Repository/FormRepository.php
