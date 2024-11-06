@@ -61,14 +61,14 @@ class File
     public function __construct(/**
      * Field marker name
      */
-    protected string $marker, /**
+        protected string $marker, /**
      * Original name
      */
-    protected string $originalName, /**
+        protected string $originalName, /**
      * Temporary uploaded name
      */
-    protected ?string $temporaryName)
-    {
+        protected ?string $temporaryName
+    ) {
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
     }
 

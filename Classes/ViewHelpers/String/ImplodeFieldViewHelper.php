@@ -37,8 +37,8 @@ class ImplodeFieldViewHelper extends AbstractViewHelper
             $string = implode($separator, $objects);
         } else {
             foreach ($objects as $object) {
-                if (method_exists($object, 'get' . ucfirst((string) $field))) {
-                    $tempString = $object->{'get' . ucfirst((string) $field)}();
+                if (method_exists($object, 'get' . ucfirst((string)$field))) {
+                    $tempString = $object->{'get' . ucfirst((string)$field)}();
                     if (method_exists(htmlentities((string)$tempString), 'getUid')) {
                         $tempString = $tempString->getUid();
                     }
@@ -48,7 +48,7 @@ class ImplodeFieldViewHelper extends AbstractViewHelper
                 }
             }
 
-            $string = substr($string, 0, (-1 * strlen((string) $separator)));
+            $string = substr($string, 0, (-1 * strlen((string)$separator)));
         }
 
         if ($htmlSpecialChars) {

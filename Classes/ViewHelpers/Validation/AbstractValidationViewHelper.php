@@ -3,7 +3,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Validation;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Utility\LocalizationUtility;

@@ -77,8 +77,8 @@ class CalculatingCaptchaService
     public function __construct(/**
      * Turn off exceptions for testing
      */
-    protected bool $test = false)
-    {
+        protected bool $test = false
+    ) {
         $this->setConfiguration();
     }
 
@@ -221,7 +221,7 @@ class CalculatingCaptchaService
         if (!empty($this->configuration['forceValue'])) {
             preg_match_all(
                 '~(\d+)\s*([+|\-|:|x])\s*(\d+)~',
-                (string) $this->configuration['forceValue'],
+                (string)$this->configuration['forceValue'],
                 $matches
             );
             $number1 = (int)$matches[1][0];

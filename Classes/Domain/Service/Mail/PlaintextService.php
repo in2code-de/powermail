@@ -113,6 +113,6 @@ class PlaintextService
     protected function extractLinkForPlainTextContent(string $content): string
     {
         $pattern = '/<a[^>]+href\s*=\s*["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/misu';
-        return preg_replace_callback($pattern, fn($matches): string => $matches[2] . ' [' . htmlspecialchars_decode((string) $matches[1]) . ']', $content);
+        return preg_replace_callback($pattern, fn ($matches): string => $matches[2] . ' [' . htmlspecialchars_decode((string)$matches[1]) . ']', $content);
     }
 }

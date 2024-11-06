@@ -121,7 +121,7 @@ class Form extends AbstractEntity
     {
         if ($this->pagesByTitle === []) {
             $pagesArray = $this->getPages()->toArray();
-            $this->pagesByTitle = array_combine(array_map(fn(Page $page): string => StringUtility::cleanString($page->getTitle()), $pagesArray), $pagesArray);
+            $this->pagesByTitle = array_combine(array_map(fn (Page $page): string => StringUtility::cleanString($page->getTitle()), $pagesArray), $pagesArray);
         }
 
         return $this->pagesByTitle;
@@ -141,7 +141,7 @@ class Form extends AbstractEntity
     {
         if ($this->pagesByUid === []) {
             $pagesArray = $this->getPages()->toArray();
-            $this->pagesByUid = array_combine(array_map(fn(Page $page): ?int => $page->getUid(), $pagesArray), $pagesArray);
+            $this->pagesByUid = array_combine(array_map(fn (Page $page): ?int => $page->getUid(), $pagesArray), $pagesArray);
         }
 
         return $this->pagesByUid;

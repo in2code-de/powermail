@@ -34,7 +34,7 @@ class IsImageViewHelper extends AbstractViewHelper
      */
     public function render(): bool
     {
-        $fileInfo = pathinfo((string) $this->arguments['path']);
+        $fileInfo = pathinfo((string)$this->arguments['path']);
         return in_array($fileInfo['extension'], $this->imageExtensions);
     }
 }

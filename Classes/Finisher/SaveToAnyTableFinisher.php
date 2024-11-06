@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\Finisher;
 
-use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Service\SaveToAnyTableService;

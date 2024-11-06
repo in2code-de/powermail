@@ -134,7 +134,6 @@ class SelectFieldViewHelper extends AbstractFormFieldViewHelper
      *            array(
      *                'red' => 'Red shoes'
      *            )
-     *
      */
     protected function setOptions(): void
     {

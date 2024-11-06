@@ -135,7 +135,7 @@ class Page extends AbstractEntity
     {
         if ($this->fieldsByFieldMarker === []) {
             $fieldsArray = $this->getFields()->toArray();
-            $this->fieldsByFieldMarker = array_combine(array_map(fn(Field $field): string => $field->getMarker(), $fieldsArray), $fieldsArray);
+            $this->fieldsByFieldMarker = array_combine(array_map(fn (Field $field): string => $field->getMarker(), $fieldsArray), $fieldsArray);
         }
 
         return $this->fieldsByFieldMarker;
@@ -152,7 +152,7 @@ class Page extends AbstractEntity
     {
         if ($this->fieldsByFieldUid === []) {
             $fieldsArray = $this->getFields()->toArray();
-            $this->fieldsByFieldUid = array_combine(array_map(fn(Field $field): ?int => $field->getUid(), $fieldsArray), $fieldsArray);
+            $this->fieldsByFieldUid = array_combine(array_map(fn (Field $field): ?int => $field->getUid(), $fieldsArray), $fieldsArray);
         }
 
         return $this->fieldsByFieldUid;

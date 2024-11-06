@@ -49,8 +49,8 @@ class ModuleController extends AbstractController
         protected ModuleTemplateFactory $moduleTemplateFactory,
         protected IconFactory $iconFactory,
         protected PageRenderer $pageRenderer,
-    )
-    { }
+    ) {
+    }
 
     protected function initializeAction(): void
     {

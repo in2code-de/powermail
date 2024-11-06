@@ -28,8 +28,8 @@ class SenderMailPropertiesService
     public function __construct(/**
      * TypoScript settings as plain array
      */
-    protected array $settings)
-    {
+        protected array $settings
+    ) {
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);

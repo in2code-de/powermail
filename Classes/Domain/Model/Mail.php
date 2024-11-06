@@ -463,7 +463,7 @@ class Mail extends AbstractEntity
     {
         if (is_null($this->answersByFieldMarker)) {
             $answersArray = $this->getAnswers()->toArray();
-            $this->answersByFieldMarker = array_combine(array_map(fn(Answer $answer): string => $answer->getField()->getMarker(), $answersArray), $answersArray);
+            $this->answersByFieldMarker = array_combine(array_map(fn (Answer $answer): string => $answer->getField()->getMarker(), $answersArray), $answersArray);
         }
 
         return $this->answersByFieldMarker;
@@ -480,7 +480,7 @@ class Mail extends AbstractEntity
     {
         if (is_null($this->answersByFieldUid)) {
             $answersArray = $this->getAnswers()->toArray();
-            $this->answersByFieldUid = array_combine(array_map(fn(Answer $answer): ?int => $answer->getField()->getUid(), $answersArray), $answersArray);
+            $this->answersByFieldUid = array_combine(array_map(fn (Answer $answer): ?int => $answer->getField()->getUid(), $answersArray), $answersArray);
         }
 
         return $this->answersByFieldUid;

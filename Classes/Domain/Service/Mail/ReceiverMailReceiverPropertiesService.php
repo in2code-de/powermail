@@ -51,7 +51,7 @@ class ReceiverMailReceiverPropertiesService
     public function __construct(protected ?Mail $mail, /**
      * TypoScript settings as plain array
      */
-    protected array $settings)
+        protected array $settings)
     {
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);

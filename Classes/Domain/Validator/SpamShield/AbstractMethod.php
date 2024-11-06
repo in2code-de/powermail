@@ -3,7 +3,6 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Validator\SpamShield;
 
-use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\FrontendUtility;
 
 /**

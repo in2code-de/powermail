@@ -18,6 +18,6 @@ class UpperViewHelper extends AbstractViewHelper
 
     public function render(): string
     {
-        return ucfirst((string) $this->arguments['string']);
+        return ucfirst((string)$this->arguments['string']);
     }
 }

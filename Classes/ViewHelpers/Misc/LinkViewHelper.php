@@ -23,7 +23,7 @@ class LinkViewHelper extends AbstractViewHelper
         $path = $this->arguments['path'];
 
         // Path already absolute?
-        if (!is_null(parse_url((string) $path, PHP_URL_HOST))) {
+        if (!is_null(parse_url((string)$path, PHP_URL_HOST))) {
             return $path;
         }
 
@@ -34,6 +34,6 @@ class LinkViewHelper extends AbstractViewHelper
             $uri .= trim(GeneralUtility::getIndpEnv('TYPO3_SITE_PATH'), '/');
         }
 
-        return rtrim($uri, '/') . '/' . ltrim((string) $path, '/');
+        return rtrim($uri, '/') . '/' . ltrim((string)$path, '/');
     }
 }

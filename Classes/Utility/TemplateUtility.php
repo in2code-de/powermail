@@ -7,7 +7,6 @@ use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -78,7 +77,6 @@ class TemplateUtility
 
     /**
      * Get a default Standalone view
-     *
      */
     public static function getDefaultStandAloneView(
         string $format = 'html'

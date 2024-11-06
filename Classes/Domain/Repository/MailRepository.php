@@ -212,7 +212,7 @@ class MailRepository extends AbstractRepository
             if ($filter !== []) {
                 // switch between AND and OR
                 if (!empty($settings['search']['logicalRelation']) &&
-                    strtolower((string) $settings['search']['logicalRelation']) === 'and') {
+                    strtolower((string)$settings['search']['logicalRelation']) === 'and') {
                     $and[] = $query->logicalAnd(...$filter);
                 } else {
                     $and[] = $query->logicalOr(...$filter);
@@ -529,9 +529,9 @@ class MailRepository extends AbstractRepository
                     } elseif ($field === 'form' && !empty($value)) {
                         $and[] = $query->equals('form', $value);
                     } elseif ($field === 'start' && !empty($value)) {
-                        $and[] = $query->greaterThan('crdate', strtotime((string) $value));
+                        $and[] = $query->greaterThan('crdate', strtotime((string)$value));
                     } elseif ($field === 'stop' && !empty($value)) {
-                        $and[] = $query->lessThan('crdate', strtotime((string) $value));
+                        $and[] = $query->lessThan('crdate', strtotime((string)$value));
                     } elseif ($field === 'hidden' && !empty($value)) {
                         $and[] = $query->equals($field, ($value - 1));
                     } elseif (!empty($value)) {

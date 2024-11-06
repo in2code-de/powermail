@@ -10,8 +10,6 @@ use In2code\Powermail\Domain\Repository\UserRepository;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Routing\PageArguments;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -126,7 +124,7 @@ class FrontendUtility
             return true;
         }
         // 2. check usergroup
-        return (bool) count(array_intersect($usergroups, $usergroupsSettings));
+        return (bool)count(array_intersect($usergroups, $usergroupsSettings));
     }
 
     /**

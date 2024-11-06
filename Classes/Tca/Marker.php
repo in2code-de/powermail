@@ -38,10 +38,10 @@ class Marker extends AbstractFormElement
         } else {
             // was saved before
             $content .= '<span style="background-color: #ddd; padding: 5px 10px; display: block;">';
-            $content .= '{' . strtolower((string) $marker) . '}';
+            $content .= '{' . strtolower((string)$marker) . '}';
             $content .= '</span>';
             $content .= '<input type="hidden" name="data[' . Field::TABLE_NAME . '][' .
-                $this->data['databaseRow']['uid'] . '][marker]" value="' . strtolower((string) $marker) . '" />';
+                $this->data['databaseRow']['uid'] . '][marker]" value="' . strtolower((string)$marker) . '" />';
         }
 
         return $content;
