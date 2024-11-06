@@ -78,20 +78,6 @@ call_user_func(function () {
     );
 
     /**
-     * ContentElementWizard for Pi1
-     */
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '@import \'EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript\''
-    );
-
-    /**
-     * PageTSConfig for backend mod list
-     */
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
-    );
-
-    /**
      * Hook for initially filling the marker field in backend
      */
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass'][] =
