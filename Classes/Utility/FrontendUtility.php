@@ -160,7 +160,7 @@ class FrontendUtility
     public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
         $feUser = self::getRequest()->getAttribute('frontend.user');
-        return (string)$feUser->user[$propertyName];
+        return (string)($feUser->user[$propertyName] ?? '');
     }
 
     /**
