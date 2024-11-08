@@ -357,20 +357,9 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     public function initialize(): void
     {
-        $request = $this->getRequest();
-        if ($request instanceof ServerRequestInterface) {
-            $this->variables = $request->getAttributes();
-        }
+        $this->variables = FrontendUtility::getArguments();
         $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
-    }
-
-    private function getRequest(): ?ServerRequestInterface
-    {
-        if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
-            return $this->renderingContext->getAttribute(ServerRequestInterface::class);
-        }
-        return null;
     }
 }
