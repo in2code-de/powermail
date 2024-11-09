@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version         | Release Date | Description                                                                                                                                                                                                           |
 |-----------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 12.4.4          | 2024-11-09   | Better accessibility, render documentation on docs.typo3.org                                                                                                                                                          |
 | 12.4.3          | 2024-10-16   | Bugfix release for EXT:powermail v12; TYPO3 v13 compatibility work starts today :-)                                                                                                                                   |
 | 12.4.2          | 2024-10-02   | Major bugfix release for EXT:powermail v12                                                                                                                                                                            |
 | 12.4.1          | 2024-09-17   | Security release: Harden access checks to mail records.                                                                                                                                                               |
