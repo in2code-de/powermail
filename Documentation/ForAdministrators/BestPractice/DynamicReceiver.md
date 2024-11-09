@@ -34,8 +34,8 @@ plugin.tx_powermail.settings.setup.receiver.predefinedReceiver {
 ### Dynamic example 1
 
 In a bit more advanced example, we want to choose the receiver by a given value (e.g. of a select box).
-If value 1 is given in a field with marker *{receiver}*, *receivera@domain.org* should be chosen
-and if value 2 or something else is given, *receiverb@domain.org* should be chosen.
+If value 1 is given in a field with marker `{receiver}`, `receivera@domain.org` should be chosen
+and if value 2 or something else is given, `receiverb@domain.org` should be chosen.
 See following TypoScript setup example:
 
 ```

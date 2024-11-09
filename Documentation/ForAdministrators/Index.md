@@ -1,4 +1,4 @@
-# TYPO3 Extension powermail - Documentation - For administrators
+# For administrators
 
 This chapter describes how you can install and configure powermail on your TYPO3 instance
 

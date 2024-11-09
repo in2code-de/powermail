@@ -1,4 +1,4 @@
-# TYPO3 Extension powermail - Documentation - For editors
+# For editors
 
 This chapter describes how to work with powermail from the view of an editor.
 

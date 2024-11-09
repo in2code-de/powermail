@@ -103,6 +103,7 @@
 		}
 	},
 	"scripts": {
+		"render:docs": "docker run --rm --pull always -v $(pwd):/project -it ghcr.io/typo3-documentation/render-guides:latest --config=Documentation",
 		"test:behaviour": "behat --config Tests/Behavior/behat.yml",
 		"test:behaviour:tag": "behat --config Tests/Behavior/behat.yml --tags",
 		"test:behaviour:stop": "behat --config Tests/Behavior/behat.yml --stop-on-failure",
