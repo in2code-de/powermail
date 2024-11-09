@@ -2,7 +2,7 @@
 
 **Note:** Breaking changes are marked with !!!
 
-See [Upgrade instructions and breaking changes](/Documentation/Changelog/UpgradeInstructions.md) for some details on
+See [Upgrade instructions and breaking changes](/Changelog/UpgradeInstructions.md) for some details on
 breaking changes and how to handle them
 
 | Version         | Release Date | Description                                                                                                                                                                                                           |

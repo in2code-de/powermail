@@ -1,4 +1,4 @@
-# TYPO3 Extension powermail - Documentation for contributors
+# For contributors
 
 If you want to contribute to the TYPO3 extension powermail, you are very welcome.
 
@@ -54,7 +54,7 @@ ddev exec composer run test:php:phpstan:generate-baseline
 
 ## Behaviour tests
 
-More information on running behaviour tests is available here: [Behaviour tests](../../Tests/Behavior/readme.md)
+More information on running behaviour tests is available here: [Behaviour tests](https://github.com/in2code-de/powermail/tree/documentation-draft/Tests/Behavior/readme.md)
 
 ## Frontend Development
 
@@ -71,3 +71,10 @@ There is a small build pipeline to build the assets. The artifacts are committed
 * `npm run build` will build the necessary files
 * `npm run watch` will watch the files and rebuild them on changes
 
+## Render the Documentation
+
+You can render the documentation locally with
+
+```bash
+composer render:docs
+```
