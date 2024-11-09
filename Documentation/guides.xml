@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://www.phpdoc.org/guides vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
     input-format="md"
-    index-name="Readme"
+    index-name="Index"
     automatic-menu="true"
 >
     <project
