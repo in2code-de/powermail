@@ -86,9 +86,6 @@ call_user_func(function () {
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
     );
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '@import \'EXT:powermail/Configuration/TSConfig/EditorsSendAttachments.typoscript\''
-    );
 
     /**
      * Hook for initially filling the marker field in backend
