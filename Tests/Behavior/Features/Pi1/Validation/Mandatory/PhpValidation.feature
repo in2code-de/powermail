@@ -15,17 +15,17 @@ Feature: PhpValidation
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 10 ".powermail_message_error > li" elements
+    Then I should see 10 ".powermail_message_error > ol > li" elements
     Then I fill in "tx_powermail_pi1[field][lastname]" with "Daniel"
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 9 ".powermail_message_error > li" elements
+    Then I should see 9 ".powermail_message_error > ol > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "test"
     And I press "Submit"
 
     Then I should see "Dieses Feld muss ausgefüllt werden!"
-    Then I should see 9 ".powermail_message_error > li" elements
+    Then I should see 9 ".powermail_message_error > ol > li" elements
     Then I fill in "tx_powermail_pi1[field][inputpattern]" with "http://www.test.de"
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Boxhammer"
     Then I fill in "tx_powermail_pi1[field][date]" with "10/17/2014"
