@@ -204,7 +204,7 @@ class SessionUtility
      */
     public static function getSpamFactorFromSession(): string
     {
-        return self::getRequest()->getAttribute('frontend.user')->getKey('ses', 'powermail_spamfactor');
+        return self::getRequest()->getAttribute('frontend.user')->getKey('ses', 'powermail_spamfactor') ?? '';
     }
 
     protected static function getSessionValue(string $name = '', string $method = 'ses', string $key = ''): array
