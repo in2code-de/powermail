@@ -1117,7 +1117,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$fieldUid of static method In2code\\\\Powermail\\\\Utility\\\\SessionUtility\\:\\:setCaptchaSession\\(\\) expects int, int\\<1, max\\>\\|null given\\.$#"
-			count: 2
+			count: 1
 			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
 
 		-

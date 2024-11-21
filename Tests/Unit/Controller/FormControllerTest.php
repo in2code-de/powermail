@@ -122,7 +122,7 @@ class FormControllerTest extends UnitTestCase
     /**
      * @dataProvider forwardIfFormParamsDoNotMatchReturnsVoidDataProvider
      * @test
-     * @covers ::forwardIfFormParamsDoNotMatch
+     * @covers ::formParamsDoNotMatch
      */
     public function forwardIfFormParamsDoNotMatchReturnsVoid(array $arguments, array $settings, bool $forward): void
     {
@@ -160,7 +160,7 @@ class FormControllerTest extends UnitTestCase
      * @test
      * @dataProvider forwardIfMailParamEmptyDataProvider
      * @test
-     * @covers ::forwardIfMailParamEmpty
+     * @covers ::isMailParamEmpty
      */
     public function forwardIfMailParamEmpty(array $arguments, bool $forward): void
     {

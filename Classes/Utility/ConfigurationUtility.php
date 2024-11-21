@@ -199,7 +199,7 @@ class ConfigurationUtility
     {
         $originalSettings = $settings;
         if (array_key_exists($typoScriptLevel, $settings) && array_key_exists('flexform', $settings)) {
-            $settings = ArrayUtility::arrayMergeRecursiveOverrule(
+            $settings =  ArrayUtility::arrayMergeRecursiveOverrule(
                 (array)$settings[$typoScriptLevel],
                 (array)$settings['flexform'],
                 false,

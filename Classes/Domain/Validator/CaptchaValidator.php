@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Validator;
 
 use In2code\Powermail\Domain\Model\Answer;
@@ -49,8 +50,10 @@ class CaptchaValidator extends AbstractValidator
                      * Resolves: https://github.com/einpraegsam/powermail/issues/376
                      * Resolves: https://projekte.in2code.de/issues/44174
                      */
-                    if ($answer->getUid() === null && !$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                        $this->setErrorAndMessage($answer->getField(), 'captcha');
+                    if ($answer->getUid() === null) {
+                        if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
+                            $this->setErrorAndMessage($answer->getField(), 'captcha');
+                        }
                     }
                 }
             }
@@ -100,6 +103,7 @@ class CaptchaValidator extends AbstractValidator
      */
     protected function formHasCaptcha(Form $form): bool
     {
+        /** @var FormRepository $formRepository */
         $formRepository = GeneralUtility::makeInstance(FormRepository::class);
         $form = $formRepository->hasCaptcha($form);
         return (bool)count($form);

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Domain\Service;
 
 use In2code\Powermail\Domain\Model\Field;
@@ -112,16 +113,11 @@ class CalculatingCaptchaService
      * @param string $code String to compare
      * @param Field $field String to compare
      */
-    public function validCode(string $code, Field $field, bool $clearSession = true): bool
+    public function validCode(string $code, Field $field, bool $clearSession = false): bool
     {
         if ((int)$code > 0 && (int)$code === SessionUtility::getCaptchaSession($field->getUid())) {
-            if ($clearSession) {
-                SessionUtility::setCaptchaSession('', $field->getUid());
-            }
-
             return true;
         }
-
         return false;
     }
 

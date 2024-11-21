@@ -71,7 +71,7 @@ class PasswordValidator extends AbstractValidator
             !empty(FrontendUtility::getArguments()['__referrer'])
             && !empty(FrontendUtility::getArguments()['action'])
             && FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'checkCreate'
+            && FrontendUtility::getArguments()['action'] === 'create'
         )
             || (
                 !empty(FrontendUtility::getArguments()['controller'])

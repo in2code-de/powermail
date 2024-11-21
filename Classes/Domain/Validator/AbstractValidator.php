@@ -68,17 +68,15 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     /**
      * Validation should be in mostly workflows only on first action. This is createAction. But if confirmation is
      * turned on, validation should work in most cases on the confirmationAction.
-     *
-     * ToDo: for v13 rename the actions in the condition
      */
     public function isFirstActionForValidation(): bool
     {
         $arguments = FrontendUtility::getArguments();
         if ($this->isConfirmationActivated()) {
-            return $arguments['action'] === 'checkConfirmation';
+            return $arguments['action'] === 'confirmation';
         }
 
-        return $arguments['action'] === 'checkCreate';
+        return $arguments['action'] === 'create';
     }
 
     public function __construct()
