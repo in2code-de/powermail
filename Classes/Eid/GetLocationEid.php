@@ -21,7 +21,7 @@ class GetLocationEid
 {
     protected ServerRequestInterface $request;
 
-    protected string $addressString = '';
+    protected string $content = '';
 
     /**
      * Language settings for google maps
@@ -45,19 +45,19 @@ class GetLocationEid
             }
 
             if (!empty($address['route'])) {
-                $this->addressString .= $address['route'];
+                $this->content .= $address['route'];
             }
 
             if (!empty($address['locality'])) {
-                $this->addressString .= ', ' . $address['locality'];
+                $this->content .= ', ' . $address['locality'];
             }
 
             if (!empty($address['country'])) {
-                $this->addressString .= ', ' . $address['country'];
+                $this->content .= ', ' . $address['country'];
             }
 
             $response = new Response();
-            $response->getBody()->write($this->addressString);
+            $response->getBody()->write($this->content);
             return $response;
         } catch (InvalidArgumentException) {
             // add a 410 "gone" if invalid parameters given
