@@ -431,11 +431,6 @@ parameters:
 			path: ../../Classes/Domain/Model/Answer.php
 
 		-
-			message: "#^Property In2code\\\\Powermail\\\\Domain\\\\Model\\\\Answer\\:\\:\\$value \\(string\\) does not accept int\\|string\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Model/Answer.php
-
-		-
 			message: "#^Right side of \\|\\| is always false\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Model/Answer.php
@@ -3326,11 +3321,6 @@ parameters:
 			path: ../../Classes/Utility/TemplateUtility.php
 
 		-
-			message: "#^Cannot access property \\$tmpl on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Utility/TypoScriptUtility.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Utility\\\\TypoScriptUtility\\:\\:getCaptchaExtensionFromSettings\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Utility/TypoScriptUtility.php
@@ -3652,6 +3642,11 @@ parameters:
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:getFromFrontendUser\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Misc\\\\PrefillFieldViewHelper\\:\\:getFromMail\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
