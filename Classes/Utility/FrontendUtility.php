@@ -77,8 +77,6 @@ class FrontendUtility
     }
 
     /**
-     * ToDo: Pi2 -- v13 compatibility
-     *
      * Check if logged in user is allowed to make changes in Pi2
      *
      * @param array $settings $settings TypoScript and Flexform Settings
@@ -93,17 +91,13 @@ class FrontendUtility
             $mail = $mailRepository->findByUid((int)$mail);
         }
 
-        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        $userObject = self::getRequest()->getAttribute('frontend.user');
+        $feUser = self::getRequest()->getAttribute('frontend.user')->getUserId();
         if ($feUser === 0 || $mail === null) {
             return false;
         }
 
-        $feUserGroups = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'] ?? [];
-        $usergroups = GeneralUtility::trimExplode(
-            ',',
-            $feUserGroups,
-            true
-        );
+        $usergroups = self::getRequest()->getAttribute('frontend.user')->createUserAspect()->getGroupIds();
         $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
         $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
 
@@ -127,12 +121,9 @@ class FrontendUtility
         return (bool)count(array_intersect($usergroups, $usergroupsSettings));
     }
 
-    /**
-     * ToDo: Pi2 -- v13 compatibility
-     */
     public static function isAllowedToView(array $settings, Mail $mail): bool
     {
-        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        $feUser =self::getRequest()->getAttribute('frontend.user')->getUserId();
         if (
             $feUser === 0 ||
             (
