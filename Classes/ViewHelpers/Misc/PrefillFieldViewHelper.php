@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
@@ -115,10 +116,12 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     /**
      * Get value from existing answer for edit view
+     *
+     * @return string|array
      */
-    protected function getFromMail(string $value): string
+    protected function getFromMail(string $value)
     {
-        if (($value === '' || $value === '0') && $this->getMail() !== null && $this->getMail()->getAnswers()) {
+        if (($value === '' || $value === '0') && $this->getMail() instanceof \In2code\Powermail\Domain\Model\Mail && $this->getMail()->getAnswers()) {
             foreach ($this->getMail()->getAnswers() as $answer) {
                 if ($answer !== null && $answer->getField() === $this->getField()) {
                     return $answer->getValue();
