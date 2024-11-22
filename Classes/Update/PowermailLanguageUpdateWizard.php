@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Utility\DatabaseUtility;
 use Throwable;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -18,6 +19,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * - tx_powermail_domain_model_answer.sys_language_uid=-1
  * for existing values
  */
+#[UpgradeWizard('powermailLanguageUpdateWizard')]
 class PowermailLanguageUpdateWizard implements UpgradeWizardInterface
 {
     public function getIdentifier(): string

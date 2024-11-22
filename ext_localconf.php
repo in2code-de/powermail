@@ -115,20 +115,6 @@ call_user_func(function () {
     ];
 
     /**
-     * Update Wizards
-     */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailRelationUpdateWizard']
-        = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
-        = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPluginUpdater']
-        = \In2code\Powermail\Update\PowermailPluginUpdater::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionUpdater']
-        = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
-        = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
-
-    /**
      * Feature toggle
      * ToDo: remove for TYPO3 v14 compatible version
      */

@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Model\Page;
 use In2code\Powermail\Exception\DatabaseFieldMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
 use Throwable;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
@@ -18,6 +19,7 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
  * - tx_powermail_domain_model_field.pages to .page and
  * - tx_powermail_domain_model_pages.forms to .form
  */
+#[UpgradeWizard('powermailRelationUpdateWizard')]
 class PowermailRelationUpdateWizard implements UpgradeWizardInterface
 {
     public function getIdentifier(): string
