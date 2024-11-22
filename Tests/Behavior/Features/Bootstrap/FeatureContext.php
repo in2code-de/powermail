@@ -6,7 +6,7 @@ use Behat\MinkExtension\Context\MinkContext;
 use In2code\Powermail\Exception\ElementNotFoundException;
 
 /**
- * Class FeatureContext
+ * @extensionScannerIgnoreFile
  */
 class FeatureContext extends MinkContext
 {
@@ -36,6 +36,7 @@ class FeatureContext extends MinkContext
     {
         $time = DateTime::createFromFormat('d.m.Y H:i', $datetime);
         $javascript = 'document.querySelector("[name=\'' . $field . '\']").value="' . $time->format('Y-m-d\TH:i') . '"';
+        /** extensionScannerIgnore */
         $this->getSession()->executeScript($javascript);
     }
 
