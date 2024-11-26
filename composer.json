@@ -27,7 +27,7 @@
   "require-dev": {
     "typo3/cms-core": ">=8.7.0 <=8.7.99",
     "nimut/testing-framework": "^4.0",
-    "mikey179/vfsStream": "^1.4",
+    "mikey179/vfsstream": "^1.4",
     "phpunit/phpunit": "^6.0",
     "behat/behat": "^3.4",
     "behat/mink-extension": "^2.1",
