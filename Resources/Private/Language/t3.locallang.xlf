@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose">
+        <source>Please choose...</source>
+        <target>crwdns335710:0crwdne335710:0</target>
+      </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty">
+        <source>Error, no options to show</source>
+        <target>crwdns340542:0crwdne340542:0</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back">
+        <source>Go back</source>
+        <target>crwdns335712:0crwdne335712:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName">
+        <source>Senders Name</source>
+        <target>crwdns335714:0crwdne335714:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail">
+        <source>Senders Email</source>
+        <target>crwdns335716:0crwdne335716:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject">
+        <source>Subject</source>
+        <target>crwdns335718:0crwdne335718:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail">
+        <source>Receivers Email</source>
+        <target>crwdns335720:0crwdne335720:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body">
+        <source>Email Text</source>
+        <target>crwdns335722:0crwdne335722:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser">
+        <source>Frontend User</source>
+        <target>crwdns335724:0crwdne335724:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp">
+        <source>Senders IP-Address</source>
+        <target>crwdns335726:0crwdne335726:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent">
+        <source>Senders Browser-Signature</source>
+        <target>crwdns335728:0crwdne335728:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor">
+        <source>Spamfactor</source>
+        <target>crwdns335730:0crwdne335730:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.time" resname="\In2code\Powermail\Domain\Model\Mail.time">
+        <source>Time for form submit</source>
+        <target>crwdns335732:0crwdne335732:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.uid" translate="no" resname="\In2code\Powermail\Domain\Model\Mail.uid">
+        <source>Uid</source>
+        <target>crwdns335734:0crwdne335734:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate">
+        <source>Date</source>
+        <target>crwdns335736:0crwdne335736:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date">
+        <source>Date</source>
+        <target>crwdns335738:0crwdne335738:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime">
+        <source>Time</source>
+        <target>crwdns335740:0crwdne335740:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain">
+        <source>Referer Domain</source>
+        <target>crwdns335742:0crwdne335742:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer">
+        <source>Referer URI</source>
+        <target>crwdns335744:0crwdne335744:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry">
+        <source>Visitors Country</source>
+        <target>crwdns335746:0crwdne335746:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" resname="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice">
+        <source>Visitor uses a Mobile Device</source>
+        <target>crwdns335748:0crwdne335748:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage">
+        <source>Website Language</source>
+        <target>crwdns335750:0crwdne335750:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage">
+        <source>Browser Language</source>
+        <target>crwdns335752:0crwdne335752:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel">
+        <source>Page Funnel</source>
+        <target>crwdns335754:0crwdne335754:0</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden" resname="\In2code\Powermail\Domain\Model\Mail.hidden">
+        <source>Disabled</source>
+        <target>crwdns335756:0crwdne335756:0</target>
+      </trans-unit>
+      <trans-unit id="note_html" resname="note_html">
+        <source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
+        <target>crwdns335758:0crwdne335758:0</target>
+      </trans-unit>
+      <trans-unit id="mail_created" resname="mail_created">
+        <source>Mail successfully sent!</source>
+        <target>crwdns335760:0crwdne335760:0</target>
+      </trans-unit>
+      <trans-unit id="mail_created_failure" resname="mail_created_failure">
+        <source>Failure, mail could not be sent!</source>
+        <target>crwdns335762:0crwdne335762:0</target>
+      </trans-unit>
+      <trans-unit id="confirmation_message" resname="confirmation_message">
+        <source>Are these values correct?</source>
+        <target>crwdns335764:0crwdne335764:0</target>
+      </trans-unit>
+      <trans-unit id="confirmation_next" resname="confirmation_next">
+        <source>Next</source>
+        <target>crwdns335766:0crwdne335766:0</target>
+      </trans-unit>
+      <trans-unit id="confirmation_prev" resname="confirmation_prev">
+        <source>Previous</source>
+        <target>crwdns335768:0crwdne335768:0</target>
+      </trans-unit>
+      <trans-unit id="optin_seeMail" resname="optin_seeMail">
+        <source>Please have a look into your mail account and confirm this action.</source>
+        <target>crwdns335770:0crwdne335770:0</target>
+      </trans-unit>
+      <trans-unit id="optin_subject" resname="optin_subject">
+        <source>Please confirm your Email</source>
+        <target>crwdns335772:0crwdne335772:0</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_entries" resname="optin_mail_entries">
+        <source>These are your given entries:</source>
+        <target>crwdns335774:0crwdne335774:0</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_link" resname="optin_mail_link">
+        <source>Please confirm with a click:</source>
+        <target>crwdns335776:0crwdne335776:0</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_failed" resname="optin_mail_confirm_failed">
+        <source>The given Link is not correct</source>
+        <target>crwdns335778:0crwdne335778:0</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_done" resname="optin_mail_confirm_done">
+        <source>The mail was already confirmed</source>
+        <target>crwdns335780:0crwdne335780:0</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mail_deleted" resname="disclaimer_mail_deleted">
+        <source>Mail was successfully deleted</source>
+        <target>crwdns335782:0crwdne335782:0</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage">
+        <source>Was this email a mistake and you want to delete your request?</source>
+        <target>crwdns335784:0crwdne335784:0</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link">
+        <source>Delete all email data.</source>
+        <target>crwdns335786:0crwdne335786:0</target>
+      </trans-unit>
+      <trans-unit id="disclaimed_subject" resname="disclaimed_subject">
+        <source>Email was just disclaimed</source>
+        <target>crwdns335788:0crwdne335788:0</target>
+      </trans-unit>
+      <trans-unit id="disclaimed_entries" resname="disclaimed_entries">
+        <source>This data was completely disclaimed:</source>
+        <target>crwdns335790:0crwdne335790:0</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created">
+        <source>Error, Email could not be sent correctly!</source>
+        <target>crwdns335792:0crwdne335792:0</target>
+      </trans-unit>
+      <trans-unit id="error_no_typoscript" resname="error_no_typoscript">
+        <source>TypoScript settings are missing. Did you include the related static templates?</source>
+        <target>crwdns335794:0crwdne335794:0</target>
+      </trans-unit>
+      <trans-unit id="error_no_sender_name" resname="error_no_sender_name">
+        <source>No Sendername</source>
+        <target>crwdns335796:0crwdne335796:0</target>
+      </trans-unit>
+      <trans-unit id="error_no_sender_email" resname="error_no_sender_email">
+        <source>noreply</source>
+        <target>crwdns335798:0crwdne335798:0</target>
+      </trans-unit>
+      <trans-unit id="error_no_form" resname="error_no_form">
+        <source>No form to show</source>
+        <target>crwdns335800:0crwdne335800:0</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target>crwdns335802:0crwdne335802:0</target>
+      </trans-unit>
+      <trans-unit id="error_wrong_captcha" resname="error_wrong_captcha">
+        <source>Wrong Captcha value, please try again!</source>
+        <target>crwdns335804:0crwdne335804:0</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target>crwdns335802:0crwdne335802:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory" resname="validationerror_mandatory">
+        <source>This field must be filled!</source>
+        <target>crwdns335808:0crwdne335808:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_mandatory_multi" resname="validationerror_mandatory_multi">
+        <source>One of these fields must be filled!</source>
+        <target>crwdns335810:0crwdne335810:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_captcha" resname="validationerror_captcha">
+        <source>Wrong captcha code entered - please try again!</source>
+        <target>crwdns335812:0crwdne335812:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_password" resname="validationerror_password">
+        <source>Both Password-Fields are not equal!</source>
+        <target>crwdns335814:0crwdne335814:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_unique" resname="validationerror_unique">
+        <source>This value is already in use - please use a new one!</source>
+        <target>crwdns335816:0crwdne335816:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation" resname="validationerror_validation">
+        <source>Your input is not allowed!</source>
+        <target>crwdns335818:0crwdne335818:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.1" resname="validationerror_validation.1">
+        <source>This is not a valid email address!</source>
+        <target>crwdns335820:0crwdne335820:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.2" resname="validationerror_validation.2">
+        <source>This is not a valid URL!</source>
+        <target>crwdns335822:0crwdne335822:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.3" resname="validationerror_validation.3">
+        <source>This is not a valid Phone Number!</source>
+        <target>crwdns335824:0crwdne335824:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.4" resname="validationerror_validation.4">
+        <source>Please insert numbers only!</source>
+        <target>crwdns335826:0crwdne335826:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.5" resname="validationerror_validation.5">
+        <source>Please insert letters only!</source>
+        <target>crwdns335828:0crwdne335828:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.6" resname="validationerror_validation.6">
+        <source>Please increase number!</source>
+        <target>crwdns335830:0crwdne335830:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.7" resname="validationerror_validation.7">
+        <source>Please decrease number!</source>
+        <target>crwdns335832:0crwdne335832:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8">
+        <source>Number too high or too low!</source>
+        <target>crwdns335834:0crwdne335834:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9">
+        <source>Your input is not valid (too many or too less signs)</source>
+        <target>crwdns335836:0crwdne335836:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10">
+        <source>Error in validation!</source>
+        <target>crwdns335838:0crwdne335838:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_extension" resname="validationerror_upload_extension">
+        <source>It's not allowed to upload a file with this extension!</source>
+        <target>crwdns335840:0crwdne335840:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size">
+        <source>The file, that you want to upload is too large!</source>
+        <target>crwdns335842:0crwdne335842:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error">
+        <source>Upload failed, please check permissions on the server!</source>
+        <target>crwdns335844:0crwdne335844:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_spam" resname="validationerror_spam">
+        <source>Spam recognized:</source>
+        <target>crwdns335846:0crwdne335846:0</target>
+      </trans-unit>
+      <trans-unit id="validationerror_spam_details" resname="validationerror_spam_details">
+        <source>Spam chance in this message!</source>
+        <target>crwdns335848:0crwdne335848:0</target>
+      </trans-unit>
+      <trans-unit id="writePasswordAgain" resname="writePasswordAgain">
+        <source>Please write again</source>
+        <target>crwdns335850:0crwdne335850:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_date" resname="datepicker_format_date">
+        <source>Y-m-d</source>
+        <target>crwdns335852:0crwdne335852:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_datetime" resname="datepicker_format_datetime">
+        <source>Y-m-d H:i</source>
+        <target>crwdns335854:0crwdne335854:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_format_time" resname="datepicker_format_time">
+        <source>H:i</source>
+        <target>crwdns335856:0crwdne335856:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_so" resname="datepicker_day_so">
+        <source>So</source>
+        <target>crwdns335858:0crwdne335858:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_mo" resname="datepicker_day_mo">
+        <source>Mo</source>
+        <target>crwdns335860:0crwdne335860:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_tu" resname="datepicker_day_tu">
+        <source>Tu</source>
+        <target>crwdns335862:0crwdne335862:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_we" resname="datepicker_day_we">
+        <source>We</source>
+        <target>crwdns335864:0crwdne335864:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_th" resname="datepicker_day_th">
+        <source>Th</source>
+        <target>crwdns335866:0crwdne335866:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_fr" resname="datepicker_day_fr">
+        <source>Fr</source>
+        <target>crwdns335868:0crwdne335868:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_day_sa" resname="datepicker_day_sa">
+        <source>Sa</source>
+        <target>crwdns335870:0crwdne335870:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jan" resname="datepicker_month_jan">
+        <source>January</source>
+        <target>crwdns335872:0crwdne335872:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_feb" resname="datepicker_month_feb">
+        <source>February</source>
+        <target>crwdns335874:0crwdne335874:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_mar" resname="datepicker_month_mar">
+        <source>March</source>
+        <target>crwdns335876:0crwdne335876:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_apr" resname="datepicker_month_apr">
+        <source>April</source>
+        <target>crwdns335878:0crwdne335878:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_may" resname="datepicker_month_may">
+        <source>May</source>
+        <target>crwdns335880:0crwdne335880:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jun" resname="datepicker_month_jun">
+        <source>June</source>
+        <target>crwdns335882:0crwdne335882:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_jul" resname="datepicker_month_jul">
+        <source>July</source>
+        <target>crwdns335884:0crwdne335884:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_aug" resname="datepicker_month_aug">
+        <source>August</source>
+        <target>crwdns335886:0crwdne335886:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_sep" resname="datepicker_month_sep">
+        <source>September</source>
+        <target>crwdns335888:0crwdne335888:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_oct" resname="datepicker_month_oct">
+        <source>October</source>
+        <target>crwdns335890:0crwdne335890:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_nov" resname="datepicker_month_nov">
+        <source>November</source>
+        <target>crwdns335892:0crwdne335892:0</target>
+      </trans-unit>
+      <trans-unit id="datepicker_month_dec" resname="datepicker_month_dec">
+        <source>December</source>
+        <target>crwdns335894:0crwdne335894:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckCheckboxes" resname="JsValidationCheckCheckboxes">
+        <source>Please check min. 1</source>
+        <target>crwdns335896:0crwdne335896:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckInteger" resname="JsValidationCheckInteger">
+        <source>Not a valid number</source>
+        <target>crwdns335898:0crwdne335898:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequired" resname="JsValidationCheckRequired">
+        <source>This field is required</source>
+        <target>crwdns335900:0crwdne335900:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckRequiredOption" resname="JsValidationCheckRequiredOption">
+        <source>Please select an option</source>
+        <target>crwdns335902:0crwdne335902:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckEmail" resname="JsValidationCheckEmail">
+        <source>Invalid Email</source>
+        <target>crwdns335904:0crwdne335904:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckUrl" resname="JsValidationCheckUrl">
+        <source>Invalid URL</source>
+        <target>crwdns335906:0crwdne335906:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckPhone" resname="JsValidationCheckPhone">
+        <source>Invalid Phone No</source>
+        <target>crwdns335908:0crwdne335908:0</target>
+      </trans-unit>
+      <trans-unit id="JsValidationCheckLetters" resname="JsValidationCheckLetters">
+        <source>Only Letters allowed</source>
+        <target>crwdns335910:0crwdne335910:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionList" resname="BackendSelectionList">
+        <source>Mail List</source>
+        <target>crwdns335912:0crwdne335912:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReporting" resname="BackendSelectionReporting">
+        <source>Reporting</source>
+        <target>crwdns335914:0crwdne335914:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingForm" resname="BackendSelectionReportingForm">
+        <source>Reporting (Form)</source>
+        <target>crwdns335916:0crwdne335916:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionReportingMarketing" resname="BackendSelectionReportingMarketing">
+        <source>Reporting (Marketing)</source>
+        <target>crwdns335918:0crwdne335918:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionTools" resname="BackendSelectionTools">
+        <source>Tools</source>
+        <target>crwdns335920:0crwdne335920:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionOverview" resname="BackendSelectionOverview">
+        <source>Form Overview</source>
+        <target>crwdns335922:0crwdne335922:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionCheck" resname="BackendSelectionCheck">
+        <source>Function Check</source>
+        <target>crwdns335924:0crwdne335924:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle" resname="BackendSelectionConverterTitle">
+        <source>Form Converter</source>
+        <target>crwdns335926:0crwdne335926:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle2" resname="BackendSelectionConverterTitle2">
+        <source>Converts all Powermail 1.x to 2.x Forms</source>
+        <target>crwdns335928:0crwdne335928:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle3" resname="BackendSelectionConverterTitle3">
+        <source>Old records (from Tables tx_powermail_fieldsets, tx_powermail_fields and tt_content) will be flagged with deleted=1. New Records will be generated (Tables tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field, tt_content)</source>
+        <target>crwdns335930:0crwdne335930:0</target>
+      </trans-unit>
+      <trans-unit id="BackendSelectionConverterTitle4" resname="BackendSelectionConverterTitle4">
+        <source>Attention: Please backup your database before converting. This step is irreversible.</source>
+        <target>crwdns335932:0crwdne335932:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListMultiselectLabel" resname="BackendListMultiselectLabel">
+        <source>record(s) selected:</source>
+        <target>crwdns335934:0crwdne335934:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormSave" resname="BackendConverterFormSave">
+        <source>Save new forms on page with PID</source>
+        <target>crwdns335936:0crwdne335936:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultReceiverName" resname="BackendConverterFormDefaultReceiverName">
+        <source>Default Receiver Name</source>
+        <target>crwdns335938:0crwdne335938:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderNameConfirmationMail" resname="BackendConverterFormDefaultSenderNameConfirmationMail">
+        <source>Default Sender Name for Confirmation Mail</source>
+        <target>crwdns335940:0crwdne335940:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultSenderMailConfirmationMail" resname="BackendConverterFormDefaultSenderMailConfirmationMail">
+        <source>Default Sender Email for Confirmation Mail</source>
+        <target>crwdns335942:0crwdne335942:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFunc" resname="BackendConverterFormDefaultParseFunc">
+        <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
+        <target>crwdns335944:0crwdne335944:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText">
+        <source>If you have trouble with form converting, you can leave this value empty.</source>
+        <target>crwdns335946:0crwdne335946:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden">
+        <source>Ignore Old Hidden Forms</source>
+        <target>crwdns335948:0crwdne335948:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFormDryrun" resname="BackendConverterFormDryrun">
+        <source>Do only a Test Run (no records will be generated or deleted)</source>
+        <target>crwdns335950:0crwdne335950:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterOldForms" resname="BackendConverterOldForms">
+        <source>Old Forms (tt_content)</source>
+        <target>crwdns335952:0crwdne335952:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTtContentUid" translate="no" resname="BackendConverterTtContentUid">
+        <source>Uid</source>
+        <target>crwdns335954:0crwdne335954:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterPage" translate="no" resname="BackendConverterPage">
+        <source>Pid</source>
+        <target>crwdns335956:0crwdne335956:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterLanguage" resname="BackendConverterLanguage">
+        <source>Language</source>
+        <target>crwdns335958:0crwdne335958:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterTitle" resname="BackendConverterTitle">
+        <source>Title</source>
+        <target>crwdns335960:0crwdne335960:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterRecipient" resname="BackendConverterRecipient">
+        <source>Recipient</source>
+        <target>crwdns335962:0crwdne335962:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject">
+        <source>Subject</source>
+        <target>crwdns335964:0crwdne335964:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterFieldsetAmount" resname="BackendConverterFieldsetAmount">
+        <source>Number of Fieldsets</source>
+        <target>crwdns335966:0crwdne335966:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterConfirmationPage" resname="BackendConverterConfirmationPage">
+        <source>Confirmation Page</source>
+        <target>crwdns335968:0crwdne335968:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterMultiple" resname="BackendConverterMultiple">
+        <source>Multiple</source>
+        <target>crwdns335970:0crwdne335970:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterNoOldForms" resname="BackendConverterNoOldForms">
+        <source>No old Forms found</source>
+        <target>crwdns335972:0crwdne335972:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateTitle2" resname="BackendConverterUpdateTitle2">
+        <source>Overview: Converted Forms</source>
+        <target>crwdns335974:0crwdne335974:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageOk" resname="BackendConverterUpdateMessageOk">
+        <source>Form(s) successfully generated!</source>
+        <target>crwdns335976:0crwdne335976:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateMessageNote" resname="BackendConverterUpdateMessageNote">
+        <source>Form(s) could be migrated</source>
+        <target>crwdns335978:0crwdne335978:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormUid" translate="no" resname="BackendConverterUpdateFormUid">
+        <source>Uid</source>
+        <target>crwdns335980:0crwdne335980:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormUidAutogenerated" resname="BackendConverterUpdateFormUidAutogenerated">
+        <source>[auto]</source>
+        <target>crwdns335982:0crwdne335982:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPid" translate="no" resname="BackendConverterUpdateFormPid">
+        <source>Pid</source>
+        <target>crwdns335984:0crwdne335984:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormTitle" resname="BackendConverterUpdateFormTitle">
+        <source>Title</source>
+        <target>crwdns335986:0crwdne335986:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormHidden" resname="BackendConverterUpdateFormHidden">
+        <source>Hidden</source>
+        <target>crwdns335988:0crwdne335988:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPageAmount" resname="BackendConverterUpdateFormPageAmount">
+        <source>Page Amount</source>
+        <target>crwdns335990:0crwdne335990:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFormPages" resname="BackendConverterUpdateFormPages">
+        <source>Pages</source>
+        <target>crwdns335992:0crwdne335992:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid">
+        <source>Uid</source>
+        <target>crwdns335994:0crwdne335994:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUidAutogenerated" resname="BackendConverterUpdatePageUidAutogenerated">
+        <source>[auto]</source>
+        <target>crwdns335996:0crwdne335996:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePagePid" translate="no" resname="BackendConverterUpdatePagePid">
+        <source>Pid</source>
+        <target>crwdns335998:0crwdne335998:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageTitle" resname="BackendConverterUpdatePageTitle">
+        <source>Title</source>
+        <target>crwdns336000:0crwdne336000:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageLayout" resname="BackendConverterUpdatePageLayout">
+        <source>Layout</source>
+        <target>crwdns336002:0crwdne336002:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageFieldAmount" resname="BackendConverterUpdatePageFieldAmount">
+        <source>Field Amount</source>
+        <target>crwdns336004:0crwdne336004:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageFields" resname="BackendConverterUpdatePageFields">
+        <source>Fields</source>
+        <target>crwdns336006:0crwdne336006:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldUid" translate="no" resname="BackendConverterUpdateFieldUid">
+        <source>Uid</source>
+        <target>crwdns336008:0crwdne336008:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldUidAutogenerated" resname="BackendConverterUpdateFieldUidAutogenerated">
+        <source>[auto]</source>
+        <target>crwdns336010:0crwdne336010:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldPid" translate="no" resname="BackendConverterUpdateFieldPid">
+        <source>Pid</source>
+        <target>crwdns336012:0crwdne336012:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldTitle" resname="BackendConverterUpdateFieldTitle">
+        <source>Title</source>
+        <target>crwdns336014:0crwdne336014:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateFieldProperties" resname="BackendConverterUpdateFieldProperties">
+        <source>Properties</source>
+        <target>crwdns336016:0crwdne336016:0</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdateNoFormsConverted" resname="BackendConverterUpdateNoFormsConverted">
+        <source>No Forms converted</source>
+        <target>crwdns336018:0crwdne336018:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckTitle" resname="BackendCheckTitle">
+        <source>Powermail Check</source>
+        <target>crwdns336020:0crwdne336020:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckTryToFix" resname="BackendCheckTryToFix">
+        <source>Solve problem</source>
+        <target>crwdns336022:0crwdne336022:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionTitle" resname="BackendCheckSessionTitle">
+        <source>Frontend Session Check</source>
+        <target>crwdns336024:0crwdne336024:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionCorrect" resname="BackendCheckSessionCorrect">
+        <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
+        <target>crwdns336026:0$GLOBALS['TSFE']crwdne336026:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed">
+        <source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target>crwdns336028:0$GLOBALS['TSFE']crwdne336028:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle">
+        <source>Extension Manager Updated</source>
+        <target>crwdns336030:0crwdne336030:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigCorrect" resname="BackendCheckExtMngConfigCorrect">
+        <source>Extension is correct installed - all settings available from localconf.php</source>
+        <target>crwdns336032:0crwdne336032:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckExtMngConfigFailed" resname="BackendCheckExtMngConfigFailed">
+        <source>Extension was not correct installed - please click the update button in the Extension Manager</source>
+        <target>crwdns336034:0crwdne336034:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionTitle" resname="BackendCheckVersionTitle">
+        <source>Version</source>
+        <target>crwdns336036:0crwdne336036:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate">
+        <source>Last Extension Manager update</source>
+        <target>crwdns336038:0crwdne336038:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation">
+        <source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target>crwdns336040:0crwdne336040:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate">
+        <source>The installed version of powermail is up-to-date</source>
+        <target>crwdns336042:0crwdne336042:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionSecurity" resname="BackendCheckVersionSecurity">
+        <source>The installed version of powermail contains a known security bug. Please update your powermail extension as soon as possible.</source>
+        <target>crwdns336044:0crwdne336044:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionUpgrade" resname="BackendCheckVersionUpgrade">
+        <source>A newer version of powermail is available</source>
+        <target>crwdns336046:0crwdne336046:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionTitle" resname="BackendCheckT3VersionTitle">
+        <source>TYPO3 Version</source>
+        <target>crwdns336048:0crwdne336048:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionCorrect" resname="BackendCheckT3VersionCorrect">
+        <source>The used TYPO3 version is correct for this Powermail version</source>
+        <target>crwdns336050:0crwdne336050:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckT3VersionFailed" resname="BackendCheckT3VersionFailed">
+        <source>Please check the TYPO3 version - maybe Powermail works not properly in this version</source>
+        <target>crwdns336052:0crwdne336052:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderTitle" resname="BackendCheckUploadsFolderTitle">
+        <source>Upload Folder</source>
+        <target>crwdns336054:0crwdne336054:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderCorrect" resname="BackendCheckUploadsFolderCorrect">
+        <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
+        <target>crwdns336056:0crwdne336056:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed">
+        <source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
+        <target>crwdns336058:0crwdne336058:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle">
+        <source>Localized Forms</source>
+        <target>crwdns336060:0crwdne336060:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsCorrect" resname="BackendCheckWrongLocalizedFormsCorrect">
+        <source>No failures in forms found on this system</source>
+        <target>crwdns336062:0crwdne336062:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedFormsFailed" resname="BackendCheckWrongLocalizedFormsFailed">
+        <source>There are localized forms with empty tx_powermail_domain_model_form.pages fields which can lead to problems in rendering localized Forms in Frontend</source>
+        <target>crwdns336064:0crwdne336064:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesTitle" resname="BackendCheckWrongLocalizedPagesTitle">
+        <source>Localized Pages</source>
+        <target>crwdns336066:0crwdne336066:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesCorrect" resname="BackendCheckWrongLocalizedPagesCorrect">
+        <source>No failures in pages found on this system</source>
+        <target>crwdns336068:0crwdne336068:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckWrongLocalizedPagesFailed" resname="BackendCheckWrongLocalizedPagesFailed">
+        <source>There are localized pages with empty tx_powermail_domain_model_page.forms fields which can lead to problems in managing localized pages</source>
+        <target>crwdns336070:0crwdne336070:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckBackupBefore" resname="BackendCheckBackupBefore">
+        <source>Note: Please backup all powermail tables before you choose this option!</source>
+        <target>crwdns336072:0crwdne336072:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle">
+        <source>Development Context</source>
+        <target>crwdns336074:0crwdne336074:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive">
+        <source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
+        <target>crwdns336076:0%scrwdne336076:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable">
+        <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
+        <target>crwdns336078:0%scrwdne336078:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle" resname="BackendOverviewTitle">
+        <source>Form Overview</source>
+        <target>crwdns336080:0crwdne336080:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle2" resname="BackendOverviewTitle2">
+        <source>All Forms within page</source>
+        <target>crwdns336082:0crwdne336082:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle3" resname="BackendOverviewTitle3">
+        <source>(and its subpages)</source>
+        <target>crwdns336084:0crwdne336084:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle4" resname="BackendOverviewTitle4">
+        <source>Show All Forms</source>
+        <target>crwdns336086:0crwdne336086:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTitle5" resname="BackendOverviewTitle5">
+        <source>All Forms in this CMS</source>
+        <target>crwdns336088:0crwdne336088:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewTable" resname="BackendOverviewTable">
+        <source>Forms</source>
+        <target>crwdns336090:0crwdne336090:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol1" resname="BackendOverviewCol1">
+        <source>Form Title</source>
+        <target>crwdns336092:0crwdne336092:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol2" resname="BackendOverviewCol2">
+        <source>Stored on Page</source>
+        <target>crwdns336094:0crwdne336094:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol3" resname="BackendOverviewCol3">
+        <source>Used on Page</source>
+        <target>crwdns336096:0crwdne336096:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol4" resname="BackendOverviewCol4">
+        <source>Powermail Pages</source>
+        <target>crwdns336098:0crwdne336098:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewCol5" resname="BackendOverviewCol5">
+        <source>Powermail Fields</source>
+        <target>crwdns336100:0crwdne336100:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewPages" resname="BackendOverviewPages">
+        <source>Page(s)</source>
+        <target>crwdns336102:0crwdne336102:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewFields" resname="BackendOverviewFields">
+        <source>Field(s)</source>
+        <target>crwdns336104:0crwdne336104:0</target>
+      </trans-unit>
+      <trans-unit id="BackendOverviewNoForms" resname="BackendOverviewNoForms">
+        <source>No Forms found</source>
+        <target>crwdns336106:0crwdne336106:0</target>
+      </trans-unit>
+      <trans-unit id="BackendFunctionTitle" resname="BackendFunctionTitle">
+        <source>Function-Test Section</source>
+        <target>crwdns336108:0crwdne336108:0</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailTitle" resname="BackendEmailTitle">
+        <source>Test Email Sending</source>
+        <target>crwdns336110:0crwdne336110:0</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormTitle" resname="BackendEmailFormTitle">
+        <source>Test email generation with powermail</source>
+        <target>crwdns336112:0crwdne336112:0</target>
+      </trans-unit>
+      <trans-unit id="BackendEmailFormReceiver" resname="BackendEmailFormReceiver">
+        <source>Receiver Email</source>
+        <target>crwdns336114:0crwdne336114:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle">
+        <source>Email Sending Status</source>
+        <target>crwdns336116:0crwdne336116:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect">
+        <source>Email was sent without problems (mail transmitted to mailserver)</source>
+        <target>crwdns336118:0crwdne336118:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed">
+        <source>Email could not be sent properly (ask your Adminstrator)</source>
+        <target>crwdns336120:0crwdne336120:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle">
+        <source>TypoScript Static Template</source>
+        <target>crwdns336122:0crwdne336122:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateCorrect" resname="BackendCheckStaticTemplateCorrect">
+        <source>Static TypoScript Template is available on current page.</source>
+        <target>crwdns336124:0crwdne336124:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckStaticTemplateFailed" resname="BackendCheckStaticTemplateFailed">
+        <source>Static TypoScript Template is not available on current page.</source>
+        <target>crwdns336126:0crwdne336126:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeTitle" resname="BackendCheckComposerModeTitle">
+        <source>Composer Mode</source>
+        <target>crwdns336128:0crwdne336128:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeComposer" resname="BackendCheckComposerModeComposer">
+        <source>Your TYPO3 is running in Composer Mode</source>
+        <target>crwdns336130:0crwdne336130:0</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckComposerModeClassic" resname="BackendCheckComposerModeClassic">
+        <source>Your TYPO3 is running in Classic Mode</source>
+        <target>crwdns336132:0crwdne336132:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListTitle" resname="BackendListTitle">
+        <source>Mail Listings</source>
+        <target>crwdns336134:0crwdne336134:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListMails" resname="BackendListMails">
+        <source>Mails</source>
+        <target>crwdns336136:0crwdne336136:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDelete" resname="BackendListMailDelete">
+        <source>Delete Mail</source>
+        <target>crwdns336138:0crwdne336138:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListMailDeleteConfirmation" resname="BackendListMailDeleteConfirmation">
+        <source>Really Delete This Mail?</source>
+        <target>crwdns336140:0crwdne336140:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpDetails" resname="BackendListHelpDetails">
+        <source>Show Mail Details</source>
+        <target>crwdns336142:0crwdne336142:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpEdit" resname="BackendListHelpEdit">
+        <source>Edit this Mail</source>
+        <target>crwdns336144:0crwdne336144:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpUnhide" resname="BackendListHelpUnhide">
+        <source>Activate this Mail</source>
+        <target>crwdns336146:0crwdne336146:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListHelpHide" resname="BackendListHelpHide">
+        <source>Deactivate this Mail</source>
+        <target>crwdns336148:0crwdne336148:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMails" resname="BackendListNoMails">
+        <source>No Mails to show</source>
+        <target>crwdns336150:0crwdne336150:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListNoMailsSub" resname="BackendListNoMailsSub">
+        <source>Please choose another page or modify your filter settings</source>
+        <target>crwdns336152:0crwdne336152:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearch" resname="BackendListFilterFulltextSearch">
+        <source>Fulltext Search:</source>
+        <target>crwdns336154:0crwdne336154:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearchFormFilter" resname="BackendListFilterFulltextSearchFormFilter">
+        <source>Reduce to one form:</source>
+        <target>crwdns336156:0crwdne336156:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterFulltextSearchSubmit" resname="BackendListFilterFulltextSearchSubmit">
+        <source>Filter List</source>
+        <target>crwdns336158:0crwdne336158:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedSearch" resname="BackendListFilterExtendedSearch">
+        <source>Extended Search</source>
+        <target>crwdns336160:0crwdne336160:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterStart" resname="BackendListFilterStart">
+        <source>Start</source>
+        <target>crwdns336162:0crwdne336162:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterEnd" resname="BackendListFilterEnd">
+        <source>Stop</source>
+        <target>crwdns336164:0crwdne336164:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterName" resname="BackendListFilterName">
+        <source>Sender Name</source>
+        <target>crwdns336166:0crwdne336166:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterMail" resname="BackendListFilterMail">
+        <source>Sender Email</source>
+        <target>crwdns336168:0crwdne336168:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject">
+        <source>Subject</source>
+        <target>crwdns336170:0crwdne336170:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterHidden" resname="BackendListFilterHidden">
+        <source>Deactivated Mails</source>
+        <target>crwdns336172:0crwdne336172:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterDefaultFields" resname="BackendListFilterDefaultFields">
+        <source>Default Fields</source>
+        <target>crwdns336174:0crwdne336174:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterAddField" resname="BackendListFilterAddField">
+        <source>Additional Fields</source>
+        <target>crwdns336176:0crwdne336176:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterClean" resname="BackendListFilterClean">
+        <source>Delete Filters</source>
+        <target>crwdns336178:0crwdne336178:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterCleanLink" resname="BackendListFilterCleanLink">
+        <source>Show all Mails</source>
+        <target>crwdns336180:0crwdne336180:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterShowHidden" resname="BackendListFilterShowHidden">
+        <source>Show only deactivated Mails</source>
+        <target>crwdns336182:0crwdne336182:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterShowNonHidden" resname="BackendListFilterShowNonHidden">
+        <source>Show only activated Mails</source>
+        <target>crwdns336184:0crwdne336184:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExport" resname="BackendListFilterExtendedExport">
+        <source>Extended Export Settings</source>
+        <target>crwdns336186:0crwdne336186:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExportLeftLabel" resname="BackendListFilterExtendedExportLeftLabel">
+        <source>Columns in Export file</source>
+        <target>crwdns336188:0crwdne336188:0</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterExtendedExportRightLabel" resname="BackendListFilterExtendedExportRightLabel">
+        <source>Available Columns</source>
+        <target>crwdns336190:0crwdne336190:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingTitle" resname="BackendReportingTitle">
+        <source>Mail Reporting</source>
+        <target>crwdns336192:0crwdne336192:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingForm" resname="BackendReportingForm">
+        <source>Form Reporting</source>
+        <target>crwdns336194:0crwdne336194:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormTitle" resname="BackendReportingFormTitle">
+        <source>Form Reporting</source>
+        <target>crwdns336196:0crwdne336196:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormValue" resname="BackendReportingFormValue">
+        <source>Value</source>
+        <target>crwdns336198:0crwdne336198:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormSubtitle1" resname="BackendReportingFormSubtitle1">
+        <source>Reporting with</source>
+        <target>crwdns336200:0crwdne336200:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingFormAmount" resname="BackendReportingFormAmount">
+        <source>Amount</source>
+        <target>crwdns336202:0crwdne336202:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingMarketing" resname="BackendReportingMarketing">
+        <source>Marketing Reporting</source>
+        <target>crwdns336204:0crwdne336204:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingMarketingTitle" resname="BackendReportingMarketingTitle">
+        <source>Marketing Reporting</source>
+        <target>crwdns336206:0crwdne336206:0</target>
+      </trans-unit>
+      <trans-unit id="BackendReportingNoValues" resname="BackendReportingNoValues">
+        <source>No Values to Show</source>
+        <target>crwdns336208:0crwdne336208:0</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationNoHeader" resname="BackendPluginInformationNoHeader">
+        <source>[no header]</source>
+        <target>crwdns336210:0crwdne336210:0</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitleMailForm" resname="BackendPluginInformationTitleMailForm">
+        <source>Mailform configuration</source>
+        <target>crwdns336212:0crwdne336212:0</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitleLastMails" resname="BackendPluginInformationTitleLastMails">
+        <source>Last mails from this form</source>
+        <target>crwdns336214:0crwdne336214:0</target>
+      </trans-unit>
+      <trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2">
+        <source>Show and manage mails in Frontend</source>
+        <target>crwdns336216:0crwdne336216:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails">
+        <source>No Mails found.</source>
+        <target>crwdns336218:0crwdne336218:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll">
+        <source>All</source>
+        <target>crwdns336220:0crwdne336220:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit">
+        <source>Filter Now</source>
+        <target>crwdns336222:0crwdne336222:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail">
+        <source>Please edit your filter settings.</source>
+        <target>crwdns336224:0crwdne336224:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView">
+        <source>Details</source>
+        <target>crwdns336226:0crwdne336226:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView">
+        <source>Edit</source>
+        <target>crwdns336228:0crwdne336228:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView">
+        <source>Delete</source>
+        <target>crwdns336230:0crwdne336230:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit">
+        <source>Save Changes</source>
+        <target>crwdns336232:0crwdne336232:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm">
+        <source>Changes successfully saved</source>
+        <target>crwdns336234:0crwdne336234:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail">
+        <source>Missing required Mail parameter</source>
+        <target>crwdns336236:0crwdne336236:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed">
+        <source>You are not allowed to make changes</source>
+        <target>crwdns336238:0crwdne336238:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful">
+        <source>Changes successfully saved</source>
+        <target>crwdns336240:0crwdne336240:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed">
+        <source>Record could not be removed</source>
+        <target>crwdns336242:0crwdne336242:0</target>
+      </trans-unit>
+      <trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful">
+        <source>Record successfully removed</source>
+        <target>crwdns336244:0crwdne336244:0</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptSuccess" resname="ExtensionManagerConvertingScriptSuccess">
+        <source>All tables successfully converted</source>
+        <target>crwdns336246:0crwdne336246:0</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptStopAlreadyExist" resname="ExtensionManagerConvertingScriptStopAlreadyExist">
+        <source>Failure! Tables could not be converted because there is already one or more new tables (tx_powermail_domain_model_mail, tx_powermail_domain_model_answer, tx_powermail_domain_model_form, tx_powermail_domain_model_page, tx_powermail_domain_model_field) and they are not empty</source>
+        <target>crwdns336248:0crwdne336248:0</target>
+      </trans-unit>
+      <trans-unit id="ExtensionManagerConvertingScriptStopNoTablesFound" resname="ExtensionManagerConvertingScriptStopNoTablesFound">
+        <source>Failure! Tables could not be converted because there is one or more old tables missing (tx_powermail_domain_model_mails, tx_powermail_domain_model_answers, tx_powermail_domain_model_forms, tx_powermail_domain_model_pages, tx_powermail_domain_model_fields)</source>
+        <target>crwdns336250:0crwdne336250:0</target>
+      </trans-unit>
+      <trans-unit id="Back" resname="Back">
+        <source>Back</source>
+        <target>crwdns336252:0crwdne336252:0</target>
+      </trans-unit>
+      <trans-unit id="Clock" resname="Clock">
+        <source>o'clock</source>
+        <target>crwdns336254:0crwdne336254:0</target>
+      </trans-unit>
+      <trans-unit id="ClearFilter" resname="ClearFilter">
+        <source>Delete Filter</source>
+        <target>crwdns336256:0crwdne336256:0</target>
+      </trans-unit>
+      <trans-unit id="Emails" resname="Emails">
+        <source>Emails</source>
+        <target>crwdns336258:0crwdne336258:0</target>
+      </trans-unit>
+      <trans-unit id="FormField" resname="FormField">
+        <source>Form field</source>
+        <target>crwdns336260:0crwdne336260:0</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformation" resname="MarketingInformation">
+        <source>Marketing Information</source>
+        <target>crwdns336262:0crwdne336262:0</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled">
+        <source>Country From Ip is disabled.</source>
+        <target>crwdns336264:0crwdne336264:0</target>
+      </trans-unit>
+      <trans-unit id="honeypodLabel" resname="honeypodLabel">
+        <source>Don't fill this field!</source>
+        <target>crwdns336266:0crwdne336266:0</target>
+      </trans-unit>
+      <trans-unit id="deleteAllFiles" resname="deleteAllFiles">
+        <source>Delete All Files</source>
+        <target>crwdns336268:0crwdne336268:0</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalTitle" resname="">
+        <source>Information</source>
+        <target>crwdns336270:0crwdne336270:0</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalText" resname="">
+        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+        <target>crwdns336272:0crwdne336272:0</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalCancel" resname="">
+        <source>Close</source>
+        <target>crwdns336274:0crwdne336274:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
