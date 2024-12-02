@@ -9,7 +9,7 @@ This documentation helps
 
 ## What does powermail do?
 
-Powermail is a powerful and – in addition – a very easy mailform
+Powermail is a powerful and a very easy mailform
 extension with a wide range of tools and features for editors, admins
 and developers. Define your form in the backend with a few clicks and
 look at the final output in the frontend.
@@ -86,14 +86,14 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 
 ## Documentation overview
 
-* [Introduction](/Documentation/Readme.md)
-* [Development Model](/Documentation/DevelopmentModel.md)
-* [Documentation for editors](/Documentation/ForEditors/Readme.md)
-* [Documentation for administrators](/Documentation/ForAdministrators/Readme.md)
-* [Documentation for developers](/Documentation/ForDevelopers/Readme.md)
-* [Documentation for contributors](/Documentation/ForContributors/Readme.md)
-* [FAQ](/Documentation/FAQ/Readme.md) (with a lot of stuff and best practice)
-* [Changelog](/Documentation/Changelog/Readme.md)
-* [Upgrade Instructions](/Documentation/Changelog/UpgradeInstructions.md)
-* [Support](/Documentation/Support/Readme.md)
-* [Additional links](/Documentation/Links/Readme.md)
+* [Introduction](/Index.md)
+* [Development Model](/DevelopmentModel.md)
+* [Documentation for editors](/ForEditors/Index.md)
+* [Documentation for administrators](/ForAdministrators/Index.md)
+* [Documentation for developers](/ForDevelopers/Index.md)
+* [Documentation for contributors](/ForContributors/Index.md)
+* [FAQ](/FAQ/Index.md) (with a lot of stuff and best practice)
+* [Changelog](/Changelog/Index.md)
+* [Upgrade Instructions](/Changelog/UpgradeInstructions.md)
+* [Support](/Support/Index.md)
+* [Additional links](/Links/Index.md)

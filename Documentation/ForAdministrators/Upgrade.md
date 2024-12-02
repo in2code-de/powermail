@@ -8,7 +8,7 @@ as possible.
 
 ## Upgrade Instructions
 
-You find instructions for each major version. [Upgrade Instructions](/Documentation/Changelog/UpgradeInstructions.md)
+You find instructions for each major version. [Upgrade Instructions](/Changelog/UpgradeInstructions.md)
 
 ## Any Upgrade
 

@@ -410,6 +410,7 @@ class Form {
   #setError(type, field) {
     this.#removeError(type, field);
     this.#addErrorClass(field);
+    this.#addErrorAttribute(field);
     let message = field.getAttribute('data-powermail-' + type + '-message') ||
       field.getAttribute('data-powermail-error-message') || 'Validation error';
     this.#addErrorMessage(message, field);
@@ -421,6 +422,7 @@ class Form {
    */
   #removeError(type, field) {
     this.#removeErrorClass(field);
+    this.#removeErrorAttribute(field);
     this.#removeErrorMessages(field);
   };
 
@@ -446,12 +448,21 @@ class Form {
     }
   };
 
+  #addErrorAttribute(field) {
+    field.setAttribute('aria-invalid', 'true');
+  };
+
+  #removeErrorAttribute(field) {
+    field.removeAttribute('aria-invalid');
+  };
+
   #addErrorMessage(message, field) {
     let errorContainer = document.createElement('ul');
     errorContainer.classList.add(this.#errorMessageContainerClass);
     errorContainer.classList.add('filled');
     errorContainer.setAttribute('data-powermail-error', this.#getFieldIdentifier(field));
     errorContainer.setAttribute('id', this.#getFieldIdentifier(field) + '-errormessage');
+    errorContainer.setAttribute('aria-live', 'polite');
     field.setAttribute('aria-describedby', this.#getFieldIdentifier(field) + '-errormessage');
     let errorElement = document.createElement('li');
     errorContainer.appendChild(errorElement);

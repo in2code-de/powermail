@@ -78,15 +78,11 @@ call_user_func(function () {
     );
 
     /**
-     * ContentElementWizard for Pi1
+     * Include PageTSconfig
      */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '@import \'EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript\''
     );
-
-    /**
-     * PageTSConfig for backend mod list
-     */
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
         '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
     );
@@ -141,4 +137,10 @@ call_user_func(function () {
         = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
     $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
         = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
+
+    /**
+     * Feature toggle
+     * ToDo: remove for TYPO3 v14 compatible version
+     */
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['powermailEditorsAreAllowedToSendAttachments'] ??= false;
 });
