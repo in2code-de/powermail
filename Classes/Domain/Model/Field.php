@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use In2code\Powermail\Utility\TypoScriptUtility;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
@@ -691,7 +692,7 @@ class Field extends AbstractEntity
             $string = TypoScriptUtility::parseTypoScriptFromTypoScriptPath($typoScriptObjectPath);
         }
         if (empty($string)) {
-            $string = 'Error, no options to show';
+            $string = LocalizationUtility::translate('selectErrorEmpty');
         }
         return $this->buildOptions($string, $parse);
     }

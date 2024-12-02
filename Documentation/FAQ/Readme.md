@@ -111,6 +111,18 @@ plugin.tx_powermail.settings.setup.disclaimer.overwrite.senderName.value = Serve
 Please ask your server administrator for a valid email address.
 
 
+## No error messages / flash messages are shown, if using the redirect to a page
+
+Flash messages are shown, when using a powermail plugin on the page. If the user is redirected to another page, that
+does not have a powermail ce available, no flash messages are shown.
+
+You can circumvent this by two means:
+
+1) Add the code `<f:flashMessages queueIdentifier="extbase.flashmessages.tx_powermail_pi1"/>` to your main template or layout.
+2) Add an empty powermail ce (without a form) to the target page.
+
+Preferred solution is no 1.
+
 ## Failure, mail could not be sent! What does this mean?
 
 If a mail could not be sent this message is coming up. You can turn on logs to see what's happening here (look at

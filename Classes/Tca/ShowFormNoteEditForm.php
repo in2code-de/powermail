@@ -172,7 +172,7 @@ class ShowFormNoteEditForm extends AbstractFormElement
      */
     protected function getPageIdentifierForNewForms(): int
     {
-        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements($this->data['databaseRow']['pid']);
+        $pageIdentifier = $this->getPageIdentifierFromExistingContentElements((int)$this->data['databaseRow']['pid']);
         $tsConfiguration = BackendUtility::getPagesTSconfig($pageIdentifier);
         if (!empty($tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'])) {
             $pageIdentifier = (int)$tsConfiguration['tx_powermail.']['flexForm.']['newFormPid'];

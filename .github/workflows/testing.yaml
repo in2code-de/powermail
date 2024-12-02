@@ -55,6 +55,21 @@ jobs:
         run: "composer install"
       - name: "Run PHP CS Fixer"
         run: "composer test:php:cs"
+  phpstan:
+    name: "PHPstan"
+    runs-on: ubuntu-20.04
+    needs: php-lint
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+      - name: "Composer Install"
+        run: "composer install"
+      - name: "Run PHPstan"
+        run: "composer test:php:phpstan"
   unit-tests:
     name: "PHP Unit Tests"
     runs-on: ubuntu-20.04

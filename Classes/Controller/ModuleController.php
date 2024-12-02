@@ -71,7 +71,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
@@ -93,15 +93,10 @@ class ModuleController extends AbstractController
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
-        $currentPage = 1;
-        if ($this->request->hasArgument('tx_powermail_web_powermailm1')) {
-            $moduleArguments = $this->request->getArgument('tx_powermail_web_powermailm1');
-            if (array_key_exists('currentPage', $moduleArguments)) {
-                $currentPage =  (int)$moduleArguments['currentPage'];
-            }
-        }
+        $currentPage = (int)($this->request->getQueryParams()['currentPage'] ?? 1);
+        $currentPage = $currentPage > 0 ? $currentPage : 1;
 
-        $itemsPerPage = $this->settings['perPage'] ?? 10;
+        $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
         $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);
 
@@ -130,11 +125,11 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface|null
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
-    public function exportXlsAction(): ResponseInterface
+    public function exportXlsAction(): ?ResponseInterface
     {
         if ($this->isPhpSpreadsheetInstalled) {
             $this->view->assignMultiple(
@@ -164,10 +159,11 @@ class ModuleController extends AbstractController
                 ->withAddedHeader('Pragma', 'no-cache')
                 ->withBody($this->streamFactory->createStreamFromFile($tmpFilename));
         }
+        return null;
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -193,7 +189,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
@@ -219,7 +215,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws PropertyNotAccessibleException
@@ -246,7 +242,7 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
+     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
@@ -289,7 +285,7 @@ class ModuleController extends AbstractController
             $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
             $body .= ' (' . GeneralUtility::getIndpEnv('HTTP_HOST') . ')';
             $senderEmail = ConfigurationUtility::getDefaultMailFromAddress('powermail@domain.net');
-            $this->view->assignMultiple(
+            $this->moduleTemplate->assignMultiple(
                 [
                     'issent' => MailUtility::sendPlainMail($email, $senderEmail, 'New Powermail Test Email', $body),
                     'email' => $email,

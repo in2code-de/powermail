@@ -6,6 +6,9 @@
 			<trans-unit id="pleaseChoose" resname="pleaseChoose">
 				<source>Please choose...</source>
 			</trans-unit>
+			<trans-unit id="selectErrorEmpty" resname="selectErrorEmpty">
+				<source>Error, no options to show</source>
+			</trans-unit>
 			<trans-unit id="back" resname="back">
 				<source>Go back</source>
 			</trans-unit>

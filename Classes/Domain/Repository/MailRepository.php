@@ -134,9 +134,22 @@ class MailRepository extends AbstractRepository
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
+        /** @var FieldRepository $fieldRepository */
         $fieldRepository = GeneralUtility::makeInstance(FieldRepository::class);
+        $field = $fieldRepository->findByMarkerAndForm(
+            $marker,
+            $form->getUid()
+        );
+        $fieldUid = null;
+        if ($field !== null) {
+            $fieldUid = $field->getUid();
+        }
+
         $and = [
-            $query->equals('answers.field', $fieldRepository->findByMarkerAndForm($marker, $form->getUid())),
+            $query->equals(
+                'answers.field',
+                $fieldUid
+            ),
             $query->equals('answers.value', $value),
             $query->equals('pid', $pageUid),
         ];

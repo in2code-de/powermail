@@ -95,10 +95,6 @@ class FormController extends AbstractController
     }
 
     /**
-     * Workaround for TYPO3 v12
-     * It turned out that it does not cover all use cases
-     * Will be removed for TYPO3 v13 without any replacement. Functionality is already in `initializeConfirmationAction`
-     *
      * @param Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
@@ -106,15 +102,9 @@ class FormController extends AbstractController
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
-     * @deprecated since version 12.3.2, will be removed in version 13.0.0
      */
     public function checkConfirmationAction(Mail $mail): ResponseInterface
     {
-        trigger_error(
-            'EXT:powermail -- Method "checkConfirmationAction" is deprecated since version 12.3.2, will be removed in version 13.0.0',
-            E_USER_DEPRECATED
-        );
-
         $response = $this->forwardIfFormParamsDoNotMatch();
 
         if ($response !== null) {
@@ -173,6 +163,10 @@ class FormController extends AbstractController
      */
     public function confirmationAction(Mail $mail): ResponseInterface
     {
+        if ($mail->getUid() !== null) {
+            return (new ForwardResponse('form'))->withoutArguments();
+        }
+
         $event = GeneralUtility::makeInstance(FormControllerConfirmationActionEvent::class, $mail, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
@@ -190,36 +184,6 @@ class FormController extends AbstractController
     }
 
     /**
-     *   Workaround for TYPO3 v12
-     *   It turned out that it does not cover all use cases
-     *   Will be removed for TYPO3 v13 without any replacement. Functionality is already in `initializeCreateAction`
-     *
-     * @return void
-     * @throws DeprecatedException
-     * @throws ExtensionConfigurationExtensionNotConfiguredException
-     * @throws ExtensionConfigurationPathDoesNotExistException
-     * @throws InvalidQueryException
-     * @throws NoSuchArgumentException
-     */
-    public function initializeCheckCreateAction(): void
-    {
-        // ToDo -- v13: move exceptions to methods
-        $response = $this->forwardIfMailParamEmpty();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
-        }
-
-        $response = $this->forwardIfFormParamsDoNotMatch();
-        if ($response !== null) {
-            throw new PropagateResponseException($response);
-        }
-    }
-
-    /**
-     *  Workaround for TYPO3 v12
-     *  It turned out that it does not cover all use cases
-     *  Will be removed for TYPO3 v13 without any replacement. Functionality is already in `initializeConformationAction`
-     *
      * @param Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
@@ -295,6 +259,9 @@ class FormController extends AbstractController
      */
     public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
+        if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
+            return (new ForwardResponse('form'))->withoutArguments();
+        }
         $event = GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();

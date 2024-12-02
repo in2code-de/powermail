@@ -1,5 +1,6 @@
 /.gitattributes export-ignore
 /.gitignore export-ignore
+/.project export-ignore
 /Tests export-ignore
 /Resources/Private/Sass/
 /Resources/Private/gulpfile.js

@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer';
+    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -22,7 +22,7 @@ call_user_func(function () {
         'Pi1',
         [
             \In2code\Powermail\Controller\FormController::class =>
-                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, marketing, disclaimer'
+                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer'
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
@@ -32,12 +32,23 @@ call_user_func(function () {
 
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'Powermail',
-        'Pi2',
+        'Pi5',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, export, rss'
+            \In2code\Powermail\Controller\FormController::class => 'marketing'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, export, rss'
+            \In2code\Powermail\Controller\FormController::class => 'marketing'
+        ],
+    );
+
+    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        'Powermail',
+        'Pi2',
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list, show'
+        ],
+        [
+            \In2code\Powermail\Controller\OutputController::class => 'list'
         ],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
@@ -58,10 +69,10 @@ call_user_func(function () {
         'Powermail',
         'Pi4',
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
         ],
         [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, export, rss, delete'
+            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
         ],
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
