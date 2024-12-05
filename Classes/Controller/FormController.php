@@ -274,6 +274,7 @@ class FormController extends AbstractController
         if ($requestToken === null) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('error_requesttoken_missing'),
+                '',
                 \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             $this->messageClass = 'error';
@@ -282,6 +283,7 @@ class FormController extends AbstractController
         if ($requestToken === false) {
             $this->addFlashMessage(
                 LocalizationUtility::translate('error_requesttoken_not_verified'),
+                '',
                 \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             $this->messageClass = 'error';
@@ -290,6 +292,7 @@ class FormController extends AbstractController
         if ($requestToken->scope !== 'powermail/create') {
             $this->addFlashMessage(
                 LocalizationUtility::translate('error_requesttoken_wrong_scope'),
+                '',
                 \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
             );
             $this->messageClass = 'error';
