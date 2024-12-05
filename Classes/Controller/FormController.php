@@ -37,7 +37,10 @@ use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\SecurityAspect;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Security\RequestToken;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
@@ -82,12 +85,14 @@ class FormController extends AbstractController
         );
         $form = $event->getForm();
         SessionUtility::saveFormStartInSession($this->settings, $form);
+        $requestToken = RequestToken::create('powermail/create');
         $this->view->assignMultiple(
             [
                 'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
                 'action' => ($this->settings['main']['confirmation'] ? 'checkConfirmation' : 'checkCreate'),
+                'requestToken' => $requestToken,
             ]
         );
 
@@ -262,6 +267,35 @@ class FormController extends AbstractController
         if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
             return (new ForwardResponse('form'))->withoutArguments();
         }
+        $context = GeneralUtility::makeInstance(Context::class);
+        $securityAspect = SecurityAspect::provideIn($context);
+        $requestToken = $securityAspect->getReceivedRequestToken();
+
+        if ($requestToken === null) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error_requesttoken_missing'),
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
+            );
+            $this->messageClass = 'error';
+            return (new ForwardResponse('form'))->withArguments(['messageClass' => $this->messageClass]);
+        }
+        if ($requestToken === false) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error_requesttoken_not_verified'),
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
+            );
+            $this->messageClass = 'error';
+            return (new ForwardResponse('form'))->withArguments(['messageClass' => $this->messageClass]);
+        }
+        if ($requestToken->scope !== 'powermail/create') {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error_requesttoken_wrong_scope'),
+                \TYPO3\CMS\Core\Type\ContextualFeedbackSeverity::ERROR
+            );
+            $this->messageClass = 'error';
+            return (new ForwardResponse('form'))->withArguments(['messageClass' => $this->messageClass]);
+        }
+
         $event = GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
@@ -322,6 +356,14 @@ class FormController extends AbstractController
             $this->contentObject
         );
 
+        // The middleware takes care to remove the cookie in case no other
+        // nonce value shall be emitted during the current HTTP request
+        if ($requestToken->getSigningSecretIdentifier() !== null) {
+            $securityAspect->getSigningSecretResolver()->revokeIdentifier(
+                $requestToken->getSigningSecretIdentifier(),
+            );
+        }
+
         return $this->htmlResponse();
     }
 
@@ -372,6 +414,7 @@ class FormController extends AbstractController
      */
     protected function prepareOutput(Mail $mail): void
     {
+        $requestToken = RequestToken::create('powermail/create');
         $this->view->assignMultiple(
             [
                 'variablesWithMarkers' => $this->mailRepository->getVariablesWithMarkersFromMail($mail, true),
@@ -382,6 +425,7 @@ class FormController extends AbstractController
                 'uploadService' => $this->uploadService,
                 'powermail_rte' => $this->settings['thx']['body'],
                 'powermail_all' => TemplateUtility::powermailAll($mail, 'web', $this->settings, $this->actionMethodName),
+                'requestToken' => $requestToken,
             ]
         );
         $this->view->assignMultiple($this->mailRepository->getVariablesWithMarkersFromMail($mail, true));

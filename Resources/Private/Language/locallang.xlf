@@ -154,6 +154,15 @@
 			<trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted">
 				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
 			</trans-unit>
+			<trans-unit id="error_requesttoken_missing" resname="error_requesttoken_missing">
+				<source>No request token was provided in the request.</source>
+			</trans-unit>
+			<trans-unit id="error_requesttoken_not_verified" resname="error_requesttoken_not_verified">
+				<source>The given request token could not be verified with the nonce.</source>
+			</trans-unit>
+			<trans-unit id="error_requesttoken_wrong_scope" resname="error_requesttoken_wrong_scope">
+				<source>The given request token seems to be for a different scope.</source>
+			</trans-unit>
 			<trans-unit id="validationerror_mandatory" resname="validationerror_mandatory">
 				<source>This field must be filled!</source>
 			</trans-unit>
