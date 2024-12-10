@@ -69,16 +69,18 @@ final class FormControllerFormActionEvent
     public function assign(string $key, mixed $value)
     {
         $this->view->assign($key, $value);
+        return $this->view;
     }
 
     /**
      * Add multiple variables to the view data collection
      *
-     * @param array $values array in the format array(key1 => value1, key2 => value2)
+     * @param array<string,mixed> $values array in the format array(key1 => value1, key2 => value2)
      * @return ViewInterface an instance of $this, to enable chaining
      */
     public function assignMultiple(array $values)
     {
         $this->view->assignMultiple($values);
+        return $this->view;
     }
 }
