@@ -68,7 +68,7 @@ final class FormControllerFormActionEvent
      */
     public function assign(string $key, mixed $value)
     {
-        $this->view->assign($key, $value)
+        $this->view->assign($key, $value);
     }
 
     /**
