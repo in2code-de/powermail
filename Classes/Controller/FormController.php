@@ -78,8 +78,11 @@ class FormController extends AbstractController
 
         /** @var FormControllerFormActionEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerFormActionEvent::class, $form, $this, $this->view)
+            GeneralUtility::makeInstance(FormControllerFormActionEvent::class, $form, $this)
         );
+        if ($event->getViewVariables()) {
+            $this->view->assignMultiple($event->getViewVariables());
+        }
         $form = $event->getForm();
         SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(

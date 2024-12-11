@@ -5,7 +5,6 @@ namespace In2code\Powermail\Events;
 
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Form;
-use TYPO3Fluid\Fluid\View\ViewInterface;
 
 final class FormControllerFormActionEvent
 {
@@ -19,17 +18,19 @@ final class FormControllerFormActionEvent
      */
     protected FormController $formController;
 
-    protected ViewInterface $view;
+    /**
+     * @var array<string,mixed>
+     */
+    protected array $viewVariables = [];
 
     /**
      * @param Form|null $form
      * @param FormController $formController
      */
-    public function __construct(?Form $form, FormController $formController, ViewInterface $view)
+    public function __construct(?Form $form, FormController $formController)
     {
         $this->form = $form;
         $this->formController = $formController;
-        $this->view = $view;
     }
 
     /**
@@ -58,29 +59,19 @@ final class FormControllerFormActionEvent
         return $this->formController;
     }
 
-    /**
-     * Add a variable to the view data collection.
-     * Can be chained, so $this->view->assign(..., ...)->assign(..., ...); is possible
-     *
-     * @param string $key Key of variable
-     * @param mixed $value Value of object
-     * @return ViewInterface an instance of $this, to enable chaining
-     */
-    public function assign(string $key, mixed $value)
+    public function getViewVariables(): array
     {
-        $this->view->assign($key, $value);
-        return $this->view;
+        return $this->viewVariables;
     }
 
     /**
-     * Add multiple variables to the view data collection
+     * Add additional variables to the view
      *
-     * @param array<string,mixed> $values array in the format array(key1 => value1, key2 => value2)
-     * @return ViewInterface an instance of $this, to enable chaining
+     * @param array<string,mixed> $additionalVariables
+     * @return void
      */
-    public function assignMultiple(array $values)
+    public function addViewVariables(array $variables): void
     {
-        $this->view->assignMultiple($values);
-        return $this->view;
+        $this->viewVariables = array_merge($this->viewVariables, $variables);
     }
 }
