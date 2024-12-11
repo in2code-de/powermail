@@ -59,6 +59,9 @@ final class FormControllerFormActionEvent
         return $this->formController;
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     public function getViewVariables(): array
     {
         return $this->viewVariables;
@@ -67,7 +70,7 @@ final class FormControllerFormActionEvent
     /**
      * Add additional variables to the view
      *
-     * @param array<string,mixed> $additionalVariables
+     * @param array<string,mixed> $variables
      * @return void
      */
     public function addViewVariables(array $variables): void
