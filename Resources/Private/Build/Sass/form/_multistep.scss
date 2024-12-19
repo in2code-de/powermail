@@ -1,0 +1,26 @@
+@use "functions" as function;
+
+@layer powermail-form {
+
+
+
+  .powermail_morestep {
+
+
+
+    & .powermail_fieldset {
+      margin-block-start: function.rem(24);
+    }
+  }
+
+  .powermail_multistep_navigation {
+    display: flex;
+    gap: function.rem(8);
+  }
+
+  .powermail_tab_navigation {
+    display: flex;
+    gap: function.rem(8);
+    margin-block-start: function.rem(24);
+  }
+}

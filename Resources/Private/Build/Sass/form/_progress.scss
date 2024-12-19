@@ -1,0 +1,56 @@
+@use "functions" as function;
+
+@layer powermail-form {
+
+
+
+  /**
+   * Progress Bar for AJAX Submit
+   *
+   */
+  .powermail_progressbar {
+    block-size: function.rem(8);
+    border: function.rem(1) solid var(--pm-grey-1);
+    inline-size: 100%;
+    margin-block-start: function.rem(24);
+
+    &.disable {
+      display: none;
+    }
+
+
+    & > .powermail_progress {
+      background-color: var(--pm-blue);
+      inline-size: 0%;
+      max-inline-size: 100%;
+      animation: progress 5s 1 forwards;
+
+
+      & > .powermail_progress_inner {
+        background: url("../Image/icon_loading.gif") repeat-x;
+        block-size: function.rem(8);
+        inline-size: 100%;
+        opacity: 0.25;
+        overflow: hidden;
+      }
+    }
+  }
+
+  .powermail_confirmation {
+
+
+
+      & .powermail_progressbar {
+          inline-size: 100%;
+      }
+  }
+
+  @keyframes progress {
+    from {
+      inline-size: 0%;
+    }
+    to {
+        inline-size: 100%
+    }
+  }
+}

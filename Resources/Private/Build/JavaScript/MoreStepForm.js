@@ -7,7 +7,7 @@ export default function MoreStepForm() {
 
   let fieldsetClass = 'powermail_fieldset';
 
-  let buttonActiveClass = 'btn-primary';
+  let buttonActiveClass = 'active';
 
   let that = this;
 

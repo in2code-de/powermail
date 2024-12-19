@@ -1,0 +1,48 @@
+@layer powermail-reset {
+
+
+
+  .tx-powermail {
+
+
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    & a,
+    & button {
+      touch-action: manipulation;
+    }
+
+    & button,
+    & input,
+    & select,
+    & textarea {
+      font: inherit;
+      line-height: inherit;
+
+
+      &[disabled],
+      &[aria-disabled='true'] {
+        opacity: 0.5;
+      }
+    }
+
+    & ::file-selector-button {
+      font: inherit;
+      line-height: inherit;
+    }
+
+    & label {
+      display: inline-block;
+    }
+
+    & ::placeholder {
+      color: var(--pm-input-placeholder-color);
+      opacity: 1;
+    }
+  }
+}

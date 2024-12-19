@@ -8,8 +8,12 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 
 # TS/JS-Files
-[*.{ts,js}]
+[*.{ts,js,scss}]
 indent_size = 2
+
+# HTML-Files
+[*.html]
+indent_style = tab
 
 # JSON-Files
 [*.json]

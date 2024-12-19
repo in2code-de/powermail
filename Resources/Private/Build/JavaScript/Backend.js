@@ -2,7 +2,6 @@ import './Vendor/jQueryGlobal';
 import './Vendor/jquery-ui.min';
 import './Vendor/jquery.flot.min';
 import './Vendor/jquery.flot.pie.min';
-import './Vendor/bootstrap.min';
 import Modal from '@typo3/backend/modal.js';
 
 /**
@@ -251,7 +250,7 @@ function PowermailBackend() {
           [
             {
               text: $(this).data('modal-cancel'),
-              btnClass: 'btn-default',
+              btnClass: 'btn-secondary',
               name: 'abort',
               trigger: function (){
                 Modal.dismiss();

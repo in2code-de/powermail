@@ -1,0 +1,10 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .powermail_label {
+    margin-block-end: function.rem(4);
+  }
+}

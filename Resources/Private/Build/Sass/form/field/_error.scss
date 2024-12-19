@@ -1,0 +1,37 @@
+@use "functions" as function;
+
+@layer powermail-field-error {
+
+
+
+  .powermail_field_error,
+  :user-invalid {
+
+
+
+    &,
+    & input[type='radio'],
+    & input[type='checkbox'] {
+      background-color: var(--pm-input-invalid-background-color);
+      border-color: var(--pm-input-invalid-border-color);
+      color: var(--pm-input-invalid-color);
+    }
+
+    &:focus-visible {
+      outline: function.rem(4) solid transparent;
+      box-shadow: 0 0 0 function.rem(4) color-mix(in srgb, var(--pm-red), transparent 80%);
+    }
+  }
+
+  .powermail-errors-list {
+    color: var(--pm-red);
+    list-style-type: '';
+    margin-block: function.rem(4) 0;
+    margin-inline: 0;
+    padding: 0;
+
+    &:not(.filled) {
+      display: none;
+    }
+  }
+}

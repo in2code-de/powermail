@@ -1,20 +1,21 @@
 {namespace vh=In2code\Powermail\ViewHelpers}
 
 <div class="powermail_fieldwrap powermail_fieldwrap_type_check powermail_fieldwrap_{field.marker} {field.css} {settings.styles.framework.fieldAndLabelWrappingClasses}">
-	<f:render partial="Form/FieldLabel" arguments="{_all}" />
-
 	<div class="{settings.styles.framework.fieldWrappingClasses}">
+		<f:render partial="Form/FieldLabel" arguments="{_all}" />
+
 		<f:for each="{field.modifiedSettings}" as="setting" iteration="index">
 			<div class="{settings.styles.framework.checkClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}">
-				<label>
-					<f:form.checkbox
-							property="{field.marker}"
-							multiple="true"
-							value="{setting.value}"
-							checked="{vh:misc.prefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
-							id="powermail_field_{field.marker}_{index.cycle}"
-							additionalAttributes="{vh:validation.validationDataAttribute(field:field, iteration:index)}"
-							class="powermail_checkbox powermail_checkbox_{field.uid}" />
+				<f:form.checkbox
+					property="{field.marker}"
+					multiple="true"
+					value="{setting.value}"
+					checked="{vh:misc.prefillMultiField(field:field, mail:mail, cycle:index.cycle)}"
+					id="powermail_field_{field.marker}_{index.cycle}"
+					additionalAttributes="{vh:validation.validationDataAttribute(field:field, iteration:index)}"
+					class="form-check-input powermail_checkbox powermail_checkbox_{field.uid}" />
+
+				<label for="powermail_field_{field.marker}_{index.cycle}" class="form-check-label">
 					<vh:string.escapeLabels>{setting.label}</vh:string.escapeLabels>
 				</label>
 			</div>

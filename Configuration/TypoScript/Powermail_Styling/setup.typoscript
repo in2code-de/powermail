@@ -1,0 +1,4 @@
+############################
+# POWERMAIL_STYLING
+############################
+page.includeCSS.powermailBasicCss = {$plugin.tx_powermail.settings.BasicCss}

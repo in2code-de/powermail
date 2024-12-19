@@ -1,0 +1,60 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .powermail_checkwrap {
+    align-items: baseline;
+    display: grid;
+    gap: function.rem(8);
+    grid-template-columns: function.rem(20) auto;
+    justify-items: start;
+
+
+    & + & {
+      margin-block-start: function.rem(8);
+    }
+  }
+
+  .tx-powermail {
+
+
+
+    & input[type='checkbox'] {
+      appearance: none;
+      background-color: var(--pm-check-background-color);
+      block-size: function.rem(20);
+      border-radius: 0;
+      border: function.rem(1) solid var(--pm-check-border-color);
+      color: var(--pm-check-color);
+      display: grid;
+      inline-size: function.rem(20);
+      margin: 0;
+      place-content: center;
+
+      &::before {
+        background-color: CanvasText;
+        block-size: function.rem(16);
+        box-shadow: inset 1em 1em var(--pm-check-color);
+        content: '';
+        inline-size: function.rem(16);
+        mask-image: url('../Image/Icons/check.svg');
+        mask-mode: auto;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        opacity: 0;
+      }
+
+      &:indeterminate::before,
+      &[aria-checked='mixed']::before {
+        mask-image: url('../Image/Icons/minus.svg');
+      }
+
+      &:checked::before {
+        opacity: 1;
+      }
+    }
+  }
+}

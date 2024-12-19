@@ -1,0 +1,69 @@
+@use "functions" as function;
+
+@layer powermail-form {
+
+
+
+  .tx-powermail {
+
+
+
+    table {
+      border-collapse: separate;
+      border-spacing: 0;
+      inline-size: 100%;
+    }
+
+    thead {
+
+
+
+      & tr {
+        background-color: var(--pm-table-thead-tr-background-color);
+        color: var(--pm-table-thead-tr-color);
+      }
+
+      & th {
+        border-block-end: function.rem(1) solid var(--pm-table-thead-th-border-color);
+      }
+    }
+
+    th {
+      padding: function.rem(8);
+      text-align: start;
+    }
+
+    tbody {
+
+
+
+      & tr {
+        background-color: var(--pm-table-tbody-tr-background-color);
+        color: var(--pm-table-tbody-tr-color);
+
+        &:nth-child(odd) {
+          background-color: var(--pm-table-tbody-tr-odd-background-color);
+          color: var(--pm-table-tbody-tr-odd-color);
+        }
+
+        &:hover {
+          background-color: var(--pm-table-tbody-tr-hover-background-color);
+          color: var(--pm-table-tbody-tr-hover-color);
+        }
+      }
+
+      & th {
+        border-block-end: function.rem(1) solid var(--pm-table-tbody-th-border-color);
+      }
+
+      & td {
+        border-block-end: function.rem(1) solid var(--pm-table-tbody-td-border-color);
+      }
+    }
+
+    td {
+      padding: function.rem(8);
+      text-align: start;
+    }
+  }
+}

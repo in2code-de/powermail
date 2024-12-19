@@ -8,20 +8,20 @@
 		(<f:count subject="{mails}" />)
 	</div>
 	<div class="table-fit">
-		<table class="table table-hover table-powermail">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th nowrap="nowrap" class="col-icon"></th>
 					<th nowrap="nowrap">
 						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.crdate} && {0 : piVars.tx_powermail_web_powermailm1.sorting.crdate} == {0 : 'asc'}">
 							<f:then>
-								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}" class="sorting">
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'desc'}}}">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
 									<core:Icon identifier="actions-move-up" />
 								</f:link.action>
 							</f:then>
 							<f:else>
-								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}" class="sorting">
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {crdate: 'asc'}}}">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.date" />
 									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
@@ -46,13 +46,13 @@
 					<th nowrap="nowrap">
 						<f:if condition="{piVars.tx_powermail_web_powermailm1.sorting.subject} && {0 : piVars.tx_powermail_web_powermailm1.sorting.subject} == {0 : 'asc'}">
 							<f:then>
-								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}" class="sorting">
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'desc'}}}">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
 									<core:Icon identifier="actions-move-up" />
 								</f:link.action>
 							</f:then>
 							<f:else>
-								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}" class="sorting">
+								<f:link.action additionalParams="{tx_powermail_web_powermailm1: {sorting: {subject: 'asc'}}}">
 									<f:translate key="\In2code\Powermail\Domain\Model\Mail.subject" />
 									<core:Icon identifier="actions-move-down" />
 								</f:link.action>
@@ -176,10 +176,10 @@
 											<dt>
 												<f:if condition="{answer.field.title}">
 													<f:then>
-														<strong>{answer.field.title}:</strong>
+														{answer.field.title}:
 													</f:then>
 													<f:else>
-														<strong>No Label:</strong>
+														No Label:
 													</f:else>
 												</f:if>
 											</dt>

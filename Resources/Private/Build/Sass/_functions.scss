@@ -1,0 +1,3 @@
+@function rem($pixelValue, $base: 16) {
+  @return calc($pixelValue / $base) * 1rem;
+}

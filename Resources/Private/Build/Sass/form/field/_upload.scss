@@ -1,0 +1,22 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .powermail_fieldwrap_file_list {
+    align-items: flex-start;
+    border: function.rem(1) solid var(--pm-grey-2);
+    display: flex;
+    flex-direction: column;
+    margin-block-start: function.rem(24);
+    padding: function.rem(12);
+    row-gap: function.rem(24);
+
+
+    & ul {
+      margin: 0;
+      padding-inline-start: function.rem(24);
+    }
+  }
+}

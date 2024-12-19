@@ -1,5 +1,5 @@
 ##################
-# CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+# CSS classes for frameworks
 ##################
 plugin.tx_powermail.settings.setup {
   styles {

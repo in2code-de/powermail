@@ -1,0 +1,30 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .tx-powermail {
+
+
+
+    & input:not([type='checkbox'], [type='radio'], [type='submit'], [type='reset'], [type='range'], [tape='hidden']) {
+      background-color: var(--pm-input-background-color);
+      border-radius: 0;
+      border: function.rem(1) solid var(--pm-input-border-color);
+      color: var(--pm-input-color);
+      inline-size: 100%;
+      padding-block: function.rem(6);
+      padding-inline: function.rem(12);
+
+      &:user-invalid,
+      &.powermail_field_error {
+        background-image: url('../Image/Icons/error.svg');
+        background-position: calc(100% - ((12 / 16) * 1rem)) function.rem(6);
+        background-repeat: no-repeat;
+        background-size: function.rem(18);
+        padding-inline-end: function.rem(42);
+      }
+    }
+  }
+}
