@@ -11,26 +11,61 @@
                         <li>
                             <f:if condition="{singleError.message} == 'spam_details'">
                                 <f:then>
+                                    <f:comment>
+                                        Show spam message
+                                    </f:comment>
                                     <f:translate key="validationerror_spam" /> {singleError.arguments.spamfactor}
 
                                     <f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
                                 </f:then>
                                 <f:else>
+                                    <f:comment>
+                                        Show field error message
+                                    </f:comment>
                                     <f:if condition="{singleError.arguments.marker}">
                                         <f:if condition="{vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'type')} == 'check'
                                             || {vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'type')} == 'radio'">
                                             <f:then>
+                                                <f:comment>
+                                                    "Hack" to link to the first checkbox/ radio
+                                                </f:comment>
                                                 <a href="#powermail_field_{singleError.arguments.marker}_1">
                                                     <vh:getter.getFieldPropertyFromMarkerAndForm marker="{singleError.arguments.marker}" form="{form}" property="title"/>:
 
-                                                    <f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
+                                                    <f:if condition="{vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'mandatory_text')} !== ''">
+                                                        <f:then>
+                                                            <f:comment>
+                                                                Show custom error message
+                                                            </f:comment>
+                                                            {vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'mandatory_text')}
+                                                        </f:then>
+                                                        <f:else>
+                                                            <f:comment>
+                                                                Show default error message
+                                                            </f:comment>
+                                                            <f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
+                                                        </f:else>
+                                                    </f:if>
                                                 </a>
                                             </f:then>
                                             <f:else>
                                                 <a href="#powermail_field_{singleError.arguments.marker}">
                                                     <vh:getter.getFieldPropertyFromMarkerAndForm marker="{singleError.arguments.marker}" form="{form}" property="title"/>:
 
-                                                    <f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
+                                                    <f:if condition="{vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'mandatory_text')} !== ''">
+                                                        <f:then>
+                                                            <f:comment>
+                                                                Show custom error message
+                                                            </f:comment>
+                                                            {vh:getter.getFieldPropertyFromMarkerAndForm(marker: singleError.arguments.marker, form: form, property: 'mandatory_text')}
+                                                        </f:then>
+                                                        <f:else>
+                                                            <f:comment>
+                                                                Show default error message
+                                                            </f:comment>
+                                                            <f:translate key="validationerror_{singleError.message}">{singleError.message}</f:translate>
+                                                        </f:else>
+                                                    </f:if>
                                                 </a>
                                             </f:else>
                                         </f:if>

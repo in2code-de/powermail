@@ -33,6 +33,9 @@
 			<trans-unit id="mandatory.description" resname="mandatory.description">
 				<source>Should this field be a mandatory field?</source>
 			</trans-unit>
+			<trans-unit id="mandatory_text.description" resname="mandatory_text.description">
+				<source>A custom error message improves the user experience</source>
+			</trans-unit>
 			<trans-unit id="validation.description" resname="validation.description">
 				<source>Validate the field value (url, email, etc...)</source>
 			</trans-unit>

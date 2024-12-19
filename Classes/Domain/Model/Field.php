@@ -81,6 +81,8 @@ class Field extends AbstractEntity
 
     protected int $l10nParent = 0;
 
+    protected string $mandatoryText = '';
+
     /**
      * @var Page
      * This property can hold Page|int|null (depending on the context). "@var" must set to Page for property mapping.
@@ -409,6 +411,16 @@ class Field extends AbstractEntity
     public function setMandatory(bool $mandatory): void
     {
         $this->mandatory = $mandatory;
+    }
+
+    public function getMandatoryText(): string
+    {
+        return $this->mandatoryText;
+    }
+
+    public function setMandatoryText(string $mandatoryText): void
+    {
+        $this->mandatoryText = $mandatoryText;
     }
 
     /**

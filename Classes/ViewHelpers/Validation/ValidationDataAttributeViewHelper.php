@@ -93,11 +93,21 @@ class ValidationDataAttributeViewHelper extends AbstractValidationViewHelper
                 }
 
                 if ($this->isClientValidationEnabled()) {
-                    $additionalAttributes['data-powermail-required-message'] =
-                        LocalizationUtility::translate('validationerror_mandatory');
-                    if ($iteration['total'] > 1) {
+                    if ($field->getMandatoryText() !== '') {
                         $additionalAttributes['data-powermail-required-message'] =
-                            LocalizationUtility::translate('validationerror_mandatory_multi');
+                            $field->getMandatoryText();
+                    } else {
+                        $additionalAttributes['data-powermail-required-message'] =
+                            LocalizationUtility::translate('validationerror_mandatory');
+                    }
+                    if ($iteration['total'] > 1) {
+                        if ($field->getMandatoryText() !== '') {
+                            $additionalAttributes['data-powermail-required-message'] =
+                                $field->getMandatoryText();
+                        } else {
+                            $additionalAttributes['data-powermail-required-message'] =
+                                LocalizationUtility::translate('validationerror_mandatory_multi');
+                        }
                         if ($field->getType() === 'check') {
                             $additionalAttributes['data-powermail-required'] = 'true';
                             $additionalAttributes['aria-required'] = 'true';

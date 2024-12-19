@@ -236,11 +236,11 @@ $fieldsTca = [
             'canNotCollapse' => 1,
         ],
         '2' => [
-            'showitem' => 'mandatory, validation, validation_configuration',
+            'showitem' => 'mandatory, mandatory_text, validation, validation_configuration',
             'canNotCollapse' => 1,
         ],
         '21' => [
-            'showitem' => 'mandatory',
+            'showitem' => 'mandatory, mandatory_text',
             'canNotCollapse' => 1,
         ],
         '3' => [
@@ -595,11 +595,25 @@ $fieldsTca = [
         'mandatory' => [
             'l10n_mode' => 'exclude',
             'exclude' => true,
+            'onChange' => 'reload',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.mandatory',
             'config' => [
                 'type' => 'check',
             ],
+        ],
+        'mandatory_text' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                Field::TABLE_NAME . '.mandatory_text',
+            'config' => [
+                'type' => 'text',
+                'cols' => '26',
+                'rows' => '1',
+                'default' => '',
+                'eval' => 'trim',
+            ],
+            'displayCond' => 'FIELD:mandatory:REQ:true'
         ],
         'validation' => [
             'l10n_mode' => 'exclude',

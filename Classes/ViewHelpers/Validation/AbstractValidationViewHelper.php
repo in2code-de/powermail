@@ -56,8 +56,12 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
             $additionalAttributes['aria-required'] = 'true';
 
             if ($this->isClientValidationEnabled()) {
+                $mandatoryText = $field->getMandatoryText() !== ''
+                    ? $field->getMandatoryText()
+                    : LocalizationUtility::translate('validationerror_mandatory');
+
                 $additionalAttributes['data-powermail-required-message'] =
-                    LocalizationUtility::translate('validationerror_mandatory');
+                    $mandatoryText;
 
                 /**
                  * Special case multiselect:

@@ -231,6 +231,9 @@
 			<trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory">
 				<source>Mandatory Field</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text">
+				<source>Custom error message</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation">
 				<source>Validation</source>
 			</trans-unit>
