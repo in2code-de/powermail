@@ -299,49 +299,44 @@ plugin.tx_powermail {
       distanceVer = 30,45
     }
 
-    # CSS classes for frameworks (add only if bootstrapClassesAndLayout is not added before)
+    # CSS classes for frameworks
     styles {
       framework {
         # cat=powermail_styles//0020; type=int+; label= Number of columns
-        numberOfColumns = 0
+        numberOfColumns = 2
 
         # cat=powermail_styles//0100; type=text; label= Framework classname(s) for containers to build rows
         rowClasses = row
 
-        # cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
+        # cat=powermail_styles//0105; type=text; label= Framework classname(s) for form
         formClasses =
 
-        # cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
-        fieldAndLabelWrappingClasses =
+        # cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "col-md-6"
+        fieldAndLabelWrappingClasses = col-md-6
 
-        # cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
+        # cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field
         fieldWrappingClasses = powermail_field
 
-        # cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
-        labelClasses = powermail_label
+        # cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "form-label"
+        labelClasses = form-label powermail_label
 
         # cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
-        fieldClasses =
+        fieldClasses = form-control
 
         # cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
         offsetClasses =
 
-        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
-        radioClasses = radio
+        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "form-check"
+        radioClasses = form-check powermail_radiowrap
 
-        # cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
-        checkClasses = checkbox
+        # cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "form-check"
+        checkClasses = form-check powermail_checkwrap
 
         # cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
-        submitClasses = powermail_submit
+        submitClasses = btn btn-primary
 
         # cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
         createClasses = powermail_create
-      }
-
-      bootstrap {
-        # cat=powermail_styles//0200; type=boolean; label= Activate bootstrap classes (constants in {$plugin.tx_powermail.settings.styles.bootstrap.*} override {$plugin.tx_powermail.settings.styles.framework.*})
-        important = 0
       }
     }
   }

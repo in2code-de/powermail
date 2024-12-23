@@ -7,28 +7,28 @@ you already may know from bootstrap:
 
 ```
 <div class="row">
-    <div class="form-group col-md-6">
+    <div class="col-md-6">
         <label>Firstname</label>
         <input type="text" ... />
     </div>
-    <div class="form-group col-md-6">
+    <div class="col-md-6">
         <label>Lastname</label>
         <input type="text" ... />
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-md-6">
+    <div class="col-md-6">
         <label>Email</label>
         <input type="text" ... />
     </div>
-    <div class="form-group col-md-6">
+    <div class="col-md-6">
         <label>Phone</label>
         <input type="text" ... />
     </div>
 </div>
 ```
 
-Have a look into static TypoScript template BootstrapClassesAndLayout for some bootstrap classes examples.
+Have a look at TypoScript constants for some bootstrap class examples.
 Example TypoScript configuration:
 
 ```
@@ -37,7 +37,7 @@ plugin.tx_powermail.settings.setup {
         numberOfColumns = 2
         framework {
             rowClasses = row
-            fieldAndLabelWrappingClasses = form-group col-md-6
+            fieldAndLabelWrappingClasses = col-md-6
         }
     }
 }

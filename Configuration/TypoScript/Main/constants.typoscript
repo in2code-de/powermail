@@ -300,7 +300,7 @@ plugin.tx_powermail {
         # cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "col-md-6"
         fieldAndLabelWrappingClasses = col-md-6
 
-        # cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row"
+        # cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field
         fieldWrappingClasses = powermail_field
 
         # cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "form-label"
@@ -312,10 +312,10 @@ plugin.tx_powermail {
         # cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
         offsetClasses =
 
-        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
+        # cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "form-check"
         radioClasses = form-check powermail_radiowrap
 
-        # cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
+        # cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "form-check"
         checkClasses = form-check powermail_checkwrap
 
         # cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
