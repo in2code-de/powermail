@@ -201,26 +201,33 @@
 
 												<f:comment>Data Type Fileupload</f:comment>
 												<f:if condition="{answer.valueType} == 3">
-													<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
-														<a href="{vh:misc.link(path:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
-															<f:if condition="{vh:condition.isImage(path:subValue)}">
-																<f:then>
-																	<f:if condition="{vh:condition.fileExists(file:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
+													<div class="powermail_uploaded_file_container">
+														<f:for each="{answer.value}" as="subValue" iteration="uploadIndex">
+															<div class="powermail_uploaded_file_container__item">
+																<a href="{vh:misc.link(path:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
+																	<f:if condition="{vh:condition.isImage(path:subValue)}">
 																		<f:then>
-																			<f:image src="{vh:misc.getFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
+																			<f:if condition="{vh:condition.fileExists(file:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
+																				<f:then>
+																					<f:image src="{vh:misc.getFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
+																				</f:then>
+																				<f:else>
+																					File does not exist
+																				</f:else>
+																			</f:if>
 																		</f:then>
 																		<f:else>
-																			File does not exist
+																			{subValue}
 																		</f:else>
 																	</f:if>
-																</f:then>
-																<f:else>
-																	{subValue}
-																</f:else>
-															</f:if>
-														</a>
-														<br />
-													</f:for>
+																</a>
+
+																<a href="{be:moduleLink(route:'powermail_downloadfile', arguments:'{file: \'{settings.uploadPath}{subValue}\'}')}" download>
+																	Download
+																</a>
+															</div>
+														</f:for>
+													</div>
 												</f:if>
 											</dd>
 										</dl>

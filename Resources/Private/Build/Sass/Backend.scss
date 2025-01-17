@@ -89,3 +89,14 @@ td.nowrap {
   float: right;
   margin-inline-end: function.rem(8);
 }
+
+.powermail_uploaded_file_container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 16px;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+  }
+}

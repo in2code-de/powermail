@@ -20,6 +20,7 @@ use In2code\Powermail\Utility\StringUtility;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -344,5 +345,23 @@ class ModuleController extends AbstractController
         }
 
         return null;
+    }
+
+    public function downloadFile(ServerRequestInterface $request): ?ResponseInterface
+    {
+        $queryParams = $request->getQueryParams();
+        if (array_key_exists('file', $queryParams)) {
+            $fileName = basename($queryParams['file']);
+            $absoluteFileName = GeneralUtility::getFileAbsFileName($queryParams['file']);
+            if (is_file($absoluteFileName)) {
+                (mime_content_type($absoluteFileName) === false) ? $mimeType = '' : $mimeType = mime_content_type($absoluteFileName);
+                return $this->responseFactory->createResponse()
+                    ->withHeader('Content-Type', $mimeType)
+                    ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                    ->withBody($this->streamFactory->createStreamFromFile($absoluteFileName));
+            }
+        }
+
+        return new ForwardResponse('list');
     }
 }
