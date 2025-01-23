@@ -16,11 +16,18 @@ export default function MoreStepForm() {
     initializeForms();
   };
 
-  this.showFieldset = function(index, form) {
+  this.showFieldset = function(index, form, backwards) {
+    index = parseInt(index, 10);
     if (form.classList.contains(formClass)) {
       hideAllFieldsets(form);
       let fieldsets = getAllFieldsetsOfForm(form);
-      Utility.showElement(fieldsets[index]);
+      let nextIndex = backwards ? index - 1 : index + 1;
+      // If the next page is hidden by powermail_cond, skip it
+      if (fieldsets[index].classList.contains('powermail-cond-hidden') && fieldsets[nextIndex]) {
+        Utility.showElement(fieldsets[nextIndex]);
+      } else {
+        Utility.showElement(fieldsets[index]);
+      }
       updateButtonStatus(form);
     }
   };
@@ -41,8 +48,9 @@ export default function MoreStepForm() {
     for (let i = 0; i < moreButtons.length; i++) {
       moreButtons[i].addEventListener('click', function(event) {
         let targetFieldset = event.target.getAttribute('data-powermail-morestep-show');
+        const backwards = event.target.getAttribute('data-powermail-morestep-previous') !== null;
         let form = event.target.closest('form');
-        that.showFieldset(targetFieldset, form);
+        that.showFieldset(targetFieldset, form, backwards);
       });
     }
   }
