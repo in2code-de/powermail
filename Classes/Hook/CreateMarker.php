@@ -214,6 +214,7 @@ class CreateMarker
         $properties['mandatory'] = (bool)($properties['mandatory'] ?? false);
         $properties['sorting'] = (int)($properties['sorting'] ?? 0);
         $properties['l10n_parent'] = (int)($properties['l10n_parent'] ?? 0);
+        $properties['pid'] = (int)($properties['pid'] ?? 0);
         foreach ($properties as $key => $value) {
             $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
