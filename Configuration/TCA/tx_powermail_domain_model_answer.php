@@ -23,6 +23,9 @@ $answersTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'iconfile' => ConfigurationUtility::getIconPath(Answer::TABLE_NAME . '.gif'),
     ],
     'interface' => [

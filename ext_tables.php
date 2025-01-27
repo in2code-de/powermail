@@ -16,9 +16,6 @@ call_user_func(
             \In2code\Powermail\Domain\Model\Mail::TABLE_NAME,
             \In2code\Powermail\Domain\Model\Answer::TABLE_NAME
         ];
-        foreach ($tables as $table) {
-            // \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages($table);
-        }
 
         /**
          * Garbage Collector

@@ -225,6 +225,9 @@ $fieldsTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'iconfile' => ConfigurationUtility::getIconPath(Field::TABLE_NAME . '.gif'),
         'searchFields' => 'title',
     ],

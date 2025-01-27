@@ -34,6 +34,9 @@ $mailsTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'iconfile' => ConfigurationUtility::getIconPath(Mail::TABLE_NAME . '.gif'),
         'searchFields' => 'sender_mail, sender_name, subject, body',
     ],

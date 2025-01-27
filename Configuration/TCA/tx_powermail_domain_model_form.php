@@ -23,6 +23,9 @@ $formsTca = [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'iconfile' => ConfigurationUtility::getIconPath(Form::TABLE_NAME . '.gif'),
         'searchFields' => 'title',
     ],
