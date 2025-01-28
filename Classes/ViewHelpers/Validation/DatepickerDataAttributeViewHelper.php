@@ -41,12 +41,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
         return $this->addMandatoryAttributes($additionalAttributes, $field);
     }
 
-    /**
-     * Get Datepicker Settings
-     *
-     * @param Field|null $field
-     */
-    protected function getDatepickerSettings(Field $field = null): string
+    protected function getDatepickerSettings(?Field $field = null): string
     {
         if (!$field instanceof \In2code\Powermail\Domain\Model\Field) {
             return 'datetime';
@@ -55,10 +50,7 @@ class DatepickerDataAttributeViewHelper extends AbstractValidationViewHelper
         return $field->getDatepickerSettings();
     }
 
-    /**
-     * @param Field|null $field
-     */
-    protected function getFormat(Field $field = null): string
+    protected function getFormat(?Field $field = null): string
     {
         $format = LocalizationUtility::translate('datepicker_format_' . $this->getDatepickerSettings($field));
         return $this->convertFormatForMomentJs($format);

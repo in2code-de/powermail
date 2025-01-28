@@ -11,12 +11,14 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as LocalizationUtilityExtbase;
 class LocalizationUtility
 {
     /**
-     * Translate function with predefined extensionName
-     * Could also be used together with unit tests
-     *
+     *  Translate function with predefined extensionName
+     *  Could also be used together with unit tests
+     * @param string $key
+     * @param string|null $extensionName
      * @param array|null $arguments
+     * @return string
      */
-    public static function translate(string $key, string $extensionName = 'powermail', array $arguments = null): string
+    public static function translate(string $key, ?string $extensionName = 'powermail', ?array $arguments = null): string
     {
         if (ConfigurationUtility::isDatabaseConnectionAvailable() === false) {
             if (stristr($key, 'datepicker_format')) {

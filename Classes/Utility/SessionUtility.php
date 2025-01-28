@@ -30,12 +30,7 @@ class SessionUtility
         'permanently' => 'user',
     ];
 
-    /**
-     * Save current timestamp to session
-     *
-     * @param ?Form $form
-     */
-    public static function saveFormStartInSession(array $settings, Form $form = null): void
+    public static function saveFormStartInSession(array $settings, ?Form $form = null): void
     {
         if ($form instanceof \In2code\Powermail\Domain\Model\Form && self::sessionCheckEnabled($settings)) {
             self::getRequest()->getAttribute('frontend.user')->setKey(

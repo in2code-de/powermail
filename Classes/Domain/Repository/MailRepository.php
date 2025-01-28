@@ -402,6 +402,8 @@ class MailRepository extends AbstractRepository
      * @param string|array $default String as default or cObject array
      * @return string Sender Name
      * @throws DeprecatedException
+     *
+     * ToDo: Make $default type safe
      */
     public function getSenderNameFromArguments(Mail $mail, $default = null, string $glue = ' '): string
     {

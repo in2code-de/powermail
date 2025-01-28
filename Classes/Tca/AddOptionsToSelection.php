@@ -124,7 +124,7 @@ class AddOptionsToSelection
      *
      * @param string|null $label
      */
-    protected function addOption(string $value, string $label = null): void
+    protected function addOption(string $value, ?string $label = null): void
     {
         $this->params['items'][] = [
             $this->getLabel($label, $value),

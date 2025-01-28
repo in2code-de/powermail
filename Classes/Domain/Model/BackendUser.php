@@ -154,10 +154,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets the point in time from which this user is enabled.
-     *
-     * @param \DateTime|null $dateAndTime the start date and time
      */
-    public function setStartDateAndTime(\DateTime $dateAndTime = null): void
+    public function setStartDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->startDateAndTime = $dateAndTime;
     }
@@ -174,10 +172,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets the point in time before which this user is enabled.
-     *
-     * @param \DateTime|null $dateAndTime the end date and time
      */
-    public function setEndDateAndTime(\DateTime $dateAndTime = null): void
+    public function setEndDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->endDateAndTime = $dateAndTime;
     }
@@ -276,10 +272,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets this user's last login date and time.
-     *
-     * @param \DateTime|null $dateAndTime this user's last login date and time
      */
-    public function setLastLoginDateAndTime(\DateTime $dateAndTime = null): void
+    public function setLastLoginDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->lastLoginDateAndTime = $dateAndTime;
     }

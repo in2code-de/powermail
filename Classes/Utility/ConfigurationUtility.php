@@ -114,10 +114,7 @@ class ConfigurationUtility
         return '';
     }
 
-    /**
-     * Get default mail from install tool settings
-     */
-    public static function getDefaultMailFromAddress(string $fallback = null): string
+    public static function getDefaultMailFromAddress(?string $fallback = null): string
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {

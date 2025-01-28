@@ -87,7 +87,6 @@ class FileFactory
      * This subfunction is used to create a file instance. E.g. when a file was just uploaded or when a confirmation
      * page is active, when a file was already uploaded in the step before.
      *
-     * @param ?Form $form
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
@@ -100,7 +99,7 @@ class FileFactory
         string $type = '',
         string $temporaryName = '',
         bool $uploaded = false,
-        Form $form = null
+        ?Form $form = null
     ): File {
         $file = GeneralUtility::makeInstance(File::class, $marker, $originalName, $temporaryName);
         $file->setNewName(StringUtility::cleanString($originalName));
@@ -128,10 +127,7 @@ class FileFactory
         return $this->settings['misc']['file']['folder'];
     }
 
-    /**
-     * @param ?Form $form
-     */
-    protected function getFormUid(Form $form = null): int
+    protected function getFormUid(?Form $form = null): int
     {
         if (!$form instanceof \In2code\Powermail\Domain\Model\Form) {
             $arguments = FrontendUtility::getArguments(FrontendUtility::getPluginName());

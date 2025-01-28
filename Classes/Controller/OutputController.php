@@ -78,10 +78,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param Mail|null $mail
      * @noinspection PhpUnused
      */
-    public function editAction(Mail $mail = null): ResponseInterface
+    public function editAction(?Mail $mail = null): ResponseInterface
     {
         if (!FrontendUtility::isAllowedToEdit($this->settings, $mail)) {
             $this->addFlashmessage(
@@ -194,11 +193,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param QueryResult|null $mails mails objects
-     * @param array $fields uid field list
      * @noinspection PhpUnused
      */
-    public function exportXlsAction(QueryResult $mails = null, array $fields = []): ResponseInterface
+    public function exportXlsAction(?QueryResult $mails = null, array $fields = []): ResponseInterface
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);
@@ -206,11 +203,9 @@ class OutputController extends AbstractController
     }
 
     /**
-     * @param QueryResult|null $mails mails objects
-     * @param array $fields uid field list
      * @noinspection PhpUnused
      */
-    public function exportCsvAction(QueryResult $mails = null, array $fields = []): ResponseInterface
+    public function exportCsvAction(?QueryResult $mails = null, array $fields = []): ResponseInterface
     {
         $this->view->assign('mails', $mails);
         $this->view->assign('fields', $fields);

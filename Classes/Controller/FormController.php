@@ -585,10 +585,8 @@ class FormController extends AbstractController
     /**
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
-     *
-     * @param Mail|null $mail
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(Mail $mail = null): ?ForwardResponse
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(?Mail $mail = null): ?ForwardResponse
     {
         if ($mail instanceof \In2code\Powermail\Domain\Model\Mail) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);

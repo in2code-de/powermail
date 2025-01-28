@@ -192,13 +192,15 @@ class BackendUtility
     }
 
     /**
-     * Returns the Page TSconfig for page with id, $id
+     *  Returns the Page TSconfig for page with id, $id
      *
-     * @param ?array $rootLine
-     * @return array Page TSconfig
+     * @param int $pid
+     * @param array|null $rootLine
+     * @param bool $returnPartArray
+     * @return array
      * @throws DeprecatedException
      */
-    public static function getPagesTSconfig(int $pid, array $rootLine = null, bool $returnPartArray = false): array
+    public static function getPagesTSconfig(int $pid, ?array $rootLine = null, bool $returnPartArray = false): array
     {
         if ($rootLine !== null || $returnPartArray) {
             throw new DeprecatedException('arguments not supported any more in powermail', 1578947408);

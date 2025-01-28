@@ -96,7 +96,7 @@ class TemplateUtility
         Mail $mail,
         string $section = 'web',
         array $settings = [],
-        string $type = null
+        ?string $type = null
     ): ?string {
         $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));

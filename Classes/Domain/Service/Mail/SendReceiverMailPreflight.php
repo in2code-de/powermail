@@ -29,7 +29,7 @@ class SendReceiverMailPreflight
      * @throws InvalidConfigurationTypeException
      * @throws ExceptionExtbaseObject
      */
-    public function sendReceiverMail(Mail $mail, string $hash = null): bool
+    public function sendReceiverMail(Mail $mail, ?string $hash = null): bool
     {
         $receiverService = GeneralUtility::makeInstance(
             ReceiverMailReceiverPropertiesService::class,

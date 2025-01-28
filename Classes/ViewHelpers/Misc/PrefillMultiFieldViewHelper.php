@@ -419,10 +419,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         return $this->mail;
     }
 
-    /**
-     * @param ?Mail $mail
-     */
-    public function setMail(Mail $mail = null): PrefillMultiFieldViewHelper
+    public function setMail(?Mail $mail = null): PrefillMultiFieldViewHelper
     {
         $this->mail = $mail;
         return $this;

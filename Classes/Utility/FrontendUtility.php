@@ -163,12 +163,7 @@ class FrontendUtility
         return (string)($uriParts['host'] ?? '');
     }
 
-    /**
-     * Get Country Name out of an IP address
-     *
-     * @param ?string $ipAddress
-     */
-    public static function getCountryFromIp(string $ipAddress = null): string
+    public static function getCountryFromIp(?string $ipAddress = null): string
     {
         if ($ipAddress === null) {
             // @codeCoverageIgnoreStart
@@ -204,8 +199,8 @@ class FrontendUtility
     public static function getSubFolderOfCurrentUrl(
         bool $leadingSlash = true,
         bool $trailingSlash = true,
-        string $testHost = null,
-        string $testUrl = null
+        ?string $testHost = null,
+        ?string $testUrl = null
     ): string {
         $subfolder = '';
         $typo3RequestHost = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');

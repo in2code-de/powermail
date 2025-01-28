@@ -199,7 +199,7 @@ class ExportService
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
-    protected function getDefaultFieldListFromFirstMail(QueryResultInterface $mails = null): array
+    protected function getDefaultFieldListFromFirstMail(?QueryResultInterface $mails = null): array
     {
         $fieldList = [];
         if ($mails instanceof \TYPO3\CMS\Extbase\Persistence\QueryResultInterface) {
@@ -360,7 +360,7 @@ class ExportService
      *
      * @param string|null $fileName
      */
-    public function setFileName(string $fileName = null): ExportService
+    public function setFileName(?string $fileName = null): ExportService
     {
         if ($fileName) {
             $this->fileName = $fileName . '.' . $this->getFormat();

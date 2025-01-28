@@ -258,7 +258,7 @@ class ModuleController extends AbstractController
         return $this->moduleTemplate->renderResponse('Module/CheckBe');
     }
 
-    protected function sendTestEmail($email = null): void
+    protected function sendTestEmail(?string $email = null): void
     {
         if ($email !== null && GeneralUtility::validEmail($email)) {
             $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
