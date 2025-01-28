@@ -20,12 +20,6 @@ ExtensionManagementUtility::addStaticFile(
     'Configuration/TypoScript/Powermail_Styling',
     'Powermail_Styling'
 );
-// @extensionScannerIgnoreLine seems to be a false positive
-ExtensionManagementUtility::addStaticFile(
-    'powermail',
-    'Configuration/TypoScript/Powermail_Frontend',
-    'Powermail_Frontend'
-);
 if (!ConfigurationUtility::isDisableMarketingInformationActive()) {
     // @extensionScannerIgnoreLine seems to be a false positive
     ExtensionManagementUtility::addStaticFile(

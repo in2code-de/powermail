@@ -65,13 +65,6 @@ Example Form with Input, Textarea, Select, Multiselect, Checkboxes, Radiobuttons
 Example Multistep Form with clientside validation
 
 
-### Frontend: powermail_frontend integration shows mails in frontend
-
-![Example pi2](Images/frontend_pi2.png)
-
-Listing of stored mails with the possibility to see a Detail view or to re-edit the entries for a defined Frontend Usergroup
-Define your ABC- and Searchterm Filter
-
 ### Backend: Mail Listing
 
 ![backend1](Images/backend1.png)

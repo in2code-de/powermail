@@ -111,61 +111,6 @@ parameters:
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:exportAction\\(\\) has parameter \\$export with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:exportCsvAction\\(\\) has parameter \\$fields with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:exportCsvAction\\(\\) has parameter \\$mails with generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\QueryResult but does not specify its types\\: TValue$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:exportXlsAction\\(\\) has parameter \\$fields with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:exportXlsAction\\(\\) has parameter \\$mails with generic class TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\QueryResult but does not specify its types\\: TValue$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:getFieldList\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:prepareFilterPluginVariables\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Controller\\\\OutputController\\:\\:prepareFilterPluginVariables\\(\\) has parameter \\$pluginVariables with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException\\|In2code\\\\Powermail\\\\Exception\\\\DeprecatedException\\|TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationExtensionNotConfiguredException\\|TYPO3\\\\CMS\\\\Core\\\\Configuration\\\\Exception\\\\ExtensionConfigurationPathDoesNotExistException\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Exception\\\\NoSuchArgumentException\\|TYPO3\\\\CMS\\\\Extbase\\\\Object\\\\Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Exception\\\\InvalidQueryException is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^PHPDoc tag @throws with type Exception\\|TYPO3\\\\CMS\\\\Extbase\\\\Mvc\\\\Exception\\\\StopActionException is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
-			message: "#^Parameter \\#2 \\$mail of static method In2code\\\\Powermail\\\\Utility\\\\FrontendUtility\\:\\:isAllowedToEdit\\(\\) expects In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|int, In2code\\\\Powermail\\\\Domain\\\\Model\\\\Mail\\|null given\\.$#"
-			count: 1
-			path: ../../Classes/Controller/OutputController.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\DataProcessor\\\\AbstractDataProcessor\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/DataProcessor/AbstractDataProcessor.php
@@ -2619,16 +2564,6 @@ parameters:
 			message: "#^Property In2code\\\\Powermail\\\\Tca\\\\AddOptionsToSelection\\:\\:\\$params type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Tca/AddOptionsToSelection.php
-
-		-
-			message: "#^Method In2code\\\\Powermail\\\\Tca\\\\FieldSelectorUserFunc\\:\\:getFieldSelection\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/Tca/FieldSelectorUserFunc.php
-
-		-
-			message: "#^PHPDoc tag @throws with type Doctrine\\\\DBAL\\\\DBALException is not subtype of Throwable$#"
-			count: 1
-			path: ../../Classes/Tca/FieldSelectorUserFunc.php
 
 		-
 			message: "#^Cannot call method getPropertiesFromUid\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Repository\\\\PageRepository\\|null\\.$#"

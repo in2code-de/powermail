@@ -41,42 +41,6 @@ call_user_func(function () {
         ],
     );
 
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi2',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi3',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi4',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
     /**
      * Hook for initially filling the marker field in backend
      */
