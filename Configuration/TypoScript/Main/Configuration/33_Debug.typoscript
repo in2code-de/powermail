@@ -6,9 +6,6 @@ plugin.tx_powermail.settings.setup {
     # All views: Show Settings from TypoScript, Flexform and Extension Manager
     settings = {$plugin.tx_powermail.settings.misc.debugSettings}
 
-    # Create view: Show submitted variables
-    variables = {$plugin.tx_powermail.settings.misc.debugVariables}
-
     # Create view: Show complete mail settings
     mail = {$plugin.tx_powermail.settings.misc.debugMail}
 

@@ -151,7 +151,6 @@ class FormController extends AbstractController
         }
 
         $this->reformatParamsForAction();
-        $this->debugVariables();
     }
 
     /**
@@ -237,7 +236,6 @@ class FormController extends AbstractController
         }
 
         $this->reformatParamsForAction();
-        $this->debugVariables();
     }
 
     /**
@@ -643,17 +641,6 @@ class FormController extends AbstractController
     {
         return empty($this->settings['main']['optin']) ||
             (!empty($this->settings['main']['optin']) && HashUtility::isHashValid($hash, $mail));
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    protected function debugVariables(): void
-    {
-        if (!empty($this->settings['debug']['variables'])) {
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->info('Variables', $this->request->getParsedBody());
-        }
     }
 
     protected function isPersistActive(): bool
