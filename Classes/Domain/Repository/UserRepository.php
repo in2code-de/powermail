@@ -29,14 +29,13 @@ class UserRepository extends AbstractRepository
      *
      * @param int $uid
      */
-    public function findByUid($uid): User
+    public function findByUid($uid): ?User
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('uid', $uid));
-        /** @var User $user */
-        $user = $query->execute()->getFirst();
-        return $user;
+        /** @var User|null $user */
+        return $query->execute()->getFirst();
     }
 
     /**
