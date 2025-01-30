@@ -1,0 +1,31 @@
+settings:
+  plugin.tx_powermail.settings.marketing.enable:
+    default: 0
+    type: int
+    label: Enable Marketing
+    description: Enable JavaScript for google conversion - This is interesting if you want to track every submit in your Google Adwords account for a complete conversion.
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.googleAdwords._enable:
+    default: 0
+    type: int
+    label: Enable Google Adwords
+    description: Enable Google Adwords
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_id:
+    default: 1234567890
+    type: int
+    label: Google Conversion Id
+    description: Add your google conversion id (see www.google.com/adwords for details)
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_label:
+    default: 'abcdefghijklmnopqrs'
+    type: text
+    label: Google Conversion Label
+    description: Add your google conversion label (see www.google.com/adwords for details)
+    category: powermail.marketing
+  plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_language:
+    default: 'en'
+    type: text
+    label: Google Conversion Language
+    description: Add your google conversion language (see www.google.com/adwords for details)
+    category: powermail.marketing

@@ -1,0 +1,4 @@
+name: in2code/powermail-dropin-styling
+label: 'Powermail DropIn Styling'
+dependencies:
+  - in2code/powermail-dropin-main

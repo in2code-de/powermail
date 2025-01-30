@@ -52,6 +52,28 @@ Add powermail static templates for full functions
 **Note** TypoScript can be modified to configure powermail in the way you want to use powermail.
 See BestPractice/MainTypoScript for an overview over the complete TypoScript.
 
+## Site sets
+
+Since version 13 Powermail provides two sets of site sets for all TypoScript templates:
+- one site set as a drop-in, that reflects the current typoscript template behavior
+- one site set as a future-proof siteset, that replaces typoscript constants with `settings.definitions.yaml`.
+
+### Migration
+
+#### DropIn - SiteSet
+
+For the drop-in site set, you just need remove the inclusion of the TypoScript template and add the SiteSet to your
+installation. No other steps need to be done.
+
+#### Future-proof SiteSet
+
+For this site-set there are some more steps to perform.
+
+- remove the inclusion of the typoscript template
+- add the necessary site set(s) without the "DropIn" prefix to your site
+- migrate TypoScript constants to your site settings. All constant names remain the same.
+
+
 ## Default classes
 
 Powermail comes with classes for Bootstrap 5.x by default. You can change the default classes with the constants editor. The full TypoScript constants are:

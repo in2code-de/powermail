@@ -1,0 +1,4 @@
+name: in2code/powermail-marketing
+label: 'Powermail Marketing'
+dependencies:
+  - in2code/powermail-main
