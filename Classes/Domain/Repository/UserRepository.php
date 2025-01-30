@@ -28,6 +28,7 @@ class UserRepository extends AbstractRepository
      * Find by Uid but don't respect storage page
      *
      * @param int $uid
+     * @return User
      */
     public function findByUid($uid): ?User
     {
