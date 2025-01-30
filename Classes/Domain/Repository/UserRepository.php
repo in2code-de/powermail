@@ -30,7 +30,7 @@ class UserRepository extends AbstractRepository
      * Find by Uid but don't respect storage page
      *
      * @param int $uid
-     * @return User
+     * @return User|null
      */
     public function findByUid($uid): ?User
     {
@@ -38,7 +38,8 @@ class UserRepository extends AbstractRepository
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->matching($query->equals('uid', $uid));
         /** @var User|null $user */
-        return $query->execute()->getFirst();
+        $user = $query->execute()->getFirst();
+        return $user;
     }
 
     /**
