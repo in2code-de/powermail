@@ -72,7 +72,6 @@ class SpamShieldValidator extends AbstractValidator
         $this->runAllSpamMethods($mail);
         $this->calculateMailSpamFactor();
         $this->saveSpamFactorInSession();
-        $this->saveSpamPropertiesInDevelopmentLog();
         if ($this->isSpamToleranceLimitReached()) {
             $this->addError('spam_details', 1580681599, ['spamfactor' => $this->getCalculatedSpamFactor(true)]);
             $this->setValidState(false);
@@ -304,17 +303,6 @@ class SpamShieldValidator extends AbstractValidator
         if ($this->request !== null) {
             $fe_user = $this->request->getAttribute('frontend.user');
             $fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
-        }
-    }
-
-    /**
-     *  Save spam properties in development log
-     */
-    protected function saveSpamPropertiesInDevelopmentLog(): void
-    {
-        if (!empty($this->settings['debug']['spamshield'])) {
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->info('Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')', $this->getMessages());
         }
     }
 

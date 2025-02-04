@@ -239,14 +239,6 @@ http://www.test.de
 Senders IP addess: 127.0.0.1
 ```
 
-You can also enable the Spamshield Debug (what means to log failure) to see the Methods which are failed above the form.
-Enable with TypoScript setup:
-
-`plugin.tx_powermail.settings.setup.debug.spamshield = 1`
-
-See https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Logging/Index.html how to see how
-logging can be used in TYPO3.
-
 
 ### Register own spamcheck methods
 

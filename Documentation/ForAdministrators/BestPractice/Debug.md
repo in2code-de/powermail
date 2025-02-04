@@ -36,4 +36,3 @@ $GLOBALS['TYPO3_CONF_VARS']['LOG']['In2code']['Powermail']['writerConfiguration'
 
 | Relative Typoscript path | Description                                                   | Type | Default value |
 |--------------------------|---------------------------------------------------------------|------|---------------|
-| debug.spamshield         | Show spamtest results                                         | 0/1  | 0             |
