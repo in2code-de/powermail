@@ -98,7 +98,7 @@ class ExportCommand extends Command
         if ($period > 0) {
             return [
                 'filter' => [
-                    'start' => strftime('%Y-%m-%d %H:%M:%S', (time() - $period)),
+                    'start' => date('Y-m-d H:i:s', (time() - $period)),
                     'stop' => 'now',
                 ],
             ];
