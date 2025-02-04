@@ -71,10 +71,6 @@ class SendMailService
     {
         $this->initialize($mail, $settings, $type);
         $this->parseAndOverwriteVariables($email, $mail);
-        if ($settings['debug']['mail']) {
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->info('Mail properties', [$email]);
-        }
 
         if (GeneralUtility::validEmail($email['receiverEmail']) === false ||
             GeneralUtility::validEmail($email['senderEmail']) === false) {
@@ -118,7 +114,7 @@ class SendMailService
             new SendMailServicePrepareAndSendEvent($message, $email, $this)
         );
         if ($event->isAllowedToSend() === false) {
-            if ($this->settings['debug']['mail']) {
+            if ($GLOBALS['TYPO3_CONF_VARS']['BE']['debug']) {
                 $logger = ObjectUtility::getLogger(self::class);
                 $logger->info('Mail was not sent: Event set to abort sending. Email array after event:', [$email]);
             }
