@@ -67,13 +67,6 @@ class SaveToAnyTableService
     protected $additionalWhere = '';
 
     /**
-     * Switch on devLog
-     *
-     * @var bool
-     */
-    protected $devLog = false;
-
-    /**
      * @throws PropertiesMissingException
      */
     public function __construct(string $table)
@@ -104,7 +97,6 @@ class SaveToAnyTableService
                 $uid = $this->insert();
         }
 
-        $this->writeToDevLog();
         return $uid;
     }
 
@@ -245,16 +237,6 @@ class SaveToAnyTableService
         return $this->uniqueIdentifier;
     }
 
-    public function setDevLog(bool $devLog): void
-    {
-        $this->devLog = $devLog;
-    }
-
-    public function isDevLog(): bool
-    {
-        return $this->devLog;
-    }
-
     public function getAdditionalWhere(): string
     {
         return $this->additionalWhere;
@@ -271,20 +253,6 @@ class SaveToAnyTableService
     protected function removeNotAllowedSigns(string &$string): void
     {
         $string = preg_replace('/[^a-zA-Z0-9_-]/', '', $string);
-    }
-
-    /**
-     * Write settings to devlog
-     */
-    protected function writeToDevLog(): void
-    {
-        if ($this->isDevLog()) {
-            $subject = 'SaveToAnyTable (Table: ' . $this->getTable();
-            $subject .= ', Mode: ' . $this->getMode();
-            $subject .= ', UniqueField: ' . $this->getUniqueField() . ')';
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->info($subject, $this->getProperties());
-        }
     }
 
     /**

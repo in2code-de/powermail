@@ -3,9 +3,6 @@
 ##################
 plugin.tx_powermail.settings.setup {
   debug {
-    # Create view: Show saveToTable array
-    saveToTable = {$plugin.tx_powermail.settings.misc.debugSaveToTable}
-
     # Create view: Show spamtest results
     spamshield = {$plugin.tx_powermail.settings.misc.debugSpamshield}
   }

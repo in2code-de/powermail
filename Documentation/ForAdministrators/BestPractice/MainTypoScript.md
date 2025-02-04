@@ -237,9 +237,6 @@ plugin.tx_powermail {
       # cat=powermail_additional//0860; type=boolean; label= Debug Variables: Show all given Plugin variables from GET or POST in Devlog
       debugVariables = 0
 
-      # cat=powermail_additional//0880; type=boolean; label= Debug Save to Table: Show all values if you want to save powermail variables to another table in Devlog
-      debugSaveToTable = 0
-
       # cat=powermail_additional//0890; type=boolean; label= Debug Spamshield: Show Spamshield Functions in Devlog
       debugSpamshield = 0
     }

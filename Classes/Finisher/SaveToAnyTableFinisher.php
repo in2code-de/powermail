@@ -74,7 +74,6 @@ class SaveToAnyTableFinisher extends AbstractFinisher implements FinisherInterfa
         );
         $this->setModeInSaveService($saveService, $tableConfiguration);
         $this->setPropertiesInSaveService($saveService, $tableConfiguration);
-        $saveService->setDevLog(!empty($this->settings['debug']['saveToTable']));
         $this->addArrayToDataArray(['uid_' . $numberKey => (int)$saveService->execute()]);
     }
 
