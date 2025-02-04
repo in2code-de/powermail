@@ -22,7 +22,7 @@ class CustomValidator extends StringValidator
     {
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         $eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(CustomValidatorEvent::class, $mail, $this)
+            new CustomValidatorEvent($mail, $this)
         );
     }
 }

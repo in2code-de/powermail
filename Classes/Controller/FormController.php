@@ -90,7 +90,7 @@ class FormController extends AbstractController
 
         /** @var FormControllerFormActionEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerFormActionEvent::class, $form, $this)
+            new FormControllerFormActionEvent($form, $this)
         );
         $form = $event->getForm();
         SessionUtility::saveFormStartInSession($this->settings, $form);
@@ -175,7 +175,7 @@ class FormController extends AbstractController
             return (new ForwardResponse('form'))->withoutArguments();
         }
 
-        $event = GeneralUtility::makeInstance(FormControllerConfirmationActionEvent::class, $mail, $this);
+        $event = new FormControllerConfirmationActionEvent($mail, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
 
@@ -265,7 +265,7 @@ class FormController extends AbstractController
             return (new ForwardResponse('form'))->withoutArguments();
         }
 
-        $event = GeneralUtility::makeInstance(FormControllerCreateActionBeforeRenderViewEvent::class, $mail, $hash, $this);
+        $event = new FormControllerCreateActionBeforeRenderViewEvent($mail, $hash, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
         $hash = $event->getHash();
@@ -278,14 +278,14 @@ class FormController extends AbstractController
             $this->contentObject
         );
         if ($this->isMailPersistActive($hash)) {
-            $event = GeneralUtility::makeInstance(CheckIfMailIsAllowedToSaveEvent::class, $mail);
+            $event = new CheckIfMailIsAllowedToSaveEvent($mail);
             $this->eventDispatcher->dispatch($event);
             $isSavingOfMailAllowed = $event->isSavingOfMailAllowed();
             if ($isSavingOfMailAllowed) {
                 $this->saveMail($mail);
             }
 
-            $event = GeneralUtility::makeInstance(FormControllerCreateActionAfterMailDbSavedEvent::class, $mail, $this, $hash);
+            $event = new FormControllerCreateActionAfterMailDbSavedEvent($mail, $this, $hash);
             $this->eventDispatcher->dispatch($event);
             $mail = $event->getMail();
             $hash = $event->getHash();
@@ -309,7 +309,7 @@ class FormController extends AbstractController
             $this->persistenceManager->persistAll();
         }
 
-        $event = GeneralUtility::makeInstance(FormControllerCreateActionAfterSubmitViewEvent::class, $mail, $hash, $this);
+        $event = new FormControllerCreateActionAfterSubmitViewEvent($mail, $hash, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
         $hash = $event->getHash();
@@ -536,7 +536,7 @@ class FormController extends AbstractController
         $this->settings = ConfigurationUtility::mergeTypoScript2FlexForm($this->settings);
         /** @var FormControllerInitializeObjectEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(FormControllerInitializeObjectEvent::class, $this->settings, $this)
+            new FormControllerInitializeObjectEvent($this->settings, $this)
         );
         $this->settings = $event->getSettings();
         if (ArrayUtility::isValidPath($this->settings, 'debug/settings') && $this->settings['debug']['settings']) {

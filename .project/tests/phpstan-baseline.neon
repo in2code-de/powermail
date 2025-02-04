@@ -336,27 +336,7 @@ parameters:
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
 		-
-			message: "#^Cannot call method getValue\\(\\) on object\\|null\\.$#"
-			count: 2
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
-			message: "#^Cannot call method getValueType\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
-			message: "#^Cannot call method setOriginalValue\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
 			message: "#^Cannot call method setPid\\(\\) on object\\|null\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Factory/MailFactory.php
-
-		-
-			message: "#^Cannot call method setValue\\(\\) on object\\|null\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
 

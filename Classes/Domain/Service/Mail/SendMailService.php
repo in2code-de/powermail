@@ -115,7 +115,7 @@ class SendMailService
         $email['send'] = true;
         /** @var SendMailServicePrepareAndSendEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(SendMailServicePrepareAndSendEvent::class, $message, $email, $this)
+            new SendMailServicePrepareAndSendEvent($message, $email, $this)
         );
         if ($event->isAllowedToSend() === false) {
             if ($this->settings['debug']['mail']) {
@@ -348,7 +348,7 @@ class SendMailService
 
         /** @var SendMailServiceCreateEmailBodyEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(SendMailServiceCreateEmailBodyEvent::class, $standaloneView, $email, $this)
+            new SendMailServiceCreateEmailBodyEvent($standaloneView, $email, $this)
         );
         $body = $event->getStandaloneView()->render();
         $this->mail->setBody($body);

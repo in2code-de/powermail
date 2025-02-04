@@ -68,14 +68,14 @@ class MailFactory
     {
         foreach ($mail->getAnswers() as $answer) {
             /**
-             * @var $answer Answer
+             * @var Answer $answer
              */
             if ($answer->getValueType() === Answer::VALUE_TYPE_PASSWORD) {
                 /**
                  * @var MailFactoryBeforePasswordIsHashedEvent $event
                  */
                 $event = $this->eventDispatcher->dispatch(
-                    GeneralUtility::makeInstance(MailFactoryBeforePasswordIsHashedEvent::class, $answer)
+                    new MailFactoryBeforePasswordIsHashedEvent($answer)
                 );
                 if ($event->isPasswordShouldBeHashed()) {
                     $answer->setOriginalValue($answer->getValue());

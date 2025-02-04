@@ -55,7 +55,7 @@ class SenderMailPropertiesService
 
         /** @var SenderMailPropertiesGetSenderEmailEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(SenderMailPropertiesGetSenderEmailEvent::class, $senderEmail, $this)
+            new SenderMailPropertiesGetSenderEmailEvent($senderEmail, $this)
         );
         return $event->getSenderEmail();
     }
@@ -80,7 +80,7 @@ class SenderMailPropertiesService
 
         /** @var SenderMailPropertiesGetSenderNameEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(SenderMailPropertiesGetSenderNameEvent::class, $senderName, $this)
+            new SenderMailPropertiesGetSenderNameEvent($senderName, $this)
         );
         return $event->getSenderName();
     }

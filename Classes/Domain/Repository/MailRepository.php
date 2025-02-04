@@ -364,7 +364,7 @@ class MailRepository extends AbstractRepository
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         /** @var MailRepositoryGetVariablesWithMarkersFromMailEvent $event */
         $event = $eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(MailRepositoryGetVariablesWithMarkersFromMailEvent::class, $variables, $mail)
+            new MailRepositoryGetVariablesWithMarkersFromMailEvent($variables, $mail)
         );
 
         return $event->getVariables();

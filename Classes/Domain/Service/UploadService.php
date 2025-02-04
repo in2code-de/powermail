@@ -65,7 +65,7 @@ class UploadService implements SingletonInterface
         $this->fillFilesFromHiddenFields();
         $this->fillFilesFromExistingMail();
         $this->makeUniqueFilenames();
-        $this->eventDispatcher->dispatch(GeneralUtility::makeInstance(UploadServicePreflightEvent::class, $this));
+        $this->eventDispatcher->dispatch(new UploadServicePreflightEvent($this));
     }
 
     /**
@@ -300,7 +300,7 @@ class UploadService implements SingletonInterface
      */
     public function getFiles(): array
     {
-        $this->eventDispatcher->dispatch(GeneralUtility::makeInstance(UploadServiceGetFilesEvent::class, $this));
+        $this->eventDispatcher->dispatch(new UploadServiceGetFilesEvent($this));
         return $this->files;
     }
 

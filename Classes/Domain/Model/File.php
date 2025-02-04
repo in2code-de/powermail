@@ -231,7 +231,7 @@ class File
 
         /** @var GetNewPathAndFilenameEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(GetNewPathAndFilenameEvent::class, $pathAndFilename, $this)
+            new GetNewPathAndFilenameEvent($pathAndFilename, $this)
         );
         return $event->getPathAndFilename();
     }
