@@ -91,11 +91,6 @@ parameters:
 			path: ../../Classes/Controller/FormController.php
 
 		-
-			message: "#^Parameter \\#2 \\$context of method TYPO3\\\\CMS\\\\Core\\\\Log\\\\Logger\\:\\:info\\(\\) expects array, array\\|object\\|null given\\.$#"
-			count: 1
-			path: ../../Classes/Controller/FormController.php
-
-		-
 			message: "#^Variable \\$isSavingOfMailAllowed might not be defined\\.$#"
 			count: 1
 			path: ../../Classes/Controller/FormController.php
