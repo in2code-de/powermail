@@ -3,9 +3,6 @@
 ##################
 plugin.tx_powermail.settings.setup {
   debug {
-    # All views: Show Settings from TypoScript, Flexform and Extension Manager
-    settings = {$plugin.tx_powermail.settings.misc.debugSettings}
-
     # Create view: Show saveToTable array
     saveToTable = {$plugin.tx_powermail.settings.misc.debugSaveToTable}
 

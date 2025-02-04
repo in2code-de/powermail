@@ -537,10 +537,6 @@ class FormController extends AbstractController
             new FormControllerInitializeObjectEvent($this->settings, $this)
         );
         $this->settings = $event->getSettings();
-        if (ArrayUtility::isValidPath($this->settings, 'debug/settings') && $this->settings['debug']['settings']) {
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->info('Powermail settings', $this->settings);
-        }
     }
 
     /**
