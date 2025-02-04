@@ -1,7 +1,0 @@
-##################
-# Switch on or off Debug mode
-##################
-plugin.tx_powermail.settings.setup {
-  debug {
-  }
-}
