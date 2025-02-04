@@ -306,7 +306,6 @@ You need also set `$GLOBALS['TYPO3_CONF_VARS']['FE]['cacheHash']['enforceValidat
 ## I have a problem, what can I do?
 
 - Did you read the manual?
-- Turning on the Debug Output in Powermail (via TypoScript) can help you to find a solution (please use extension devlog to look into the debug arrays)
 - Try to get free help from the slack channel https://typo3.slack.com/messages/ext-powermail/
 - Try to get free help from a TYPO3 Forum like (forum.typo3.org, typo3.net or typo3forum.net)
 - Do you need paid support? Please write to http://www.in2code.de

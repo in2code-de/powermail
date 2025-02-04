@@ -233,9 +233,6 @@ plugin.tx_powermail {
 
       # cat=powermail_additional//0840; type=boolean; label= Prepend original file name: Prepend original file name to randomized file name if randomizeFileName is enabled
       randomizePrependOriginalFileName = 0
-
-      # cat=powermail_additional//0860; type=boolean; label= Debug Variables: Show all given Plugin variables from GET or POST in Devlog
-      debugVariables = 0
     }
 
     spamshield {

@@ -18,7 +18,6 @@ This chapter show you some best practice how you can deal with your daily busine
 * [PreventDuplicates](/ForAdministrators/BestPractice/PreventDuplicates.md)
 * [SavingValuesToThirdPartyTables](/ForAdministrators/BestPractice/SavingValuesToThirdPartyTables.md)
 * [SendingValuesToThirdPartySoftware](/ForAdministrators/BestPractice/SendingValuesToThirdPartySoftware.md)
-* [Debug](/ForAdministrators/BestPractice/Debug.md)
 * [MainTypoScript](/ForAdministrators/BestPractice/MainTypoScript.md)
 * [DateConverterUserFunc](/ForAdministrators/BestPractice/DateConverterUserFunc.md)
 * [TypoScriptConditions](/ForAdministrators/BestPractice/TypoScriptConditions.md)
