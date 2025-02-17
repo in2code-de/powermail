@@ -19,11 +19,16 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
  */
 class ExportCommand extends Command
 {
+
+    use FakeRequestTrait;
+    
     /**
      * @return void
      */
     public function configure()
     {
+        $this->fakeRequest();
+        
         $description =
             'This task can send a mail export with an attachment (XLS or CSV) to a receiver or a group of receivers';
         $this->setDescription($description);
@@ -104,7 +109,7 @@ class ExportCommand extends Command
         if ($period > 0) {
             $variables = [
                 'filter' => [
-                    'start' => strftime('%Y-%m-%d %H:%M:%S', (time() - $period)),
+                    'start' => date('Y-m-d H:i:s', (time() - $period)),
                     'stop' => 'now',
                 ],
             ];
