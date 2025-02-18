@@ -148,6 +148,7 @@
 	<f:form.hidden
 			name="export[fields]"
 			value="{vh:string.implodeField(objects:'{vh:getter.getFieldsFromForm(form:firstForm,property:\'uid\',fieldType:\'exportable\')}')}"
-			id="export_fields" />
+			id="export_fields"
+			respectSubmittedDataValue="false" />
 </f:if>
 
