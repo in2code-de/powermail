@@ -106,7 +106,7 @@ function PowermailBackend() {
    * @private
    */
   let addPageBrowseParamsListener = function () {
-    let paginationItems = document.querySelectorAll('.powermail_list .pagination a');
+    let paginationItems = document.querySelectorAll('.powermail_list ._pagination a');
     paginationItems.forEach(function(item) {
       item.addEventListener('click', function(event) {
         event.preventDefault();
@@ -122,7 +122,7 @@ function PowermailBackend() {
           const form = document.querySelector('#powermail_module_search');
           const paginationHiddenField = document.createElement('input');
           paginationHiddenField.setAttribute('type', 'hidden');
-          paginationHiddenField.setAttribute('name', 'tx_powermail_web_powermailm1[currentPage]');
+          paginationHiddenField.setAttribute('name', 'currentPage');
           paginationHiddenField.setAttribute('value', page.toString());
           form.appendChild(paginationHiddenField);
           form.submit();

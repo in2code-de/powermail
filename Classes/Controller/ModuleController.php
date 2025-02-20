@@ -87,7 +87,7 @@ class ModuleController extends AbstractController
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
         $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
 
-        $currentPage = (int)($this->request->getQueryParams()['currentPage'] ?? 1);
+        $currentPage = (int)($this->request->getParsedBody()['currentPage'] ?? $this->request->getQueryParams()['currentPage'] ?? 1);
         $currentPage = $currentPage > 0 ? $currentPage : 1;
 
         $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
