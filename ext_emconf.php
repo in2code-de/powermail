@@ -19,6 +19,7 @@ $EM_CONF[$_EXTKEY] = [
         'conflicts' => [
         ],
         'suggests' => [
+            'base_excel' => '',
             'static_info_tables' => ''
         ],
     ],
