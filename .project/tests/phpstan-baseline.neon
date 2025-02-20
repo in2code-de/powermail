@@ -101,22 +101,7 @@ parameters:
 			path: ../../Classes/Controller/ModuleController.php
 
 		-
-			message: "#^Call to method loadFromString\\(\\) on an unknown class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html\\.$#"
-			count: 1
-			path: ../../Classes/Controller/ModuleController.php
-
-		-
-			message: "#^Call to static method createWriter\\(\\) on an unknown class PhpOffice\\\\PhpSpreadsheet\\\\IOFactory\\.$#"
-			count: 1
-			path: ../../Classes/Controller/ModuleController.php
-
-		-
 			message: "#^Cannot access offset 'id' on array\\|object\\.$#"
-			count: 1
-			path: ../../Classes/Controller/ModuleController.php
-
-		-
-			message: "#^Instantiated class PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Html not found\\.$#"
 			count: 1
 			path: ../../Classes/Controller/ModuleController.php
 
