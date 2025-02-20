@@ -51,6 +51,7 @@ class ModuleController extends AbstractController
         protected IconFactory $iconFactory,
         protected PageRenderer $pageRenderer,
     ) {
+        $this->isPhpSpreadsheetInstalled = class_exists(\PhpOffice\PhpSpreadsheet\IOFactory::class);
     }
 
     protected function initializeAction(): void

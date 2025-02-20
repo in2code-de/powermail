@@ -17,11 +17,13 @@ look at the final output in the frontend.
 Some basic points:
 
 - Main features of this mailform extension is to store the mails into
-  the database. Export it from the backend module (xls, csv) or list the
+  the database.
+
+- Export it from the backend module (xls, csv) or list the
   values in the frontend again (Pi2). XLS export in the backend is only
-  possible if the extension *jambagecom/base-excel*  is installed. In
-  classic installation, a phar file for phpspreadsheet must be manually
-  created (See docs of EXT:base_excel).
+  possible for classic installation, if a phar file for phpspreadsheet is manually
+  created (See docs of EXT:base_excel). In composer-based installation the neccessary
+  package is installed automatically.
 
 - Powermail send one or more mails to a static receiver or to dynamic receivers or
   to a whole Frontend-User Group.

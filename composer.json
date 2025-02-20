@@ -42,11 +42,11 @@
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
-		"ext-curl": "*"
+		"ext-curl": "*",
+		"phpoffice/phpspreadsheet": "^4.0"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "*",
-		"jambagecom/base-excel": "^v1.29.0"
+		"sjbr/static-info-tables": "Provides country information for the country field"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"

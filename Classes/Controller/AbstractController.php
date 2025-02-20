@@ -16,7 +16,6 @@ use In2code\Powermail\Utility\StringUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
@@ -61,7 +60,6 @@ abstract class AbstractController extends ActionController
         protected UploadService $uploadService,
         protected EventDispatcherInterface $eventDispatcher
     ) {
-        $this->isPhpSpreadsheetInstalled = ExtensionManagementUtility::isLoaded('base_excel');
     }
 
     /**
