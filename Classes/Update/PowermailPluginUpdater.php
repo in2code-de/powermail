@@ -13,7 +13,6 @@ use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
-
 #[UpgradeWizard('powermailPluginUpdater')]
 class PowermailPluginUpdater implements UpgradeWizardInterface
 {

@@ -616,7 +616,7 @@ $fieldsTca = [
                 'default' => '',
                 'eval' => 'trim',
             ],
-            'displayCond' => 'FIELD:mandatory:REQ:true'
+            'displayCond' => 'FIELD:mandatory:REQ:true',
         ],
         'validation' => [
             'l10n_mode' => 'exclude',

@@ -7,7 +7,6 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Exception\DatabaseFieldMissingException;
 use In2code\Powermail\Exception\PropertiesMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 
