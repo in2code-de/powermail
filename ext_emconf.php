@@ -22,4 +22,9 @@ $EM_CONF[$_EXTKEY] = [
             'static_info_tables' => ''
         ],
     ],
+    'autoload' => [
+        'psr-4' => [
+            'In2code\\Powermail\\' => 'Classes',
+        ],
+    ],
 ];
