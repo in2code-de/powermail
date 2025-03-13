@@ -8,6 +8,11 @@ use In2code\Powermail\Domain\Model\Form;
 
 final class FormControllerFormActionEvent
 {
+    /**
+     * @var array<string,mixed>
+     */
+    protected array $viewVariables = [];
+
     public function __construct(protected ?Form $form, protected FormController $formController)
     {
     }
@@ -26,5 +31,24 @@ final class FormControllerFormActionEvent
     public function getFormController(): FormController
     {
         return $this->formController;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function getViewVariables(): array
+    {
+        return $this->viewVariables;
+    }
+
+    /**
+     * Add additional variables to the view
+     *
+     * @param array<string,mixed> $variables
+     * @return void
+     */
+    public function addViewVariables(array $variables): void
+    {
+        $this->viewVariables = array_merge($this->viewVariables, $variables);
     }
 }
