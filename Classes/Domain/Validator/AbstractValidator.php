@@ -83,15 +83,17 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->settings = $configurationService->getTypoScriptSettings();
+    }
 
-        $request = $GLOBALS['TYPO3_REQUEST'];
-        if ($request instanceof ServerRequestInterface) {
+    public function initFlexform(): void
+    {
+        if ($this->request instanceof ServerRequestInterface) {
             /** @var FlexFormService $flexFormService */
             $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
             $this->flexForm = $flexFormService->convertFlexFormContentToArray(
-                // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
-                // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
-                $request->getAttribute('currentContentObject')->data['pi_flexform'] ?? ''
+            // added check for the array key for `pi_flexform` due to https://github.com/in2code-de/powermail/issues/1020
+            // please be aware, if you include powermail via TypoScript, you are on your own to set all necessary values
+                $this->request->getAttribute('currentContentObject')->data['pi_flexform'] ?? ''
             );
         }
     }

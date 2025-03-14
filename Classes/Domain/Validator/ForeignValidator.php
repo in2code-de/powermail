@@ -37,7 +37,9 @@ class ForeignValidator extends AbstractValidator
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
                 $validator = GeneralUtility::makeInstance($validatorConf['class']);
+                $validator->setRequest($this->getRequest());
                 $validator->setConfiguration($validatorConf['config'] ?? []);
+                $validator->initFlexform();
                 $validator->initialize();
                 $this->addErrors($validator->validate($mail));
             } else {
