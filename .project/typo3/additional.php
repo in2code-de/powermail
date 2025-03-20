@@ -11,6 +11,7 @@ $changeSettings = [
         'cacheHash' => [
             'enforceValidation' => false,
         ],
+        'pageNotFoundOnCHashError' => false,
     ],
     'DB' => [
         'Connections' => [
