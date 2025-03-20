@@ -32,6 +32,7 @@ use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use In2code\Powermail\Utility\TemplateUtility;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use function in_array;
 use Psr\Http\Message\ResponseInterface;
 use Throwable;
@@ -109,13 +110,11 @@ class FormController extends AbstractController
     public function checkConfirmationAction(Mail $mail): ResponseInterface
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
-
         if ($response !== null) {
             return $response;
         }
 
         $response = $this->forwardIfMailParamEmpty();
-
         if ($response !== null) {
             return $response;
         }
@@ -134,12 +133,12 @@ class FormController extends AbstractController
     public function initializeConfirmationAction(): void
     {
         // ToDo -- v13: move exceptions to methods
-        $response = $this->forwardIfMailParamEmpty();
+        $response = $this->forwardIfFormParamsDoNotMatch();
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
 
-        $response = $this->forwardIfFormParamsDoNotMatch();
+        $response = $this->forwardIfMailParamEmpty();
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
@@ -203,13 +202,11 @@ class FormController extends AbstractController
             E_USER_DEPRECATED
         );
         $response = $this->forwardIfFormParamsDoNotMatch();
-
         if ($response !== null) {
             return $response;
         }
 
         $response = $this->forwardIfMailParamEmpty();
-
         if ($response !== null) {
             return $response;
         }
@@ -228,12 +225,12 @@ class FormController extends AbstractController
     public function initializeCreateAction(): void
     {
         // ToDo -- v13: move exceptions to methods
-        $response = $this->forwardIfMailParamEmpty();
+        $response = $this->forwardIfFormParamsDoNotMatch();
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
 
-        $response = $this->forwardIfFormParamsDoNotMatch();
+        $response = $this->forwardIfMailParamEmpty();
         if ($response !== null) {
             throw new PropagateResponseException($response);
         }
@@ -439,7 +436,7 @@ class FormController extends AbstractController
 
             $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
             if ($response !== null) {
-                return $response;
+                throw new PropagateResponseException($response);
             }
 
             if ($mail->getHidden() && $this->isPersistActive()) {
@@ -715,5 +712,18 @@ class FormController extends AbstractController
     public function injectPersistenceManager(PersistenceManager $persistenceManager): void
     {
         $this->persistenceManager = $persistenceManager;
+    }
+
+    public function processRequest(RequestInterface $request): ResponseInterface
+    {
+        try {
+            return parent::processRequest($request);
+        } catch (PropagateResponseException $e) {
+            return $e->getResponse();
+        } catch (\Exception $e) {
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('An error occurred: ', [$e->getMessage()]);
+            return (new ForwardResponse('form'))->withoutArguments();
+        }
     }
 }
