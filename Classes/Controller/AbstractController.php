@@ -81,12 +81,12 @@ abstract class AbstractController extends ActionController
     /**
      * Reformat array for createAction
      *
-     * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
      * @throws ExceptionExtbaseObject
+     * @throws DeprecatedException
      */
     protected function reformatParamsForAction(): void
     {

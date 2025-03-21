@@ -44,12 +44,14 @@ use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
@@ -111,14 +113,17 @@ class FormController extends AbstractController
     }
 
     /**
-     * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
+     * @throws PropagateResponseException
+     * @throws DeprecatedException
      */
     public function initializeConfirmationAction(): void
     {
+        $this->forwardIfFormParamsDoNotMatch();
+        $this->forwardIfMailParamIsEmpty();
         $this->reformatParamsForAction();
     }
 
@@ -143,14 +148,6 @@ class FormController extends AbstractController
             return (new ForwardResponse('form'))->withoutArguments();
         }
 
-        if ($this->formParamsDoNotMatch() === true) {
-            return (new ForwardResponse('form'))->withArguments($this->request->getArguments());
-        }
-
-        if ($this->isMailParamEmpty() === true) {
-            return new ForwardResponse('form');
-        }
-
         $event = new FormControllerConfirmationActionEvent($mail, $this);
         $this->eventDispatcher->dispatch($event);
         $mail = $event->getMail();
@@ -173,9 +170,12 @@ class FormController extends AbstractController
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
+     * @throws PropagateResponseException
      */
     public function initializeCreateAction(): void
     {
+        $this->forwardIfFormParamsDoNotMatch();
+        $this->forwardIfMailParamIsEmpty();
         $this->reformatParamsForAction();
     }
 
@@ -195,14 +195,6 @@ class FormController extends AbstractController
     #[ExtbaseAnnotation\Validate(['validator' => \In2code\Powermail\Domain\Validator\CustomValidator::class, 'param' => 'mail'])]
     public function createAction(Mail $mail, string $hash = ''): ResponseInterface
     {
-        if ($this->formParamsDoNotMatch() === true) {
-            return new ForwardResponse('form');
-        }
-
-        if ($this->isMailParamEmpty() === true) {
-            return new ForwardResponse('form');
-        }
-
         if ($mail->getUid() !== null && !HashUtility::isHashValid($hash, $mail)) {
             return (new ForwardResponse('form'))->withoutArguments();
         }
@@ -374,10 +366,7 @@ class FormController extends AbstractController
             $mail = $event->getMail();
             $hash = $event->getHash();
 
-            $response = $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
-            if ($response instanceof \TYPO3\CMS\Extbase\Http\ForwardResponse) {
-                return $response;
-            }
+            $this->forwardIfFormParamsDoNotMatchForOptinConfirm($mail);
 
             if ($mail->getHidden() && $this->isPersistActive()) {
                 $mail->setHidden(false);
@@ -489,7 +478,7 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      */
-    protected function formParamsDoNotMatch(): bool
+    protected function forwardIfFormParamsDoNotMatch(): void
     {
         $arguments = $this->request->getArguments();
         if (isset($arguments['mail'])) {
@@ -505,34 +494,29 @@ class FormController extends AbstractController
 
             $formsToContent = GeneralUtility::intExplode(',', ($this->settings['main']['form'] ?? ''));
             if (!($formUid === null || in_array($formUid, $formsToContent, false))) {
-                return true;
+                $response = (new ForwardResponse('form'))->withArguments($this->request->getArguments());
+                throw new PropagateResponseException($response);
             }
         }
-
-        return false;
     }
 
     /**
      * Forward to formAction if no mail param given
      */
-    protected function isMailParamEmpty(): bool
+    protected function forwardIfMailParamIsEmpty(): void
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
-            $logger = ObjectUtility::getLogger(self::class);
-            $logger->warning('Redirect (mail empty)', $arguments);
-
-            return true;
+            $response = new ForwardResponse('form');
+            throw new PropagateResponseException($response);
         }
-
-        return false;
     }
 
     /**
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(?Mail $mail = null): ?ForwardResponse
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(?Mail $mail = null): void
     {
         if ($mail instanceof \In2code\Powermail\Domain\Model\Mail) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
@@ -540,11 +524,10 @@ class FormController extends AbstractController
                 $logger = ObjectUtility::getLogger(self::class);
                 $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
 
-                return new ForwardResponse('form');
+                $response = new ForwardResponse('form');
+                throw new PropagateResponseException($response);
             }
         }
-
-        return null;
     }
 
     /**
@@ -614,6 +597,19 @@ class FormController extends AbstractController
                     SessionUtility::setCaptchaSession('', (int)$answer->getUid());
                 }
             }
+        }
+    }
+
+    public function processRequest(RequestInterface $request): ResponseInterface
+    {
+        try {
+            return parent::processRequest($request);
+        } catch (PropagateResponseException $e) {
+            return $e->getResponse();
+        } catch (\Exception $e) {
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('An error occurred: ', [$e->getMessage()]);
+            return (new ForwardResponse('form'))->withoutArguments();
         }
     }
 }
