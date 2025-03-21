@@ -68,6 +68,7 @@ class SpamShieldValidator extends AbstractValidator
      */
     protected function isValid($mail): void
     {
+        $this->initFlexform();
         $this->runAllSpamMethods($mail);
         $this->calculateMailSpamFactor();
         $this->saveSpamFactorInSession();
