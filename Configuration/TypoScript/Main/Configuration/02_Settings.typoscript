@@ -26,6 +26,9 @@ plugin.tx_powermail.settings.setup {
     # Keep third-party GET/POST variables on submit with addQueryString="1" in form
     addQueryString = {$plugin.tx_powermail.settings.misc.addQueryString}
 
+    # Use static-info-tables instead of CountryAPI
+    useStaticInfoTables = {$plugin.tx_powermail.settings.misc.useStaticInfoTables}
+
     # File upload settings
     file {
       folder = {$plugin.tx_powermail.settings.misc.uploadFolder}

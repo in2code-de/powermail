@@ -45,9 +45,6 @@
 		"ext-curl": "*",
 		"phpoffice/phpspreadsheet": "^4.0"
 	},
-	"suggest": {
-		"sjbr/static-info-tables": "Provides country information for the country field"
-	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
 	},

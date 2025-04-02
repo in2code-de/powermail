@@ -219,6 +219,9 @@ plugin.tx_powermail {
       # You need also set `$GLOBALS['TYPO3_CONF_VARS']['FE]['cacheHash']['enforceValidation'] = false`
       addQueryString = 0
 
+      # cat=powermail_additional//0809; type=string; label= Use EXT:static-info-tables instead of CountryAPI, Possible Values are 0, 1
+      useStaticInfoTables = 0
+
       # cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
       uploadFolder = uploads/tx_powermail/
 
