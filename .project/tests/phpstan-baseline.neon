@@ -3396,11 +3396,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Form/AdvancedSelectViewHelper.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Form\\\\CountriesViewHelper\\:\\:getCountries\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\ViewHelpers\\\\Form\\\\CountriesViewHelper\\:\\:render\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Form/CountriesViewHelper.php
