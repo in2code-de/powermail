@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Domain\Service;
 
 use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\DriverException;
 use In2code\Powermail\Exception\DatabaseFieldMissingException;
 use In2code\Powermail\Exception\PropertiesMissingException;
 use In2code\Powermail\Utility\DatabaseUtility;
@@ -108,7 +109,12 @@ class SaveToAnyTableService
     {
         $connection = $this->getConnection();
         $connection->insert($this->getTable(), $this->getProperties());
-        return (int)$connection->lastInsertId();
+        try {
+            return (int)$connection->lastInsertId();
+        } catch (DriverException) {
+            // The table has no uid, for example an mm table
+            return 0;
+        }
     }
 
     /**
