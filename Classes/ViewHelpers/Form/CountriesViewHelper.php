@@ -60,7 +60,7 @@ class CountriesViewHelper extends AbstractViewHelper
     /**
      * Build the country array
      *
-     * @return Array<string, string>
+     * @return array<string, string>
      */
     protected function getCountriesFromCountryAPI(): array
     {

@@ -19,16 +19,15 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
  */
 class ExportCommand extends Command
 {
-
     use FakeRequestTrait;
-    
+
     /**
      * @return void
      */
     protected function configure()
     {
         $this->fakeRequest();
-        
+
         $description =
             'This task can send a mail export with an attachment (XLS or CSV) to a receiver or a group of receivers';
         $this->setDescription($description);
