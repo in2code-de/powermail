@@ -10,9 +10,9 @@ use In2code\Powermail\Domain\Service\ConfigurationService;
 use In2code\Powermail\Events\PrefillMultiFieldViewHelperEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\SessionUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -454,8 +454,7 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
      */
     protected function isCachedForm(): bool
     {
-        return ConfigurationUtility::isEnableCachingActive()
-            && ObjectUtility::getTyposcriptFrontendController()->no_cache !== true;
+        return ConfigurationUtility::isEnableCachingActive() && $this->isPageCacheEnabled();
     }
 
     public function initialize(): void
@@ -464,5 +463,22 @@ class PrefillMultiFieldViewHelper extends AbstractViewHelper
         $this->contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);
         $this->configuration = $configurationService->getTypoScriptConfiguration();
+    }
+
+    private function getRequest(): ServerRequestInterface | null
+    {
+        if ($this->renderingContext->hasAttribute(ServerRequestInterface::class)) {
+            return $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        }
+        return null;
+    }
+
+    private function isPageCacheEnabled(): bool
+    {
+        $request = $this->getRequest();
+
+        return $request !== null
+            && ($frontendCacheInstruction = $request->getAttribute('frontend.cache.instruction')) !== null
+            && $frontendCacheInstruction->isCachingAllowed();
     }
 }

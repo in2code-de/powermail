@@ -3311,16 +3311,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Be/PowermailVersionNoteViewHelper.php
 
 		-
-			message: "#^Access to an undefined property TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\:\\:\\$fe_user\\.$#"
-			count: 2
-			path: ../../Classes/ViewHelpers/Be/SessionViewHelper.php
-
-		-
-			message: "#^Class TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController constructor invoked with 5 parameters, 0 required\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Be/SessionViewHelper.php
-
-		-
 			message: "#^Cannot access offset 'constraints' on false\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Be/T3VersionViewHelper.php
@@ -3561,11 +3551,6 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
 		-
-			message: "#^Cannot access property \\$no_cache on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
 			message: "#^Cannot cast array\\|string to string\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
@@ -3694,11 +3679,6 @@ parameters:
 			message: "#^Right side of && is always true\\.$#"
 			count: 2
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
-
-		-
-			message: "#^Cannot access property \\$no_cache on TYPO3\\\\CMS\\\\Frontend\\\\Controller\\\\TypoScriptFrontendController\\|null\\.$#"
-			count: 1
-			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 
 		-
 			message: "#^Cannot call method getField\\(\\) on object\\|null\\.$#"
