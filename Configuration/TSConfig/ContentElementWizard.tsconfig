@@ -1,6 +1,6 @@
 mod.wizards.newContentElement.wizardItems.ext-powermail {
   header = LLL:EXT:powermail/Resources/Private/Language/locallang_mod.xlf:pluginWizardTitle
-  after = plugins,common,forms,menu
+  after = plugins,default,forms,menu
   before = special
   elements {
     powermail-form {
