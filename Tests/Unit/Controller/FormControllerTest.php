@@ -3,6 +3,7 @@
 namespace In2code\Powermail\Tests\Unit\Controller;
 
 use In2code\Powermail\Controller\FormController;
+use In2code\Powermail\DataProcessor\DataProcessorRunner;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FieldRepository;
@@ -22,6 +23,7 @@ use TYPO3\CMS\Extbase\Mvc\Exception\StopActionException;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
@@ -50,6 +52,8 @@ class FormControllerTest extends UnitTestCase
                 new MailRepository(),
                 $this->getMockBuilder(UploadService::class)->disableOriginalConstructor()->getMock(),
                 $eventDispatcher,
+                new DataProcessorRunner(),
+                $this->getMockBuilder(PersistenceManager::class)->disableOriginalConstructor()->getMock(),
             ]
         );
     }
@@ -369,7 +373,10 @@ class FormControllerTest extends UnitTestCase
 
         $this->generalValidatorMock->_set('request', new Request($request));
         $this->generalValidatorMock->_set('response', new Response());
-        $this->generalValidatorMock->_set('uriBuilder', new UriBuilder());
+        $this->generalValidatorMock->_set(
+            'uriBuilder',
+            $this->getMockBuilder(UriBuilder::class)->disableOriginalConstructor()->getMock())
+        ;
         $this->generalValidatorMock->_set('settings', ['staticTemplate' => '1']);
         $this->generalValidatorMock->_set('objectManager', TestingHelper::getObjectManager());
     }
