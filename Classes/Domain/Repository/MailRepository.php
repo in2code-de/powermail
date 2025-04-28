@@ -411,8 +411,7 @@ class MailRepository extends AbstractRepository
         foreach ($mail->getAnswers() as $answer) {
             /** @var Answer $answer */
             if (method_exists($answer->getField(), 'getUid') && $answer->getField()->isSenderName()) {
-                $value = is_array($answer->getValue()) ? implode($glue, $answer->getValue()) : $answer->getValue();
-
+                $value = $this->glueAnswerValues($answer->getValue(), $glue);
                 $name .= $value . $glue;
             }
         }
@@ -436,6 +435,14 @@ class MailRepository extends AbstractRepository
         }
 
         return trim($name);
+    }
+
+    /**
+     * @param string|array<string> $value
+     */
+    public function glueAnswerValues(string|array $value, string $glue = ' '): string
+    {
+        return is_array($value) ? implode($glue, $value) : $value;
     }
 
     /**
