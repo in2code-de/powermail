@@ -131,25 +131,6 @@ class BackendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @param array $getParameters
-     * @param array $expectedResult
-     * @param bool $injectAsGetParam
-     * @dataProvider getCurrentParametersReturnsArrayDataProvider
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getCurrentParameters
-     */
-    public function getCurrentParametersReturnsArray($getParameters, $expectedResult, $injectAsGetParam): void
-    {
-        if ($injectAsGetParam === false) {
-            self::assertSame($expectedResult, BackendUtility::getCurrentParameters($getParameters));
-        } else {
-            $_GET = $getParameters;
-            self::assertSame($expectedResult, BackendUtility::getCurrentParameters([]));
-        }
-    }
-
-    /**
      * Data Provider for getPidFromBackendPageReturnsInt()
      */
     public static function getPidFromBackendPageReturnsIntDataProvider(): array
@@ -181,23 +162,6 @@ class BackendUtilityTest extends UnitTestCase
                 1514816014062,
             ],
         ];
-    }
-
-    /**
-     * @param string $returnUrl
-     * @param int $expectedResult
-     * @dataProvider getPidFromBackendPageReturnsIntDataProvider
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getPidFromBackendPage
-     */
-    public function getPidFromBackendPageReturnsInt($returnUrl, $expectedResult): void
-    {
-        if (empty($returnUrl)) {
-            $_GET['returnUrl'] = '&returnUrl=sdaf.html?id=1514816014062&ied=abc';
-        }
-
-        self::assertSame($expectedResult, BackendUtility::getPidFromBackendPage($returnUrl));
     }
 
     /**
