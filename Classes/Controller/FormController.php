@@ -478,7 +478,7 @@ class FormController extends AbstractController
      * Forward to formAction if wrong form in plugin variables given
      *        used for createAction() and confirmationAction()
      */
-    protected function forwardIfFormParamsDoNotMatch(): void
+    protected function forwardIfFormParamsDoNotMatch(): bool
     {
         $arguments = $this->request->getArguments();
         if (isset($arguments['mail'])) {
@@ -498,25 +498,27 @@ class FormController extends AbstractController
                 throw new PropagateResponseException($response);
             }
         }
+        return false;
     }
 
     /**
      * Forward to formAction if no mail param given
      */
-    protected function forwardIfMailParamIsEmpty(): void
+    protected function forwardIfMailParamIsEmpty(): bool
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
             $response = new ForwardResponse('form');
             throw new PropagateResponseException($response);
         }
+        return false;
     }
 
     /**
      * Forward to formAction if wrong form in plugin variables given
      *        used in optinConfirmAction()
      */
-    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(?Mail $mail = null): void
+    protected function forwardIfFormParamsDoNotMatchForOptinConfirm(?Mail $mail = null): bool
     {
         if ($mail instanceof \In2code\Powermail\Domain\Model\Mail) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
@@ -528,6 +530,8 @@ class FormController extends AbstractController
                 throw new PropagateResponseException($response);
             }
         }
+
+        return false;
     }
 
     /**
