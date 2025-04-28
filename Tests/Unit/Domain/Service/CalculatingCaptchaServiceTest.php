@@ -120,11 +120,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'captcha.' => [
-                    'default.' => [
-                        'textAngle' => $hexColorString,
-                    ],
-                ],
+                'textAngle' => $hexColorString,
             ]
         );
 
@@ -174,11 +170,7 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'captcha.' => [
-                    'default.' => [
-                        'distanceHor' => $hexColorString,
-                    ],
-                ],
+                'distanceHor' => $hexColorString,
             ]
         );
 
@@ -228,14 +220,9 @@ class CalculatingCaptchaServiceTest extends UnitTestCase
         $this->generalValidatorMock->_set(
             'configuration',
             [
-                'captcha.' => [
-                    'default.' => [
-                        'distanceVer' => $hexColorString,
-                    ],
-                ],
+                'distanceVer' => $hexColorString,
             ]
         );
-
         for ($i = 0; $i < 20; $i++) {
             $result = $this->generalValidatorMock->_call('getVerticalDistanceForCaptcha');
             self::assertLessThanOrEqual($expectedResult[1], $result);
