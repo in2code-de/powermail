@@ -50,6 +50,11 @@ class Form extends AbstractEntity
     protected array $pagesByUid = [];
 
     /**
+     * @var string
+     */
+    protected string $autocompleteToken = '';
+
+    /**
      * @return string
      */
     public function getTitle(): string
@@ -222,5 +227,23 @@ class Form extends AbstractEntity
             return $field->isTypeOf($field::FIELD_TYPE_EXTPORTABLE);
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutocompleteToken(): string
+    {
+        return $this->autocompleteToken;
+    }
+
+    /**
+     * @param string $autocompleteToken
+     *
+     * @return void
+     */
+    public function setAutocompleteToken(string $autocompleteToken): void
+    {
+        $this->autocompleteToken = $autocompleteToken;
     }
 }
