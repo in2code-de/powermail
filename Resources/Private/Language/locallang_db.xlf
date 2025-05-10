@@ -114,6 +114,9 @@
 			<trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages">
 				<source>Pages</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_form.autocomplete_token" resname="tx_powermail_domain_model_form.autocomplete_token">
+				<source>Autocomplete</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page">
 				<source>Page</source>
 			</trans-unit>
@@ -632,6 +635,15 @@
 			</trans-unit>
 			<trans-unit id="pluginInfo.more" resname="pluginInfo.more">
 				<source>More ...</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.none" resname="autocomplete_token.none">
+				<source>Disable attribute (default)</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.on" resname="autocomplete_token.on">
+				<source>Automatically complete (on)</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.off" resname="autocomplete_token.off">
+				<source>Do not automatically complete (off)</source>
 			</trans-unit>
 		</body>
 	</file>

@@ -10,6 +10,7 @@ CREATE TABLE tx_powermail_domain_model_form (
 	note tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	css varchar(255) DEFAULT '' NOT NULL,
 	pages varchar(255) DEFAULT '' NOT NULL,
+    autocomplete_token varchar(3) DEFAULT '' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
