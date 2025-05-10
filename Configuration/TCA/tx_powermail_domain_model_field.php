@@ -60,6 +60,10 @@ $typeSettingsMultiple = 'page, title, type, settings, ' .
     Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.prefill_title;33, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete;50, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete_additional;51, ' .
     '--palette--;Layout;41, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -91,6 +95,10 @@ $typeSmallDescription = 'page, title, type, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete;50, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete_additional;51, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -103,6 +111,10 @@ $typeSmallPrefill = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.prefill_title;31, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete;50, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete_additional;51, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
@@ -121,6 +133,10 @@ $typeSmallPrefillDescription = 'page, title, type, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete;50, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete_additional;51, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
     'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime';
@@ -135,6 +151,10 @@ $typeSmallMandatory = 'page, title, type, ' .
     Field::TABLE_NAME . '.validation_title;21, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete;50, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.palette.autocomplete_additional;51, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
     Field::TABLE_NAME . '.marker_title;5, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
@@ -1047,7 +1067,7 @@ $fieldsTca = [
             ],
             'displayCond' => [
                 'AND' => [
-                    'FIELD:type:IN:input,textarea',
+                    'FIELD:type:IN:input,textarea,password,select,country,location,hidden',
                     'FIELD:autocomplete_token:!IN:on,off,nickname,sex,impp,url,organization-title,username,new-password,current-password,one-time-code,bday,bday-day,bday-month,bday-year,language,photo',
                     'FIELD:autocomplete_token:REQ:true',
                 ],
@@ -1066,7 +1086,7 @@ $fieldsTca = [
             ],
             'displayCond' => [
                 'AND' => [
-                    'FIELD:type:IN:input,textarea',
+                    'FIELD:type:IN:input,textarea,select,country,location,hidden',
                     'FIELD:autocomplete_token:!IN:on,off,nickname,sex,impp,url,organization-title,tel-country-code,tel-area-code,tel-national,tel-local,tel-local-prefix,tel-local-suffix,tel-extension,username,new-password,current-password,one-time-code,bday,bday-day,bday-month,bday-year,language,photo',
                     'FIELD:autocomplete_token:REQ:true',
                 ],
@@ -1089,7 +1109,7 @@ $fieldsTca = [
             ],
             'displayCond' => [
                 'AND' => [
-                    'FIELD:type:IN:input,textarea',
+                    'FIELD:type:IN:input,textarea,select,country,location,hidden',
                     'FIELD:autocomplete_token:IN:email,impp,tel',
                 ],
             ],
@@ -1124,12 +1144,7 @@ $fieldsTca = [
                     'allowLanguageSynchronization' => true,
                 ],
             ],
-            'displayCond' => [
-                'OR' => [
-                    'FIELD:type:=:input',
-                    'FIELD:type:=:textarea',
-                ],
-            ],
+            'displayCond' => 'FIELD:type:IN:'.$fieldsWithAutocompleteOptions,
         ],
     ],
 ];
