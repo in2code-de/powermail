@@ -115,6 +115,10 @@ CREATE TABLE tx_powermail_domain_model_field (
 	mandatory tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	own_marker_select tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	marker varchar(255) DEFAULT '' NOT NULL,
+    autocomplete_token   varchar(20)  DEFAULT '' NOT NULL,
+    autocomplete_section varchar(100) DEFAULT '' NOT NULL,
+    autocomplete_type    varchar(8)   DEFAULT '' NOT NULL,
+    autocomplete_purpose varchar(8)   DEFAULT '' NOT NULL,
 
 	# Dummy Fields
 	auto_marker tinyint(2) unsigned DEFAULT '0' NOT NULL,

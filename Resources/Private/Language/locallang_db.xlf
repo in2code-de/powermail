@@ -378,6 +378,24 @@
 			<trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1">
 				<source>Email or Name</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.palette.autocomplete" resname="tx_powermail_domain_model_field.palette.autocomplete">
+				<source>Autocomplete options</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.palette.autocomplete_additional" resname="tx_powermail_domain_model_field.palette.autocomplete_additional">
+				<source>Additional autocomplete options</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token">
+				<source>Token (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.autocomplete_section" resname="tx_powermail_domain_model_field.autocomplete_section">
+				<source>Section (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.autocomplete_purpose" resname="tx_powermail_domain_model_field.autocomplete_purpose">
+				<source>Purpose (optional)</source>
+			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.autocomplete_type" resname="tx_powermail_domain_model_field.autocomplete_type">
+				<source>Type (optional)</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer">
 				<source>Answer</source>
 			</trans-unit>
@@ -644,6 +662,218 @@
 			</trans-unit>
 			<trans-unit id="autocomplete_token.off" resname="autocomplete_token.off">
 				<source>Do not automatically complete (off)</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.general" resname="autocomplete_token.groups.general">
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.name" resname="autocomplete_token.groups.name">
+				<source>Personal information</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.bday" resname="autocomplete_token.groups.bday">
+				<source>Birthday</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.user" resname="autocomplete_token.groups.user">
+				<source>User information</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.contact" resname="autocomplete_token.groups.contact">
+				<source>Contact information</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.address" resname="autocomplete_token.groups.address">
+				<source>Individual address information</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.cc" resname="autocomplete_token.groups.cc">
+				<source>Payment information</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.tel" resname="autocomplete_token.groups.tel">
+				<source>Telephone</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.groups.other" resname="autocomplete_token.groups.other">
+				<source>Other</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.name" resname="name">
+				<source>Full name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.honorific-prefix" resname="honorific-prefix">
+				<source>Prefix or title</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.given-name" resname="given-name">
+				<source>Given (or "first") name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.additional-name" resname="additional-name">
+				<source>Middle name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.family-name" resname="family-name">
+				<source>Family (or "last") name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.honorific-suffix" resname="honorific-suffix">
+				<source>Honorific suffix</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.nickname" resname="nickname">
+				<source>Nickname</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.sex" resname="sex">
+				<source>Gender identity</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.email" resname="email">
+				<source>Email address</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.impp" resname="impp">
+				<source>Instant messaging protocol endpoint</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.url" resname="url">
+				<source>Website</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.organization-title" resname="organization-title">
+				<source>Organization title</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.organization" resname="organization">
+				<source>Organization</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.street-address" resname="street-address">
+				<source>Street address</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-line1" resname="address-line1">
+				<source>Address line 1</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-line2" resname="address-line2">
+				<source>Address line 2</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-line3" resname="address-line3">
+				<source>Address line 3</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-level1" resname="address-level1">
+				<source>First administrative level</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-level2" resname="address-level2">
+				<source>Second administrative level</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-level3" resname="address-level3">
+				<source>Third administrative level</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.address-level4" resname="address-level1">
+				<source>Fourth administrative level</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.country" resname="country">
+				<source>Country or territory code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.country-name" resname="country-name">
+				<source>Country or territory name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.postal-code" resname="postal-code">
+				<source>Postal code (ZIP)</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel" resname="tel">
+				<source>Full telephone no.</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-country-code" resname="tel-country-code">
+				<source>Country code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-area-code" resname="tel-area-code">
+				<source>Area code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-national" resname="tel-national">
+				<source>Telephone number without the county code component</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-local" resname="tel-local">
+				<source>Telephone number without the country or area code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-local-prefix" resname="tel-local-prefix">
+				<source>Exchange number</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-local-suffix" resname="tel-local-suffix">
+				<source>Number within exchange</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.tel-extension" resname="tel-extension">
+				<source>Internal extension code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.username" resname="username">
+				<source>Username</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.new-password" resname="new-password">
+				<source>New password</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.current-password" resname="current-password">
+				<source>Current password</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.one-time-code" resname="one-time-code">
+				<source>One-time verification code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.bday" resname="bday">
+				<source>Birthday</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.bday-day" resname="bday-day">
+				<source>Day component of birthday</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.bday-month" resname="bday-month">
+				<source>Month component of birthday</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.bday-year" resname="bday-year">
+				<source>Year component of birthday</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-name" resname="cc-name">
+				<source>Full name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-given-name" resname="cc-given-name">
+				<source>Given (or "first") name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-additional-name" resname="cc-additional-name">
+				<source>Middle name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-family-name" resname="cc-family-name">
+				<source>Family (or "last") name</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-number" resname="cc-number">
+				<source>Identification code, e.g. CC no.</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-exp" resname="cc-exp">
+				<source>Expiration date</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-exp-month" resname="cc-exp-month">
+				<source>Month component of the expiration date</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-exp-year" resname="cc-exp-year">
+				<source>Year component of the expiration date</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-csc" resname="cc-csc">
+				<source>Security code</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.cc-type" resname="cc-type">
+				<source>Type of payment instrument</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.transaction-currency" resname="transaction-currency">
+				<source>Transaction currency</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.transaction-amount" resname="transaction-amount">
+				<source>Transaction amount</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.language" resname="language">
+				<source>Preferred language</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_token.photo" resname="photo">
+				<source>Photo</source>
+			</trans-unit>
+
+			<trans-unit id="autocomplete_purpose.home" resname="autocomplete_purpose.home">
+				<source>Home</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_purpose.work" resname="autocomplete_purpose.work">
+				<source>Work</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_purpose.mobile" resname="autocomplete_purpose.mobile">
+				<source>Mobile</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_purpose.fax" resname="autocomplete_purpose.fax">
+				<source>Fax</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_purpose.pager" resname="autocomplete_purpose.pager">
+				<source>Pager</source>
+			</trans-unit>
+
+			<trans-unit id="autocomplete_type.billing" resname="autocomplete_type.billing">
+				<source>Billing</source>
+			</trans-unit>
+			<trans-unit id="autocomplete_type.shipping" resname="autocomplete_type.shipping">
+				<source>Shipping</source>
 			</trans-unit>
 		</body>
 	</file>
