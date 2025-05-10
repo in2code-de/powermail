@@ -1048,7 +1048,7 @@ $fieldsTca = [
             'displayCond' => [
                 'AND' => [
                     'FIELD:type:IN:input,textarea',
-                    'FIELD:autocomplete_token:!IN:on,off',
+                    'FIELD:autocomplete_token:!IN:on,off,nickname,sex,impp,url,organization-title,username,new-password,current-password,one-time-code,bday,bday-day,bday-month,bday-year,language,photo',
                     'FIELD:autocomplete_token:REQ:true',
                 ],
             ],
@@ -1067,7 +1067,7 @@ $fieldsTca = [
             'displayCond' => [
                 'AND' => [
                     'FIELD:type:IN:input,textarea',
-                    'FIELD:autocomplete_token:!IN:on,off',
+                    'FIELD:autocomplete_token:!IN:on,off,nickname,sex,impp,url,organization-title,tel-country-code,tel-area-code,tel-national,tel-local,tel-local-prefix,tel-local-suffix,tel-extension,username,new-password,current-password,one-time-code,bday,bday-day,bday-month,bday-year,language,photo',
                     'FIELD:autocomplete_token:REQ:true',
                 ],
             ],
@@ -1090,7 +1090,7 @@ $fieldsTca = [
             'displayCond' => [
                 'AND' => [
                     'FIELD:type:IN:input,textarea',
-                    'FIELD:autocomplete_token:IN:email,impp,tel,tel-country-code,tel-national,tel-area-code,tel-local,tel-local-prefix,tel-local-suffix,tel-extension',
+                    'FIELD:autocomplete_token:IN:email,impp,tel',
                 ],
             ],
         ],
