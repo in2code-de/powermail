@@ -10,12 +10,6 @@
 	"homepage": "https://github.com/einpraegsam/powermail",
 	"authors": [
 		{
-			"name": "Marcus Schwemer",
-			"email": "marcus.schwemer@in2code.de",
-			"role": "Product Owner",
-			"homepage": "https://www.in2code.de"
-		},
-		{
 			"name": "Stefan Busemann",
 			"email": "stefan.busemann@in2code.de",
 			"role": "Update Manager",
