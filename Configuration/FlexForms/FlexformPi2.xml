@@ -52,7 +52,7 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
+							<items>
 							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
@@ -93,10 +93,10 @@
 						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.showownonly</label>
 						<config>
 							<type>check</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.showownonly.0</numIndex>
-									<numIndex index="1">1</numIndex>
+							<items >
+								<numIndex index="0">
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.list.showownonly.0</label>
+									<value>1</value>
 								</numIndex>
 							</items>
 							<default>1</default>
@@ -115,7 +115,7 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
+							<items>
 							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
@@ -130,10 +130,10 @@
 						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink</label>
 						<config>
 							<type>check</type>
-							<items type="array">
-								<numIndex index="0" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink.0</numIndex>
-									<numIndex index="1">1</numIndex>
+							<items>
+								<numIndex index="0">
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.single.activateLink.0</label>
+									<value>1</value>
 								</numIndex>
 							</items>
 							<default>0</default>
@@ -164,10 +164,10 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.fields.all</numIndex>
-									<numIndex index="1">_all</numIndex>
+							<items>
+								<numIndex index="1">
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.fields.all</label>
+									<value>_all</value>
 								</numIndex>
 							</items>
 							<maxitems>100</maxitems>
@@ -185,10 +185,10 @@
 						<config>
 							<type>select</type>
 							<renderType>selectSingle</renderType>
-							<items type="array">
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc.off</numIndex>
-									<numIndex index="1"></numIndex>
+							<items>
+								<numIndex index="1" >
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.search.abc.off</label>
+									<value></value>
 								</numIndex>
 							</items>
 							<maxitems>1</maxitems>
@@ -209,7 +209,7 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
+							<items>
 							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
@@ -225,10 +225,10 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</numIndex>
-									<numIndex index="1">_owner</numIndex>
+							<items>
+								<numIndex index="1">
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</label>
+									<value>_owner</value>
 								</numIndex>
 							</items>
 							<maxitems>100</maxitems>
@@ -248,10 +248,10 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items type="array">
-								<numIndex index="1" type="array">
-									<numIndex index="0">LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</numIndex>
-									<numIndex index="1">_owner</numIndex>
+							<items>
+								<numIndex index="1">
+									<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform_pi2.edit.feuser.owner</label>
+									<value>_owner</value>
 								</numIndex>
 							</items>
 							<maxitems>100</maxitems>
