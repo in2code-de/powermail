@@ -26,8 +26,8 @@ class FieldSelectorUserFunc
         if ($formUid === 0) {
             $params['items'] = [
                 [
-                    'Please select a form (Main Settings)',
-                    '',
+                    'label' => 'Please select a form (Main Settings)',
+                    'value' => '',
                 ],
             ];
             return;
@@ -35,8 +35,8 @@ class FieldSelectorUserFunc
 
         foreach ((array)$formRepository->getFieldsFromFormWithSelectQuery($formUid) as $field) {
             $params['items'][] = [
-                $field['title'] . ' {' . $field['marker'] . '}',
-                $field['uid'],
+                'label' => $field['title'] . ' {' . $field['marker'] . '}',
+                'value' => $field['uid'],
             ];
         }
     }
