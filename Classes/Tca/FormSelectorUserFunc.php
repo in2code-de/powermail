@@ -67,8 +67,8 @@ class FormSelectorUserFunc
                 foreach ($this->getAllForms((int)$startPid, $language) as $form) {
                     if ($this->hasUserAccessToPage((int)$form['pid'])) {
                         $params['items'][] = [
-                            'label' => BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
-                            'value' =>  (int)$form['uid'],
+                            BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
+                            (int)$form['uid'],
                         ];
                     }
                 }
