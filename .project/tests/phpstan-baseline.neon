@@ -231,11 +231,6 @@ parameters:
 			path: ../../Classes/DataProcessor/DataProcessorInterface.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: ../../Classes/DataProcessor/DataProcessorRunner.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\DataProcessor\\\\DataProcessorRunner\\:\\:callDataProcessors\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/DataProcessor/DataProcessorRunner.php
@@ -2881,11 +2876,6 @@ parameters:
 			path: ../../Classes/Finisher/FinisherInterface.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: ../../Classes/Finisher/FinisherRunner.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Finisher\\\\FinisherRunner\\:\\:callFinishers\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Finisher/FinisherRunner.php
@@ -4391,7 +4381,7 @@ parameters:
 			path: ../../Classes/ViewHelpers/String/UnderscoredToLowerCamelCaseViewHelper.php
 
 		-
-			message: "#^Binary operation \"\\.\\=\" between non\\-falsy\\-string and array\\<int, string\\>\\|string\\|false results in an error\\.$#"
+			message: "#^Binary operation \"\\.\\=\" between non\\-falsy\\-string and array\\|string\\|false results in an error\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/String/Utf8ToUtf16ViewHelper.php
 
