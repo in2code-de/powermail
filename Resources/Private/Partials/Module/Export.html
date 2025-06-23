@@ -11,7 +11,7 @@
 		<button type="button" class="export_icon export_icon_csv btn btn-info">CSV</button>
         <f:if condition="{activateXlsxExport}">
             <f:then>
-                <button type="button" class="export_icon export_icon_xls btn btn-info">XLS</button>
+                <button type="button" class="export_icon export_icon_xls btn btn-info">XLSX</button>
             </f:then>
             <f:else>
                 <button type="button" class="export_icon export_icon_xls export_icon_xls_not_available btn btn-info" data-modal-title="{f:translate(key: 'xlsInfoModalTitle', default: 'Information')}" data-modal-text="{f:translate(key: 'xlsInfoModalText', default: 'Please install Extension base_excel')}" data-modal-cancel="{f:translate(key: 'xlsInfoModalCancel', default: 'Cancel')}">XLS</button>

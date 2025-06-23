@@ -138,13 +138,13 @@ class ModuleController extends AbstractController
                 ]
             );
 
-            $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
+            $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xlsx');
             $tmpFilename = GeneralUtility::tempnam('export_');
 
             $reader = new Html();
             $spreadsheet = $reader->loadFromString($this->view->render());
 
-            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save($tmpFilename);
 
             return $this->responseFactory->createResponse()
