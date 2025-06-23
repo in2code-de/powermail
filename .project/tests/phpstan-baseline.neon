@@ -221,11 +221,6 @@ parameters:
 			path: ../../Classes/DataProcessor/DataProcessorInterface.php
 
 		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: ../../Classes/DataProcessor/DataProcessorRunner.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\DataProcessor\\\\DataProcessorRunner\\:\\:callDataProcessors\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/DataProcessor/DataProcessorRunner.php
@@ -2344,11 +2339,6 @@ parameters:
 			message: "#^Method In2code\\\\Powermail\\\\Finisher\\\\FinisherInterface\\:\\:setSettings\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Finisher/FinisherInterface.php
-
-		-
-			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: ../../Classes/Finisher/FinisherRunner.php
 
 		-
 			message: "#^Method In2code\\\\Powermail\\\\Finisher\\\\FinisherRunner\\:\\:callFinishers\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
