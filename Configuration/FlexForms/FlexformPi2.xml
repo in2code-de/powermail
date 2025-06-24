@@ -52,8 +52,6 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items>
-							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
 							<autoSizeMax>10</autoSizeMax>
@@ -115,8 +113,6 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items>
-							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
 							<autoSizeMax>10</autoSizeMax>
@@ -209,8 +205,6 @@
 						<config>
 							<type>select</type>
 							<renderType>selectMultipleSideBySide</renderType>
-							<items>
-							</items>
 							<maxitems>100</maxitems>
 							<size>5</size>
 							<autoSizeMax>10</autoSizeMax>
