@@ -92,6 +92,11 @@ class BackendUserGroup extends AbstractEntity
      */
     public function __construct()
     {
+        $this->initializeObject();
+    }
+
+    protected function initializeObject(): void
+    {
         $this->subGroups = new ObjectStorage();
     }
 

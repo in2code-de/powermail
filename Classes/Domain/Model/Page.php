@@ -46,10 +46,10 @@ class Page extends AbstractEntity
      */
     public function __construct()
     {
-        $this->initStorageObjects();
+        $this->initializeObject();
     }
 
-    protected function initStorageObjects(): void
+    protected function initializeObject(): void
     {
         $this->fields = new ObjectStorage();
     }

@@ -35,6 +35,11 @@ class UserGroup extends AbstractEntity
     public function __construct($title = '')
     {
         $this->setTitle($title);
+        $this->initializeObject();
+    }
+
+    protected function initializeObject(): void
+    {
         $this->subgroup = new ObjectStorage();
     }
 

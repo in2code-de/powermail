@@ -106,8 +106,7 @@ class User extends AbstractEntity
      */
     public function __construct(protected $username = '', protected $password = '')
     {
-        $this->usergroup = new ObjectStorage();
-        $this->image = new ObjectStorage();
+        $this->initializeObject();
     }
 
     /**
