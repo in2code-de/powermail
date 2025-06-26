@@ -2136,11 +2136,6 @@ parameters:
 			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
 
 		-
-			message: "#^Method In2code\\\\Powermail\\\\EventListener\\\\FlexFormParsingModifyEventListener\\:\\:getRequest\\(\\) never returns Psr\\\\Http\\\\Message\\\\ServerRequestInterface so it can be removed from the return type\\.$#"
-			count: 1
-			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\EventListener\\\\FlexFormParsingModifyEventListener\\:\\:getSheetNameAndRemoveFromConfiguration\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/EventListener/FlexFormParsingModifyEventListener.php
