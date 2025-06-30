@@ -26,6 +26,7 @@ class Form extends AbstractEntity
 
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermail\Domain\Model\Page>
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $pages;
 
