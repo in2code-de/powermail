@@ -98,4 +98,4 @@ See the reporting about the delivered mails (Form or Marketing Data Analyses are
 * [Changelog](/Changelog/Index.md)
 * [Upgrade Instructions](/Changelog/UpgradeInstructions.md)
 * [Support](/Support/Index.md)
-* [Additional links](/Links/Index.md)
+

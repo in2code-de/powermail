@@ -35,15 +35,16 @@ throughout the last years and want to make available to the broader public, for 
 
 ## 1. Documentation overview
 
-* [Introduction](/Documentation/Readme.md)
+* [Introduction](/Documentation/Index.md)
 * [Development Model](/Documentation/DevelopmentModel.md)
-* [Documentation for editors](/Documentation/ForEditors/Readme.md)
-* [Documentation for administrators](/Documentation/ForAdministrators/Readme.md)
-* [Documentation for developers](/Documentation/ForDevelopers/Readme.md)
-* [FAQ](/Documentation/FAQ/Readme.md) (with a lot of stuff and best practice)
-* [Changelog](/Documentation/Changelog/Readme.md)
-* [Support](/Documentation/Support/Readme.md)
-* [Additional links](/Documentation/Links/Readme.md)
+* [Documentation for editors](/Documentation/ForEditors/Index.md)
+* [Documentation for administrators](/Documentation/ForAdministrators/Index.md)
+* [Documentation for developers](/Documentation/ForDevelopers/Index.md)
+* [Documentation for developers](/Documentation/ForDevelopers/Index.md)
+* [FAQ](/Documentation/FAQ/Index.md) (with a lot of stuff and best practice)
+* [Changelog](/Documentation/Changelog/Index.md)
+* [Support](/Documentation/Support/Index.md)
+* [Additional links](/Documentation/Links/Index.md)
 
 ## 2. Installation
 
@@ -75,7 +76,7 @@ In addition there is a slack channel in the TYPO3 slack `ext-powermail`.
 
 ### 3.2. Changelog
 
-Please look into the [changelog of powermail](/Documentation/Changelog/Readme.md)
+Please look into the [changelog of powermail](/Documentation/Changelog/Index.md)
 
 ### 3.3. Suggested Extensions for powermail
 
@@ -88,7 +89,7 @@ Please look into the [changelog of powermail](/Documentation/Changelog/Readme.md
 
 ### 3.4. Product Owner
 
-The product owner and author of the extension is Alex Kellner from [in2code](https://www.in2code.de). Beside that every
+The product owner and author of the extension is Marcus Schwemer from [in2code](https://www.in2code.de). Beside that every
 in2code colleague is allowed to support further development if she/he wants. In addition there are a lot of other
 contributors that helped to improve the extension with their *Pull Requests* - thank you for that!
 
@@ -99,12 +100,8 @@ Powermail uses **semantic versioning** which basically means for you, that
 - **minor updates** (e.g. 1.0.0 => 1.1.0) includes new features and smaller tasks without breaking changes.
 - **major updates** (e.g. 1.0.0 => 2.0.0) normally includes basic refactoring, new features and also breaking changes.
 
-We try to mark breaking changes in the [changelog](/Documentation/Changelog/Readme.md)
+We try to mark breaking changes in the [changelog](/Documentation/Changelog/Index.md)
 with a leading **!!!** and try to explain what to do on an upgrade (e.g. VieHelper name changed from vh:foo to vh:bar in templates).
-
-In addition powermail is using [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) as Git workflow.
-That means that there is one branch which contains new and untested code: **develop**.
-The branch **master** only contains tested code which will also be tagged from time to time.
 
 Based on `release early, release often` we try to release new versions as often as possible into TER and to github/packagist.
 
@@ -122,15 +119,21 @@ See [readme.md](/Tests/Behavior/readme.md) for some more information about behat
 
 #### Unit tests
 
-At the moment powermail offers 543 (and growing) unit tests that have to be passed before every release. See more information
+At the moment powermail offers many unit tests that have to be passed before every release. See more information
 about unit tests or code coverage in powermail in the [readme.md](/Tests/Unit/readme.md)
 
 ### 3.7. Code quality
 
-Beside respecting PSR-2 and TYPO3 coding guidelines, it's very important for the project to leave a file cleaner as before.
-Especially because it's a really large extension with a lot of functionality and a history of 10 years (!) and of course some
-technical debts, that have to be fixed step by step (e.g. moving logic completely to Domain folder, ...).
-Look at [Sonarqube](https://ter-sonarqube.marketing-factory.de/dashboard?id=powermail) for some interesting details on that.
+Beside respecting PSR-12 and TYPO3 coding guidelines, it's very important for the project to leave a file cleaner as before.
+Especially because it's a really large extension with a lot of functionality and a history of over 17 years (!) and of course some
+technical debts, that have to be fixed step by step.
+
+Current quality tools are:
+
+- php-cs-fixer
+- phpstan (level 8)
+- php linter
+- TypoScript linter
 
 ### 3.8. Contribution
 
