@@ -83,6 +83,10 @@ final class FlexFormParsingModifyEventListener
             $uid = (int)(array_keys($queryParams['edit']['tt_content'] ?? [])[0] ?? 0);
         }
 
+        if (0 === $uid) {
+            return 0;
+        }
+
         return DatabaseUtility::getPidForRecord($uid, 'tt_content');
     }
 
