@@ -83,7 +83,7 @@ final class FlexFormParsingModifyEventListener
             $uid = (int)(array_keys($queryParams['edit']['tt_content'] ?? [])[0] ?? 0);
         }
 
-        if (0 === $uid) {
+        if ($uid === 0) {
             return 0;
         }
 
@@ -92,6 +92,6 @@ final class FlexFormParsingModifyEventListener
 
     private function getRequest(): ?ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'];
+        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }
