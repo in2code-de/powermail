@@ -1,5 +1,6 @@
 import Utility from './Utility';
 import MoreStepForm from './MoreStepForm';
+import moment from 'moment';
 
 export default class FormValidation {
   #formValidationSelector = '[data-powermail-validate]';
@@ -332,7 +333,12 @@ class Form {
       return true;
     }
     let minimum = field.getAttribute('min') || field.getAttribute('data-powermail-min');
-    return parseInt(field.value) >= parseInt(minimum);
+    let value = field.value;
+    if (field.getAttribute('type') === 'date' || field.getAttribute('type') === 'datetime-local' || field.getAttribute('type') === 'time') {
+      value = this.#getUnixTimestamp(value, field.getAttribute('data-datepicker-format'));
+      minimum = this.#getUnixTimestamp(minimum, field.getAttribute('data-datepicker-format'));
+    }
+    return parseInt(value) >= parseInt(minimum);
   };
 
   #isValidationMaximumConfirmed(field) {
@@ -340,7 +346,12 @@ class Form {
       return true;
     }
     let maximum = field.getAttribute('max') || field.getAttribute('data-powermail-max');
-    return parseInt(field.value) <= parseInt(maximum);
+    let value = field.value;
+    if (field.getAttribute('type') === 'date' || field.getAttribute('type') === 'datetime-local' || field.getAttribute('type') === 'time') {
+      value = this.#getUnixTimestamp(value, field.getAttribute('data-datepicker-format'));
+      maximum = this.#getUnixTimestamp(maximum, field.getAttribute('data-datepicker-format'));
+    }
+    return parseInt(value) <= parseInt(maximum);
   };
 
   #isValidationLengthConfirmed(field) {
@@ -477,6 +488,14 @@ class Form {
       if (selectedField !== null) {
         value = selectedField.value;
       }
+    }
+    return value;
+  };
+  
+  #getUnixTimestamp(value, formatInput) {
+    let momentDate = moment(value, formatInput);
+    if (momentDate.isValid) {
+      value = momentDate.unix();
     }
     return value;
   };
