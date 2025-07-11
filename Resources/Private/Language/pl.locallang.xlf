@@ -815,62 +815,6 @@
         <source>Last mails from this form</source>
         <target state="final">Ostatnie maile z tego formularza</target>
       </trans-unit>
-      <trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2" approved="yes">
-        <source>Show and manage mails in Frontend</source>
-        <target state="final">Pokaż i zarządzaj mailami w stronie Frontend</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails" approved="yes">
-        <source>No Mails found.</source>
-        <target state="final">Nie znaleziono maili</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll" approved="yes">
-        <source>All</source>
-        <target state="final">Wszystko</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit" approved="yes">
-        <source>Filter Now</source>
-        <target state="final">Filtruj teraz</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
-        <source>Details</source>
-        <target state="final">Szczegóły</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView" approved="yes">
-        <source>Edit</source>
-        <target state="final">Edycja</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView" approved="yes">
-        <source>Delete</source>
-        <target state="final">Usuń</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit" approved="yes">
-        <source>Save Changes</source>
-        <target state="final">Zapisz zmiany</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Pomyślnie zapisano zmiany</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail" approved="yes">
-        <source>Missing required Mail parameter</source>
-        <target state="final">Brak wymaganego parametru Mail</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
-        <source>You are not allowed to make changes</source>
-        <target state="final">Nie masz uprawnień do zmiany</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Zmiany zostały pozytywnie zapisane</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed" approved="yes">
-        <source>Record could not be removed</source>
-        <target state="final">Wpis nie może być usunięty</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful" approved="yes">
-        <source>Record successfully removed</source>
-        <target state="final">Wpis pozytywnie usunięty</target>
-      </trans-unit>
       <trans-unit id="Back" resname="Back" approved="yes">
         <source>Back</source>
         <target state="final">Powrót</target>
