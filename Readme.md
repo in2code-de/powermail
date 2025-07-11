@@ -3,36 +3,6 @@
 Powermail is a well-known, editor-friendly, powerful and easy to use mailform extension for TYPO3 with a lots of
 features (spam prevention, marketing information, optin, ajax submit, diagram analysis, etc...)
 
-> :warning: **TYPO3 13 compatibility**\
-> See [EAP page (DE)](https://www.in2code.de/agentur/typo3-extensions/early-access-programm/) or
-> [EAP page (EN)](https://www.in2code.de/en/agency/typo3-extensions/early-access-program/) for more information how
-> to get access to a TYPO3 13 version
-
-## :warning: Deprecations, planned breaking changes for V13 and features
-
-### Double OptIn and TypoScript setting "Do not save to DB"
-
-This combination will not work anymore in V13. If the person responsible for data security decides not to save anything
-into the database, no data may be saved to the database, even not in the double opt-in process.
-
-If you need this earlier than the next major (public) release, please contact us for the extension
-`EXT:powermail_cleaner`. With this extension it is possible to set that for each plugin individually.
-
-### Plugins / content elements pi2 - pi4
-
-The content elements for frontend editing will be moved to a separate paid extension.
-
-### Future: Powermail Powerpack
-
-Next to extensions `EXT:powermail_cleaner`, `EXT:powermail_ratelimiter` and the frontend editing stuff, there will be
-another paid extension `EXT:powermail_powerpack`. This extension will contain additional features, we developed
-throughout the last years and want to make available to the broader public, for example:
-
-* use an email address only once per plugins
-* maximum "seats" per plugin (like a very, very basic registration)
-* ...
-
-
 ## 1. Documentation overview
 
 * [Introduction](/Documentation/Index.md)
@@ -59,16 +29,16 @@ Quick guide:
 
 ### 3.1. Versions and Support
 
-| Powermail   | TYPO3     | PHP       | Support/Development                            |
-|-------------|-----------|-----------|------------------------------------------------|
-| 13.x        | 13.x      | 8.3 - 8.x | Features, Bugfixes, Security Updates           |
-| 12.x        | 12.x      | 8.1 - 8.2 | Features, Bugfixes, Security Updates           |
-| 11.x        | 12.x      | 8.1 - 8.2 | Support dropped                                |
-| 10.x        | 11.x      | 7.4 - 8.1 | Security Updates (paid backports are possible) |
-| 9.x         | 11.x      | 7.4       | Support dropped                                |
-| 8.x         | 10.x      | 7.2 - 7.4 | Security Updates (paid backports are possible) |
-| 7.x         | 8.7 - 9.x | 7.0 - 7.4 | Support dropped                                |
-| 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                                |
+| Powermail   | TYPO3     | PHP       | Support/Development                           |
+|-------------|-----------|-----------|-----------------------------------------------|
+| 13.x        | 13.x      | 8.3 - 8.x | Features, Bugfixes, Security Updates          |
+| 12.x        | 12.x      | 8.1 - 8.2 | Bugfixes, Security Updates                    |
+| 11.x        | 12.x      | 8.1 - 8.2 | Support dropped                               |
+| 10.x        | 11.x      | 7.4 - 8.1 | Support dropped (paid backports are possible) |
+| 9.x         | 11.x      | 7.4       | Support dropped                               |
+| 8.x         | 10.x      | 7.2 - 7.4 | Support dropped (paid backports are possible) |
+| 7.x         | 8.7 - 9.x | 7.0 - 7.4 | Support dropped                               |
+| 6.x         | 8.7 - 9.x | 7.0 - 7.x | Support dropped                               |
 
 Do you need free support? There is a kind TYPO3 community that could help you.
 You can ask questions at https://stackoverflow.com and tag your question with `TYPO3` and `Powermail`.
@@ -172,3 +142,19 @@ $ ./node_modules/.bin/gulp
 ### 4.3. Backend module reporting:
 
 ![Backend Module2](Documentation/Images/backend2.png "Backend Module2")
+
+## 5. Additional supplementary extensions
+
+### 5.1 EXT:powermail_frontend
+
+This extension contains the previous plugins pi2 - pi4. Since the public release of v13 this functionality is only
+available as a premium extension.
+
+### 5.2 EXT:powermail_cleaner
+
+EXT:powermail_cleaner gives administrators and editors more flexibility in cleaning up saved email records and in
+displaying additional data protection texts per form. This is available as a premium extension.
+
+### 5.4 EXT:powermail_powerpack
+
+This extension will collect some additional functionality and will be available as a premium extension.
