@@ -4,6 +4,11 @@
 
 ### Breaking Changes
 
+#### Plugins pi2 - pi4
+
+These plugins were removed from EXT:powermail. They are available as a premium extension. If you need them, please
+contact service@in2code.de for a quote.
+
 #### Debug functionality removed
 
 A bunch of debug options could be set.
