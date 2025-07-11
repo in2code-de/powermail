@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_pages.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="title.description" resname="title.description">
+        <source>Add a description to this page</source>
+        <target>crwdns336378:0crwdne336378:0</target>
+      </trans-unit>
+      <trans-unit id="fields.description" resname="fields.description">
+        <source>Add some fields to your form</source>
+        <target>crwdns336380:0crwdne336380:0</target>
+      </trans-unit>
+      <trans-unit id="css.description" resname="css.description">
+        <source>Choose a Layout (This may change the Frontend Rendering - please ask your administrator for more information)</source>
+        <target>crwdns336382:0crwdne336382:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
