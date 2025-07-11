@@ -20,7 +20,7 @@ class LinkMethod extends AbstractMethod
             if (!is_string($answer->getValue())) {
                 continue;
             }
-            preg_match_all('@http://|https://|ftp://@', $answer->getValue(), $result);
+            preg_match_all('@http://|https://|ftp://|(^|\s)www\.\S@', $answer->getValue(), $result);
             if (isset($result[0])) {
                 $linkAmount += count($result[0]);
             }
