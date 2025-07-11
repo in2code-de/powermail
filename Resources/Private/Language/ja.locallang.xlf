@@ -47,6 +47,14 @@
         <source>This is not a valid email address!</source>
         <target state="final">これは有効なメールアドレスではありません</target>
       </trans-unit>
+      <trans-unit id="validationerror_container_label" resname="validationerror_container_label" approved="yes">
+        <source>Problematic form fields</source>
+        <target state="final">問題のあるフォームフィールド</target>
+      </trans-unit>
+      <trans-unit id="validationerror_title" resname="validationerror_title" approved="yes">
+        <source>There are errors in this form</source>
+        <target state="final">このフォームにエラーがあります</target>
+      </trans-unit>
       <trans-unit id="datepicker_format_date" resname="datepicker_format_date" approved="yes">
         <source>Y-m-d</source>
         <target state="final">Y-m-d</target>
