@@ -31,30 +31,6 @@
         <source>Powerful and easy mailform extension optimized for editors.</source>
         <target>crwdns336830:0crwdne336830:0</target>
       </trans-unit>
-      <trans-unit id="powermail_pi2.title">
-        <source>Powermail Frontend (List, Detail)</source>
-        <target>crwdns342034:0crwdne342034:0</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi2.description">
-        <source>Displays powermail mails in the frontend</source>
-        <target>crwdns342036:0crwdne342036:0</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi3.title">
-        <source>Powermail Frontend (Edit, Update, Delete)</source>
-        <target>crwdns336836:0crwdne336836:0</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi3.description">
-        <source>Displays an edit form and allows to delete sent emails</source>
-        <target>crwdns336838:0crwdne336838:0</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.title">
-        <source>Powermail Frontend (All functions)</source>
-        <target>crwdns336840:0crwdne336840:0</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.description">
-        <source>A plugin with all actions</source>
-        <target>crwdns336842:0crwdne336842:0</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>
