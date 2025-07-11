@@ -339,46 +339,6 @@
         <source>Subject</source>
         <target state="final">Zadeva</target>
       </trans-unit>
-      <trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll" approved="yes">
-        <source>All</source>
-        <target state="final">Vse</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView" approved="yes">
-        <source>Edit</source>
-        <target state="final">Uredi</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView" approved="yes">
-        <source>Delete</source>
-        <target state="final">Izbriši</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit" approved="yes">
-        <source>Save Changes</source>
-        <target state="final">Shrani spremembe</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Spremembe uspešno shranjene</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail" approved="yes">
-        <source>Missing required Mail parameter</source>
-        <target state="final">Manjkajoč obvezen parameter</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
-        <source>You are not allowed to make changes</source>
-        <target state="final">Nimate zadostnih pravic za to akcijo</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Spremembe uspešno shranjene</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed" approved="yes">
-        <source>Record could not be removed</source>
-        <target state="final">Vnosa ni bilo mogoče odstraniti</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful" approved="yes">
-        <source>Record successfully removed</source>
-        <target state="final">Vnos uspešno odstranjen</target>
-      </trans-unit>
       <trans-unit id="Back" resname="Back" approved="yes">
         <source>Back</source>
         <target state="final">Nazaj</target>
