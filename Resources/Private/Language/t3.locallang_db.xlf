@@ -307,6 +307,10 @@
         <source>Mandatory Field</source>
         <target>crwdns336534:0crwdne336534:0</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text">
+        <source>Custom error message</source>
+        <target>crwdns372848:0crwdne372848:0</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation">
         <source>Validation</source>
         <target>crwdns336536:0crwdne336536:0</target>
@@ -651,6 +655,10 @@
         <source>Bodytext for Email to Receiver</source>
         <target>crwdns336706:0crwdne336706:0</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment">
+        <source>Send uploaded files to receiver</source>
+        <target>crwdns372850:0crwdne372850:0</target>
+      </trans-unit>
       <trans-unit id="flexform.sender" resname="flexform.sender">
         <source>Mail to User</source>
         <target>crwdns336708:0crwdne336708:0</target>
@@ -671,6 +679,10 @@
         <source>Bodytext for Email to Sender</source>
         <target>crwdns336716:0crwdne336716:0</target>
       </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment">
+        <source>Send uploaded files to sender</source>
+        <target>crwdns372852:0crwdne372852:0</target>
+      </trans-unit>
       <trans-unit id="flexform.thx" resname="flexform.thx">
         <source>Submit Page</source>
         <target>crwdns336718:0crwdne336718:0</target>
@@ -682,126 +694,6 @@
       <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect">
         <source>Redirect to any other Page after submit</source>
         <target>crwdns336722:0crwdne336722:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote">
-        <source>ATTENTION: Please select a form in Settings before!</source>
-        <target>crwdns336724:0crwdne336724:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main">
-        <source>Main Settings</source>
-        <target>crwdns336726:0crwdne336726:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form">
-        <source>Choose a form</source>
-        <target>crwdns336738:0crwdne336738:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid">
-        <source>Select a page with mails (optional)</source>
-        <target>crwdns336740:0crwdne336740:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list">
-        <source>Listview</source>
-        <target>crwdns336742:0crwdne336742:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields">
-        <source>Choose Fields to show (Empty: All Fields)</source>
-        <target>crwdns336744:0crwdne336744:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta">
-        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
-        <target>crwdns336746:0crwdne336746:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit">
-        <source>Show max. X entries (Empty: No Limit)</source>
-        <target>crwdns336748:0crwdne336748:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid">
-        <source>Page with Plugin for list view (Empty: Same page)</source>
-        <target>crwdns336750:0crwdne336750:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly">
-        <source>Own entries</source>
-        <target>crwdns336752:0crwdne336752:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0">
-        <source>Show only entries from logged in Frontend-User</source>
-        <target>crwdns336754:0crwdne336754:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single">
-        <source>Detailview</source>
-        <target>crwdns336764:0crwdne336764:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields">
-        <source>Choose Fields to show (Empty: All Fields)</source>
-        <target>crwdns336766:0crwdne336766:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink">
-        <source>Link to detail view</source>
-        <target>crwdns336768:0crwdne336768:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0">
-        <source>active</source>
-        <target>crwdns336770:0crwdne336770:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid">
-        <source>Page with Plugin for detail view (Empty: Same page)</source>
-        <target>crwdns336772:0crwdne336772:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search">
-        <source>Searchsettings</source>
-        <target>crwdns336774:0crwdne336774:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields">
-        <source>Add searchfield</source>
-        <target>crwdns336776:0crwdne336776:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all">
-        <source>[Fulltext Search]</source>
-        <target>crwdns336778:0crwdne336778:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator">
-        <source>search fields operator (AND / OR)</source>
-        <target>crwdns336780:0crwdne336780:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0">
-        <source>OR (Find keyword in Field1 OR Field2)</source>
-        <target>crwdns336782:0crwdne336782:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1">
-        <source>AND (Find keyword in Field1 AND Field2)</source>
-        <target>crwdns336784:0crwdne336784:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc">
-        <source>Add ABC filter</source>
-        <target>crwdns336786:0crwdne336786:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off">
-        <source>[Deactivated]</source>
-        <target>crwdns336788:0crwdne336788:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit">
-        <source>Editview</source>
-        <target>crwdns336790:0crwdne336790:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields">
-        <source>Choose Fields to edit (Empty: All fields)</source>
-        <target>crwdns336792:0crwdne336792:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser">
-        <source>Choose one or more Frontend-Users with permission to change</source>
-        <target>crwdns336794:0crwdne336794:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner">
-        <source>[Owner]</source>
-        <target>crwdns336796:0crwdne336796:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup">
-        <source>Choose one or more Frontend-Groups with permission to change</source>
-        <target>crwdns336798:0crwdne336798:0</target>
-      </trans-unit>
-      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid">
-        <source>Page with Plugin for edit view (Empty: Same page)</source>
-        <target>crwdns336800:0crwdne336800:0</target>
       </trans-unit>
       <trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail">
         <source>Receiver email address</source>
