@@ -811,34 +811,6 @@
         <source>Marketing Reporting</source>
         <target state="final">Marketingrapportage</target>
       </trans-unit>
-      <trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails" approved="yes">
-        <source>No Mails found.</source>
-        <target state="final">Geen e-mails gevonden.</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
-        <source>Details</source>
-        <target state="final">Details</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView" approved="yes">
-        <source>Edit</source>
-        <target state="final">Bewerken</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit" approved="yes">
-        <source>Save Changes</source>
-        <target state="final">Wijzigingen opslaan</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Wijzigingen zijn opgeslagen</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
-        <source>You are not allowed to make changes</source>
-        <target state="final">Geen rechten om dit te wijzigen</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Wijzigingen zijn opgeslagen</target>
-      </trans-unit>
       <trans-unit id="Back" resname="Back" approved="yes">
         <source>Back</source>
         <target state="final">Terug</target>
