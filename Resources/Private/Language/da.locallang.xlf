@@ -275,6 +275,14 @@
         <source>Upload failed, please check permissions on the server!</source>
         <target state="final">Upload mislykkedes, tjek venligst tilladelser på serveren!</target>
       </trans-unit>
+      <trans-unit id="validationerror_container_label" resname="validationerror_container_label" approved="yes">
+        <source>Problematic form fields</source>
+        <target state="final">Problematiske formularfelter</target>
+      </trans-unit>
+      <trans-unit id="validationerror_title" resname="validationerror_title" approved="yes">
+        <source>There are errors in this form</source>
+        <target state="final">Der er fejl i denne formular</target>
+      </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
         <target state="final">Spam genkendt:</target>
