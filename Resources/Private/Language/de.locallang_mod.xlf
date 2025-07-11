@@ -31,22 +31,6 @@
         <source>Powerful and easy mailform extension optimized for editors.</source>
         <target state="final">Leistungsstarke und einfache Mailform-Erweiterung optimiert für Editoren.</target>
       </trans-unit>
-      <trans-unit id="powermail_pi3.title" approved="yes">
-        <source>Powermail Frontend (Edit, Update, Delete)</source>
-        <target state="final">Powermail-Frontend (Edit, Update, Löschen)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi3.description" approved="yes">
-        <source>Displays an edit form and allows to delete sent emails</source>
-        <target state="final">Zeigt ein Bearbeitungsformular an und erlaubt das Löschen von gesendeten E-Mails</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.title" approved="yes">
-        <source>Powermail Frontend (All functions)</source>
-        <target state="final">Powermail-Frontend (Alle Funktionen)</target>
-      </trans-unit>
-      <trans-unit id="powermail_pi4.description" approved="yes">
-        <source>A plugin with all actions</source>
-        <target state="final">Ein Plugin mit allen Aktionen</target>
-      </trans-unit>
     </body>
   </file>
 </xliff>
