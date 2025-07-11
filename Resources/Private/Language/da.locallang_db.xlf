@@ -307,6 +307,10 @@
         <source>Mandatory Field</source>
         <target state="final">Obligatorisk felt</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text" approved="yes">
+        <source>Custom error message</source>
+        <target state="final">Brugerdefineret fejlmeddelelse</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
         <source>Validation</source>
         <target state="final">Validering</target>
@@ -651,6 +655,10 @@
         <source>Bodytext for Email to Receiver</source>
         <target state="final">Brødtekst for e-mail til modtager</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment" approved="yes">
+        <source>Send uploaded files to receiver</source>
+        <target state="final">Send uploadede filer til modtager</target>
+      </trans-unit>
       <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
         <source>Mail to User</source>
         <target state="final">Mail til bruger</target>
@@ -670,6 +678,10 @@
       <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
         <source>Bodytext for Email to Sender</source>
         <target state="final">Brødtekst for e-mail til afsender</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment" approved="yes">
+        <source>Send uploaded files to sender</source>
+        <target state="final">Send uploadede filer til afsender</target>
       </trans-unit>
       <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
         <source>Submit Page</source>
