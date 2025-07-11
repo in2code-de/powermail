@@ -43,6 +43,10 @@
         <source>Should this field be a mandatory field?</source>
         <target>crwdns336302:0crwdne336302:0</target>
       </trans-unit>
+      <trans-unit id="mandatory_text.description" resname="mandatory_text.description">
+        <source>A custom error message improves the user experience</source>
+        <target>crwdns372854:0crwdne372854:0</target>
+      </trans-unit>
       <trans-unit id="validation.description" resname="validation.description">
         <source>Validate the field value (url, email, etc...)</source>
         <target>crwdns336304:0crwdne336304:0</target>
