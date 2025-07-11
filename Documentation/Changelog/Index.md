@@ -7,6 +7,7 @@ breaking changes and how to handle them
 
 | Version         | Release Date | Description                                                                                                                                                                                                           |
 |-----------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 12.5.2          | 2025-07-11   | Bugfix release                                                                                                                                                                                                        |
 | 12.5.1          | 2025-01-17   | Follow-up for last feature release                                                                                                                                                                                    |
 | 12.5.0          | 2024-11-09   | Feature release: allow editors to decide, whether to send attachments                                                                                                                                                 |
 | 12.4.4          | 2024-11-09   | Better accessibility, render documentation on docs.typo3.org                                                                                                                                                          |
