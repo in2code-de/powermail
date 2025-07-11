@@ -3,6 +3,10 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ja">
     <header/>
     <body>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text" approved="yes">
+        <source>Custom error message</source>
+        <target state="final">カスタムエラーメッセージ</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.datepicker_settings" resname="tx_powermail_domain_model_field.datepicker_settings" approved="yes">
         <source>Datepicker Mode</source>
         <target state="final">Datepickerモード</target>
@@ -18,6 +22,14 @@
       <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3" approved="yes">
         <source>Time</source>
         <target state="final">時間</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment" approved="yes">
+        <source>Send uploaded files to receiver</source>
+        <target state="final">アップロードしたファイルを受信者に送信する</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment" approved="yes">
+        <source>Send uploaded files to sender</source>
+        <target state="final">アップロードしたファイルを受信者に送信する</target>
       </trans-unit>
     </body>
   </file>
