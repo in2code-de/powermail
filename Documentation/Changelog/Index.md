@@ -1,13 +1,19 @@
 # Changelog
 
-**Note:** Breaking changes are marked with !!!
+**Note 1:** \
+This document is not updated after the v13 release anymore. For details please have a look at
+* https://extensions.typo3.org/extension/powermail
+* https://github.com/in2code-de/powermail/releases
+* https://github.com/in2code-de/powermail/tags
 
-See [Upgrade instructions and breaking changes](/Changelog/UpgradeInstructions.md) for some details on
-breaking changes and how to handle them
+**Note 2:** \
+Releases with breaking changes are marked with !!!
+
+See [Upgrade instructions and breaking changes](/Changelog/UpgradeInstructions.md) for some details on breaking changes and how to handle them.
 
 | Version         | Release Date | Description                                                                                                                                                                                                           |
 |-----------------|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 13.0.0          | 2024-11-30   | Support for TYPO3 13                                                                                                                                                                                                   |
+| [!!!] 13.0.0    | 2025-07-11   | Public support for TYPO3 13  (via EAP available sind Nov. 2024)                                                                                                                                                       |
 | 12.4.3          | 2024-10-16   | Bugfix release for EXT:powermail v12; TYPO3 v13 compatibility work starts today :-)                                                                                                                                   |
 | 12.4.2          | 2024-10-02   | Major bugfix release for EXT:powermail v12                                                                                                                                                                            |
 | 12.4.1          | 2024-09-17   | Security release: Harden access checks to mail records.                                                                                                                                                               |
