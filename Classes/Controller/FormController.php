@@ -98,7 +98,7 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -106,7 +106,7 @@ class FormController extends AbstractController
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
      */
-    public function checkConfirmationAction(Mail $mail): ResponseInterface
+    public function checkConfirmationAction(?Mail $mail = null): ResponseInterface
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
 
@@ -187,7 +187,7 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -196,7 +196,7 @@ class FormController extends AbstractController
      * @throws NoSuchArgumentException
      * @deprecated since version 12.3.2, will be removed in version 13.0.0
      */
-    public function checkCreateAction(Mail $mail): ResponseInterface
+    public function checkCreateAction(?Mail $mail = null): ResponseInterface
     {
         trigger_error(
             'EXT:powermail -- Method "checkCreateAction" is deprecated since version 12.3.2, will be removed in version 13.0.0',
