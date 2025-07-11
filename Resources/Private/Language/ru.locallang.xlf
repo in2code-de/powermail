@@ -943,62 +943,6 @@
         <source>Last mails from this form</source>
         <target state="final">Последние письма из этой формы</target>
       </trans-unit>
-      <trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2" approved="yes">
-        <source>Show and manage mails in Frontend</source>
-        <target state="final">Управление и вывод писем на сайт</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails" approved="yes">
-        <source>No Mails found.</source>
-        <target state="final">Писем не найдено.</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll" approved="yes">
-        <source>All</source>
-        <target state="final">Все</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit" approved="yes">
-        <source>Filter Now</source>
-        <target state="final">Отфильтровать</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView" approved="yes">
-        <source>Details</source>
-        <target state="final">Дополнительно</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView" approved="yes">
-        <source>Edit</source>
-        <target state="final">Правка</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView" approved="yes">
-        <source>Delete</source>
-        <target state="final">Удалить</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit" approved="yes">
-        <source>Save Changes</source>
-        <target state="final">Сохранить изменения</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Изменения сохранены</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail" approved="yes">
-        <source>Missing required Mail parameter</source>
-        <target state="final">Отсутствует обязательный параметр Mail</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed" approved="yes">
-        <source>You are not allowed to make changes</source>
-        <target state="final">Вам не разрешено вносить изменения</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful" approved="yes">
-        <source>Changes successfully saved</source>
-        <target state="final">Изменения сохранены</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed" approved="yes">
-        <source>Record could not be removed</source>
-        <target state="final">Невозможно удалить запись</target>
-      </trans-unit>
-      <trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful" approved="yes">
-        <source>Record successfully removed</source>
-        <target state="final">Запись удалена</target>
-      </trans-unit>
       <trans-unit id="ExtensionManagerConvertingScriptSuccess" resname="ExtensionManagerConvertingScriptSuccess" approved="yes">
         <source>All tables successfully converted</source>
         <target state="final">Все таблицы успешно конвертированы</target>
