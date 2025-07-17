@@ -1,1 +1,1 @@
-@import 'EXT:powermail/Configuration/Marketing/TypoScript/*.typoscript'
+@import 'EXT:powermail/Configuration/TypoScript/Marketing/setup.typoscript'
