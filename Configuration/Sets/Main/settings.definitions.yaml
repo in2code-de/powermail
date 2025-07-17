@@ -528,19 +528,19 @@ settings:
     type: bool
     default: true
 
-  plugin.tx_powermail.settings.view.templateRootPath:
+  plugin.tx_powermail.view.templateRootPath:
     label: Path to template root (FE)
     description: Path to template root (FE)
     category: powermail.view
     type: string
     default: 'EXT:powermail/Resources/Private/Templates/'
-  plugin.tx_powermail.settings.view.partialRootPath:
+  plugin.tx_powermail.view.partialRootPath:
     label: Path to template partials (FE)
     description: Path to template partials (FE)
     category: powermail.view
     type: string
     default: 'EXT:powermail/Resources/Private/Partials/'
-  plugin.tx_powermail.settings.view.layoutRootPath:
+  plugin.tx_powermail.view.layoutRootPath:
     label: Path to template layouts (FE)
     description: Path to template layouts (FE)
     category: powermail.view
