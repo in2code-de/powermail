@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="crdate.description" resname="crdate.description">
+        <source>Time of mail creation</source>
+        <target>crwdns336338:0crwdne336338:0</target>
+      </trans-unit>
+      <trans-unit id="sender_mail.description" resname="sender_mail.description">
+        <source>This is the email of the sender</source>
+        <target>crwdns336340:0crwdne336340:0</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description">
+        <source>This is the name of the sender</source>
+        <target>crwdns336342:0crwdne336342:0</target>
+      </trans-unit>
+      <trans-unit id="subject.description" resname="subject.description">
+        <source>E-Mail Subject</source>
+        <target>crwdns336344:0crwdne336344:0</target>
+      </trans-unit>
+      <trans-unit id="body.description" resname="body.description">
+        <source>All input values at a glance</source>
+        <target>crwdns336346:0crwdne336346:0</target>
+      </trans-unit>
+      <trans-unit id="receiver_mail.description" resname="receiver_mail.description">
+        <source>E-Mail Receiver</source>
+        <target>crwdns336348:0crwdne336348:0</target>
+      </trans-unit>
+      <trans-unit id="form.description" resname="form.description">
+        <source>Related Form</source>
+        <target>crwdns336350:0crwdne336350:0</target>
+      </trans-unit>
+      <trans-unit id="answers.description" resname="answers.description">
+        <source>All transferred Answers</source>
+        <target>crwdns336352:0crwdne336352:0</target>
+      </trans-unit>
+      <trans-unit id="feuser.description" resname="feuser.description">
+        <source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+        <target>crwdns336354:0crwdne336354:0</target>
+      </trans-unit>
+      <trans-unit id="spam_factor.description" resname="spam_factor.description">
+        <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+        <target>crwdns336356:0crwdne336356:0</target>
+      </trans-unit>
+      <trans-unit id="time.description" resname="time.description">
+        <source>User needs this time to fill out the form</source>
+        <target>crwdns336358:0crwdne336358:0</target>
+      </trans-unit>
+      <trans-unit id="sender_ip.description" resname="sender_ip.description">
+        <source>IP-Address of the sender</source>
+        <target>crwdns336360:0crwdne336360:0</target>
+      </trans-unit>
+      <trans-unit id="user_agent.description" resname="user_agent.description">
+        <source>Browser characteristic of the sender</source>
+        <target>crwdns336362:0crwdne336362:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer_domain.description" resname="marketing_referer_domain.description">
+        <source>Last Domain of the user before he surfed to this URL</source>
+        <target>crwdns336364:0crwdne336364:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer.description" resname="marketing_referer.description">
+        <source>Last URL of the user before he surfed to this URL</source>
+        <target>crwdns336366:0crwdne336366:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_country.description" resname="marketing_country.description">
+        <source>User is located in this country</source>
+        <target>crwdns336368:0crwdne336368:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_mobile_device.description" resname="marketing_mobile_device.description">
+        <source>User uses a mobile device</source>
+        <target>crwdns336370:0crwdne336370:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_frontend_language.description" resname="marketing_frontend_language.description">
+        <source>User surfed in this TYPO3-Frontend-Language</source>
+        <target>crwdns336372:0crwdne336372:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_browser_language.description" resname="marketing_browser_language.description">
+        <source>Users Browser Language</source>
+        <target>crwdns336374:0crwdne336374:0</target>
+      </trans-unit>
+      <trans-unit id="marketing_page_funnel.description" resname="marketing_page_funnel.description">
+        <source>Internal Page funnel up to the form submit</source>
+        <target>crwdns336376:0crwdne336376:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
