@@ -127,6 +127,7 @@
 							<type>text</type>
 							<cols>32</cols>
 							<rows>2</rows>
+                            <max>1000</max>
 						</config>
 					</settings.flexform.receiver.email>
 					<settings.flexform.receiver.fe_group>
