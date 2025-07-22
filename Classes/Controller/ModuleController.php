@@ -353,10 +353,10 @@ class ModuleController extends AbstractController
     public function downloadFile(ServerRequestInterface $request): ?ResponseInterface
     {
         $queryParams = $request->getQueryParams();
-        if (array_key_exists('file', $queryParams)) {
+        if (array_key_exists('file', $queryParams) && array_key_exists('hmac', $queryParams)) {
             $fileName = basename($queryParams['file']);
             $absoluteFileName = GeneralUtility::getFileAbsFileName($queryParams['file']);
-            if (is_file($absoluteFileName)) {
+            if (is_file($absoluteFileName) && $this->isValidHmac($absoluteFileName, $queryParams['hmac'])) {
                 (mime_content_type($absoluteFileName) === false) ? $mimeType = '' : $mimeType = mime_content_type($absoluteFileName);
                 return $this->responseFactory->createResponse()
                     ->withHeader('Content-Type', $mimeType)
@@ -366,5 +366,11 @@ class ModuleController extends AbstractController
         }
 
         return new ForwardResponse('list');
+    }
+
+    protected function isValidHmac(string $fileName, string $hmacFromQuery): bool
+    {
+        $hmacGenerated = BasicFileUtility::getHmacForFile($fileName);
+        return hash_equals($hmacGenerated, $hmacFromQuery);
     }
 }
