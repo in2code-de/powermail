@@ -18,6 +18,7 @@ use In2code\Powermail\Utility\StringUtility;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -93,7 +94,9 @@ class ModuleController extends AbstractController
         $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
         $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
 
-        $currentPage = (int)($this->request->getQueryParams()['currentPage'] ?? 1);
+        $parsedBody = $this->request->getParsedBody() ?? [];
+        assert(is_array($parsedBody));
+        $currentPage = (int)($parsedBody['currentPage'] ?? $this->request->getQueryParams()['currentPage'] ?? 1);
         $currentPage = $currentPage > 0 ? $currentPage : 1;
 
         $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
@@ -371,5 +374,28 @@ class ModuleController extends AbstractController
             return new ForwardResponse('toolsBe');
         }
         return null;
+    }
+
+    public function downloadFile(ServerRequestInterface $request): ?ResponseInterface
+    {
+        $queryParams = $request->getQueryParams();
+        if (array_key_exists('file', $queryParams) && array_key_exists('hmac', $queryParams)) {
+            $fileName = basename($queryParams['file']);
+            $absoluteFileName = GeneralUtility::getFileAbsFileName($queryParams['file']);
+            if (is_file($absoluteFileName) && $this->isValidHmac($absoluteFileName, $queryParams['hmac'])) {
+                (mime_content_type($absoluteFileName) === false) ? $mimeType = '' : $mimeType = mime_content_type($absoluteFileName);
+                return $this->responseFactory->createResponse()
+                    ->withHeader('Content-Type', $mimeType)
+                    ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                    ->withBody($this->streamFactory->createStreamFromFile($absoluteFileName));
+            }
+        }
+        return new ForwardResponse('list');
+    }
+
+    protected function isValidHmac(string $fileName, string $hmacFromQuery): bool
+    {
+        $hmacGenerated = BasicFileUtility::getHmacForFile($fileName);
+        return hash_equals($hmacGenerated, $hmacFromQuery);
     }
 }

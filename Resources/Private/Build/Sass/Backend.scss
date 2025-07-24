@@ -305,4 +305,15 @@ a.overviewShowAll {
   margin: 0 13px 30px 0;
 }
 
+.powermail_uploaded_file_container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px;
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 @import "Message";

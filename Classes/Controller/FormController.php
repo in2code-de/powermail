@@ -80,6 +80,9 @@ class FormController extends AbstractController
         $event = $this->eventDispatcher->dispatch(
             GeneralUtility::makeInstance(FormControllerFormActionEvent::class, $form, $this)
         );
+        if ($event->getViewVariables()) {
+            $this->view->assignMultiple($event->getViewVariables());
+        }
         $form = $event->getForm();
         SessionUtility::saveFormStartInSession($this->settings, $form);
         $this->view->assignMultiple(
@@ -587,9 +590,6 @@ class FormController extends AbstractController
     {
         $arguments = $this->request->getArguments();
         if (empty($arguments['mail'])) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->warning('Redirect (mail empty)', $arguments);
-
             return new ForwardResponse('form');
         }
         return null;
@@ -607,9 +607,6 @@ class FormController extends AbstractController
         if ($mail !== null) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
-                $logger = ObjectUtility::getLogger(__CLASS__);
-                $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
-
                 return new ForwardResponse('form');
             }
         }

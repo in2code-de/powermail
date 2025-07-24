@@ -9,7 +9,7 @@ Feature: ForeignValidator
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Alexa"
     And I press "Jetzt Absenden"
 
-    Then I should see 1 ".powermail_message_error > li" elements
+    Then I should see 1 ".powermail_message_error > ol > li" elements
     Then I should see "Firstname must be"
     Then I fill in "tx_powermail_pi1[field][firstname]" with "Alex"
     And I press "Jetzt Absenden"

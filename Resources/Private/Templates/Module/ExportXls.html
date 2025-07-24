@@ -21,7 +21,7 @@
 										<vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" />
 									</f:then>
 									<f:else>
-										<f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:string.underscoredToLowerCamelCase(val:fieldUid)}" />
+										<f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:string.underscoredToLowerCamelCase(val:fieldUid)}" extensionName="powermail" />
 									</f:else>
 								</f:if>
 							</th>
@@ -57,7 +57,7 @@
 											<f:if condition="{0:fieldUid} == {0:'crdate'}">
 												<f:then>
 													<f:format.date format="d.m.Y H:i:s"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
-													<f:translate key="Clock" />
+													<f:translate key="Clock" extensionName="powermail" />
 												</f:then>
 												<f:else>
 													<f:if condition="{0 : fieldUid} == {0 : 'time'}">
