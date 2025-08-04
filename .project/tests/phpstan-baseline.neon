@@ -2436,11 +2436,6 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/LinkMethod.php
 
 		-
-			message: "#^Offset 0 on array\\{array\\<int, string\\>\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: ../../Classes/Domain/Validator/SpamShield/LinkMethod.php
-
-		-
 			message: "#^Method In2code\\\\Powermail\\\\Domain\\\\Validator\\\\SpamShield\\\\MethodInterface\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/MethodInterface.php
@@ -4381,7 +4376,7 @@ parameters:
 			path: ../../Classes/ViewHelpers/String/UnderscoredToLowerCamelCaseViewHelper.php
 
 		-
-			message: "#^Binary operation \"\\.\\=\" between non\\-falsy\\-string and array\\|string\\|false results in an error\\.$#"
+			message: "#^Binary operation \"\\.\\=\" between non\\-falsy\\-string and array\\|string results in an error\\.$#"
 			count: 1
 			path: ../../Classes/ViewHelpers/String/Utf8ToUtf16ViewHelper.php
 

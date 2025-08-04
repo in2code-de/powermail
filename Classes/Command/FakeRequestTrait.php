@@ -12,7 +12,7 @@ use TYPO3\CMS\Core\Http\ServerRequest;
  */
 trait FakeRequestTrait
 {
-    protected function fakeRequest()
+    protected function fakeRequest(): void
     {
         if (!isset($GLOBALS['TYPO3_REQUEST'])) {
             $request = (new ServerRequest())
