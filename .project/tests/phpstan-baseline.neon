@@ -56,11 +56,6 @@ parameters:
 			path: ../../Classes/Controller/FormController.php
 
 		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$mailUid$#"
-			count: 1
-			path: ../../Classes/Controller/FormController.php
-
-		-
 			message: "#^Parameter \\#1 \\$mailIdentifier of method In2code\\\\Powermail\\\\Domain\\\\Repository\\\\MailRepository\\:\\:removeFromDatabase\\(\\) expects int, int\\<1, max\\>\\|null given\\.$#"
 			count: 1
 			path: ../../Classes/Controller/FormController.php

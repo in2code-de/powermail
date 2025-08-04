@@ -411,7 +411,7 @@ class FormController extends AbstractController
     /**
      * Confirm Double Optin
      *
-     * @param int $mailUid
+     * @param int $mail
      * @param string $hash Given Hash String
      * @return ResponseInterface
      * @throws IllegalObjectTypeException
