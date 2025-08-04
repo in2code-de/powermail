@@ -211,6 +211,12 @@
 			<trans-unit id="validationerror_upload_error" resname="validationerror_upload_error">
 				<source>Upload failed, please check permissions on the server!</source>
 			</trans-unit>
+			<trans-unit id="validationerror_container_label" resname="validationerror_container_label">
+				<source>Problematic form fields</source>
+			</trans-unit>
+			<trans-unit id="validationerror_title" resname="validationerror_title">
+				<source>There are errors in this form</source>
+			</trans-unit>
 			<trans-unit id="validationerror_spam" resname="validationerror_spam">
 				<source>Spam recognized:</source>
 			</trans-unit>

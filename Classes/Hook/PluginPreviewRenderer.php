@@ -93,7 +93,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 'row' => $row,
                 'flexFormData' => $this->flexFormData,
                 'formUid' => $this->getLocalizedFormUid(
-                    (int)$this->flexFormData['settings']['flexform']['main']['form'],
+                    (int)($this->flexFormData['settings']['flexform']['main']['form'] ?? 0),
                     $row['sys_language_uid']
                 ),
                 'receiverEmail' => $this->getReceiverEmail(),
@@ -102,7 +102,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 'pluginName' => $pluginName,
                 'enableMailPreview' => !ConfigurationUtility::isDisablePluginInformationMailPreviewActive(),
                 'form' => $this->getFormTitleByUid(
-                    (int)$this->flexFormData['settings']['flexform']['main']['form'],
+                    (int)($this->flexFormData['settings']['flexform']['main']['form'] ?? 0),
                 ),
             ]
         );
@@ -120,7 +120,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
         /** @var MailRepository $mailRepository */
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         return $mailRepository->findLatestByFormAndPage(
-            (int)$this->flexFormData['settings']['flexform']['main']['form'],
+            (int)($this->flexFormData['settings']['flexform']['main']['form'] ?? 0),
             (int)$row['pid']
         );
     }

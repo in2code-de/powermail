@@ -39,8 +39,8 @@
 		"ext-curl": "*"
 	},
 	"suggest": {
-		"sjbr/static-info-tables": "*",
-		"jambagecom/base-excel": "^v1.29.0"
+		"sjbr/static-info-tables": "Provides country information for the country field",
+		"phpoffice/phpspreadsheet": "Enables xlsx export via the powermail module"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
@@ -103,6 +103,7 @@
 		}
 	},
 	"scripts": {
+		"render:docs": "docker run --rm --pull always -v $(pwd):/project -it ghcr.io/typo3-documentation/render-guides:latest --config=Documentation",
 		"test:behaviour": "behat --config Tests/Behavior/behat.yml",
 		"test:behaviour:tag": "behat --config Tests/Behavior/behat.yml --tags",
 		"test:behaviour:stop": "behat --config Tests/Behavior/behat.yml --stop-on-failure",

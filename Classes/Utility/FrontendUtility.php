@@ -120,8 +120,8 @@ class FrontendUtility
             $feUserGroups,
             true
         );
-        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
-        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
+        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? '', true);
+        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? '', true);
 
         // replace "_owner" with uid of owner in array with users
         if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings))) {
