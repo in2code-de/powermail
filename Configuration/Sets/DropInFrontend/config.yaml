@@ -1,4 +1,0 @@
-name: in2code/powermail-dropin-frontend
-label: 'Powermail DropIn Frontend'
-dependencies:
-  - in2code/powermail-dropin-main
