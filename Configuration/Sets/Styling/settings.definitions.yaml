@@ -1,69 +1,7 @@
 settings:
-  plugin.tx_powermail.settings.styling.numberOfColumns:
-    default: 2
-    type: int
-    label: Number of columns
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.rowClasses:
-    default: 'row'
+  plugin.tx_powermail.settings.BasicCss:
+    default: 'EXT:powermail/Resources/Public/Css/Basic.css'
     type: text
-    label: Framework classname(s) for containers to build rows
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.formClasses:
-    default: ''
-    type: text
-    label: Framework classname(s) for form
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.fieldAndLabelWrappingClasses:
-    default: 'col-md-6'
-    type: text
-    label: Framework classname(s) for overall wrapping container of a field/label pair
-    description: e.g. "col-md-6"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.fieldWrappingClasses:
-    default: 'powermail_field'
-    type: text
-    label: Framework classname(s) for wrapping container of a field
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.labelClasses:
-    default: 'form-label powermail_label'
-    type: text
-    label: Framework classname(s) for fieldlabels
-    description: e.g. "form-label"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.fieldClasses:
-    default: 'form-control'
-    type: text
-    label: Framework classname(s) for fields
-    description: e.g. "form-control"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.offsetClasses:
-    default: ''
-    type: text
-    label: Framework classname(s) for fields with an offset
-    description: e.g. "col-sm-offset-2"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.radioClasses:
-    default: 'form-check powermail_radiowrap'
-    type: text
-    label: Framework classname(s) especially for radiobuttons
-    description: e.g. "form-check"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.checkClasses:
-    default: 'form-check powermail_checkwrap'
-    type: text
-    label: Framework classname(s) especially for checkboxes
-    description: e.g. "form-check"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.submitClasses:
-    default: 'btn btn-primary'
-    type: text
-    label: Framework classname(s) for the submit button
-    description: e.g. "btn btn-primary"
-    category: powermail.styling
-  plugin.tx_powermail.settings.styling.createClasses:
-    default: 'powermail_create'
-    type: text
-    label: Framework classname(s) for "create" message after submit
-    description: e.g. "powermail_create"
+    label: Path to a file with (very) basic css definitions
+    description: Default css delivered by EXT:powermail. You want to overwrite them definitely
     category: powermail.styling
