@@ -81,4 +81,9 @@ class BasicFileUtility
 
         return $path;
     }
+
+    public static function getHmacForFile(string $file): string
+    {
+        return GeneralUtility::hmac($file, '_powermail');
+    }
 }

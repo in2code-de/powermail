@@ -593,7 +593,7 @@ class FormController extends AbstractController
         $form = $mail->getForm();
         if (
             count($formRepository->hasCaptcha($form))
-            && $this->settings['main']['form'] === $this->request->getArguments()['mail']['form']
+            && $this->settings['main']['form'] === (string)($form->getUid())
         ) {
             foreach ($mail->getAnswers() as $answer) {
                 /** @var Answer $answer */

@@ -221,8 +221,7 @@
 																		</f:else>
 																	</f:if>
 																</a>
-
-																<a href="{be:moduleLink(route:'powermail_downloadfile', arguments:'{file: \'{settings.uploadPath}{subValue}\'}')}" download>
+																<a href="{be:moduleLink(route:'powermail_downloadfile', arguments:'{file: \'{settings.uploadPath}{subValue}\', hmac: \'{vh:misc.getHmacForFile(fileName:subValue, path:settings.uploadPath)}\'}')}" download>
 																	Download
 																</a>
 															</div>
