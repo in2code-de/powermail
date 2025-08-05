@@ -44,10 +44,12 @@ use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3Fluid\Fluid\View\ViewInterface;
 
 /**
  * Class FormController
@@ -63,6 +65,16 @@ class FormController extends AbstractController
      * @var DataProcessorRunner
      */
     protected DataProcessorRunner $dataProcessorRunner;
+
+    public function getView(): ?ViewInterface
+    {
+        return $this->view;
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->request;
+    }
 
     /**
      * @return ResponseInterface
@@ -98,7 +110,7 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -106,7 +118,7 @@ class FormController extends AbstractController
      * @throws InvalidQueryException
      * @throws NoSuchArgumentException
      */
-    public function checkConfirmationAction(Mail $mail): ResponseInterface
+    public function checkConfirmationAction(?Mail $mail = null): ResponseInterface
     {
         $response = $this->forwardIfFormParamsDoNotMatch();
 
@@ -187,7 +199,7 @@ class FormController extends AbstractController
     }
 
     /**
-     * @param Mail $mail
+     * @param ?Mail $mail
      * @return ResponseInterface
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
@@ -196,7 +208,7 @@ class FormController extends AbstractController
      * @throws NoSuchArgumentException
      * @deprecated since version 12.3.2, will be removed in version 13.0.0
      */
-    public function checkCreateAction(Mail $mail): ResponseInterface
+    public function checkCreateAction(?Mail $mail = null): ResponseInterface
     {
         trigger_error(
             'EXT:powermail -- Method "checkCreateAction" is deprecated since version 12.3.2, will be removed in version 13.0.0',
@@ -411,7 +423,7 @@ class FormController extends AbstractController
     /**
      * Confirm Double Optin
      *
-     * @param int $mailUid
+     * @param int $mail
      * @param string $hash Given Hash String
      * @return ResponseInterface
      * @throws IllegalObjectTypeException
