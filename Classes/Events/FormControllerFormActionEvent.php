@@ -5,6 +5,9 @@ namespace In2code\Powermail\Events;
 
 use In2code\Powermail\Controller\FormController;
 use In2code\Powermail\Domain\Model\Form;
+use TYPO3\CMS\Core\View\ViewInterface;
+use TYPO3\CMS\Extbase\Mvc\RequestInterface;
+use TYPO3Fluid\Fluid\View\ViewInterface as FluidViewInterface;
 
 final class FormControllerFormActionEvent
 {
@@ -31,6 +34,16 @@ final class FormControllerFormActionEvent
     public function getFormController(): FormController
     {
         return $this->formController;
+    }
+
+    public function getView(): ViewInterface|FluidViewInterface
+    {
+        return $this->getFormController()->getView();
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->getFormController()->getRequest();
     }
 
     /**

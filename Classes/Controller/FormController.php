@@ -47,6 +47,7 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExis
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
@@ -56,6 +57,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3Fluid\Fluid\View\ViewInterface as FluidViewInterface;
 
 /**
  * Class FormController
@@ -615,5 +617,15 @@ class FormController extends AbstractController
             $logger->critical('An error occurred: ', [$e->getMessage()]);
             return (new ForwardResponse('form'))->withoutArguments();
         }
+    }
+
+    public function getView(): ViewInterface|FluidViewInterface
+    {
+        return $this->view;
+    }
+
+    public function getRequest(): ?RequestInterface
+    {
+        return $this->request;
     }
 }
