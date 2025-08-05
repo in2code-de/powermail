@@ -32,7 +32,7 @@
 	"license": "GPL-2.0-or-later",
 	"require": {
 		"php": "^8.1",
-		"typo3/cms-core": "^12.4",
+		"typo3/cms-core": "^12.4.18",
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
