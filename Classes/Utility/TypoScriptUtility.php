@@ -25,8 +25,10 @@ class TypoScriptUtility
         ?array $conf = [],
         string $key = ''
     ): string {
-        if (ObjectUtility::getContentObject()->cObjGetSingle($conf[$key]??'', $conf[$key . '.']??[])) {
-            $string = ObjectUtility::getContentObject()->cObjGetSingle($conf[$key], $conf[$key . '.']);
+        $contentObject = ObjectUtility::getContentObject();
+        $contentObject->setCurrentVal($string);
+        if ($contentObject->cObjGetSingle($conf[$key]??'', $conf[$key . '.']??[])) {
+            $string = $contentObject->cObjGetSingle($conf[$key], $conf[$key . '.']);
         }
         return $string;
     }
