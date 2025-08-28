@@ -43,7 +43,7 @@
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
 		"ext-curl": "*",
-		"phpoffice/phpspreadsheet": "^4.0"
+		"phpoffice/phpspreadsheet": "^5.0"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
