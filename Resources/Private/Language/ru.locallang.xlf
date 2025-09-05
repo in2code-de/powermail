@@ -483,6 +483,10 @@
         <source>ParseFunc Path in TypoScript (without prefix lib.).</source>
         <target state="final">Путь к ParseFunc в TypoScript (без приставки lib.).</target>
       </trans-unit>
+      <trans-unit id="BackendConverterFormDefaultParseFuncTroubleText" resname="BackendConverterFormDefaultParseFuncTroubleText" approved="yes">
+        <source>If you have trouble with form converting, you can leave this value empty.</source>
+        <target state="final">Если возникли проблемы с преобразованием формы, можно оставить это значение пустым.</target>
+      </trans-unit>
       <trans-unit id="BackendConverterFormHidden" resname="BackendConverterFormHidden" approved="yes">
         <source>Ignore Old Hidden Forms</source>
         <target state="final">Игнорировать старые скрытые формы</target>
@@ -615,6 +619,10 @@
         <source>Frontend Sessions are working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey()</source>
         <target state="final">Сессии сайта правильно работают посредством $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() и -&gt;setKey()</target>
       </trans-unit>
+      <trans-unit id="BackendCheckSessionFailed" resname="BackendCheckSessionFailed" approved="yes">
+        <source>Frontend Sessions are not working properly by using $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() and -&gt;setKey() - please ask your Administrator</source>
+        <target state="final">Сессии на сайте работают неправильно с использованием $GLOBALS['TSFE']-&gt;fe_user-&gt;getKey() и -&gt;setKey() - обратитесь к Администратору</target>
+      </trans-unit>
       <trans-unit id="BackendCheckExtMngConfigTitle" resname="BackendCheckExtMngConfigTitle" approved="yes">
         <source>Extension Manager Updated</source>
         <target state="final">Обновлен модуль управления расширениями</target>
@@ -634,6 +642,10 @@
       <trans-unit id="BackendCheckVersionLastUpdate" resname="BackendCheckVersionLastUpdate" approved="yes">
         <source>Last Extension Manager update</source>
         <target state="final">Последнее обновление модуля Управления расширениями</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckVersionNoInformation" resname="BackendCheckVersionNoInformation" approved="yes">
+        <source>It could not be determined whether this version is secure or unsecure. Please update the extensions in the Extension Manager.</source>
+        <target state="final">Невозможно определить, является ли эта версия безопасной или небезопасной. Пожалуйста, обновите расширения через Модуль управления расширениями.</target>
       </trans-unit>
       <trans-unit id="BackendCheckVersionUpToDate" resname="BackendCheckVersionUpToDate" approved="yes">
         <source>The installed version of powermail is up-to-date</source>
@@ -667,6 +679,10 @@
         <source>Default Upload Folder exists (uploads/tx_powermail/)</source>
         <target state="final">Папка загрузок по умолчанию существует (uploads/tx_powermail/)</target>
       </trans-unit>
+      <trans-unit id="BackendCheckUploadsFolderFailed" resname="BackendCheckUploadsFolderFailed" approved="yes">
+        <source>Default Upload Folder doesn't exist (uploads/tx_powermail/)</source>
+        <target state="final">Нет папки загрузки по умолчанию (uploads/tx_powermail/)</target>
+      </trans-unit>
       <trans-unit id="BackendCheckWrongLocalizedFormsTitle" resname="BackendCheckWrongLocalizedFormsTitle" approved="yes">
         <source>Localized Forms</source>
         <target state="final">Локализованные формы</target>
@@ -698,6 +714,10 @@
       <trans-unit id="BackendCheckDevelopmentContextTitle" resname="BackendCheckDevelopmentContextTitle" approved="yes">
         <source>Development Context</source>
         <target state="final">Контекст Разработка</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckDevelopmentContextActive" resname="BackendCheckDevelopmentContextActive" approved="yes">
+        <source>This TYPO3 instance is running in development context. All mails will be sent to %s only.</source>
+        <target state="final">Этот экземпляр TYPO3 работает в контексте разработки. Все письма будут отправляться только %s.</target>
       </trans-unit>
       <trans-unit id="BackendCheckDevelopmentContextAvailable" resname="BackendCheckDevelopmentContextAvailable" approved="yes">
         <source>This TYPO3 instance is running in development context. You can use %s in the AdditionalConfiguration.php to enforce powermail to send testmails to this email-address only.</source>
@@ -778,6 +798,14 @@
       <trans-unit id="BackendCheckEmailTitle" resname="BackendCheckEmailTitle" approved="yes">
         <source>Email Sending Status</source>
         <target state="final">Статус отправки письма</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailCorrect" resname="BackendCheckEmailCorrect" approved="yes">
+        <source>Email was sent without problems (mail transmitted to mailserver)</source>
+        <target state="final">Письмо было отправлено без проблем (почта передана на почтовый сервер)</target>
+      </trans-unit>
+      <trans-unit id="BackendCheckEmailFailed" resname="BackendCheckEmailFailed" approved="yes">
+        <source>Email could not be sent properly (ask your Adminstrator)</source>
+        <target state="final">Невозможно правильно отправить письмо (обратитесь к администратору)</target>
       </trans-unit>
       <trans-unit id="BackendCheckStaticTemplateTitle" resname="BackendCheckStaticTemplateTitle" approved="yes">
         <source>TypoScript Static Template</source>
@@ -995,9 +1023,17 @@
         <source>Emails</source>
         <target state="final">Письма</target>
       </trans-unit>
+      <trans-unit id="FormField" resname="FormField" approved="yes">
+        <source>Form field</source>
+        <target state="final">Поле формы</target>
+      </trans-unit>
       <trans-unit id="MarketingInformation" resname="MarketingInformation" approved="yes">
         <source>Marketing Information</source>
         <target state="final">Маркетинговая информация</target>
+      </trans-unit>
+      <trans-unit id="MarketingInformationCountryDisabled" resname="MarketingInformationCountryDisabled" approved="yes">
+        <source>Country From Ip is disabled.</source>
+        <target state="final">Страна из Ip отключена.</target>
       </trans-unit>
       <trans-unit id="honeypodLabel" resname="honeypodLabel" approved="yes">
         <source>Don't fill this field!</source>
@@ -1006,6 +1042,18 @@
       <trans-unit id="deleteAllFiles" resname="deleteAllFiles" approved="yes">
         <source>Delete All Files</source>
         <target state="final">Удалить все файлы</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalTitle" resname="" approved="yes">
+        <source>Information</source>
+        <target state="final">Информация</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalText" resname="" approved="yes">
+        <source>You can use CSV Export in Excel also, if you want to export xls files the TYPO3 Extension base_excel must be installed. Further information: https://github.com/franzholz/base_excel</source>
+        <target state="final">Можно использовать CSV Экспорт в Excel, если нужно экспортировать xls файлы, необходимо установить TYPO3 Extension base_excel. Дополнительная информация: https://github.com/franzholz/base_excel</target>
+      </trans-unit>
+      <trans-unit id="xlsInfoModalCancel" resname="" approved="yes">
+        <source>Close</source>
+        <target state="final">Закрыть</target>
       </trans-unit>
     </body>
   </file>
