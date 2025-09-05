@@ -1,0 +1,117 @@
+@layer powermail-variables {
+
+  :root {
+    --pm-grey-1: #F2F2F2;
+    --pm-grey-2: #DEE2E6;
+    --pm-grey-3: #AAAAAA;
+    --pm-white: #FFFFFF;
+    --pm-black: #212529;
+    --pm-blue: #2E6DA4;
+    --pm-red: #DC3545;
+    --pm-green: #198754;
+    --pm-orange: #FFC107;
+
+    --pm-primary-color: var(--pm-blue);
+    --pm-secondary-color: var(--pm-grey-2);
+
+    /**
+     * Form fields
+     *
+     */
+
+    /* Input */
+    --pm-input-background-color: var(--pm-white);
+    --pm-input-border-color: var(--pm-grey-2);
+    --pm-input-color: var(--pm-black);
+    --pm-input-placeholder-color: var(--pm-grey-3);
+    --pm-input-invalid-background-color: var(--pm-input-background-color);
+    --pm-input-invalid-border-color: var(--pm-red);
+    --pm-input-invalid-color: var(--pm-input-color);
+
+    /* Select */
+    --pm-select-background-color: var(--pm-white);
+    --pm-select-border-color: var(--pm-grey-2);
+    --pm-select-color: var(--pm-black);
+
+    /* Checkbox */
+    --pm-check-background-color: var(--pm-white);
+    --pm-check-border-color: var(--pm-grey-2);
+    --pm-check-color: var(--pm-primary-color);
+
+    /* Radio */
+    --pm-radio-background-color: var(--pm-white);
+    --pm-radio-border-color: var(--pm-grey-2);
+    --pm-radio-color: var(--pm-primary-color);
+
+    /**
+     * Buttons
+     *
+     */
+    --pm-button-background-color: transparent;
+    --pm-button-color: currentcolor;
+    --pm-button-border-color: transparent;
+    --pm-button-hover-background-color: transparent;
+    --pm-button-hover-border-color: transparent;
+    --pm-button-hover-color: currentcolor;
+
+    /* Primary */
+    --pm-button-primary-background-color: var(--pm-primary-color);
+    --pm-button-primary-border-color: var(--pm-primary-color);
+    --pm-button-primary-color: var(--pm-white);
+    --pm-button-primary-hover-background-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+    --pm-button-primary-hover-border-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+    --pm-button-primary-hover-color: var(--pm-white);
+
+    /* Secondary */
+    --pm-button-secondary-background-color: var(--pm-secondary-color);
+    --pm-button-secondary-border-color: var(--pm-secondary-color);
+    --pm-button-secondary-color: var(--pm-black);
+    --pm-button-secondary-hover-background-color: color-mix(in srgb, var(--pm-secondary-color), var(--pm-black) 20%);
+    --pm-button-secondary-hover-border-color: color-mix(in srgb, var(--pm-secondary-color), var(--pm-black) 20%);
+    --pm-button-secondary-hover-color: var(--pm-black);
+
+    /* Active */
+    --pm-button-active-background-color: var(--pm-primary-color);
+    --pm-button-active-border-color: var(--pm-primary-color);
+    --pm-button-active-color: var(--pm-white);
+    --pm-button-active-hover-background-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+    --pm-button-active-hover-border-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+    --pm-button-active-hover-color: var(--pm-white);
+
+    /* Warning */
+    --pm-button-warning-background-color: var(--pm-orange);
+    --pm-button-warning-border-color: var(--pm-orange);
+    --pm-button-warning-color: var(--pm-black);
+    --pm-button-warning-hover-background-color: color-mix(in srgb, var(--pm-orange), var(--pm-black) 20%);
+    --pm-button-warning-hover-border-color: color-mix(in srgb, var(--pm-orange), var(--pm-black) 20%);
+    --pm-button-warning-hover-color: var(--pm-black);
+
+    /* Danger */
+    --pm-button-danger-background-color: var(--pm-red);
+    --pm-button-danger-border-color: var(--pm-red);
+    --pm-button-danger-color: var(--pm-white);
+    --pm-button-danger-hover-background-color: color-mix(in srgb, var(--pm-red), var(--pm-black) 20%);
+    --pm-button-danger-hover-border-color: color-mix(in srgb, var(--pm-red), var(--pm-black) 20%);
+    --pm-button-danger-hover-color: var(--pm-white);
+
+    /**
+     * Table
+     *
+     */
+
+    /* Head */
+    --pm-table-thead-tr-background-color: var(--pm-white);
+    --pm-table-thead-tr-color: var(--pm-black);
+    --pm-table-thead-th-border-color: var(--pm-grey-2);
+
+    /* Body */
+    --pm-table-tbody-tr-background-color: var(--pm-white);
+    --pm-table-tbody-tr-color: var(--pm-black);
+    --pm-table-tbody-tr-odd-background-color: var(--pm-grey-1);
+    --pm-table-tbody-tr-odd-color: var(--pm-black);
+    --pm-table-tbody-tr-hover-background-color: color-mix(in srgb, var(--pm-grey-1), var(--pm-black) 8%);
+    --pm-table-tbody-tr-hover-color: var(--pm-black);
+    --pm-table-tbody-th-border-color: var(--pm-grey-2);
+    --pm-table-tbody-td-border-color: var(--pm-grey-2);
+  }
+}

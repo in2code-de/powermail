@@ -16,9 +16,6 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
      */
     protected $isNotExcludedFromPowermailAllViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->isNotExcludedFromPowermailAllViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->isNotExcludedFromPowermailAllViewHelperMock);
@@ -37,8 +31,6 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for getExcludedValuesReturnArray()
-     *
-     * @return array
      */
     public static function getExcludedValuesReturnArrayDataProvider(): array
     {
@@ -146,13 +138,12 @@ class IsNotExcludedFromPowermailAllViewHelperTest extends UnitTestCase
      * @param array $settings
      * @param string $configurationType
      * @param array $expectedResult
-     * @return void
      * @dataProvider getExcludedValuesReturnArrayDataProvider
      * @test
      * @covers ::render
      * @covers ::getExcludedValues
      */
-    public function getExcludedValuesReturnArray($type, $settings, $configurationType, $expectedResult)
+    public function getExcludedValuesReturnArray($type, $settings, $configurationType, $expectedResult): void
     {
         $result = $this->isNotExcludedFromPowermailAllViewHelperMock->_call(
             'getExcludedValues',

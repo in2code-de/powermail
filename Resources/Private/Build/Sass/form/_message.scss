@@ -1,0 +1,89 @@
+@use "functions" as function;
+
+@layer powermail-form {
+
+
+
+  .powermail_message {
+    border: function.rem(1) solid transparent;
+    padding: function.rem(24);
+    background-position: calc(100% - ((24 / 16) * 1rem)) function.rem(24);
+    background-repeat: no-repeat;
+    background-size: function.rem(40);
+    position: relative;
+
+
+    & > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &::after {
+      block-size: function.rem(48);
+      content: '';
+      inline-size: function.rem(48);
+      inset-block-start: function.rem(24);
+      inset-inline-end: function.rem(24);
+      mask-mode: auto;
+      mask-position: center;
+      mask-repeat: no-repeat;
+      mask-size: contain;
+      position: absolute;
+    }
+
+
+    & h2 {
+      margin: 0;
+
+
+      & + * {
+        margin-block-start: function.rem(24);
+      }
+    }
+
+    & ol {
+      margin-block-end: 0;
+      margin-inline: 0;
+      padding-inline-start: function.rem(24);
+
+
+      & > * + * {
+        margin-block-start: function.rem(8);
+      }
+    }
+
+    & + * {
+      margin-block-start: function.rem(24);
+    }
+  }
+
+  .powermail_message_note {
+    border-color: var(--pm-orange);
+
+
+    &::after {
+      mask-image: url('../Image/Icons/check.svg');
+      background-color: var(--pm-orange);
+    }
+  }
+
+  .powermail_message_ok {
+    border-color: var(--pm-green);
+
+
+    &::after {
+      background-color: var(--pm-green);
+      mask-image: url('../Image/Icons/check.svg');
+    }
+  }
+
+  .powermail_message_error {
+    border-color: var(--pm-red);
+
+
+    &::after {
+      background-color: var(--pm-red);
+      mask-image: url('../Image/Icons/error.svg');
+    }
+  }
+}

@@ -21,4 +21,8 @@ return [
         'path' => '/powermail/functioncheck',
         'target' => \In2code\Powermail\Controller\ModuleController::class . '::checkBeAction',
     ],
+    'powermail_downloadfile' => [
+        'path' => '/powermail/downloadfile',
+        'target' => \In2code\Powermail\Controller\ModuleController::class . '::downloadFile',
+    ],
 ];

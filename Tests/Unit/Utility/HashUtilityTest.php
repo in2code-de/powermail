@@ -13,12 +13,11 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class HashUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @covers ::getEncryptionKey
      * @throws ConfigurationIsMissingException
      */
-    public function testGetEncryptionKey()
+    public function testGetEncryptionKey(): void
     {
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['encryptionKey'] = 'abcdef';
         self::assertSame('abcdef', HashUtilityFixture::getEncryptionKeyForTesting());

@@ -19,11 +19,15 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
  */
 class ExportCommand extends Command
 {
+    use FakeRequestTrait;
+
     /**
      * @return void
      */
-    public function configure()
+    protected function configure()
     {
+        $this->fakeRequest();
+
         $description =
             'This task can send a mail export with an attachment (XLS or CSV) to a receiver or a group of receivers';
         $this->setDescription($description);
@@ -55,14 +59,11 @@ class ExportCommand extends Command
      * Own export command to export whole pagetrees with all records to a file which contains a json and can be
      * imported again with a different import command.
      *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      * @throws InvalidQueryException
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $exportService = GeneralUtility::makeInstance(
@@ -88,27 +89,25 @@ class ExportCommand extends Command
             $output->writeln('Export finished');
             return Command::SUCCESS;
         }
+
         $output->writeln('Export could not be generated');
         return Command::FAILURE;
     }
 
     /**
      * Create a filter array from given period
-     *
-     * @param int $period
-     * @return array
      */
     protected function getFilterVariables(int $period): array
     {
-        $variables = ['filter' => []];
         if ($period > 0) {
-            $variables = [
+            return [
                 'filter' => [
-                    'start' => strftime('%Y-%m-%d %H:%M:%S', (time() - $period)),
+                    'start' => date('Y-m-d H:i:s', (time() - $period)),
                     'stop' => 'now',
                 ],
             ];
         }
-        return $variables;
+
+        return ['filter' => []];
     }
 }

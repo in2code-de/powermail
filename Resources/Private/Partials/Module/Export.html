@@ -3,15 +3,15 @@
 <div class="clearfix">
 	<div class="pull-right mb-3">
 		<f:form.button
-				class="btn btn-default"
+				class="btn btn-secondary"
 				type="button"
-				additionalAttributes="{data-toggle:'collapse',data-target:'#extended_export',aria-expanded:'false',aria-controls:'collapseExample'}">
+				additionalAttributes="{data-bs-toggle:'collapse',data-bs-target:'#extended_export',aria-expanded:'false',aria-controls:'collapseExample'}">
 			<f:translate key="BackendListFilterExtendedExport">extended export</f:translate>
 		</f:form.button>
 		<button type="button" class="export_icon export_icon_csv btn btn-info">CSV</button>
         <f:if condition="{activateXlsxExport}">
             <f:then>
-                <button type="button" class="export_icon export_icon_xls btn btn-info">XLS</button>
+                <button type="button" class="export_icon export_icon_xls btn btn-info">XLSX</button>
             </f:then>
             <f:else>
                 <button type="button" class="export_icon export_icon_xls export_icon_xls_not_available btn btn-info" data-modal-title="{f:translate(key: 'xlsInfoModalTitle', default: 'Information')}" data-modal-text="{f:translate(key: 'xlsInfoModalText', default: 'Please install Extension base_excel')}" data-modal-cancel="{f:translate(key: 'xlsInfoModalCancel', default: 'Cancel')}">XLS</button>
@@ -148,6 +148,7 @@
 	<f:form.hidden
 			name="export[fields]"
 			value="{vh:string.implodeField(objects:'{vh:getter.getFieldsFromForm(form:firstForm,property:\'uid\',fieldType:\'exportable\')}')}"
-			id="export_fields" />
+			id="export_fields"
+			respectSubmittedDataValue="false" />
 </f:if>
 

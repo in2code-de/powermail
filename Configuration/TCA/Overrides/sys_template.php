@@ -17,14 +17,8 @@ ExtensionManagementUtility::addStaticFile(
 // @extensionScannerIgnoreLine seems to be a false positive
 ExtensionManagementUtility::addStaticFile(
     'powermail',
-    'Configuration/TypoScript/Powermail_Frontend',
-    'Powermail_Frontend'
-);
-// @extensionScannerIgnoreLine seems to be a false positive
-ExtensionManagementUtility::addStaticFile(
-    'powermail',
-    'Configuration/TypoScript/BootstrapClassesAndLayout',
-    'Add classes and CSS based on bootstrap'
+    'Configuration/TypoScript/Powermail_Styling',
+    'Powermail_Styling'
 );
 if (!ConfigurationUtility::isDisableMarketingInformationActive()) {
     // @extensionScannerIgnoreLine seems to be a false positive

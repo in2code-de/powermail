@@ -9,13 +9,18 @@
 Spamshield is a method to protect your mailforms from spam without the usage of a captcha field.
 After a submit, different spammethods must be passed:
 
-- Honeypot
-- Linkcheck
-- Namecheck
-- Sessioncheck
-- UniqueValues
-- String Blacklist
-- IP-Address Blacklist
+- **Honeypot**: An invisible field is added to the form.
+  When it contains a value, the submission is spam.
+- **Linkcheck**: Checks if any of the field values contain an URL.
+  When the configured URL limit is passed, the submission is spam.
+- **Namecheck**: Check if first- and last name fields contain the same value.
+- **Sessioncheck**: Check if the user loaded the form page before submitting it.
+- **UniqueValues**: Check if all the field values are distinct.
+  If at least two values are the same, spam chance increases.
+- **String Blacklist**: Check if field values contain a word from
+  a configured list of disallowed words.
+- **IP-Address Blacklist**: User IP address must not be on the list of
+  disallowed addresses.
 
 Every submitted form will be checked with this methods. Every failed
 method adds a Spam-Indication-Number to a storage. The sum of the
@@ -238,14 +243,6 @@ http://www.test.de
 
 Senders IP addess: 127.0.0.1
 ```
-
-You can also enable the Spamshield Debug (what means to log failure) to see the Methods which are failed above the form.
-Enable with TypoScript setup:
-
-`plugin.tx_powermail.settings.setup.debug.spamshield = 1`
-
-See https://docs.typo3.org/m/typo3/reference-coreapi/master/en-us/ApiOverview/Logging/Index.html how to see how
-logging can be used in TYPO3.
 
 
 ### Register own spamcheck methods

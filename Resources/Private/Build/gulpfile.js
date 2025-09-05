@@ -2,7 +2,7 @@
 'use strict';
 
 const { src, dest, watch, series, parallel } = require('gulp');
-const sass = require('gulp-sass')(require('node-sass'));
+const sass = require('gulp-sass')(require('sass'));
 const rollup = require('rollup').rollup;
 const rollupConfig = require('./rollup.config');
 const uglify = require('gulp-uglify');
@@ -28,9 +28,9 @@ function css() {
 };
 
 function jsForm(done) {
-  rollup(rollupConfig).then(bundle => {
-    rollupConfig.output.plugins = rollupConfig
-    bundle.write(rollupConfig.output).then(() => done());
+  rollup(rollupConfig.form).then(bundle => {
+    rollupConfig.form.output.plugins = rollupConfig
+    bundle.write(rollupConfig.form.output).then(() => done());
   });
 };
 
@@ -44,14 +44,11 @@ function jsMarketing() {
     .pipe(dest(project.js));
 };
 
-function jsBackend() {
-  return src([__dirname + '/JavaScript/Backend.js'])
-    .pipe(plumber())
-    .pipe(uglify())
-    .pipe(rename({
-      suffix: '.min'
-    }))
-    .pipe(dest(project.js));
+function jsBackend(done) {
+    rollup(rollupConfig.backend).then(bundle => {
+        rollupConfig.backend.output.plugins = rollupConfig
+        bundle.write(rollupConfig.backend.output).then(() => done());
+    });
 };
 
 // "npm run build"

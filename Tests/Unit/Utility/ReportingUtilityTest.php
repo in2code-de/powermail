@@ -15,17 +15,13 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class ReportingUtilityTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
     protected bool $resetSingletonInstances = true;
 
     /**
-     * @return void
      * @test
      * @covers ::getGroupedAnswersFromMails
      */
-    public function getGroupedAnswersFromMailsReturnsArray()
+    public function getGroupedAnswersFromMailsReturnsArray(): void
     {
         $result = ReportingUtility::getGroupedAnswersFromMails($this->getDummyMails());
         $expected = [
@@ -37,12 +33,11 @@ class ReportingUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getGroupedMarketingPropertiesFromMails
      * @throws PropertyNotAccessibleException
      */
-    public function getGroupedMarketingPropertiesFromMailsReturnsArray()
+    public function getGroupedMarketingPropertiesFromMailsReturnsArray(): void
     {
         $result = ReportingUtility::getGroupedMarketingPropertiesFromMails($this->getDummyMails());
         $expected = [
@@ -87,13 +82,12 @@ class ReportingUtilityTest extends UnitTestCase
             $mail->addAnswer($answer);
             $mails[] = $mail;
         }
+
         return $mails;
     }
 
     /**
      * Data Provider for sortReportingArrayDescendingReturnsVoid()
-     *
-     * @return array
      */
     public static function sortReportingArrayDescendingReturnsVoidDataProvider(): array
     {
@@ -140,12 +134,11 @@ class ReportingUtilityTest extends UnitTestCase
     /**
      * @param array $array
      * @param array $expectedResult
-     * @return void
      * @dataProvider sortReportingArrayDescendingReturnsVoidDataProvider
      * @test
      * @covers ::sortReportingArrayDescending
      */
-    public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult)
+    public function sortReportingArrayDescendingReturnsVoid($array, $expectedResult): void
     {
         ReportingUtility::sortReportingArrayDescending($array);
         self::assertSame($array, $expectedResult);
@@ -153,8 +146,6 @@ class ReportingUtilityTest extends UnitTestCase
 
     /**
      * Data Provider for cutArrayByKeyLimitAndAddTotalValuesReturnsVoid()
-     *
-     * @return array
      */
     public static function cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider(): array
     {
@@ -204,12 +195,11 @@ class ReportingUtilityTest extends UnitTestCase
     /**
      * @param array $array
      * @param array $expectedResult
-     * @return void
      * @dataProvider cutArrayByKeyLimitAndAddTotalValuesReturnsVoidDataProvider
      * @test
      * @covers ::cutArrayByKeyLimitAndAddTotalValues
      */
-    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult)
+    public function cutArrayByKeyLimitAndAddTotalValuesReturnsVoid($array, $expectedResult): void
     {
         ReportingUtility::cutArrayByKeyLimitAndAddTotalValues($array, 3, 'others');
         self::assertSame($array, $expectedResult);

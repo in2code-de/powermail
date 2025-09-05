@@ -14,9 +14,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsHonepodEnabledViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return bool
-     */
     public function render(): bool
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);

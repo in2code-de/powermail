@@ -24,10 +24,7 @@ class EditLinkViewHelper extends AbstractViewHelper
         'mail' => Mail::TABLE_NAME,
     ];
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('table', 'string', 'Tablename', true);
@@ -37,7 +34,6 @@ class EditLinkViewHelper extends AbstractViewHelper
     /**
      * Create backend edit links
      *
-     * @return string
      * @throws RouteNotFoundException
      */
     public function render(): string
@@ -47,6 +43,7 @@ class EditLinkViewHelper extends AbstractViewHelper
         if (array_key_exists($table, $this->tables)) {
             $table = $this->tables[$table];
         }
+
         return BackendUtility::createEditUri($table, $identifier);
     }
 }

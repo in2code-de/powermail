@@ -12,7 +12,6 @@ use In2code\Powermail\Exception\ConfigurationIsMissingException;
 class ValueBreaker extends AbstractBreaker
 {
     /**
-     * @return bool
      * @throws ConfigurationIsMissingException
      */
     public function isDisabled(): bool
@@ -25,12 +24,11 @@ class ValueBreaker extends AbstractBreaker
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * @param array $configuration
-     * @return void
      * @throws ConfigurationIsMissingException
      */
     protected function checkConfiguration(array $configuration): void

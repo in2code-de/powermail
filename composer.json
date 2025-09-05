@@ -10,6 +10,12 @@
 	"homepage": "https://github.com/einpraegsam/powermail",
 	"authors": [
 		{
+			"name": "Marcus Schwemer",
+			"email": "marcus.schwemer@in2code.de",
+			"role": "Product Owner",
+			"homepage": "https://www.in2code.de"
+		},
+		{
 			"name": "Stefan Busemann",
 			"email": "stefan.busemann@in2code.de",
 			"role": "Update Manager",
@@ -18,12 +24,12 @@
 		{
 			"name": "Alex Kellner",
 			"email": "alexander.kellner@in2code.de",
-			"role": "Product owner, Technical owner",
+			"role": "Developer",
 			"homepage": "https://www.in2code.de"
 		},
 		{
-			"name": "Marcus Schwemer",
-			"email": "marcus.schwemer@in2code.de",
+			"name": "Andreas Nedbal",
+			"email": "alexander.kellner@in2code.de",
 			"role": "Developer",
 			"homepage": "https://www.in2code.de"
 		}
@@ -31,56 +37,51 @@
 	"type": "typo3-cms-extension",
 	"license": "GPL-2.0-or-later",
 	"require": {
-		"php": "^8.1",
-		"typo3/cms-core": "^12.4",
+		"php": "^8.2",
+		"typo3/cms-core": "^13.4",
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
-		"ext-curl": "*"
-	},
-	"suggest": {
-		"sjbr/static-info-tables": "*",
-		"jambagecom/base-excel": "^v1.29.0"
+		"ext-curl": "*",
+		"phpoffice/phpspreadsheet": "^5.0"
 	},
 	"replace": {
 		"typo3-ter/powermail": "self.version"
 	},
 	"require-dev": {
-		"typo3/cms-extbase": "^12.4",
-		"typo3/cms-extensionmanager": "^12.4",
-		"typo3/cms-felogin": "^12.4",
-		"typo3/cms-filelist": "^12.4",
-		"typo3/cms-fluid-styled-content": "^12.4",
-		"typo3/cms-frontend": "^12.4",
-		"typo3/cms-info": "^12.4",
-		"typo3/cms-install": "^12.4",
-		"typo3/cms-recordlist": "^12.4",
-		"typo3/cms-rte-ckeditor": "^12.4",
-		"typo3/cms-scheduler": "^12.4",
-		"typo3/cms-setup": "^12.4",
-		"typo3/cms-t3editor": "^12.4",
-		"typo3/cms-tstemplate": "^12.4",
-		"typo3/cms-lowlevel": "^12.4",
+		"typo3/cms-extbase": "^13.4",
+		"typo3/cms-extensionmanager": "^13.4",
+		"typo3/cms-felogin": "^13.4",
+		"typo3/cms-filelist": "^13.4",
+		"typo3/cms-fluid-styled-content": "^13.4",
+		"typo3/cms-frontend": "^13.4",
+		"typo3/cms-info": "^13.4",
+		"typo3/cms-install": "^13.4",
+		"typo3/cms-recordlist": "^13.4",
+		"typo3/cms-rte-ckeditor": "^13.4",
+		"typo3/cms-scheduler": "^13.4",
+		"typo3/cms-setup": "^13.4",
+		"typo3/cms-t3editor": "^13.4",
+		"typo3/cms-tstemplate": "^13.4",
+		"typo3/cms-lowlevel": "^13.4",
 		"helmich/typo3-typoscript-lint": "^3.1",
 		"mikey179/vfsstream": "^1.6",
 		"friendsofphp/php-cs-fixer": "^3.10",
 		"squizlabs/php_codesniffer": "^3.5",
 		"phpmd/phpmd": "^2.8",
 		"behat/behat": "^3.8",
-		"helhum/typo3-console": "^8.0.x-dev",
 		"se/selenium-server-standalone": "^3.141",
-		"symfony/config": "^6.2",
+		"symfony/config": "^7.1",
 		"friends-of-behat/mink-extension": "^2.5",
 		"behat/mink-selenium2-driver": "^1.5",
-		"typo3/cms-adminpanel": "^12.4",
-		"typo3/cms-belog": "^12.4",
-		"typo3/cms-beuser": "^12.4",
-		"typo3/cms-dashboard": "^12.4",
+		"typo3/cms-adminpanel": "^13.4",
+		"typo3/cms-belog": "^13.4",
+		"typo3/cms-beuser": "^13.4",
+		"typo3/cms-dashboard": "^13.4",
 		"friends-of-behat/mink-browserkit-driver": "^1.5",
 		"drevops/behat-screenshot": "^1.1",
 		"typo3/testing-framework": "^8.0",
-		"phpstan/phpstan": "^1.12.3",
-		"jambagecom/base-excel": "^2.1"
+		"phpstan/phpstan": "^1.12.3"
 	},
 	"autoload": {
 		"psr-4": {
@@ -89,9 +90,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"In2code\\Powermail\\Tests\\": "Tests",
-			"TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/",
-			"TYPO3\\CMS\\Fluid\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/fluid/Tests/"
+			"In2code\\Powermail\\Tests\\": "Tests"
 		}
 	},
 	"config": {
@@ -103,6 +102,7 @@
 		}
 	},
 	"scripts": {
+		"render:docs": "docker run --rm --pull always -v $(pwd):/project -it ghcr.io/typo3-documentation/render-guides:latest --config=Documentation",
 		"test:behaviour": "behat --config Tests/Behavior/behat.yml",
 		"test:behaviour:tag": "behat --config Tests/Behavior/behat.yml --tags",
 		"test:behaviour:stop": "behat --config Tests/Behavior/behat.yml --stop-on-failure",

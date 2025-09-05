@@ -1,0 +1,4 @@
+name: in2code/powermail-dropin-marketing
+label: 'Powermail DropIn Marketing'
+dependencies:
+  - in2code/powermail-dropin-main

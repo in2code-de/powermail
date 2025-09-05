@@ -9,4 +9,4 @@ services:
       - ddev-router:$DDEV_HOSTNAME
     ports:
       - 4444
-      - "19647:5900"
+      - "47754:5900"

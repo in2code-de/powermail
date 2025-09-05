@@ -25,19 +25,11 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
  */
 class PluginPreviewRenderer extends StandardContentPreviewRenderer
 {
-    /**
-     * @var array
-     */
+    public $row;
     protected array $rows = [];
 
-    /**
-     * @var array
-     */
     protected array $flexFormData = [];
 
-    /**
-     * @var string
-     */
     protected string $templatePathAndFile = 'EXT:powermail/Resources/Private/Templates/Hook/PluginPreview.html';
 
     /**
@@ -56,10 +48,11 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
         if (!is_array($flexforms)) {
             return 'ERROR: ' . htmlspecialchars($flexforms);
         }
+
         $this->flexFormData = $flexforms;
 
         $preview = '';
-        if (!ConfigurationUtility::isDisablePluginInformationActive() && !empty($this->flexFormData)) {
+        if (!ConfigurationUtility::isDisablePluginInformationActive() && $this->flexFormData !== []) {
             $preview = match ($row['CType']) {
                 'powermail_pi1' => $this->getPluginInformation('Pi1', $row),
                 'powermail_pi2' => $this->getPluginInformation('Pi2', $row),
@@ -78,8 +71,6 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
 
     /**
      * @param string $pluginName @pluginName
-     * @param array $row
-     * @return string
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidConfigurationTypeException
@@ -113,9 +104,8 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      * Get latest three emails to this form
      *
      * @param $row
-     * @return QueryResultInterface
      */
-    protected function getLatestMails($row): QueryResultInterface
+    protected function getLatestMails(array $row): QueryResultInterface
     {
         /** @var MailRepository $mailRepository */
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
@@ -127,8 +117,6 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
 
     /**
      * Get receiver mail
-     *
-     * @return string
      */
     protected function getReceiverEmail(): string
     {
@@ -141,6 +129,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
             $receiver = 'Frontenduser Group '
                 . (int)$this->flexFormData['settings']['flexform']['receiver']['fe_group'] ?? 0;
         }
+
         if (
             isset($this->flexFormData['settings']['flexform']['receiver']['type']) &&
             isset($this->flexFormData['settings']['flexform']['receiver']['predefinedemail']) &&
@@ -148,6 +137,7 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
             $receiver = 'Predefined "'
                 . (int)$this->flexFormData['settings']['flexform']['receiver']['predefinedemail'] . '"';
         }
+
         return $receiver ?? '';
     }
 
@@ -155,7 +145,6 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
      * Get form title from uid
      *
      * @param int $uid Form uid
-     * @return string
      */
     protected function getFormTitleByUid(int $uid): string
     {
@@ -166,10 +155,6 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
 
     /**
      * Get form uid of a localized form
-     *
-     * @param int $uid
-     * @param int $sysLanguageUid
-     * @return int
      */
     protected function getLocalizedFormUid(int $uid, int $sysLanguageUid): int
     {
@@ -183,19 +168,19 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
                 $uid = (int)$row[0]['uid'];
             }
         }
+
         return $uid;
     }
 
     /**
      * Get current sys_language_uid from page content
-     *
-     * @return int
      */
     protected function getSysLanguageUid(): int
     {
         if (!empty($this->row['sys_language_uid'])) {
             return (int)$this->row['sys_language_uid'];
         }
+
         return 0;
     }
 }

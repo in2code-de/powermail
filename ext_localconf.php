@@ -12,7 +12,7 @@ call_user_func(function () {
     if (\In2code\Powermail\Utility\ConfigurationUtility::isEnableCachingActive()) {
         $uncachedFormActions = '';
     }
-    $uncachedFormActions .= ', checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer';
+    $uncachedFormActions .= ', create, confirmation, optinConfirm, disclaimer';
 
     /**
      * Include Frontend Plugins for Powermail
@@ -22,7 +22,7 @@ call_user_func(function () {
         'Pi1',
         [
             \In2code\Powermail\Controller\FormController::class =>
-                'form, checkCreate, create, checkConfirmation, confirmation, optinConfirm, disclaimer'
+                'form, create, confirmation, optinConfirm, disclaimer'
         ],
         [
             \In2code\Powermail\Controller\FormController::class => $uncachedFormActions
@@ -39,56 +39,6 @@ call_user_func(function () {
         [
             \In2code\Powermail\Controller\FormController::class => 'marketing'
         ],
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi2',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi3',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'edit, update, delete'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-        'Powermail',
-        'Pi4',
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, show, edit, update, delete'
-        ],
-        [
-            \In2code\Powermail\Controller\OutputController::class => 'list, edit, update, delete'
-        ],
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-    );
-
-    /**
-     * ContentElementWizard for Pi1
-     */
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '@import \'EXT:powermail/Configuration/TSConfig/ContentElementWizard.typoscript\''
-    );
-
-    /**
-     * PageTSConfig for backend mod list
-     */
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        '@import \'EXT:powermail/Configuration/TSConfig/WebList.typoscript\''
     );
 
     /**
@@ -129,16 +79,8 @@ call_user_func(function () {
     ];
 
     /**
-     * Update Wizards
+     * Feature toggle
+     * ToDo: remove for TYPO3 v14 compatible version
      */
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailRelationUpdateWizard']
-        = \In2code\Powermail\Update\PowermailRelationUpdateWizard::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailLanguageUpdateWizard']
-        = \In2code\Powermail\Update\PowermailLanguageUpdateWizard::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPluginUpdater']
-        = \In2code\Powermail\Update\PowermailPluginUpdater::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionUpdater']
-        = \In2code\Powermail\Update\PowermailPermissionUpdater::class;
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['powermailPermissionSubmodulesUpdater']
-        = \In2code\Powermail\Update\PowermailPermissionSubmoduleUpdater::class;
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['powermailEditorsAreAllowedToSendAttachments'] ??= false;
 });

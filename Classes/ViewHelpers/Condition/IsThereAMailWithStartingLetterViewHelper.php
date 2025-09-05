@@ -13,10 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('mails', QueryResult::class, 'Mails', true);
@@ -26,8 +23,6 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
 
     /**
      * Check if there is a mail with a starting letter
-     *
-     * @return bool
      */
     public function render(): bool
     {
@@ -43,12 +38,13 @@ class IsThereAMailWithStartingLetterViewHelper extends AbstractViewHelper
                     $answer->getField()->getUid() === (int)$answerField
                 ) {
                     $value = $answer->getValue();
-                    if ($value !== '' && strtolower($value[0]) === strtolower($letter)) {
+                    if ($value !== '' && strtolower((string)$value[0]) === strtolower((string)$letter)) {
                         return true;
                     }
                 }
             }
         }
+
         return false;
     }
 }

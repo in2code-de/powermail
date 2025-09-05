@@ -20,7 +20,6 @@ class PasswordValidator extends AbstractValidator
      * Validation of given Params
      *
      * @param Mail $mail
-     * @return Result
      */
     public function validate($mail): Result
     {
@@ -28,6 +27,7 @@ class PasswordValidator extends AbstractValidator
         if ($this->formHasPassword($mail->getForm()) && !$this->ignoreValidationIfConfirmation()) {
             $this->isValid($mail);
         }
+
         return $this->result;
     }
 
@@ -37,6 +37,7 @@ class PasswordValidator extends AbstractValidator
             if ($answer->getField()->getType() !== 'password') {
                 continue;
             }
+
             if ($answer->getValue() !== $this->getMirroredValueOfPasswordField($answer->getField())) {
                 $this->setErrorAndMessage($answer->getField(), 'password');
             }
@@ -45,9 +46,6 @@ class PasswordValidator extends AbstractValidator
 
     /**
      * Get mirror value from POST params
-     *
-     * @param Field $field
-     * @return string
      */
     protected function getMirroredValueOfPasswordField(Field $field): string
     {
@@ -56,9 +54,6 @@ class PasswordValidator extends AbstractValidator
 
     /**
      * Checks if given form has a password field
-     *
-     * @param Form $form
-     * @return bool
      */
     protected function formHasPassword(Form $form): bool
     {
@@ -69,8 +64,6 @@ class PasswordValidator extends AbstractValidator
 
     /**
      * Stop validation if confirmation step is active on create
-     *
-     * @return bool
      */
     protected function ignoreValidationIfConfirmation(): bool
     {
@@ -78,7 +71,7 @@ class PasswordValidator extends AbstractValidator
             !empty(FrontendUtility::getArguments()['__referrer'])
             && !empty(FrontendUtility::getArguments()['action'])
             && FrontendUtility::getArguments()['__referrer']['@action'] === 'confirmation'
-            && FrontendUtility::getArguments()['action'] === 'checkCreate'
+            && FrontendUtility::getArguments()['action'] === 'create'
         )
             || (
                 !empty(FrontendUtility::getArguments()['controller'])

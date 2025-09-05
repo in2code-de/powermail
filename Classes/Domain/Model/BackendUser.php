@@ -22,8 +22,8 @@ class BackendUser extends AbstractEntity
 {
     /**
      * @var string
-     * @Extbase\Validate("NotEmpty")
      */
+    #[Extbase\Validate(['validator' => 'NotEmpty'])]
     protected $userName = '';
 
     /**
@@ -81,7 +81,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $userName the user name to set, must not be empty
      */
-    public function setUserName($userName)
+    public function setUserName($userName): void
     {
         $this->userName = $userName;
     }
@@ -97,7 +97,7 @@ class BackendUser extends AbstractEntity
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
@@ -117,7 +117,7 @@ class BackendUser extends AbstractEntity
      *
      * @param bool $isAdministrator whether this user should be an administrator
      */
-    public function setIsAdministrator($isAdministrator)
+    public function setIsAdministrator($isAdministrator): void
     {
         $this->isAdministrator = $isAdministrator;
     }
@@ -137,7 +137,7 @@ class BackendUser extends AbstractEntity
      *
      * @param bool $isDisabled whether this user is disabled
      */
-    public function setIsDisabled($isDisabled)
+    public function setIsDisabled($isDisabled): void
     {
         $this->isDisabled = $isDisabled;
     }
@@ -154,10 +154,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets the point in time from which this user is enabled.
-     *
-     * @param \DateTime|null $dateAndTime the start date and time
      */
-    public function setStartDateAndTime(\DateTime $dateAndTime = null)
+    public function setStartDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->startDateAndTime = $dateAndTime;
     }
@@ -174,10 +172,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets the point in time before which this user is enabled.
-     *
-     * @param \DateTime|null $dateAndTime the end date and time
      */
-    public function setEndDateAndTime(\DateTime $dateAndTime = null)
+    public function setEndDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->endDateAndTime = $dateAndTime;
     }
@@ -197,7 +193,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $email the e-mail address, may be empty
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -217,7 +213,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $name the user's real name, may be empty.
      */
-    public function setRealName($name)
+    public function setRealName($name): void
     {
         $this->realName = $name;
     }
@@ -229,7 +225,7 @@ class BackendUser extends AbstractEntity
      *
      * @return bool whether this user is currently activated
      */
-    public function isActivated()
+    public function isActivated(): bool
     {
         return !$this->getIsDisabled() && $this->isActivatedViaStartDateAndTime() && $this->isActivatedViaEndDateAndTime();
     }
@@ -244,6 +240,7 @@ class BackendUser extends AbstractEntity
         if ($this->getStartDateAndTime() === null) {
             return true;
         }
+
         $now = new \DateTime('now');
         return $this->getStartDateAndTime() <= $now;
     }
@@ -258,6 +255,7 @@ class BackendUser extends AbstractEntity
         if ($this->getEndDateAndTime() === null) {
             return true;
         }
+
         $now = new \DateTime('now');
         return $now <= $this->getEndDateAndTime();
     }
@@ -274,10 +272,8 @@ class BackendUser extends AbstractEntity
 
     /**
      * Sets this user's last login date and time.
-     *
-     * @param \DateTime|null $dateAndTime this user's last login date and time
      */
-    public function setLastLoginDateAndTime(\DateTime $dateAndTime = null)
+    public function setLastLoginDateAndTime(?\DateTime $dateAndTime = null): void
     {
         $this->lastLoginDateAndTime = $dateAndTime;
     }

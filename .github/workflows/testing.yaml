@@ -10,7 +10,7 @@ on:
 jobs:
   php-lint:
     name: "PHP linter"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -26,12 +26,12 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - 8.1
           - 8.2
           - 8.3
+          - 8.4
   typoscript-lint:
     name: "TypoScript linter"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
@@ -42,7 +42,7 @@ jobs:
           config_file: ".project/tests/typoscript-lint.yml"
   php-cs-fixer:
     name: "PHP CS Fixer"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: php-lint
     steps:
       - name: "Checkout"
@@ -50,14 +50,14 @@ jobs:
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
       - name: "Composer Install"
         run: "composer install"
       - name: "Run PHP CS Fixer"
         run: "composer test:php:cs"
   phpstan:
     name: "PHPstan"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: php-lint
     steps:
       - name: "Checkout"
@@ -65,14 +65,14 @@ jobs:
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.2
       - name: "Composer Install"
         run: "composer install"
       - name: "Run PHPstan"
         run: "composer test:php:phpstan"
   unit-tests:
     name: "PHP Unit Tests"
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: php-lint
     steps:
       - name: Checkout
@@ -91,6 +91,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - 8.1
           - 8.2
           - 8.3
+          - 8.4

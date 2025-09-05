@@ -16,17 +16,11 @@ class FieldTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->generalValidatorMock = $this->getAccessibleMock(FieldFixture::class, null);
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -126,12 +120,11 @@ class FieldTest extends UnitTestCase
     /**
      * @param string $value
      * @param array $expectedResult
-     * @return void
      * @dataProvider optionArrayReturnsArrayDataProvider
      * @test
      * @covers ::optionArray
      */
-    public function optionArrayReturnsArray($value, $expectedResult)
+    public function optionArrayReturnsArray($value, $expectedResult): void
     {
         $result = $this->generalValidatorMock->_call('optionArray', $value, '', false);
         self::assertSame($expectedResult, $result);
@@ -176,16 +169,16 @@ class FieldTest extends UnitTestCase
      * @param string $fieldType
      * @param array $expectedResult
      * @param bool $multiple
-     * @return void
      * @dataProvider dataTypeFromFieldTypeReturnsStringDataProvider
      * @test
      * @covers ::dataTypeFromFieldType
      */
-    public function dataTypeFromFieldTypeReturnsString($fieldType, $expectedResult, $multiple = false)
+    public function dataTypeFromFieldTypeReturnsString($fieldType, $expectedResult, $multiple = false): void
     {
         if ($multiple) {
             $this->generalValidatorMock->_set('multiselect', $multiple);
         }
+
         $result = $this->generalValidatorMock->_call('dataTypeFromFieldType', $fieldType);
         self::assertSame($expectedResult, $result);
     }

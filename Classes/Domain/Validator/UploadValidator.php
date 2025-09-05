@@ -21,10 +21,9 @@ class UploadValidator extends AbstractValidator
      * Validation of given upload paramaters
      *
      * @param Mail $mail
-     * @return bool
      * @throws Exception
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
         /** @var UploadService $uploadService */
         $uploadService = GeneralUtility::makeInstance(UploadService::class);
@@ -34,10 +33,12 @@ class UploadValidator extends AbstractValidator
                 $this->addError('upload_error', 1580681638, ['marker' => $file->getMarker()]);
                 $this->setValidState(false);
             }
+
             if (!$uploadService->isFileExtensionAllowed($file, $this->getAllowedFileExtensions())) {
                 $this->setErrorAndMessage($file->getField(), 'upload_extension');
                 $file->setValid(false);
             }
+
             if (!$uploadService->isFileSizeSmallerThenAllowed($file, $this->getMaximumFileSize())) {
                 $this->setErrorAndMessage($file->getField(), 'upload_size');
                 $file->setValid(false);
@@ -47,8 +48,6 @@ class UploadValidator extends AbstractValidator
 
     /**
      * Check if given form has upload fields
-     *
-     * @return bool
      */
     protected function formHasUploadFields(): bool
     {
@@ -61,31 +60,23 @@ class UploadValidator extends AbstractValidator
         } else {
             $form = $formRepository->findByUid((int)$arguments['mail']['form']);
         }
+
         return $form->hasUploadField();
     }
 
     /**
      * Basic check if file upload is correct
-     *
-     * @param File $file
-     * @return bool
      */
     protected function basicFileCheck(File $file): bool
     {
-        return $file->getField() !== null && $file->getSize() > 0;
+        return $file->getField() instanceof \In2code\Powermail\Domain\Model\Field && $file->getSize() > 0;
     }
 
-    /**
-     * @return string
-     */
     protected function getAllowedFileExtensions(): string
     {
         return $this->settings['misc']['file']['extension'];
     }
 
-    /**
-     * @return int
-     */
     protected function getMaximumFileSize(): int
     {
         return (int)$this->settings['misc']['file']['size'];

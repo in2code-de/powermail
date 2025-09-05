@@ -12,11 +12,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class ArrayUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @test
      * @covers ::getAbcArray
      */
-    public function getAbcArrayReturnsArray()
+    public function getAbcArrayReturnsArray(): void
     {
         self::assertSame(
             [
@@ -53,8 +52,6 @@ class ArrayUtilityTest extends UnitTestCase
 
     /**
      * Data Provider for isJsonArrayReturnsBool()
-     *
-     * @return array
      */
     public static function isJsonArrayReturnsBoolDataProvider(): array
     {
@@ -90,19 +87,16 @@ class ArrayUtilityTest extends UnitTestCase
      * @param string $value
      * @param bool $expectedResult
      * @dataProvider isJsonArrayReturnsBoolDataProvider
-     * @return void
      * @test
      * @covers ::isJsonArray
      */
-    public function isJsonArrayReturnsBool($value, $expectedResult)
+    public function isJsonArrayReturnsBool($value, $expectedResult): void
     {
         self::assertSame($expectedResult, ArrayUtility::isJsonArray($value));
     }
 
     /**
      * Data Provider for htmlspecialcharsOnArrayReturnsArray()
-     *
-     * @return array
      */
     public static function htmlspecialcharsOnArrayReturnsArrayDataProvider(): array
     {
@@ -136,20 +130,18 @@ class ArrayUtilityTest extends UnitTestCase
      * @param array $array
      * @param array $expectedResult
      * @dataProvider htmlspecialcharsOnArrayReturnsArrayDataProvider
-     * @return void
      * @test
      * @covers ::htmlspecialcharsOnArray
      */
-    public function htmlspecialcharsOnArrayReturnsArray($array, $expectedResult)
+    public function htmlspecialcharsOnArrayReturnsArray($array, $expectedResult): void
     {
         self::assertSame($expectedResult, ArrayUtility::htmlspecialcharsOnArray($array));
     }
 
     /**
-     * @return void
      * @covers ::getValueByPath
      */
-    public function testGetValueByPath()
+    public function testGetValueByPath(): void
     {
         $array = [
             'foo' => [
@@ -162,8 +154,6 @@ class ArrayUtilityTest extends UnitTestCase
 
     /**
      * Data Provider for htmlspecialcharsOnArrayReturnsArray()
-     *
-     * @return array
      */
     public static function flattenDataProvider(): array
     {
@@ -209,11 +199,10 @@ class ArrayUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @dataProvider flattenDataProvider
      * @covers ::flatten
      */
-    public function testFlatten(array $testcase, string $key, array $expected)
+    public function testFlatten(array $testcase, string $key, array $expected): void
     {
         self::assertSame($expected, ArrayUtility::flatten($testcase, $key));
     }

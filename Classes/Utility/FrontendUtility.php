@@ -7,10 +7,9 @@ use Doctrine\DBAL\DBALException;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\UserRepository;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Http\Client\GuzzleClientFactory;
 use TYPO3\CMS\Core\Http\RequestFactory;
-use TYPO3\CMS\Core\Routing\PageArguments;
-use TYPO3\CMS\Core\Site\Entity\SiteLanguage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -29,41 +28,26 @@ class FrontendUtility
         if ($pid === 0) {
             $pid = self::getCurrentPageIdentifier();
         }
+
         return (int)$pid;
     }
 
     /**
      * Get current page identifier
-     *
-     * @return int
      */
     public static function getCurrentPageIdentifier(): int
     {
-        if (ObjectUtility::getTyposcriptFrontendController() !== null) {
-            return (int)ObjectUtility::getTyposcriptFrontendController()->id;
-        }
-        return 0;
+        return self::getRequest()->getAttribute('frontend.page.information')->getId() ?? 0;
     }
 
     /**
      * Get configured frontend language
-     *
-     * @return int
      */
     public static function getSysLanguageUid(): int
     {
-        $tsfe = ObjectUtility::getTyposcriptFrontendController();
-        if ($tsfe !== null) {
-            /** @var SiteLanguage $siteLanguage */
-            $siteLanguage = $tsfe->getLanguage();
-            return $siteLanguage->getLanguageId();
-        }
-        return 0;
+        return self::getRequest()->getAttribute('language')->getLanguageId();
     }
 
-    /**
-     * @return string
-     */
     public static function getPluginName(): string
     {
         $pluginName = 'tx_powermail_pi1';
@@ -74,23 +58,21 @@ class FrontendUtility
         } elseif (self::isArgumentExisting('tx_powermail_pi4')) {
             $pluginName = 'tx_powermail_pi4';
         }
-
         if (self::isArgumentExisting('tx_powermail_web_powermailm1')) {
-            $pluginName = 'tx_powermail_web_powermailm1';
+            return 'tx_powermail_web_powermailm1';
         }
+
         return $pluginName;
     }
 
-    /**
-     * @return string
-     */
     public static function getActionName(): string
     {
         $action = '';
         $arguments = self::getArguments(self::getPluginName());
         if (!empty($arguments['action'])) {
-            $action = $arguments['action'];
+            return $arguments['action'];
         }
+
         return $action;
     }
 
@@ -99,7 +81,6 @@ class FrontendUtility
      *
      * @param array $settings $settings TypoScript and Flexform Settings
      * @param int|Mail $mail
-     * @return bool
      * @throws DBALException
      * @codeCoverageIgnore
      */
@@ -109,48 +90,40 @@ class FrontendUtility
             $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
             $mail = $mailRepository->findByUid((int)$mail);
         }
-        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+
+        $userObject = self::getRequest()->getAttribute('frontend.user');
+        $feUser = self::getRequest()->getAttribute('frontend.user')->getUserId();
         if ($feUser === 0 || $mail === null) {
             return false;
         }
 
-        $feUserGroups = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['usergroup'] ?? [];
-        $usergroups = GeneralUtility::trimExplode(
-            ',',
-            $feUserGroups,
-            true
-        );
-        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? [], true);
-        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? [], true);
+        $usergroups = self::getRequest()->getAttribute('frontend.user')->createUserAspect()->getGroupIds();
+        $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? '', true);
+        $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? '', true);
 
         // replace "_owner" with uid of owner in array with users
-        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings))) {
-            $usersSettings[array_search('_owner', $usersSettings)] = $mail->getFeuser()->getUid();
+        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usersSettings, true))) {
+            $usersSettings[array_search('_owner', $usersSettings, true)] = $mail->getFeuser()->getUid();
         }
 
         // add owner groups to allowed groups (if "_owner")
-        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usergroupsSettings))) {
+        if ($mail->getFeuser() !== null && is_numeric(array_search('_owner', $usergroupsSettings, true))) {
             $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $usergroupsFromOwner = $userRepository->getUserGroupsFromUser($mail->getFeuser()->getUid());
-            $usergroupsSettings = array_merge((array)$usergroupsSettings, (array)$usergroupsFromOwner);
+            $usergroupsSettings = array_merge($usergroupsSettings, (array)$usergroupsFromOwner);
         }
 
         // 1. check user
         if (in_array($feUser, $usersSettings)) {
             return true;
         }
-
         // 2. check usergroup
-        if (count(array_intersect($usergroups, $usergroupsSettings))) {
-            return true;
-        }
-
-        return false;
+        return (bool)count(array_intersect($usergroups, $usergroupsSettings));
     }
 
     public static function isAllowedToView(array $settings, Mail $mail): bool
     {
-        $feUser = ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid'] ?? 0;
+        $feUser =self::getRequest()->getAttribute('frontend.user')->getUserId();
         if (
             $feUser === 0 ||
             (
@@ -160,39 +133,29 @@ class FrontendUtility
         ) {
             return false;
         }
+
         return true;
     }
 
     /**
      * Is a frontend user logged in
-     *
-     * @return bool
      */
     public static function isLoggedInFrontendUser(): bool
     {
-        return !empty(ObjectUtility::getTyposcriptFrontendController()->fe_user->user['uid']);
+        return self::getRequest()->getAttribute('frontend.user')->isActiveLogin(self::getRequest());
     }
 
     /**
      * Get Property from currently logged in fe_user
-     *
-     * @param string $propertyName
-     * @return string
      */
     public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
-        $tsfe = ObjectUtility::getTyposcriptFrontendController();
-        if (!empty($tsfe->fe_user->user[$propertyName])) {
-            return (string)$tsfe->fe_user->user[$propertyName];
-        }
-        return '';
+        $feUser = self::getRequest()->getAttribute('frontend.user');
+        return (string)($feUser->user[$propertyName] ?? '');
     }
 
     /**
      * Read domain from uri
-     *
-     * @param string $uri
-     * @return string
      */
     public static function getDomainFromUri(string $uri): string
     {
@@ -200,19 +163,14 @@ class FrontendUtility
         return (string)($uriParts['host'] ?? '');
     }
 
-    /**
-     * Get Country Name out of an IP address
-     *
-     * @param ?string $ipAddress
-     * @return string
-     */
-    public static function getCountryFromIp(string $ipAddress = null): string
+    public static function getCountryFromIp(?string $ipAddress = null): string
     {
         if ($ipAddress === null) {
             // @codeCoverageIgnoreStart
             $ipAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
             // @codeCoverageIgnoreEnd
         }
+
         $country = '';
         $guzzleFactory = GeneralUtility::makeInstance(GuzzleClientFactory::class);
         $json = GeneralUtility::makeInstance(RequestFactory::class, $guzzleFactory)
@@ -225,6 +183,7 @@ class FrontendUtility
                 $country = $geoInfo->country;
             }
         }
+
         return $country;
     }
 
@@ -236,19 +195,19 @@ class FrontendUtility
      * @param bool $trailingSlash will be appended
      * @param ?string $testHost can be used for a test
      * @param ?string $testUrl can be used for a test
-     * @return string
      */
     public static function getSubFolderOfCurrentUrl(
         bool $leadingSlash = true,
         bool $trailingSlash = true,
-        string $testHost = null,
-        string $testUrl = null
-    ) {
+        ?string $testHost = null,
+        ?string $testUrl = null
+    ): string {
         $subfolder = '';
         $typo3RequestHost = GeneralUtility::getIndpEnv('TYPO3_REQUEST_HOST');
         if ($testHost) {
             $typo3RequestHost = $testHost;
         }
+
         $typo3SiteUrl = GeneralUtility::getIndpEnv('TYPO3_SITE_URL');
         if ($testUrl) {
             $typo3SiteUrl = $testUrl;
@@ -258,19 +217,18 @@ class FrontendUtility
         if ($typo3RequestHost . '/' !== $typo3SiteUrl) {
             $subfolder = substr(str_replace($typo3RequestHost . '/', '', $typo3SiteUrl), 0, -1);
         }
+
         if ($trailingSlash && substr($subfolder, 0, -1) !== '/') {
             $subfolder .= '/';
         }
+
         if ($leadingSlash && $subfolder[0] !== '/') {
-            $subfolder = '/' . $subfolder;
+            return '/' . $subfolder;
         }
+
         return $subfolder;
     }
 
-    /**
-     * @param string $key
-     * @return bool
-     */
     public static function isArgumentExisting(string $key): bool
     {
         return self::getArguments($key) !== [];
@@ -280,9 +238,6 @@ class FrontendUtility
      * Because GET params can be rewritten via routing configuration and so only available via TSFE on the one hand
      * and on the other hand some POST params are still available when a form is submitted, we need a function that
      * merges both sources
-     *
-     * @param string $key
-     * @return array
      */
     public static function getArguments(string $key = 'tx_powermail_pi1'): array
     {
@@ -292,30 +247,23 @@ class FrontendUtility
         );
     }
 
-    /**
-     * @param string $key
-     * @return array
-     */
     protected static function getArgumentsFromGetOrPostRequest(string $key): array
     {
-        return (array)GeneralUtility::_GP($key);
+        return $GLOBALS['TYPO3_REQUEST']->getParsedBody()[$key] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()[$key] ?? [];
     }
 
-    /**
-     * @param string $key
-     * @return array
-     */
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
-        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
-        if ($typoScriptFrontend !== null) {
-            /** @var PageArguments $pageArguments */
-            $pageArguments = $typoScriptFrontend->getPageArguments();
-            $arguments = $pageArguments->getArguments();
-            if (array_key_exists($key, $arguments)) {
-                return (array)$arguments[$key];
-            }
+        $pageArguments = self::getRequest()->getAttribute('routing');
+        $arguments = $pageArguments->getArguments();
+        if (array_key_exists($key, $arguments)) {
+            return (array)$arguments[$key];
         }
         return [];
+    }
+
+    protected static function getRequest(): ServerRequestInterface
+    {
+        return $GLOBALS['TYPO3_REQUEST'];
     }
 }

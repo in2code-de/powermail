@@ -13,7 +13,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class UploadDataProcessor extends AbstractDataProcessor
 {
     /**
-     * @return void
      * @throws Exception
      */
     public function uploadFilesDataProcessor(): void

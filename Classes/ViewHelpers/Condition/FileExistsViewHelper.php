@@ -11,18 +11,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class FileExistsViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('file', 'string', 'Relative path to a file', true);
     }
 
-    /**
-     * @return bool
-     */
     public function render(): bool
     {
         return file_exists(GeneralUtility::getFileAbsFileName($this->arguments['file']));

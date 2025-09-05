@@ -20,14 +20,8 @@ class Form extends AbstractEntity
 {
     const TABLE_NAME = 'tx_powermail_domain_model_form';
 
-    /**
-     * @var string
-     */
     protected string $title = '';
 
-    /**
-     * @var string
-     */
     protected string $css = '';
 
     /**
@@ -37,47 +31,29 @@ class Form extends AbstractEntity
 
     /**
      * Container for pages with title as key
-     *
-     * @var array
      */
     protected array $pagesByTitle = [];
 
     /**
      * Container for pages with uid as key
-     *
-     * @var array
      */
     protected array $pagesByUid = [];
 
-    /**
-     * @return string
-     */
     public function getTitle(): string
     {
         return $this->title;
     }
 
-    /**
-     * @param string $title
-     * @return void
-     */
     public function setTitle(string $title): void
     {
         $this->title = $title;
     }
 
-    /**
-     * @return string
-     */
     public function getCss(): string
     {
         return $this->css;
     }
 
-    /**
-     * @param string $css
-     * @return void
-     */
     public function setCss(string $css): void
     {
         $this->css = $css;
@@ -99,6 +75,7 @@ class Form extends AbstractEntity
             foreach ($this->pages as $page) {
                 $pageArray[$formSorting[$page->getUid()]] = $page;
             }
+
             ksort($pageArray);
             return $pageArray;
         }
@@ -106,17 +83,12 @@ class Form extends AbstractEntity
         return $this->pages;
     }
 
-    /**
-     * @param ObjectStorage $pages
-     * @return void
-     */
     public function setPages(ObjectStorage $pages): void
     {
         $this->pages = $pages;
     }
 
     /**
-     * @return bool
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -131,6 +103,7 @@ class Form extends AbstractEntity
                 }
             }
         }
+
         return false;
     }
 
@@ -141,18 +114,16 @@ class Form extends AbstractEntity
      *          PHP: $form->getPagesByTitle()['page1'];
      *          FLUID: {form.pagesByTitle.page1}
      *
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getPagesByTitle(): array
     {
-        if (empty($this->pagesByTitle)) {
+        if ($this->pagesByTitle === []) {
             $pagesArray = $this->getPages()->toArray();
-            $this->pagesByTitle = array_combine(array_map(function (Page $page) {
-                return StringUtility::cleanString($page->getTitle());
-            }, $pagesArray), $pagesArray);
+            $this->pagesByTitle = array_combine(array_map(fn (Page $page): string => StringUtility::cleanString($page->getTitle()), $pagesArray), $pagesArray);
         }
+
         return $this->pagesByTitle;
     }
 
@@ -163,18 +134,16 @@ class Form extends AbstractEntity
      *          PHP: $form->getPagesByUid()[123];
      *          FLUID: {form.pagesByUid.123}
      *
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public function getPagesByUid(): array
     {
-        if (empty($this->pagesByUid)) {
+        if ($this->pagesByUid === []) {
             $pagesArray = $this->getPages()->toArray();
-            $this->pagesByUid = array_combine(array_map(function (Page $page) {
-                return $page->getUid();
-            }, $pagesArray), $pagesArray);
+            $this->pagesByUid = array_combine(array_map(fn (Page $page): ?int => $page->getUid(), $pagesArray), $pagesArray);
         }
+
         return $this->pagesByUid;
     }
 
@@ -198,13 +167,11 @@ class Form extends AbstractEntity
                 }
             }
         }
+
         return $fields;
     }
 
     /**
-     * @param Field $field
-     * @param string $fieldType
-     * @return bool
      * @throws DeprecatedException
      */
     protected function isCorrectFieldType(Field $field, string $fieldType): bool
@@ -212,15 +179,19 @@ class Form extends AbstractEntity
         if ($fieldType === '') {
             return true;
         }
+
         if ($fieldType === $field::FIELD_TYPE_BASIC) {
             return $field->isTypeOf($field::FIELD_TYPE_BASIC);
         }
+
         if ($fieldType === $field::FIELD_TYPE_ADVANCED) {
             return $field->isTypeOf($field::FIELD_TYPE_ADVANCED);
         }
+
         if ($fieldType === $field::FIELD_TYPE_EXTPORTABLE) {
             return $field->isTypeOf($field::FIELD_TYPE_EXTPORTABLE);
         }
+
         return false;
     }
 }

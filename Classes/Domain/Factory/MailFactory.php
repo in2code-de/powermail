@@ -23,17 +23,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class MailFactory
 {
-    private readonly EventDispatcherInterface $eventDispatcher;
-
-    public function injectEventDispatcherInterface(EventDispatcherInterface $eventDispatcher)
+    public function __construct(private readonly EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
     }
-
     /**
-     * @param Mail $mail
-     * @param array $settings
-     * @return void
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @codeCoverageIgnore
@@ -75,14 +68,14 @@ class MailFactory
     {
         foreach ($mail->getAnswers() as $answer) {
             /**
-             * @var $answer Answer
+             * @var Answer $answer
              */
             if ($answer->getValueType() === Answer::VALUE_TYPE_PASSWORD) {
                 /**
                  * @var MailFactoryBeforePasswordIsHashedEvent $event
                  */
                 $event = $this->eventDispatcher->dispatch(
-                    GeneralUtility::makeInstance(MailFactoryBeforePasswordIsHashedEvent::class, $answer)
+                    new MailFactoryBeforePasswordIsHashedEvent($answer)
                 );
                 if ($event->isPasswordShouldBeHashed()) {
                     $answer->setOriginalValue($answer->getValue());
@@ -96,10 +89,6 @@ class MailFactory
         }
     }
 
-    /**
-     * @param Mail $mail
-     * @return void
-     */
     protected function setFeuser(Mail $mail): void
     {
         if (FrontendUtility::isLoggedInFrontendUser()) {
@@ -113,8 +102,6 @@ class MailFactory
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -125,11 +112,6 @@ class MailFactory
         }
     }
 
-    /**
-     * @param Mail $mail
-     * @param array $settings
-     * @return void
-     */
     protected function setHidden(Mail $mail, array $settings): void
     {
         if ($settings['main']['optin'] || $settings['db']['hidden']) {
@@ -137,11 +119,6 @@ class MailFactory
         }
     }
 
-    /**
-     * @param Mail $mail
-     * @param array $settings
-     * @return void
-     */
     protected function setAnswersPid(Mail $mail, array $settings): void
     {
         foreach ($mail->getAnswers() as $answer) {

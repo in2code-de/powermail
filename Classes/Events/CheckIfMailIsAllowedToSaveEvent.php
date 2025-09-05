@@ -6,27 +6,12 @@ use In2code\Powermail\Domain\Model\Mail;
 
 final class CheckIfMailIsAllowedToSaveEvent
 {
-    /**
-     * @var Mail
-     */
-    protected Mail $mail;
-
-    /**
-     * @var bool
-     */
     protected bool $savingOfMailAllowed = true;
 
-    /**
-     * @param Mail $mail
-     */
-    public function __construct(Mail $mail)
+    public function __construct(protected Mail $mail)
     {
-        $this->mail = $mail;
     }
 
-    /**
-     * @return Mail
-     */
     public function getMail(): Mail
     {
         return $this->mail;

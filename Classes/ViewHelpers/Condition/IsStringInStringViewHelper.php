@@ -10,10 +10,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsStringInStringViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('haystack', 'string', 'Haystack', true);
@@ -22,11 +19,9 @@ class IsStringInStringViewHelper extends AbstractViewHelper
 
     /**
      * Check if there is a string in another string
-     *
-     * @return bool
      */
     public function render(): bool
     {
-        return stristr($this->arguments['haystack'], $this->arguments['needle']) !== false;
+        return stristr((string)$this->arguments['haystack'], (string)$this->arguments['needle']) !== false;
     }
 }

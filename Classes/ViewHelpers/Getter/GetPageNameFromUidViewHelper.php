@@ -12,18 +12,12 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetPageNameFromUidViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('uid', 'int', 'UID', false, 0);
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         $pageRepository = GeneralUtility::makeInstance(PageRepository::class);

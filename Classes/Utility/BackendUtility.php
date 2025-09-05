@@ -22,21 +22,19 @@ class BackendUtility
 {
     /**
      * Check if backend user is admin
-     *
-     * @return bool
      */
     public static function isBackendAdmin(): bool
     {
-        if (isset(self::getBackendUserAuthentication()->user)) {
+        if (self::getBackendUserAuthentication()->user !== null) {
             return self::getBackendUserAuthentication()->user['admin'] === 1;
         }
+
         return false;
     }
 
     /**
      * Get property from backend user
      *
-     * @param string|int $property
      * @return string
      */
     public static function getPropertyFromBackendUser(string $property = 'uid')
@@ -44,11 +42,11 @@ class BackendUtility
         if (!empty(self::getBackendUserAuthentication()->user[$property])) {
             return self::getBackendUserAuthentication()->user[$property];
         }
+
         return '';
     }
 
     /**
-     * @return BackendUserAuthentication
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getBackendUserAuthentication(): BackendUserAuthentication
@@ -59,10 +57,6 @@ class BackendUtility
     /**
      * Create an URI to edit any record
      *
-     * @param string $tableName
-     * @param int $identifier
-     * @param bool $addReturnUrl
-     * @return string
      * @throws RouteNotFoundException
      */
     public static function createEditUri(string $tableName, int $identifier, bool $addReturnUrl = true): string
@@ -77,16 +71,14 @@ class BackendUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
+
         return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
      * Create an URI to add a new record
      *
-     * @param string $tableName
      * @param int $pageIdentifier where to save the new record
-     * @param bool $addReturnUrl
-     * @return string
      * @throws RouteNotFoundException
      */
     public static function createNewUri(string $tableName, int $pageIdentifier, bool $addReturnUrl = true): string
@@ -101,13 +93,13 @@ class BackendUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
+
         return self::getRoute('record_edit', $uriParameters);
     }
 
     /**
      * Get return URL from current request
      *
-     * @return string
      * @throws RouteNotFoundException
      */
     protected static function getReturnUrl(): string
@@ -116,9 +108,6 @@ class BackendUtility
     }
 
     /**
-     * @param string $route
-     * @param array $parameters
-     * @return string
      * @throws RouteNotFoundException
      */
     public static function getRoute(string $route, array $parameters = []): string
@@ -129,14 +118,15 @@ class BackendUtility
 
     /**
      * Get module name or route as fallback
-     *
-     * @return string
      */
     protected static function getModuleName(): string
     {
         $moduleName = 'record_edit';
-        if (GeneralUtility::_GET('route') !== null) {
-            $routePath = (string)GeneralUtility::_GET('route');
+        if (
+            isset($GLOBALS['TYPO3_REQUEST']->getQueryParams()['route'])
+            && $GLOBALS['TYPO3_REQUEST']->getQueryParams()['route'] !== null
+        ) {
+            $routePath = (string)$GLOBALS['TYPO3_REQUEST']->getQueryParams()['route'];
             $router = GeneralUtility::makeInstance(Router::class);
             try {
                 $route = $router->match($routePath);
@@ -145,20 +135,19 @@ class BackendUtility
                 unset($exception);
             }
         }
+
         return $moduleName;
     }
 
     /**
      * Get all GET/POST params without module name and token
-     *
-     * @param array $getParameters
-     * @return array
      */
     public static function getCurrentParameters(array $getParameters = []): array
     {
-        if (empty($getParameters)) {
-            $getParameters = GeneralUtility::_GET();
+        if ($getParameters === []) {
+            $getParameters = $GLOBALS['TYPO3_REQUEST']->getQueryParams();
         }
+
         $parameters = [];
         $ignoreKeys = [
             'M',
@@ -170,8 +159,10 @@ class BackendUtility
             if (in_array($key, $ignoreKeys)) {
                 continue;
             }
+
             $parameters[$key] = $value;
         }
+
         return $parameters;
     }
 
@@ -183,52 +174,52 @@ class BackendUtility
      *        element-tt_content-14&edit[tt_content][14]=edit
      *
      * @param string $returnUrl normally used for testing
-     * @return int
      */
     public static function getPidFromBackendPage(string $returnUrl = ''): int
     {
-        if (empty($returnUrl)) {
-            $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
+        if ($returnUrl === '' || $returnUrl === '0') {
+            $returnUrl = $GLOBALS['TYPO3_REQUEST']->getParsedBody()['returnUrl'] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()['returnUrl'] ?? null ?: '';
         }
+
         $urlParts = parse_url($returnUrl);
-        $urlParts['query'] = $urlParts['query'] ?? '';
-        parse_str((string)$urlParts['query'], $queryParts);
+        $urlParts['query'] ??= '';
+        parse_str($urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
             return (int)$queryParts['id'];
         }
+
         return 0;
     }
 
     /**
-     * Returns the Page TSconfig for page with id, $id
+     *  Returns the Page TSconfig for page with id, $id
      *
      * @param int $pid
-     * @param ?array $rootLine
+     * @param array|null $rootLine
      * @param bool $returnPartArray
-     * @return array Page TSconfig
+     * @return array
      * @throws DeprecatedException
      */
-    public static function getPagesTSconfig(int $pid, array $rootLine = null, bool $returnPartArray = false): array
+    public static function getPagesTSconfig(int $pid, ?array $rootLine = null, bool $returnPartArray = false): array
     {
-        if ($rootLine !== null || $returnPartArray === true) {
+        if ($rootLine !== null || $returnPartArray) {
             throw new DeprecatedException('arguments not supported any more in powermail', 1578947408);
         }
+
         $array = [];
         try {
             // @extensionScannerIgnoreLine Seems to be a false positive: getPagesTSconfig() still need 3 params
             $array = BackendUtilityCore::getPagesTSconfig($pid);
-        } catch (Throwable $exception) {
-            unset($exception);
+        } catch (Throwable $throwable) {
+            unset($throwable);
         }
+
         return $array;
     }
 
     /**
      * Filter a pid array with only the pages that are allowed to be viewed from the backend user.
      * If the backend user is an admin, show all of course - so ignore this filter.
-     *
-     * @param array $pids
-     * @return array
      */
     public static function filterPagesForAccess(array $pids): array
     {
@@ -242,15 +233,14 @@ class BackendUtility
                     $newPids[] = $pid;
                 }
             }
+
             $pids = $newPids;
             // @codeCoverageIgnoreEnd
         }
+
         return $pids;
     }
 
-    /**
-     * @return bool
-     */
     public static function isBackendContext(): bool
     {
         return isset($GLOBALS['TYPO3_REQUEST']) && ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend();

@@ -14,20 +14,16 @@ use TYPO3\CMS\Extbase\Error\Result;
  */
 class ForeignValidator extends AbstractValidator
 {
-    /**
-     * @var string
-     */
     protected string $validatorInterface = ValidatorInterface::class;
 
     /**
      * Include foreign validators
      *
      * @param Mail $mail
-     * @return bool
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
         foreach ((array)($this->settings['validators'] ?? []) as $validatorConf) {
             $this->loadFile($validatorConf);
@@ -37,12 +33,14 @@ class ForeignValidator extends AbstractValidator
                     1578609804
                 );
             }
+
             if (is_subclass_of($validatorConf['class'], $this->validatorInterface)) {
                 /** @var AbstractValidator $validator */
                 $validator = GeneralUtility::makeInstance($validatorConf['class']);
+                $validator->setRequest($this->getRequest());
                 $validator->setConfiguration($validatorConf['config'] ?? []);
+                $validator->initFlexform();
                 $validator->initialize();
-                /** @var Result $result */
                 $this->addErrors($validator->validate($mail));
             } else {
                 throw new InterfaceNotImplementedException(
@@ -55,25 +53,19 @@ class ForeignValidator extends AbstractValidator
 
     /**
      * Add errors and set validstate to false
-     *
-     * @param Result $result
-     * @return void
      */
     protected function addErrors(Result $result): void
     {
         $errors = $result->getErrors();
-        if (!empty($errors)) {
+        if ($errors !== []) {
             foreach ($errors as $error) {
                 $this->addError($error->getMessage(), $error->getCode(), $error->getArguments(), $error->getTitle());
             }
+
             $this->setValidState(false);
         }
     }
 
-    /**
-     * @param array $validatorConf
-     * @return void
-     */
     protected function loadFile(array $validatorConf): void
     {
         $pathAndFile = $validatorConf['require'] ?? '';

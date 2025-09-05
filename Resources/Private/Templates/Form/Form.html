@@ -30,9 +30,9 @@ Render Powermail Form
                     <f:render partial="Misc/FormError" arguments="{_all}"/>
 
                     <f:if condition="{settings.main.moresteps}">
-                        <div class="btn-group">
+                        <div class="btn-group powermail_multistep_navigation" role="group" aria-label="Multistep form page">
                             <f:for each="{form.pages}" as="page" iteration="iterationPages">
-                                <button class="btn btn-default{f:if(condition:iterationPages.isFirst,then:' btn-primary')}" type="button" data-powermail-morestep-current="{iterationPages.index}" data-powermail-morestep-show="{iterationPages.index}">{page.title}</button>
+                                <button class="btn btn-secondary{f:if(condition:iterationPages.isFirst,then:' active')}" type="button" data-powermail-fieldset="{page.uid}" data-powermail-morestep-current="{iterationPages.index}" data-powermail-morestep-show="{iterationPages.index}">{page.title}</button>
                             </f:for>
                         </div>
                     </f:if>

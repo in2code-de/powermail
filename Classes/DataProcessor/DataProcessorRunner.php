@@ -16,16 +16,9 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class DataProcessorRunner
 {
-    /**
-     * @var string
-     */
-    protected string $interface = 'In2code\Powermail\DataProcessor\DataProcessorInterface';
+    protected string $interface = \In2code\Powermail\DataProcessor\DataProcessorInterface::class;
 
     /**
-     * @param Mail $mail
-     * @param string $actionMethodName
-     * @param array $settings
-     * @param ContentObjectRenderer $contentObject
      * @throws Exception
      */
     public function callDataProcessors(
@@ -43,12 +36,10 @@ class DataProcessorRunner
                     1578601123
                 );
             }
+
             if (is_subclass_of($class, $this->interface)) {
-                if (!isset($dpSettings['config'])) {
-                    $dpSettings['config'] = [];
-                } else {
-                    $dpSettings['config'] = (array)$dpSettings['config'];
-                }
+                $dpSettings['config'] = isset($dpSettings['config']) ? (array)$dpSettings['config'] : [];
+
                 /** @var AbstractDataProcessor $dataProcessor */
                 $dataProcessor =  GeneralUtility::makeInstance(
                     $dpSettings['class'],
@@ -72,9 +63,6 @@ class DataProcessorRunner
     /**
      * Call methods in dataProcessor class
      *      *DataProcessor()
-     *
-     * @param AbstractDataProcessor $dataProcessor
-     * @return void
      */
     protected function callDataProcessorMethods(AbstractDataProcessor $dataProcessor): void
     {
@@ -90,10 +78,6 @@ class DataProcessorRunner
 
     /**
      * Call initializeDataProcessorMethods like "initializeUploadDataProcessor()"
-     *
-     * @param AbstractDataProcessor $dataProcessor
-     * @param string $finisherMethod
-     * @return void
      */
     protected function callInitializeDataProcessorMethod(
         AbstractDataProcessor $dataProcessor,
@@ -106,9 +90,6 @@ class DataProcessorRunner
 
     /**
      * Get all finisher classes from typoscript and sort them
-     *
-     * @param array $settings
-     * @return array
      */
     protected function getDataProcessorClasses(array $settings): array
     {
@@ -117,17 +98,11 @@ class DataProcessorRunner
         return $dataProcessors;
     }
 
-    /**
-     * @param array $dpSettings
-     * @return void
-     */
     protected function requireFile(array $dpSettings): void
     {
-        if (!empty($dpSettings['require'])) {
-            if (file_exists($dpSettings['require'])) {
-                /** @noinspection PhpIncludeInspection */
-                require_once($dpSettings['require']);
-            }
+        if (!empty($dpSettings['require']) && file_exists($dpSettings['require'])) {
+            /** @noinspection PhpIncludeInspection */
+            require_once($dpSettings['require']);
         }
     }
 }

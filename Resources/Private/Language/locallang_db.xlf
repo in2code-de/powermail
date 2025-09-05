@@ -231,6 +231,9 @@
 			<trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory">
 				<source>Mandatory Field</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text">
+				<source>Custom error message</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation">
 				<source>Validation</source>
 			</trans-unit>
@@ -489,6 +492,9 @@
 			<trans-unit id="flexform.receiver.body" resname="flexform.receiver.body">
 				<source>Bodytext for Email to Receiver</source>
 			</trans-unit>
+			<trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment">
+				<source>Send uploaded files to receiver</source>
+			</trans-unit>
 			<trans-unit id="flexform.sender" resname="flexform.sender">
 				<source>Mail to User</source>
 			</trans-unit>
@@ -504,6 +510,9 @@
 			<trans-unit id="flexform.sender.body" resname="flexform.sender.body">
 				<source>Bodytext for Email to Sender</source>
 			</trans-unit>
+			<trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment">
+				<source>Send uploaded files to sender</source>
+			</trans-unit>
 			<trans-unit id="flexform.thx" resname="flexform.thx">
 				<source>Submit Page</source>
 			</trans-unit>
@@ -512,96 +521,6 @@
 			</trans-unit>
 			<trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect">
 				<source>Redirect to any other Page after submit</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote">
-				<source>ATTENTION: Please select a form in Settings before!</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main" resname="flexform_pi2.main">
-				<source>Main Settings</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form">
-				<source>Choose a form</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid">
-				<source>Select a page with mails (optional)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list" resname="flexform_pi2.list">
-				<source>Listview</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields">
-				<source>Choose Fields to show (Empty: All Fields)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta">
-				<source>Show entries of the last X Seconds (Empty: Function disabled)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit">
-				<source>Show max. X entries (Empty: No Limit)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid">
-				<source>Page with Plugin for list view (Empty: Same page)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly">
-				<source>Own entries</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0">
-				<source>Show only entries from logged in Frontend-User</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.single" resname="flexform_pi2.single">
-				<source>Detailview</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields">
-				<source>Choose Fields to show (Empty: All Fields)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink">
-				<source>Link to detail view</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0">
-				<source>active</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid">
-				<source>Page with Plugin for detail view (Empty: Same page)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search" resname="flexform_pi2.search">
-				<source>Searchsettings</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields">
-				<source>Add searchfield</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all">
-				<source>[Fulltext Search]</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator">
-				<source>search fields operator (AND / OR)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0">
-				<source>OR (Find keyword in Field1 OR Field2)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1">
-				<source>AND (Find keyword in Field1 AND Field2)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc">
-				<source>Add ABC filter</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off">
-				<source>[Deactivated]</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit">
-				<source>Editview</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields">
-				<source>Choose Fields to edit (Empty: All fields)</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser">
-				<source>Choose one or more Frontend-Users with permission to change</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner">
-				<source>[Owner]</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup">
-				<source>Choose one or more Frontend-Groups with permission to change</source>
-			</trans-unit>
-			<trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid">
-				<source>Page with Plugin for edit view (Empty: Same page)</source>
 			</trans-unit>
 			<trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail">
 				<source>Receiver email address</source>

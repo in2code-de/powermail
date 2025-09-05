@@ -10,11 +10,8 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class EncodeViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return string
-     */
     public function render(): string
     {
-        return htmlspecialchars($this->renderChildren());
+        return htmlspecialchars((string)$this->renderChildren());
     }
 }

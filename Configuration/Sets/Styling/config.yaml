@@ -1,0 +1,4 @@
+name: in2code/powermail-styling
+label: 'Powermail Styling'
+dependencies:
+  - in2code/powermail-main

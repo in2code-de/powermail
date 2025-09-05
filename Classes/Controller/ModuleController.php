@@ -6,6 +6,8 @@ namespace In2code\Powermail\Controller;
 
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Repository\FormRepository;
+use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Domain\Service\SlidingWindowPagination;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
@@ -18,6 +20,7 @@ use In2code\Powermail\Utility\StringUtility;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Reader\Html;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Module\ModuleData;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
@@ -38,30 +41,23 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 class ModuleController extends AbstractController
 {
     protected ?ModuleData $moduleData = null;
+
     protected ModuleTemplate $moduleTemplate;
-    protected ModuleTemplateFactory $moduleTemplateFactory;
-    protected IconFactory $iconFactory;
-    protected PageRenderer $pageRenderer;
 
-    public function injectModuleTemplateFactory(ModuleTemplateFactory $moduleTemplateFactory)
-    {
-        $this->moduleTemplateFactory = $moduleTemplateFactory;
+    public function __construct(
+        protected FormRepository $formRepository,
+        protected MailRepository $mailRepository,
+        protected ModuleTemplateFactory $moduleTemplateFactory,
+        protected IconFactory $iconFactory,
+        protected PageRenderer $pageRenderer,
+    ) {
+        $this->isPhpSpreadsheetInstalled = class_exists(\PhpOffice\PhpSpreadsheet\IOFactory::class);
     }
 
-    public function injectIconFactory(IconFactory $iconFactory)
-    {
-        $this->iconFactory = $iconFactory;
-    }
-
-    public function injectPageRenderer(PageRenderer $pageRenderer)
-    {
-        $this->pageRenderer = $pageRenderer;
-    }
-
-    public function initializeAction(): void
+    protected function initializeAction(): void
     {
         $this->piVars = $this->request->getArguments();
-        $this->id = (int)GeneralUtility::_GP('id');
+        $this->id = (int)($this->request->getParsedBody()['id'] ?? $this->request->getQueryParams()['id'] ?? null);
 
         $this->moduleData = $this->request->getAttribute('moduleData');
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
@@ -71,7 +67,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @noinspection PhpUnused
      */
     public function dispatchAction(string $forwardToAction = 'list'): ResponseInterface
@@ -82,7 +77,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws NoSuchArgumentException
@@ -90,10 +84,12 @@ class ModuleController extends AbstractController
      */
     public function listAction(): ResponseInterface
     {
-        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid((int)$this->id);
-        $mails = $this->mailRepository->findAllInPid((int)$this->id, $this->settings, $this->piVars);
+        $formUids = $this->mailRepository->findGroupedFormUidsToGivenPageUid($this->id);
+        $mails = $this->mailRepository->findAllInPid($this->id, $this->settings, $this->piVars);
 
-        $currentPage = (int)($this->request->getQueryParams()['currentPage'] ?? 1);
+        $parsedBody = $this->request->getParsedBody() ?? [];
+        assert(is_array($parsedBody));
+        $currentPage = (int)($parsedBody['currentPage'] ?? $this->request->getQueryParams()['currentPage'] ?? 1);
         $currentPage = $currentPage > 0 ? $currentPage : 1;
 
         $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
@@ -121,11 +117,10 @@ class ModuleController extends AbstractController
         ]);
 
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
-        return $this->moduleTemplate->renderResponse('List');
+        return $this->moduleTemplate->renderResponse('Module/List');
     }
 
     /**
-     * @return ResponseInterface|null
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -143,13 +138,13 @@ class ModuleController extends AbstractController
                 ]
             );
 
-            $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xls');
+            $fileName = StringUtility::conditionalVariable($this->settings['export']['filenameXls'] ?? '', 'export.xlsx');
             $tmpFilename = GeneralUtility::tempnam('export_');
 
             $reader = new Html();
             $spreadsheet = $reader->loadFromString($this->view->render());
 
-            $writer = IOFactory::createWriter($spreadsheet, 'Xls');
+            $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
             $writer->save($tmpFilename);
 
             return $this->responseFactory->createResponse()
@@ -159,11 +154,11 @@ class ModuleController extends AbstractController
                 ->withAddedHeader('Pragma', 'no-cache')
                 ->withBody($this->streamFactory->createStreamFromFile($tmpFilename));
         }
+
         return null;
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @noinspection PhpUnused
      */
@@ -189,7 +184,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @noinspection PhpUnused
@@ -211,11 +205,10 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->moduleTemplate->renderResponse('ReportingFormBe');
+        return $this->moduleTemplate->renderResponse('Module/ReportingFormBe');
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws RouteNotFoundException
      * @throws PropertyNotAccessibleException
@@ -238,11 +231,10 @@ class ModuleController extends AbstractController
                 'perPage' => ($this->settings['perPage'] ?? 10),
             ]
         );
-        return $this->moduleTemplate->renderResponse('ReportingMarketingBe');
+        return $this->moduleTemplate->renderResponse('Module/ReportingMarketingBe');
     }
 
     /**
-     * @return ResponseInterface
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      * @noinspection PhpUnused
@@ -253,33 +245,23 @@ class ModuleController extends AbstractController
         $this->moduleTemplate->assign('forms', $forms);
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->makeDocHeaderModuleMenu(['id' => $this->id]);
-        return $this->moduleTemplate->renderResponse('OverviewBe');
+        return $this->moduleTemplate->renderResponse('Module/OverviewBe');
     }
 
-    /**
-     * @return void
-     */
     public function initializeCheckBeAction(): void
     {
         $this->checkAdminPermissions();
     }
 
-    /**
-     * @return ResponseInterface
-     */
     public function checkBeAction(): ResponseInterface
     {
         $this->moduleTemplate->assign('pid', $this->id);
         $this->moduleTemplate->assign('settings', $this->settings['setup'] ?? []);
         $this->sendTestEmail($this->piVars['email'] ?? null);
-        return $this->moduleTemplate->renderResponse('CheckBe');
+        return $this->moduleTemplate->renderResponse('Module/CheckBe');
     }
 
-    /**
-     * @param null $email
-     * @return void
-     */
-    protected function sendTestEmail($email = null): void
+    protected function sendTestEmail(?string $email = null): void
     {
         if ($email !== null && GeneralUtility::validEmail($email)) {
             $body = 'New Test Email from User ' . BackendUtility::getPropertyFromBackendUser('username');
@@ -295,7 +277,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeConverterBeAction(): void
@@ -304,7 +285,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixUploadFolderAction(): void
@@ -323,7 +303,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedFormsAction(): void
@@ -341,7 +320,6 @@ class ModuleController extends AbstractController
     }
 
     /**
-     * @return void
      * @noinspection PhpUnused
      */
     public function initializeFixWrongLocalizedPagesAction(): void
@@ -362,14 +340,37 @@ class ModuleController extends AbstractController
     /**
      * Check if admin is logged in
      *        If not, forward to tools overview
-     *
-     * @return ResponseInterface|null
      */
     protected function checkAdminPermissions(): ?ResponseInterface
     {
         if (!BackendUtility::isBackendAdmin()) {
             return new ForwardResponse('toolsBe');
         }
+
         return null;
+    }
+
+    public function downloadFile(ServerRequestInterface $request): ?ResponseInterface
+    {
+        $queryParams = $request->getQueryParams();
+        if (array_key_exists('file', $queryParams) && array_key_exists('hmac', $queryParams)) {
+            $fileName = basename($queryParams['file']);
+            $absoluteFileName = GeneralUtility::getFileAbsFileName($queryParams['file']);
+            if (is_file($absoluteFileName) && $this->isValidHmac($absoluteFileName, $queryParams['hmac'])) {
+                (mime_content_type($absoluteFileName) === false) ? $mimeType = '' : $mimeType = mime_content_type($absoluteFileName);
+                return $this->responseFactory->createResponse()
+                    ->withHeader('Content-Type', $mimeType)
+                    ->withAddedHeader('Content-Disposition', 'attachment; filename="' . $fileName . '"')
+                    ->withBody($this->streamFactory->createStreamFromFile($absoluteFileName));
+            }
+        }
+
+        return new ForwardResponse('list');
+    }
+
+    protected function isValidHmac(string $fileName, string $hmacFromQuery): bool
+    {
+        $hmacGenerated = BasicFileUtility::getHmacForFile($fileName);
+        return hash_equals($hmacGenerated, $hmacFromQuery);
     }
 }

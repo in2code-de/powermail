@@ -2,11 +2,12 @@
 
 use In2code\Powermail\Exception\FileNotFoundException;
 
-if (empty($webRoot = getenv('TYPO3_PATH_WEB'))) {
+if (($webRoot = getenv('TYPO3_PATH_WEB')) === '' || ($webRoot = getenv('TYPO3_PATH_WEB')) === '0' || ($webRoot = getenv('TYPO3_PATH_WEB')) === [] || ($webRoot = getenv('TYPO3_PATH_WEB')) === false) {
     putenv('TYPO3_PATH_WEB=' . $webRoot = realpath(__DIR__ . '/../../.Build/Web') . '/');
 } else {
     $webRoot = rtrim($webRoot, '/') . '/';
 }
+
 $buildRoot = realpath($webRoot . '/..');
 $autoload = $buildRoot . '/vendor/autoload.php';
 if (!file_exists($autoload)) {
@@ -23,6 +24,7 @@ if (file_exists($bootstrap)) {
     require($bootstrapTypo3);
     $bootstrapLoaded = true;
 }
+
 if ($bootstrapLoaded === false) {
     throw new FileNotFoundException(
         'Can not find unit test bootstrap file. Did you do a composer update?',

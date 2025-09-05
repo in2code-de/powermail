@@ -16,14 +16,19 @@ use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 class Answer extends AbstractEntity
 {
     const TABLE_NAME = 'tx_powermail_domain_model_answer';
+
     const VALUE_TYPE_TEXT = 0;
+
     const VALUE_TYPE_ARRAY = 1;
+
     const VALUE_TYPE_DATE = 2;
+
     const VALUE_TYPE_UPLOAD = 3;
+
     const VALUE_TYPE_PASSWORD = 4;
 
     /**
-     * @var string
+     * @var mixed
      */
     protected $value = '';
 
@@ -44,23 +49,23 @@ class Answer extends AbstractEntity
      *
      * @var int
      */
-    protected $valueType = null;
+    protected $valueType;
 
     /**
      * @var Mail
      */
-    protected $mail = null;
+    protected $mail;
 
     /**
      * @var Field
      */
-    protected $field = null;
+    protected $field;
+
+    protected string $translateFormat = '';
 
     /**
      * All mails and answers should be stored with sys_language_uid=-1 to get those values from persisted objects
      * in fe requests in every language (e.g. for optin mails, etc...)
-     *
-     * @var int
      */
     protected ?int $_languageUid = -1;
 
@@ -73,11 +78,9 @@ class Answer extends AbstractEntity
         $value = $this->value;
 
         // if serialized, change to array
-        if (ArrayUtility::isJsonArray((string)$this->value)) {
-            // only if type multivalue or upload
-            if ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD) {
-                $value = json_decode($value, true);
-            }
+        // only if type multivalue or upload
+        if (ArrayUtility::isJsonArray((string)$this->value) && ($this->getValueType() === self::VALUE_TYPE_ARRAY || $this->getValueType() === self::VALUE_TYPE_UPLOAD)) {
+            $value = json_decode($value, true);
         }
 
         if ($this->isTypeDateForTimestamp($value)) {
@@ -88,7 +91,7 @@ class Answer extends AbstractEntity
         }
 
         if ($this->isTypeMultiple($value)) {
-            $value = (empty($value) ? [] : [(string)$value]);
+            return empty($value) ? [] : [(string)$value];
         }
 
         return $value;
@@ -96,11 +99,8 @@ class Answer extends AbstractEntity
 
     /**
      * Sets the value
-     *
-     * @param mixed $value
-     * @return Answer
      */
-    public function setValue($value): Answer
+    public function setValue(mixed $value): Answer
     {
         $value = $this->convertToJson($value);
         $value = $this->convertToTimestamp($value);
@@ -116,6 +116,7 @@ class Answer extends AbstractEntity
         if ($this->originalValue !== '' && $this->originalValue !== $this->value) {
             return $this->originalValue;
         }
+
         return $this->value;
     }
 
@@ -127,9 +128,6 @@ class Answer extends AbstractEntity
     /**
      * Returns value and enforces a string
      *        An array will be returned as commaseparated string
-     *
-     * @param string $glue
-     * @return string
      */
     public function getStringValue(string $glue = ', '): string
     {
@@ -137,6 +135,7 @@ class Answer extends AbstractEntity
         if (is_array($value)) {
             $value = implode($glue, $value);
         }
+
         return (string)$value;
     }
 
@@ -153,30 +152,26 @@ class Answer extends AbstractEntity
         return $this->value;
     }
 
-    /**
-     * @param int $valueType
-     * @return Answer
-     */
     public function setValueType(int $valueType): Answer
     {
-        $this->valueType = (int)$valueType;
+        $this->valueType = $valueType;
         return $this;
     }
 
     /**
-     * @return int
      * @throws DeprecatedException
      */
     public function getValueType(): int
     {
         if ($this->valueType === null) {
-            if ($this->getField() !== null) {
+            if ($this->getField() instanceof \In2code\Powermail\Domain\Model\Field) {
                 $field = $this->getField();
                 $this->setValueType($field->dataTypeFromFieldType($field->getType()));
             } else {
                 $this->setValue(0);
             }
         }
+
         return $this->valueType;
     }
 
@@ -188,10 +183,6 @@ class Answer extends AbstractEntity
         return $this->mail;
     }
 
-    /**
-     * @param Mail $mail
-     * @return Answer
-     */
     public function setMail(Mail $mail): Answer
     {
         $this->mail = $mail;
@@ -206,10 +197,6 @@ class Answer extends AbstractEntity
         return $this->field;
     }
 
-    /**
-     * @param Field $field
-     * @return Answer
-     */
     public function setField(Field $field): Answer
     {
         $this->field = $field;
@@ -218,16 +205,14 @@ class Answer extends AbstractEntity
 
     /**
      * @param string|array $value
-     * @return bool
      */
     protected function isTypeDateForTimestamp($value): bool
     {
-        return $this->getValueType() === self::VALUE_TYPE_DATE && is_numeric($value) && $this->getField() !== null;
+        return $this->getValueType() === self::VALUE_TYPE_DATE && is_numeric($value) && $this->getField() instanceof \In2code\Powermail\Domain\Model\Field;
     }
 
     /**
      * @param string|array $value
-     * @return bool
      */
     protected function isTypeDateForDate($value): bool
     {
@@ -235,6 +220,7 @@ class Answer extends AbstractEntity
             return !empty($value) && method_exists($this->getField(), 'getType')
             && $this->getValueType() === self::VALUE_TYPE_DATE && !is_numeric($value);
         }
+
         return false;
     }
 
@@ -242,7 +228,6 @@ class Answer extends AbstractEntity
      * If multitext or upload force array
      *
      * @param string|array $value
-     * @return bool
      */
     protected function isTypeMultiple($value): bool
     {
@@ -254,20 +239,19 @@ class Answer extends AbstractEntity
      * If array, encode to JSON string
      *
      * @param string|array $value
-     * @return string
      */
     protected function convertToJson($value): string
     {
         if (is_array($value)) {
             $value = json_encode($value);
         }
+
         return (string)$value;
     }
 
     /**
      * Convert string to timestamp for date fields (datepicker)
      *
-     * @param string $value
      * @return int|string
      */
     protected function convertToTimestamp(string $value)
@@ -280,28 +264,33 @@ class Answer extends AbstractEntity
             } else {
                 $format = $this->translateFormat;
             }
+
             $date = DateTime::createFromFormat($format, $value);
             if ($date) {
                 if ($this->getField()->getDatepickerSettings() === 'date') {
                     $date->setTime(0, 0);
                 }
+
                 $value = $date->getTimestamp();
             } else {
                 try {
                     // fallback html5 date field - always Y-m-d H:i
                     $date = new DateTime($value);
-                } catch (Throwable $e) {
+                } catch (Throwable) {
                     // clean value if string could not be converted
                     $value = '';
                 }
+
                 if ($date) {
                     if ($this->getField()->getDatepickerSettings() === 'date') {
                         $date->setTime(0, 0);
                     }
+
                     $value = $date->getTimestamp();
                 }
             }
         }
+
         return $value;
     }
 }

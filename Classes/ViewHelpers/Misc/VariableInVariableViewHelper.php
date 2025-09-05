@@ -6,9 +6,7 @@ namespace In2code\Powermail\ViewHelpers\Misc;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
@@ -16,12 +14,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
     /**
      * Initialize arguments.
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('obj', 'mixed', 'Object', true);
@@ -30,27 +26,21 @@ class VariableInVariableViewHelper extends AbstractViewHelper implements ViewHel
 
     /**
      * Solution for {outer.{inner}} call in fluid
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
      * @return mixed
      * @throws PropertyNotAccessibleException
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
-        $obj = $arguments['obj'];
-        $prop = $arguments['prop'];
+    public function render()
+    {
+        $obj = $this->arguments['obj'];
+        $prop = $this->arguments['prop'];
         if (is_array($obj) && array_key_exists($prop, $obj)) {
             return $obj[$prop];
         }
+
         if (is_object($obj)) {
             return ObjectAccess::getProperty($obj, GeneralUtility::underscoredToLowerCamelCase($prop));
         }
+
         return null;
     }
 }

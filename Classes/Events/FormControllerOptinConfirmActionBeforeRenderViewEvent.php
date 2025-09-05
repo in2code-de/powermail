@@ -8,36 +8,10 @@ use In2code\Powermail\Domain\Model\Mail;
 
 final class FormControllerOptinConfirmActionBeforeRenderViewEvent
 {
-    /**
-     * @var Mail
-     */
-    protected Mail $mail;
-
-    /**
-     * @var string
-     */
-    protected string $hash;
-
-    /**
-     * @var FormController
-     */
-    protected FormController $formController;
-
-    /**
-     * @param Mail $mail
-     * @param string $hash
-     * @param FormController $formController
-     */
-    public function __construct(Mail $mail, string $hash, FormController $formController)
+    public function __construct(protected Mail $mail, protected string $hash, protected FormController $formController)
     {
-        $this->mail = $mail;
-        $this->hash = $hash;
-        $this->formController = $formController;
     }
 
-    /**
-     * @return Mail
-     */
     public function getMail(): Mail
     {
         return $this->mail;
@@ -51,25 +25,16 @@ final class FormControllerOptinConfirmActionBeforeRenderViewEvent
         $this->mail = $mail;
     }
 
-    /**
-     * @return string
-     */
     public function getHash(): string
     {
         return $this->hash;
     }
 
-    /**
-     * @param string $hash
-     */
     public function setHash(string $hash): void
     {
         $this->hash = $hash;
     }
 
-    /**
-     * @return FormController
-     */
     public function getFormController(): FormController
     {
         return $this->formController;

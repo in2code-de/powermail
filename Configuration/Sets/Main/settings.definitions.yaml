@@ -1,0 +1,617 @@
+categories:
+  powermail:
+    label: Powermail - Main
+  powermail.captcha:
+    label: Captcha
+    parent: powermail
+  powermail.mail-receiver:
+    label: Mail for Receiver
+    parent: powermail
+  powermail.mail-receiver.common:
+    label: Common
+    parent: powermail.mail-receiver
+  powermail.mail-receiver.overwrite:
+    label: Overwrite
+    parent: powermail.mail-receiver
+  powermail.mail-receiver.senderheader:
+    label: Sender header
+    parent: powermail.mail-receiver
+  powermail.mail-sender:
+    label: Mail for Sender
+    parent: powermail
+  powermail.mail-sender.common:
+    label: Common
+    parent: powermail.mail-sender
+  powermail.mail-sender.overwrite:
+    label: Overwrite
+    parent: powermail.mail-sender
+  powermail.mail-sender.senderheader:
+    label: Sender header
+    parent: powermail.mail-sender
+  powermail.marketing:
+    label: Marketing
+    parent: powermail
+  powermail.misc:
+    label: Miscellaneous
+    parent: powermail
+  powermail.spamshield:
+    label: Spamshield
+    parent: powermail
+  powermail.db:
+    label: Storage
+    parent: powermail
+  powermail.styling:
+    label: Styling
+    parent: powermail
+  powermail.validation:
+    label: Validation
+    parent: powermail
+  powermail.view:
+    label: View
+    parent: powermail
+
+settings:
+  plugin.tx_powermail.settings.captcha.image:
+    default: 'EXT:powermail/Resources/Private/Image/captcha_bg.png'
+    type: text
+    label: Captcha Background
+    description: Set own captcha background image (e.g. fileadmin/bg.png)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.font:
+    default: 'EXT:powermail/Resources/Private/Fonts/Segment16cBold.ttf'
+    type: text
+    label: Captcha Font
+    description: Set TTF-Font for captcha image (e.g. fileadmin/font.ttf)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.textColor:
+    default: '#111111'
+    type: text
+    label: Captcha Text Color
+    description: Define your text color in hex code - must start with # (e.g. #ff0000)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.textSize:
+    default: 32
+    type: int
+    label: Captcha Text Size
+    description: Define your text size in px (e.g. 24)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.textAngle:
+    default: '-5,5'
+    type: text
+    label: Captcha Text Angle
+    description: Define two different values (start and stop) for your text random angle and separate it with a comma (e.g. -10,10)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.distanceHor:
+    default: '20,100'
+    type: text
+    label: Captcha Text Distance Hor
+    description: Define two different values (start and stop) for your text horizontal random distance and separate it with a comma (e.g. 20,80)
+    category: powermail.captcha
+  plugin.tx_powermail.settings.captcha.distanceVer:
+    default: '30,45'
+    type: text
+    label: Captcha Text Distance Ver
+    description: Define two different values (start and stop) for your text vertical random distance and separate it with a comma (e.g. 30,60)
+    category: powermail.captcha
+
+  plugin.tx_powermail.settings.db.enable:
+    default: 1
+    type: int
+    label: Mail Storage enabled
+    description: Store Mails in database
+    category: powermail.db
+  plugin.tx_powermail.settings.db.hidden:
+    default: 0
+    type: int
+    label: Hidden Mails in Storage
+    description: Add mails with hidden flag (e.g. 1)
+    category: powermail.db
+
+  plugin.tx_powermail.settings.main.pid:
+    label: 'Storage PID'
+    description:  'Save mails in a defined Page (normally set via Flexform)'
+    category: powermail
+    default: ''
+    type: string
+  plugin.tx_powermail.settings.main.form:
+    label: 'Form Uids'
+    description:  'Comma separated list of forms to show (normally set via Flexform)'
+    category: powermail
+    default: ''
+    type: string
+  plugin.tx_powermail.settings.main.confirmation:
+    label: 'Confirmation Page Active'
+    description:  'Activate Confirmation Page (normally set via Flexform)'
+    category: powermail
+    default: false
+    type: bool
+  plugin.tx_powermail.settings.main.optin:
+    label: 'Double Optin Active'
+    description:  'Activate Double Optin for Mail sender (normally set via Flexform)'
+    category: powermail
+    default: false
+    type: bool
+  plugin.tx_powermail.settings.main.moresteps:
+    label: 'Morestep Active'
+    description:  'Activate Morestep Forms (normally set via Flexform)'
+    category: powermail
+    default: 0
+    type: int
+
+  plugin.tx_powermail.settings.misc.htmlForHtmlFields:
+    default: false
+    type: bool
+    label: Allow html in html fields
+    description: Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid Cross-Site-Scripting for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.htmlForLabels:
+    default: false
+    type: bool
+    label: Allow html in field labels
+    description: Per default labels are generated with htmlspecialchars() to prevent xss. This also disables links in labels. If you aware of possible XSS-problems, caused by editors, you can enable it.
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.showOnlyFilledValues:
+    default: true
+    type: bool
+    label: Show only filled values
+    description: If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.ajaxSubmit:
+    default: false
+    type: bool
+    label: AJAX Submit Form
+    description: Submit Powermail Forms with AJAX (browser will not reload complete page)
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.addQueryString:
+    default: '0'
+    type: string
+    label: Enable AddQueryString
+    description: Possible Values are 0,1, untrusted (https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/Functions/Typolink.html#addquerystring),  Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.uploadFolder:
+    default: 'uploads/tx_powermail/'
+    type: text
+    label: Misc Upload Folder
+    description: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.uploadSize:
+    default: 10485760
+    type: int
+    label: Misc Upload Filesize
+    description: Define the maximum filesize of file uploads in bytes (10485760 Byte -> 10 MB)
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.uploadFileExtensions:
+    default: 'jpg,jpeg,gif,png,tif,txt,doc,docx,xls,xlsx,ppt,pptx,pdf,mpg,mpeg,avi,mp3,zip,rar,ace,csv,svg'
+    type: text
+    label: Misc Upload Fileextensions
+    description: Define the allowed filetypes with their extensions for fileuploads and separate them with commas (e.g. jpg,jpeg,gif)
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.randomizeFileName:
+    default: true
+    type: bool
+    label: Randomized Filenames
+    description: Uploaded filenames can be randomized to respect data privacy
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName:
+    default: false
+    type: bool
+    label: Prepend original file name
+    description: Prepend original file name to randomized file name if randomizeFileName is enabled
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.debugSettings:
+    default: false
+    type: bool
+    label: Debug Settings
+    description: Show all Settings from TypoScript, Flexform and Global Config in Devlog
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.debugVariables:
+    default: false
+    type: bool
+    label: Debug Variables
+    description: Show all given Plugin variables from GET or POST in Devlog
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.debugMail:
+    default: false
+    type: bool
+    label: Debug Mails
+    description: Show all mail values in Devlog
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.debugSaveToTable:
+    default: false
+    type: bool
+    label: Debug Save to Table
+    description: Show all values if you want to save powermail variables to another table in Devlog
+    category: powermail.misc
+  plugin.tx_powermail.settings.misc.debugSpamshield:
+    default: false
+    type: bool
+    label: Debug Spamshield
+    description: Show Spamshield Functions in Devlog
+    category: powermail.misc
+
+  plugin.tx_powermail.settings.receiver.enable:
+    label: 'Receiver Mail'
+    description: 'Enable Email to Receiver'
+    category: powermail.mail-receiver.common
+    default: true
+    type: bool
+  plugin.tx_powermail.settings.receiver.attachment:
+    label: 'Receiver Attachments'
+    description: 'Add uploaded files to emails'
+    category: powermail.mail-receiver.common
+    default: true
+    type: bool
+  plugin.tx_powermail.settings.receiver.mailformat:
+    label: 'Receiver Mail Format'
+    description: 'Change mail format'
+    category: powermail.mail-receiver.common
+    default: 'both'
+    type: string
+    enum:
+      both: 'HTML and Plain text e-mails'
+      html: 'HTML e-mails only'
+      plain: 'Plain text e-mails only'
+  plugin.tx_powermail.settings.receiver.default.senderName:
+    label: 'Default Sender Name'
+    description: 'Senders name, if no sender name given'
+    category: powermail.mail-receiver.common
+    type: text
+    default: ''
+  plugin.tx_powermail.settings.receiver.default.senderEmail:
+    label: 'Default Sender E-Mail'
+    description: 'Senders e-mail, if no sender e-mail given'
+    category: powermail.mail-receiver.common
+    type: text
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.email:
+    label: 'Receiver overwrite e-mail'
+    description: 'Comma separated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.name:
+    label: 'Receiver overwrite name'
+    description: 'Receiver name overwrites flexform settings (e.g. Receiver Name)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.senderName:
+    label: 'Receiver overwrite SenderName'
+    description: 'Sender Name for mail to receiver overwrites flexform settings (e.g. Sender Name)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.senderEmail:
+    label: 'Receiver overwrite SenderEmail'
+    description: 'Sender Email for mail to receiver overwrites flexform settings (e.g. sender@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.subject:
+    label: 'Receiver overwrite Mail Subject'
+    description: 'Subject for mail to receiver overwrites flexform settings (e.g. New Mail from website)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.cc:
+    label: 'Receiver CC Email Addresses'
+    description: 'Comma separated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.bcc:
+    label: 'Receiver BCC Email Addresses'
+    description: 'Comma separated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.returnPath:
+    label: 'Receiver Mail Return Path'
+    description: ' Return Path for emails to receiver (e.g. return@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.replyToEmail:
+    label: 'Receiver Mail Reply Mail'
+    description: 'Reply Email address for mail to receiver (e.g. reply@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.replyToName:
+    label: 'Receiver Mail Reply Name'
+    description: 'Reply Name for mail to receiver (e.g. Mr. Reply)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.overwrite.priority:
+    label: 'Receiver Mail Priority'
+    description: Set mail priority for mail to receiver (e.g. 3)
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: '3'
+    enum:
+      1: Priority 1
+      2: Priority 2
+      3: Priority 3
+      4: Priority 4
+      5: Priority 5
+  plugin.tx_powermail.settings.receiver.senderHeader.email:
+    label: 'Server-Mail'
+    description: 'If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)'
+    category: powermail.mail-receiver.senderheader
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.receiver.senderHeader.name:
+    label: 'Server-Name'
+    description: 'You can define a name along with the mail address (optional)'
+    category: powermail.mail-receiver.senderheader
+    type: string
+    default: ''
+
+
+  plugin.tx_powermail.settings.sender.enable:
+    label: 'Sender Mail'
+    description: 'Enable e-mail to sender'
+    category: powermail.mail-sender.common
+    default: true
+    type: bool
+  plugin.tx_powermail.settings.sender.attachment:
+    label: 'Sender Attachments'
+    description: 'Add uploaded files to emails'
+    category: powermail.mail-sender.common
+    default: false
+    type: bool
+  plugin.tx_powermail.settings.sender.mailformat:
+    label: 'Sender Mail Format'
+    description: 'Change mail format'
+    category: powermail.mail-sender.common
+    default: 'both'
+    type: string
+    enum:
+      both: 'HTML and Plain text e-mails'
+      html: 'HTML e-mails only'
+      plain: 'Plain text e-mails only'
+  plugin.tx_powermail.settings.sender.default.senderName:
+    label: 'Default Sender Name'
+    description: 'Senders name, if no sender name given'
+    category: powermail.mail-sender.common
+    type: text
+    default: ''
+  plugin.tx_powermail.settings.sender.default.senderEmail:
+    label: 'Default Sender E-Mail'
+    description: 'Senders e-mail, if no sender e-mail given'
+    category: powermail.mail-sender.common
+    type: text
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.email:
+    label: 'Sender overwrite e-mail'
+    description: 'Comma separated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)'
+    category: powermail.mail-receiver.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.name:
+    label: 'Sender overwrite name'
+    description: 'Sender name overwrites flexform settings (e.g. Receiver Name)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.senderName:
+    label: 'Sender overwrite SenderName'
+    description: 'Sender Name for mail to sender overwrites flexform settings (e.g. Sender Name)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.senderEmail:
+    label: 'Sender overwrite SenderEmail'
+    description: 'Sender Email for mail to sender overwrites flexform settings (e.g. sender@mail.com)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.subject:
+    label: 'Sender overwrite Mail Subject'
+    description: 'Subject for mail to sender overwrites flexform settings (e.g. New Mail from website)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.cc:
+    label: 'Sender CC Email Addresses'
+    description: 'Comma separated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.bcc:
+    label: 'Sender BCC Email Addresses'
+    description: 'Comma separated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.returnPath:
+    label: 'Sender Mail Return Path'
+    description: ' Return Path for emails to sender (e.g. return@mail.com)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.replyToEmail:
+    label: 'Sender Mail Reply Mail'
+    description: 'Reply Email address for mail to sender (e.g. reply@mail.com)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.replyToName:
+    label: 'Sender Mail Reply Name'
+    description: 'Reply Name for mail to sender (e.g. Mr. Reply)'
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.overwrite.priority:
+    label: 'Sender Mail Priority'
+    description: Set mail priority for mail to sender (e.g. 3)
+    category: powermail.mail-sender.overwrite
+    type: string
+    default: '3'
+    enum:
+      1: Priority 1
+      2: Priority 2
+      3: Priority 3
+      4: Priority 4
+      5: Priority 5
+  plugin.tx_powermail.settings.sender.senderHeader.email:
+    label: 'Server-Mail'
+    description: 'If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)'
+    category: powermail.mail-sender.senderheader
+    type: string
+    default: ''
+  plugin.tx_powermail.settings.sender.senderHeader.name:
+    label: 'Server-Name'
+    description: 'You can define a name along with the mail address (optional)'
+    category: powermail.mail-sender.senderheader
+    type: string
+    default: ''
+
+  plugin.tx_powermail.settings.spamshield.enable:
+    default: true
+    type: bool
+    label: 'SpamShield Active: En- or disable Spamshield for Powermail'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.factor:
+    default: 75
+    type: int
+    label: 'SpamShield Active: Spamshield Spamfactor in %: Set limit for spamfactor in powermail forms in % (e.g. 85)'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.email:
+    default: ''
+    type: string
+    label: 'Spamshield Notifymail: Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.senderEmail:
+    default: ''
+    type: string
+    label: 'Spamshield Notifymail sendermail: Define sender email address for mails'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.emailSubject:
+    default: 'Spam in powermail form recognized'
+    type: string
+    label: 'Spamshield Notifymail Subject: Subject for notification Email to Admin'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.emailTemplate:
+    default: 'EXT:powermail/Resources/Private/Templates/Mail/SpamNotification.html'
+    type: string
+    label: 'Spamshield Notifymail Template: Template for notification Email to Admin'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.logfileLocation:
+    default: ''
+    type: string
+    label: 'Spamshield Log Template Location: Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated'
+    category: powermail.spamshield
+  plugin.tx_powermail.settings.spamshield.logTemplate:
+    label: ''
+    default: 'EXT:powermail/Resources/Private/Templates/Log/SpamNotification.html'
+    type: string
+    category: powermail.spamshield
+
+  plugin.tx_powermail.settings.validation.native:
+    label: Native Browser Validation
+    description: Validate User Input with HTML5 native browser validation on clientside
+    category: powermail.validation
+    type: bool
+    default: true
+  plugin.tx_powermail.settings.validation.client:
+    label: JavaScript Browser Validation
+    description: Validate User Input with JavaScript on clientside
+    category: powermail.validation
+    type: bool
+    default: true
+  plugin.tx_powermail.settings.validation.server:
+    label: PHP Server Validation
+    description: Validate User Input with PHP on serverside
+    category: powermail.validation
+    type: bool
+    default: true
+
+  plugin.tx_powermail.settings.styles.framework.numberOfColumns:
+    default: 2
+    type: int
+    label: Number of columns
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.rowClasses:
+    default: 'row'
+    type: text
+    label: Framework classname(s) for containers to build rows
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.formClasses:
+    default: ''
+    type: text
+    label: Framework classname(s) for form
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses:
+    default: 'col-md-6'
+    type: text
+    label: Framework classname(s) for overall wrapping container of a field/label pair
+    description: e.g. "col-md-6"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses:
+    default: 'powermail_field'
+    type: text
+    label: Framework classname(s) for wrapping container of a field
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.labelClasses:
+    default: 'form-label powermail_label'
+    type: text
+    label: Framework classname(s) for fieldlabels
+    description: e.g. "form-label"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.fieldClasses:
+    default: 'form-control'
+    type: text
+    label: Framework classname(s) for fields
+    description: e.g. "form-control"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.offsetClasses:
+    default: ''
+    type: text
+    label: Framework classname(s) for fields with an offset
+    description: e.g. "col-sm-offset-2"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.radioClasses:
+    default: 'form-check powermail_radiowrap'
+    type: text
+    label: Framework classname(s) especially for radiobuttons
+    description: e.g. "form-check"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.checkClasses:
+    default: 'form-check powermail_checkwrap'
+    type: text
+    label: Framework classname(s) especially for checkboxes
+    description: e.g. "form-check"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.submitClasses:
+    default: 'btn btn-primary'
+    type: text
+    label: Framework classname(s) for the submit button
+    description: e.g. "btn btn-primary"
+    category: powermail.styling
+  plugin.tx_powermail.settings.styles.framework.createClasses:
+    default: 'powermail_create'
+    type: text
+    label: Framework classname(s) for "create" message after submit
+    description: e.g. "powermail_create"
+    category: powermail.styling
+
+  plugin.tx_powermail.view.templateRootPath:
+    label: Path to template root (FE)
+    description: Path to template root (FE)
+    category: powermail.view
+    type: string
+    default: 'EXT:powermail/Resources/Private/Templates/'
+  plugin.tx_powermail.view.partialRootPath:
+    label: Path to template partials (FE)
+    description: Path to template partials (FE)
+    category: powermail.view
+    type: string
+    default: 'EXT:powermail/Resources/Private/Partials/'
+  plugin.tx_powermail.view.layoutRootPath:
+    label: Path to template layouts (FE)
+    description: Path to template layouts (FE)
+    category: powermail.view
+    type: string
+    default: 'EXT:powermail/Resources/Private/Layouts/'

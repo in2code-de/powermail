@@ -45,78 +45,190 @@ Add powermail static templates for full functions
 | Field | Description |
 | ----- | ----------- |
 | Main template (powermail) | Main functions and settings for all powermail forms. |
+| Powermail_Styling | If you want to add a default styling, color customizable via CSS custom properties. |
 | Powermail_Frontend (powermail) | If you want to use show mails in frontend (Pi2), choose this template. |
-| Add classes and CSS based on bootstrap (powermail) | If you want to add default bootstrap classes to all forms, pages and fields in frontend, you should add this static template. Note: If you want to add bootstrap.css from powermail, see constant editor. |
 | Marketing Information (powermail) | If you want to see some marketing information about your visitors, you have to add this Template to your root Template. An AJAX function (needs jQuery) sends basic information to a powermail script (Visitors Country, Page Funnel, etc...). |
 
 **Note** TypoScript can be modified to configure powermail in the way you want to use powermail.
 See BestPractice/MainTypoScript for an overview over the complete TypoScript.
 
-## Add Bootstrap classes and CSS to powermail
+## Site sets
 
-First of all you should add the static template **Add classes and CSS based on bootstrap (powermail)**
-Now, forms and fields should get default bootstrap css classes in Frontend. In addition you have to add
-bootstrap.css by your own or with following constants:
+Since version 13 Powermail provides two sets of site sets for all TypoScript templates:
+- one site set as a drop-in, that reflects the current typoscript template behavior
+- one site set as a future-proof siteset, that replaces typoscript constants with `settings.definitions.yaml`.
 
-`plugin.tx_powermail.settings.styles.bootstrap.addBootstrap = 1`
+### Migration
 
-You can change the default classes with the constants editor.
-The full TypoScript constants of the static template:
+#### DropIn - SiteSet
+
+For the drop-in site set, you just need remove the inclusion of the TypoScript template and add the SiteSet to your
+installation. No other steps need to be done.
+
+#### Future-proof SiteSet
+
+For this site-set there are some more steps to perform.
+
+- remove the inclusion of the typoscript template
+- add the necessary site set(s) without the "DropIn" prefix to your site
+- migrate TypoScript constants to your site settings. All constant names remain the same.
+
+
+## Default classes
+
+Powermail comes with classes for Bootstrap 5.x by default. You can change the default classes with the constants editor. The full TypoScript constants are:
 
 ```
 plugin.tx_powermail {
 	settings {
-		BasicCss = EXT:powermail/Resources/Public/Css/Basic.css
-
 		styles {
-			bootstrap {
-				# cat=powermail_styles//0000; type=boolean; label= Enable loading of bootstrap.min.css from powermail
-				addBootstrap = 0
-
-				# cat=powermail_styles//0010; type=text; label= Define path Bootsrap.css
-				bootstrapPath = EXT:powermail/Resources/Public/Css/Bootstrap.css
-
+			framework {
 				# cat=powermail_styles//0020; type=int+; label= Number of columns
 				numberOfColumns = 2
 
-
-				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for row containers
+				# cat=powermail_styles//0100; type=text; label= Framework classname(s) for containers to build rows
 				rowClasses = row
 
-				# cat=powermail_styles//0105; type=text; label= Framework classname(s) for form "form-horizontal"
-				formClasses = form-horizontal
+				# cat=powermail_styles//0105; type=text; label= Framework classname(s) for form
+				formClasses =
 
-				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "row form-group"
-				fieldAndLabelWrappingClasses = form-group col-md-6
+				# cat=powermail_styles//0110; type=text; label= Framework classname(s) for overall wrapping container of a field/label pair e.g. "col-md-6"
+				fieldAndLabelWrappingClasses = col-md-6
 
-				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field e.g. "row form-group"
-				fieldWrappingClasses = col-sm-10
+				# cat=powermail_styles//0120; type=text; label= Framework classname(s) for wrapping container of a field
+				fieldWrappingClasses = powermail_field
 
-				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "col-md-2 col-md-3"
-				labelClasses = control-label col-sm-2
+				# cat=powermail_styles//0130; type=text; label= Framework classname(s) for fieldlabels e.g. "form-label"
+				labelClasses = form-label powermail_label
 
 				# cat=powermail_styles//0140; type=text; label= Framework classname(s) for fields e.g. "form-control"
 				fieldClasses = form-control
 
 				# cat=powermail_styles//0150; type=text; label= Framework classname(s) for fields with an offset e.g. "col-sm-offset-2"
-				offsetClasses = col-sm-offset-2
+				offsetClasses =
 
-				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "radio"
-				radioClasses = radio
+				# cat=powermail_styles//0160; type=text; label= Framework classname(s) especially for radiobuttons e.g. "form-check"
+				radioClasses = form-check powermail_radiowrap
 
-				# cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "check"
-				checkClasses = checkbox
+				# cat=powermail_styles//0170; type=text; label= Framework classname(s) especially for checkboxes e.g. "form-check"
+				checkClasses = form-check powermail_checkwrap
 
 				# cat=powermail_styles//0180; type=text; label= Framework classname(s) for the submit button e.g. "btn btn-primary"
 				submitClasses = btn btn-primary
 
 				# cat=powermail_styles//0190; type=text; label= Framework classname(s) for "create" message after submit
 				createClasses = powermail_create
-
-				# if this constant is set, constants {$plugin.tx_powermail.settings.styles.bootstrap.*} overrides {$plugin.tx_powermail.settings.styles.framework.*}
-				important = 1
 			}
 		}
 	}
 }
+```
+
+## Add default styling
+
+You can add the static template "Powermail_Styling" to get a default styling for Powermail. You can change the colors using CSS custom properties:
+
+```css
+--pm-primary-color: var(--pm-blue);
+--pm-secondary-color: var(--pm-grey-2);
+
+/**
+ * Form fields
+ *
+ */
+
+/* Input */
+--pm-input-background-color: var(--pm-white);
+--pm-input-border-color: var(--pm-grey-2);
+--pm-input-color: var(--pm-black);
+--pm-input-placeholder-color: var(--pm-grey-3);
+--pm-input-invalid-background-color: var(--pm-input-background-color);
+--pm-input-invalid-border-color: var(--pm-red);
+--pm-input-invalid-color: var(--pm-input-color);
+
+/* Select */
+--pm-select-background-color: var(--pm-white);
+--pm-select-border-color: var(--pm-grey-2);
+--pm-select-color: var(--pm-black);
+
+/* Checkbox */
+--pm-check-background-color: var(--pm-white);
+--pm-check-border-color: var(--pm-grey-2);
+--pm-check-color: var(--pm-primary-color);
+
+/* Radio */
+--pm-radio-background-color: var(--pm-white);
+--pm-radio-border-color: var(--pm-grey-2);
+--pm-radio-color: var(--pm-primary-color);
+
+/**
+ * Buttons
+ *
+ */
+--pm-button-background-color: transparent;
+--pm-button-color: currentcolor;
+--pm-button-border-color: transparent;
+--pm-button-hover-background-color: transparent;
+--pm-button-hover-border-color: transparent;
+--pm-button-hover-color: currentcolor;
+
+/* Primary */
+--pm-button-primary-background-color: var(--pm-primary-color);
+--pm-button-primary-border-color: var(--pm-primary-color);
+--pm-button-primary-color: var(--pm-white);
+--pm-button-primary-hover-background-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+--pm-button-primary-hover-border-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+--pm-button-primary-hover-color: var(--pm-white);
+
+/* Secondary */
+--pm-button-secondary-background-color: var(--pm-secondary-color);
+--pm-button-secondary-border-color: var(--pm-secondary-color);
+--pm-button-secondary-color: var(--pm-black);
+--pm-button-secondary-hover-background-color: color-mix(in srgb, var(--pm-secondary-color), var(--pm-black) 20%);
+--pm-button-secondary-hover-border-color: color-mix(in srgb, var(--pm-secondary-color), var(--pm-black) 20%);
+--pm-button-secondary-hover-color: var(--pm-black);
+
+/* Active */
+--pm-button-active-background-color: var(--pm-primary-color);
+--pm-button-active-border-color: var(--pm-primary-color);
+--pm-button-active-color: var(--pm-white);
+--pm-button-active-hover-background-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+--pm-button-active-hover-border-color: color-mix(in srgb, var(--pm-primary-color), var(--pm-black) 20%);
+--pm-button-active-hover-color: var(--pm-white);
+
+/* Warning */
+--pm-button-warning-background-color: var(--pm-orange);
+--pm-button-warning-border-color: var(--pm-orange);
+--pm-button-warning-color: var(--pm-black);
+--pm-button-warning-hover-background-color: color-mix(in srgb, var(--pm-orange), var(--pm-black) 20%);
+--pm-button-warning-hover-border-color: color-mix(in srgb, var(--pm-orange), var(--pm-black) 20%);
+--pm-button-warning-hover-color: var(--pm-black);
+
+/* Danger */
+--pm-button-danger-background-color: var(--pm-red);
+--pm-button-danger-border-color: var(--pm-red);
+--pm-button-danger-color: var(--pm-white);
+--pm-button-danger-hover-background-color: color-mix(in srgb, var(--pm-red), var(--pm-black) 20%);
+--pm-button-danger-hover-border-color: color-mix(in srgb, var(--pm-red), var(--pm-black) 20%);
+--pm-button-danger-hover-color: var(--pm-white);
+
+/**
+ * Table
+ *
+ */
+
+/* Head */
+--pm-table-thead-tr-background-color: var(--pm-white);
+--pm-table-thead-tr-color: var(--pm-black);
+--pm-table-thead-th-border-color: var(--pm-grey-2);
+
+/* Body */
+--pm-table-tbody-tr-background-color: var(--pm-white);
+--pm-table-tbody-tr-color: var(--pm-black);
+--pm-table-tbody-tr-odd-background-color: var(--pm-grey-1);
+--pm-table-tbody-tr-odd-color: var(--pm-black);
+--pm-table-tbody-tr-hover-background-color: color-mix(in srgb, var(--pm-grey-1), var(--pm-black) 8%);
+--pm-table-tbody-tr-hover-color: var(--pm-black);
+--pm-table-tbody-th-border-color: var(--pm-grey-2);
+--pm-table-tbody-td-border-color: var(--pm-grey-2);
 ```

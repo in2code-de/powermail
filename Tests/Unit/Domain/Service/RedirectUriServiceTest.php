@@ -19,7 +19,6 @@ class RedirectUriServiceTest extends UnitTestCase
     protected $generalValidatorMock;
 
     /**
-     * @return void
      * @throws Exception
      */
     public function setUp(): void
@@ -31,9 +30,6 @@ class RedirectUriServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -77,11 +73,10 @@ class RedirectUriServiceTest extends UnitTestCase
      * @param array $flexFormArray
      * @param string $expectedResult
      * @dataProvider getTargetFromFlexFormReturnStringDataProvider
-     * @return void
      * @test
      * @covers ::getTargetFromFlexForm
      */
-    public function getTargetFromFlexFormReturnString($flexFormArray, $expectedResult)
+    public function getTargetFromFlexFormReturnString($flexFormArray, $expectedResult): void
     {
         $this->generalValidatorMock->_set('flexFormFixture', $flexFormArray);
         self::assertEquals($expectedResult, $this->generalValidatorMock->_call('getTargetFromFlexForm'));

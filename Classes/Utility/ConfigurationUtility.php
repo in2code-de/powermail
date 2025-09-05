@@ -7,6 +7,7 @@ use In2code\Powermail\Exception\SoftwareIsMissingException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Configuration\Features;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\ArrayUtility as CoreArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -19,83 +20,76 @@ class ConfigurationUtility
     /**
      * Check if disableIpLog is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisableIpLogActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['disableIpLog'] === true;
+        return (bool)$extensionConfig['disableIpLog'];
     }
 
     /**
      * Check if disableMarketingInformation is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisableMarketingInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['disableMarketingInformation'] === true;
+        return (bool)$extensionConfig['disableMarketingInformation'];
     }
 
     /**
      * Check if disablePluginInformation is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisablePluginInformationActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['disablePluginInformation'] === true;
+        return (bool)$extensionConfig['disablePluginInformation'];
     }
 
     /**
      * Check if disablePluginInformationMailPreview is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isDisablePluginInformationMailPreviewActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['disablePluginInformationMailPreview'] === true;
+        return (bool)$extensionConfig['disablePluginInformationMailPreview'];
     }
 
     /**
      * Check if enableCaching is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isEnableCachingActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['enableCaching'] === true;
+        return (bool)$extensionConfig['enableCaching'];
     }
 
     /**
      * Check if replaceIrreWithElementBrowser is active
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     public static function isReplaceIrreWithElementBrowserActive(): bool
     {
         $extensionConfig = self::getExtensionConfiguration();
-        return (bool)$extensionConfig['replaceIrreWithElementBrowser'] === true;
+        return (bool)$extensionConfig['replaceIrreWithElementBrowser'];
     }
 
     /**
-     * @return array
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
@@ -107,7 +101,6 @@ class ConfigurationUtility
     /**
      * Get development email (only if in dev context)
      *
-     * @return string
      * @codeCoverageIgnore
      */
     public static function getDevelopmentContextEmail(): string
@@ -117,31 +110,26 @@ class ConfigurationUtility
             GeneralUtility::validEmail($configVariables['EXT']['powermailDevelopContextEmail'] ?? '')) {
             return $configVariables['EXT']['powermailDevelopContextEmail'];
         }
+
         return '';
     }
 
-    /**
-     * Get default mail from install tool settings
-     *
-     * @param string $fallback
-     * @return string
-     */
-    public static function getDefaultMailFromAddress(string $fallback = null): string
+    public static function getDefaultMailFromAddress(?string $fallback = null): string
     {
         $configVariables = self::getTypo3ConfigurationVariables();
         if (!empty($configVariables['MAIL']['defaultMailFromAddress'])) {
             return $configVariables['MAIL']['defaultMailFromAddress'];
         }
+
         if ($fallback !== null) {
             return $fallback;
         }
+
         return '';
     }
 
     /**
      * Get default mail-name from install tool settings
-     *
-     * @return string
      */
     public static function getDefaultMailFromName(): string
     {
@@ -149,14 +137,12 @@ class ConfigurationUtility
         if (!empty($configVariables['MAIL']['defaultMailFromName'])) {
             return $configVariables['MAIL']['defaultMailFromName'];
         }
+
         return '';
     }
 
     /**
      * Get path to an icon for TCA configuration
-     *
-     * @param string $fileName
-     * @return string
      */
     public static function getIconPath(string $fileName): string
     {
@@ -166,10 +152,6 @@ class ConfigurationUtility
     /**
      * Check if a given validation is turned on generally
      * and if there is a given spamshield method enabled
-     *
-     * @param array $settings
-     * @param string $className
-     * @return bool
      */
     public static function isValidationEnabled(array $settings, string $className): bool
     {
@@ -185,6 +167,7 @@ class ConfigurationUtility
                 }
             }
         }
+
         return !empty($settings['spamshield']['_enable']) && $validationActivated;
     }
 
@@ -205,25 +188,41 @@ class ConfigurationUtility
      * Merges Flexform, TypoScript and Extension Manager Settings
      * Note: If FF value is empty, we want the TypoScript value instead
      *
+     * ToDo v14: Maybe drop this method completely and stick to TYPO3 default behavior ore use the extbase option;
+     * see EXT:news -- overrideFlexFormsIfEmpty
+     * see Core:Extbase -- ignoreFlexFormSettingsIfEmpty
+     *
      * @param array $settings All settings
      * @param string $typoScriptLevel Startpoint
-     * @return array
      */
     public static function mergeTypoScript2FlexForm(array $settings, string $typoScriptLevel = 'setup'): array
     {
+        $originalSettings = $settings;
         if (array_key_exists($typoScriptLevel, $settings) && array_key_exists('flexform', $settings)) {
-            $settings = ArrayUtility::arrayMergeRecursiveOverrule(
+            $settings =  ArrayUtility::arrayMergeRecursiveOverrule(
                 (array)$settings[$typoScriptLevel],
                 (array)$settings['flexform'],
                 false,
                 false
             );
+
+            // ToDo: remove for TYPO3 v14 compatible version
+            // Reason for this part is, the `emptyValuesOverride = true` in the arrayMergeRecursiveOverrule from above
+            $features = GeneralUtility::makeInstance(Features::class);
+            if ($features->isFeatureEnabled('powermailEditorsAreAllowedToSendAttachments')) {
+                if (isset($originalSettings['flexform']['receiver']['attachment'])) {
+                    $settings['receiver']['attachment'] = $originalSettings['flexform']['receiver']['attachment'];
+                }
+                if (isset($originalSettings['flexform']['sender']['attachment'])) {
+                    $settings['sender']['attachment'] = $originalSettings['flexform']['sender']['attachment'];
+                }
+            }
         }
+
         return $settings;
     }
 
     /**
-     * @return bool
      * @SuppressWarnings(PHPMD.Superglobals)
      * @codeCoverageIgnore
      */
@@ -235,7 +234,6 @@ class ConfigurationUtility
     /**
      * Get extension configuration from LocalConfiguration.php
      *
-     * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     public static function getTypo3ConfigurationVariables(): array

@@ -15,9 +15,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class MailRepositoryTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
     protected bool $resetSingletonInstances = true;
 
     /**
@@ -25,9 +22,6 @@ class MailRepositoryTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -81,12 +75,11 @@ class MailRepositoryTest extends UnitTestCase
     /**
      * @param array $values
      * @param string $expectedResult
-     * @return void
      * @dataProvider getLabelsWithMarkersFromMailReturnsArrayDataProvider
      * @test
      * @covers ::getLabelsWithMarkersFromMail
      */
-    public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult)
+    public function getLabelsWithMarkersFromMailReturnsArray($values, $expectedResult): void
     {
         $mail = new Mail();
         if (is_array($values)) {
@@ -167,7 +160,6 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @return void
      * @dataProvider getSenderMailFromArgumentsReturnsStringDataProvider
      * @test
      * @covers ::getSenderMailFromArguments
@@ -177,7 +169,7 @@ class MailRepositoryTest extends UnitTestCase
         $fallback,
         $defaultMailFromAddress,
         $expectedResult
-    ) {
+    ): void {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = $defaultMailFromAddress;
         $mail = new Mail();
         if (is_array($values)) {
@@ -210,15 +202,6 @@ class MailRepositoryTest extends UnitTestCase
                 'Alex Kellner',
             ],
             [
-                [
-                    'Prof. Dr.',
-                    'Müller',
-                ],
-                'abc',
-                'def',
-                'Prof. Dr. Müller',
-            ],
-            [
                 null,
                 null,
                 'Fallback Name',
@@ -229,20 +212,6 @@ class MailRepositoryTest extends UnitTestCase
                 'Fallback Name',
                 null,
                 'Fallback Name',
-            ],
-            [
-                [
-                    // test multivalue (e.g. checkbox)
-                    [
-                        'Prof.',
-                        'Dr.',
-                    ],
-                    'Max',
-                    'Muster',
-                ],
-                'xyz',
-                'abc',
-                'Prof. Dr. Max Muster',
             ],
         ];
     }
@@ -252,7 +221,6 @@ class MailRepositoryTest extends UnitTestCase
      * @param string $fallback
      * @param string $defaultMailFromAddress
      * @param string $expectedResult
-     * @return void
      * @dataProvider getSenderNameFromArgumentsReturnsStringDataProvider
      * @test
      * @covers ::getSenderMailFromArguments
@@ -262,7 +230,7 @@ class MailRepositoryTest extends UnitTestCase
         $fallback,
         $defaultMailFromAddress,
         $expectedResult
-    ) {
+    ): void {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $defaultMailFromAddress;
         $mail = new Mail();
         if (is_array($values)) {
@@ -284,12 +252,54 @@ class MailRepositoryTest extends UnitTestCase
         self::assertSame($expectedResult, $result);
     }
 
+    public static function glueAnswerValuesReturnsStringDataProvider(): array
+    {
+        return [
+            [
+                [
+                    'Alex',
+                    'Kellner',
+                ],
+                'Alex Kellner',
+            ],
+            [
+                [
+                    'Prof. Dr.',
+                    'Müller',
+                ],
+                'Prof. Dr. Müller',
+            ],
+            [
+                'Fallback Name',
+                'Fallback Name',
+            ],
+            [
+                [
+                    'Prof.',
+                    'Dr.',
+                ],
+                'Prof. Dr.',
+            ],
+        ];
+    }
+
     /**
-     * @return void
+     * @param array|string $value
+     * @param string $expectedResult
+     * @dataProvider glueAnswerValuesReturnsStringDataProvider
+     * @test
+     * @covers ::glueAnswerValues
+     */
+    public function glueAnswerValuesReturnsString(array|string $value, string $expectedResult): void
+    {
+        $result = $this->generalValidatorMock->_call('glueAnswerValues', $value, ' ');
+        self::assertSame($expectedResult, $result);
+    }
+    /**
      * @test
      * @covers ::cleanStringForQuery
      */
-    public function cleanStringForQueryReturnsString()
+    public function cleanStringForQueryReturnsString(): void
     {
         $str = '1a2b3+üßT$st';
         $result = $this->generalValidatorMock->_call('cleanStringForQuery', $str);

@@ -11,32 +11,24 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetPiVarAnswerFieldViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', 'mixed', 'Field or Field UID', true);
         $this->registerArgument('piVars', 'array', 'Plugin variables', true);
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         $result = '';
         $piVars = $this->arguments['piVars'];
         if (!empty($piVars['filter']['answer'][$this->getFieldUid()])) {
-            $result = htmlspecialchars($piVars['filter']['answer'][$this->getFieldUid()]);
+            return htmlspecialchars((string)$piVars['filter']['answer'][$this->getFieldUid()]);
         }
+
         return $result;
     }
 
-    /**
-     * @return int
-     */
     protected function getFieldUid(): int
     {
         $fieldUid = 0;
@@ -47,6 +39,7 @@ class GetPiVarAnswerFieldViewHelper extends AbstractViewHelper
         } elseif (is_numeric($field)) {
             $fieldUid = $field;
         }
+
         return $fieldUid;
     }
 }

@@ -14,9 +14,6 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class BasicFileUtilityTest extends UnitTestCase
 {
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -24,34 +21,31 @@ class BasicFileUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getFilesFromRelativePath
      */
-    public function getFilesFromRelativePathReturnsString()
+    public function getFilesFromRelativePathReturnsString(): void
     {
         $result = BasicFileUtility::getFilesFromRelativePath('typo3/');
         self::assertSame(['index.php', 'install.php'], $result);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getPathFromPathAndFilename
      */
-    public function getPathFromPathAndFilenameReturnsString()
+    public function getPathFromPathAndFilenameReturnsString(): void
     {
         $result = BasicFileUtility::getPathFromPathAndFilename('typo3/index.php');
         self::assertSame('typo3', $result);
     }
 
     /**
-     * @return void
      * @test
      * @covers ::createFolderIfNotExists
      * @throws FileCannotBeCreatedException
      */
-    public function createFolderIfNotExistsReturnsVoid()
+    public function createFolderIfNotExistsReturnsVoid(): void
     {
         $testpath = TestingHelper::getWebRoot() . 'fileadmin/';
 
@@ -61,12 +55,11 @@ class BasicFileUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::prependContentToFile
      * @throws FileCannotBeCreatedException
      */
-    public function prependContentToFileReturnsVoid()
+    public function prependContentToFileReturnsVoid(): void
     {
         $testpath = TestingHelper::getWebRoot() . 'fileadmin/';
         BasicFileUtility::createFolderIfNotExists($testpath);
@@ -80,11 +73,10 @@ class BasicFileUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getRelativeFolder
      */
-    public function getRelativeFolderReturnsString()
+    public function getRelativeFolderReturnsString(): void
     {
         $testPath = 'typo3conf/ext/powermail/';
         self::assertStringEndsWith(

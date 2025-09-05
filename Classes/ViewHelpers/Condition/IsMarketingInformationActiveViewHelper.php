@@ -13,10 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsMarketingInformationActiveViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('marketingInformation', 'array', 'marketingInformation', true);
@@ -26,7 +23,6 @@ class IsMarketingInformationActiveViewHelper extends AbstractViewHelper
     /**
      * Check if marketing information should be shown
      *
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */

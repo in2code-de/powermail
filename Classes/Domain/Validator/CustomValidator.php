@@ -17,13 +17,12 @@ class CustomValidator extends StringValidator
      * Custom validation of given Params
      *
      * @param Mail $mail
-     * @return bool
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
         $eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         $eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(CustomValidatorEvent::class, $mail, $this)
+            new CustomValidatorEvent($mail, $this)
         );
     }
 }

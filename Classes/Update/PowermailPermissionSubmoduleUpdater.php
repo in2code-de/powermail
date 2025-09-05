@@ -15,9 +15,11 @@ use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 
+#[UpgradeWizard('powermailPermissionSubmodulesUpdater')]
 class PowermailPermissionSubmoduleUpdater implements UpgradeWizardInterface
 {
     public function getIdentifier(): string
@@ -33,8 +35,7 @@ class PowermailPermissionSubmoduleUpdater implements UpgradeWizardInterface
     public function getDescription(): string
     {
         $description = 'This update wizard migrates be groups, that use the old main module to the new submodules ';
-        $description .= ' Count of affected groups: ' . count($this->getMigrationRecords());
-        return $description;
+        return $description . (' Count of affected groups: ' . count($this->getMigrationRecords()));
     }
 
     public function getPrerequisites(): array
@@ -56,7 +57,7 @@ class PowermailPermissionSubmoduleUpdater implements UpgradeWizardInterface
 
     public function checkIfWizardIsRequired(): bool
     {
-        return count($this->getMigrationRecords()) > 0;
+        return $this->getMigrationRecords() !== [];
     }
 
     public function performMigration(): bool

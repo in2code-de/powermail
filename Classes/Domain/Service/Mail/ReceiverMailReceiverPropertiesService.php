@@ -27,66 +27,43 @@ use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
 class ReceiverMailReceiverPropertiesService
 {
     const RECEIVERS_DEFAULT = 0;
+
     const RECEIVERS_FRONTENDGROUP = 1;
+
     const RECEIVERS_PREDEFINED = 2;
+
     const RECEIVERS_BACKENDGROUP = 3;
 
     /**
-     * @var Mail|null
-     */
-    protected ?Mail $mail = null;
-
-    /**
-     * TypoScript settings as plain array
-     *
-     * @var array
-     */
-    protected array $settings = [];
-
-    /**
      * TypoScript configuration for cObject parsing
-     *
-     * @var array
      */
     protected array $configuration = [];
 
-    /**
-     * @var array
-     */
     protected array $receiverEmails = [];
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private EventDispatcherInterface $eventDispatcher;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param Mail $mail
-     * @param array $settings
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      */
-    public function __construct(Mail $mail, array $settings)
+    public function __construct(protected ?Mail $mail, /**
+     * TypoScript settings as plain array
+     */
+        protected array $settings)
     {
-        $this->mail = $mail;
-        $this->settings = $settings;
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
         $this->setReceiverEmails();
     }
 
-    /**
-     * @return array
-     */
     public function getReceiverEmails(): array
     {
         return $this->receiverEmails;
     }
 
-    /**
-     * @return string
-     */
     public function getReceiverEmailsString(): string
     {
         return implode(PHP_EOL, $this->receiverEmails);
@@ -94,8 +71,6 @@ class ReceiverMailReceiverPropertiesService
 
     /**
      * Get receiver name with fallback
-     *
-     * @return string
      */
     public function getReceiverName(): string
     {
@@ -116,7 +91,6 @@ class ReceiverMailReceiverPropertiesService
     }
 
     /**
-     * @return void
      * @throws InvalidQueryException
      * @throws ExceptionExtbaseObject
      */
@@ -145,8 +119,6 @@ class ReceiverMailReceiverPropertiesService
 
     /**
      * Get emails from FlexForm and parse with fluid
-     *
-     * @return array
      */
     protected function getEmailsFromFlexForm(): array
     {
@@ -158,20 +130,20 @@ class ReceiverMailReceiverPropertiesService
             );
             return $this->parseEmailsFromString($emailString);
         }
+
         return [];
     }
 
     /**
      * Read emails from frontend users within a group
      *
-     * @param array $emailArray
      * @param int $uid fe_groups.uid
      * @return array Array with emails
      * @throws InvalidQueryException
      */
     protected function getEmailsFromFeGroup(array $emailArray, int $uid): array
     {
-        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_FRONTENDGROUP && !empty($uid)) {
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_FRONTENDGROUP && $uid !== 0) {
             $userRepository = GeneralUtility::makeInstance(UserRepository::class);
             $users = $userRepository->findByUsergroup($uid);
             $emailArray = [];
@@ -182,20 +154,19 @@ class ReceiverMailReceiverPropertiesService
                 }
             }
         }
+
         return $emailArray;
     }
 
     /**
      * Read emails from backend users within a group
      *
-     * @param array $emailArray
      * @param int $uid be_groups.uid
-     * @return array
      * @throws InvalidQueryException
      */
     protected function getEmailsFromBeGroup(array $emailArray, int $uid): array
     {
-        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_BACKENDGROUP && !empty($uid)) {
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_BACKENDGROUP && $uid !== 0) {
             /** @var BackendUserRepository $beUserRepository */
             $beUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
             $query = $beUserRepository->createQuery();
@@ -208,6 +179,7 @@ class ReceiverMailReceiverPropertiesService
                 }
             }
         }
+
         return $emailArray;
     }
 
@@ -219,14 +191,11 @@ class ReceiverMailReceiverPropertiesService
      *          1.email.value = email1@domain.org, email2@domain.org
      *      }
      *
-     * @param array $emailArray
-     * @param string $predefinedString
-     * @return array
      * @throws ExceptionExtbaseObject
      */
     protected function getEmailsFromPredefinedEmail(array $emailArray, string $predefinedString): array
     {
-        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_PREDEFINED && !empty($predefinedString)) {
+        if ((int)($this->settings['receiver']['type'] ?? 0) === self::RECEIVERS_PREDEFINED && ($predefinedString !== '' && $predefinedString !== '0')) {
             $receiverString = TypoScriptUtility::overwriteValueFromTypoScript(
                 '',
                 $this->configuration['receiver.']['predefinedReceiver.'][$predefinedString . '.'],
@@ -234,14 +203,13 @@ class ReceiverMailReceiverPropertiesService
             );
             $emailArray = $this->parseEmailsFromString($receiverString);
         }
+
         return $emailArray;
     }
 
     /**
      * Get email string from TypoScript overwrite
      *
-     * @param array $emailArray
-     * @return array
      * @throws ExceptionExtbaseObject
      */
     protected function overWriteEmailsWithTypoScript(array $emailArray): array
@@ -252,23 +220,22 @@ class ReceiverMailReceiverPropertiesService
             'email'
         );
         $overwriteReceivers = $this->parseEmailsFromString($receiverString);
-        if (!empty($overwriteReceivers)) {
-            $emailArray = $overwriteReceivers;
+        if ($overwriteReceivers !== []) {
+            return $overwriteReceivers;
         }
+
         return $emailArray;
     }
 
     /**
      * Get email from development context
-     *
-     * @param array $emailArray
-     * @return array
      */
     protected function getEmailFromDevelopmentContext(array $emailArray): array
     {
         if (ConfigurationUtility::getDevelopmentContextEmail() !== '') {
-            $emailArray = [ConfigurationUtility::getDevelopmentContextEmail()];
+            return [ConfigurationUtility::getDevelopmentContextEmail()];
         }
+
         return $emailArray;
     }
 
@@ -297,6 +264,7 @@ class ReceiverMailReceiverPropertiesService
                 $array[] = $email;
             }
         }
+
         return $array;
     }
 }

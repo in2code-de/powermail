@@ -25,28 +25,32 @@
 				<div class="row">
 					<f:for each="{firstMail.answers}" as="answer">
 						<div class="col-md-6">
-							<div class="powermail_reporting_form_fields_item">
-								<h4>{answer.field.title}</h4>
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">{answer.field.title}</h3>
+								</div>
 
-								<div class="flotContainer"
-									 data-flot-active="1"
-									 data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
-									 data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
-									 data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
+								<div class="panel-body">
+									<div class="flotContainer"
+										data-flot-active="1"
+										data-flot-data-colors="#FF9900, #FFA722, #FFB444, #FFC266, #FFD088, #FFDDAA, #FFEBCC"
+										data-flot-data-values="{vh:reporting.getValuesForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator: ',', urlEncode:0)}"
+										data-flot-data-labels="{vh:reporting.getLabelsForCharts(answers:groupedAnswers, fieldUidOrKey:answer.field.uid, separator:',', urlEncode:0)}"></div>
 
-								<div class="powermail_reporting_form_fields_table_absolute">
-									<table class="powermail_reporting_form_fields_table">
-										<tr>
-											<th style="width: 90%; text-align: center;" class="powermail-close"><f:translate key="BackendReportingFormValue" /></th>
-											<th style="width: 10%;" class="powermail_reporting_form_fields_table_right"><f:translate key="BackendReportingFormAmount" /></th>
-										</tr>
-										<f:for each="{vh:misc.variableInVariable(obj:'{groupedAnswers}', prop: '{answer.field.uid}')}" as="amount" key="value">
+									<div class="table-fit powermail_reporting_form_fields_table_absolute">
+										<table class="table table-hover powermail_reporting_form_fields_table">
 											<tr>
-												<td>{value}</td>
-												<td class="powermail_reporting_form_fields_table_right">{amount}</td>
+												<th style="width: 80%;" class="powermail-close"><f:translate key="BackendReportingFormValue" /></th>
+												<th style="width: 10%;"><f:translate key="BackendReportingFormAmount" /></th>
 											</tr>
-										</f:for>
-									</table>
+											<f:for each="{vh:misc.variableInVariable(obj:'{groupedAnswers}', prop: '{answer.field.uid}')}" as="amount" key="value">
+												<tr>
+													<td>{value}</td>
+													<td>{amount}</td>
+												</tr>
+											</f:for>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>

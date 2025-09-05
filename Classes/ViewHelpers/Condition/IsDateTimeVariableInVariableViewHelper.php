@@ -4,11 +4,8 @@ declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Condition;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
 use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
 
 /**
@@ -16,12 +13,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\ViewHelperInterface;
  */
 class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implements ViewHelperInterface
 {
-    use CompileWithRenderStatic;
-
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('obj', 'object', 'Object', true);
@@ -30,23 +22,13 @@ class IsDateTimeVariableInVariableViewHelper extends AbstractViewHelper implemen
 
     /**
      * Is {outer.{inner}} a datetime?
-     *
-     * @param array $arguments
-     * @param \Closure $renderChildrenClosure
-     * @param RenderingContextInterface $renderingContext
-     *
-     * @return string
-     * @throws PropertyNotAccessibleException
      */
-    public static function renderStatic(
-        array $arguments,
-        \Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    ) {
+    public function render()
+    {
         return is_a(
             ObjectAccess::getProperty(
-                $arguments['obj'],
-                GeneralUtility::underscoredToLowerCamelCase($arguments['prop'])
+                $this->arguments['obj'],
+                GeneralUtility::underscoredToLowerCamelCase($this->arguments['prop'])
             ),
             \DateTime::class
         );

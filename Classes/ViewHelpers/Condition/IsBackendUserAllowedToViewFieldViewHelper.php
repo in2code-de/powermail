@@ -11,10 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('table', 'string', 'Tablename', true);
@@ -23,8 +20,6 @@ class IsBackendUserAllowedToViewFieldViewHelper extends AbstractViewHelper
 
     /**
      * Check if Backend User is allowed to see this field
-     *
-     * @return bool
      */
     public function render(): bool
     {

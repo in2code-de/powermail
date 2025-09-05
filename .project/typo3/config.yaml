@@ -1,5 +1,4 @@
-base: 'https://powermail-v12.ddev.site/'
-errorHandling: {  }
+base: 'https://powermail-v13.ddev.site/'
 languages:
   -
     title: deutsch
@@ -15,7 +14,7 @@ languages:
     fallbackType: strict
     fallbacks: ''
     flag: de
-    languageId: '0'
+    languageId: 0
   -
     title: English
     enabled: true
@@ -28,7 +27,6 @@ languages:
     hreflang: en-US
     direction: ltr
     flag: en-us-gb
-    languageId: '1'
+    languageId: 1
 rootPageId: 1
-routes: {  }
 websiteTitle: ''

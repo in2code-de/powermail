@@ -7,7 +7,6 @@ use In2code\Powermail\Domain\Model\Mail;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
@@ -17,13 +16,9 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class TemplateUtility
 {
     /**
-     * Get absolute paths for templates with fallback
-     *        Returns paths from *RootPaths and "hardcoded"
-     *        paths pointing to the EXT:powermail-resources.
-     *
-     * @param string $part "template", "partial", "layout"
-     * @return array
-     * @throws InvalidConfigurationTypeException
+     *  Get absolute paths for templates with fallback
+     *     Returns paths from *RootPaths and "hardcoded"
+     *     paths pointing to the EXT:powermail-resources.
      */
     public static function getTemplateFolders(string $part = 'template'): array
     {
@@ -37,42 +32,35 @@ class TemplateUtility
             ksort($templatePaths, SORT_NUMERIC);
             $templatePaths = array_values($templatePaths);
         }
-        if (empty($templatePaths)) {
+
+        if ($templatePaths === []) {
             $templatePaths[] = 'EXT:powermail/Resources/Private/' . ucfirst($part) . 's/';
         }
+
         $templatePaths = array_unique($templatePaths);
         $absolutePaths = [];
         foreach ($templatePaths as $templatePath) {
             $absolutePaths[] = StringUtility::addTrailingSlash(GeneralUtility::getFileAbsFileName($templatePath));
         }
+
         return $absolutePaths;
     }
 
     /**
-     * Return path and filename for a file or path.
-     *        Only the first existing file/path will be returned.
-     *        respect *RootPaths
-     *
-     * @param string $pathAndFilename e.g. Email/Name.html
-     * @param string $part "template", "partial", "layout"
-     * @return string Filename/path
-     * @throws InvalidConfigurationTypeException
+     *  Return path and filename for a file or path.
+     *  Only the first existing file/path will be returned.
+     *  respect *RootPaths
      */
     public static function getTemplatePath(string $pathAndFilename, string $part = 'template'): string
     {
         $matches = self::getTemplatePaths($pathAndFilename, $part);
-        return !empty($matches) ? end($matches) : '';
+        return $matches === [] ? '' : end($matches);
     }
 
     /**
-     * Return path and filename for one or many files/paths.
-     *        Only existing files/paths will be returned.
-     *        respect *RootPaths
-     *
-     * @param string $pathAndFilename Path/filename (Email/Name.html) or path
-     * @param string $part "template", "partial", "layout"
-     * @return array All existing matches found
-     * @throws InvalidConfigurationTypeException
+     *  Return path and filename for one or many files/paths.
+     *         Only existing files/paths will be returned.
+     *         respect *RootPaths
      */
     public static function getTemplatePaths(string $pathAndFilename, string $part = 'template'): array
     {
@@ -83,17 +71,12 @@ class TemplateUtility
                 $matches[] = $absolutePath . $pathAndFilename;
             }
         }
+
         return $matches;
     }
 
     /**
      * Get a default Standalone view
-     *
-     * @param string $extensionName
-     * @param string $pluginName
-     * @param string $format
-     * @return StandaloneView
-     * @throws InvalidConfigurationTypeException
      */
     public static function getDefaultStandAloneView(
         string $format = 'html'
@@ -108,20 +91,13 @@ class TemplateUtility
 
     /**
      * This functions renders the powermail_all Template (e.g. useage in Mails)
-     *
-     * @param Mail $mail
-     * @param string $section
-     * @param array $settings
-     * @param ?string $type
-     * @return string
-     * @throws InvalidConfigurationTypeException
      */
     public static function powermailAll(
         Mail $mail,
         string $section = 'web',
         array $settings = [],
-        string $type = null
-    ): string {
+        ?string $type = null
+    ): ?string {
         $standaloneView = self::getDefaultStandAloneView();
         $standaloneView->setTemplatePathAndFilename(self::getTemplatePath('Form/PowermailAll.html'));
         $standaloneView->assignMultiple(
@@ -137,20 +113,17 @@ class TemplateUtility
 
     /**
      * Parse String with Fluid View
-     *
-     * @param string $string Any string
-     * @param array $variables Variables
-     * @return string Parsed string
      */
     public static function fluidParseString(string $string, array $variables = []): string
     {
-        if (empty($string)
+        if ($string === '' || $string === '0'
             || ConfigurationUtility::isDatabaseConnectionAvailable() === false
             || BackendUtility::isBackendContext()
             || Environment::isCli()
         ) {
             return $string;
         }
+
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setTemplateSource($string);

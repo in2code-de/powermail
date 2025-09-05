@@ -17,10 +17,7 @@ class ContentElementViewHelper extends AbstractViewHelper
      */
     protected $escapeOutput = false;
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('uid', 'int', 'tt_content.uid', true);
@@ -28,8 +25,6 @@ class ContentElementViewHelper extends AbstractViewHelper
 
     /**
      * Parse a content element
-     *
-     * @return string
      */
     public function render(): string
     {

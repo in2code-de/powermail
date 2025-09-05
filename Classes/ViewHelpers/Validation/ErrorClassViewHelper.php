@@ -15,10 +15,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ErrorClassViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
@@ -26,7 +23,6 @@ class ErrorClassViewHelper extends AbstractViewHelper
     }
 
     /**
-     * @return string
      * @throws DBALException
      */
     public function render(): string
@@ -44,6 +40,7 @@ class ErrorClassViewHelper extends AbstractViewHelper
                 }
             }
         }
+
         return '';
     }
 

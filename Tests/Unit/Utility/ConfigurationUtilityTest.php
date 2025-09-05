@@ -12,13 +12,12 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 class ConfigurationUtilityTest extends UnitTestCase
 {
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::getDefaultMailFromAddress
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
-    public function getDefaultMailFromAddressReturnsString()
+    public function getDefaultMailFromAddressReturnsString(): void
     {
         $testString1 = 'test@mail.org';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromAddress'] = '';
@@ -33,13 +32,12 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::getDefaultMailFromName
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
-    public function getDefaultMailFromNameReturnsString()
+    public function getDefaultMailFromNameReturnsString(): void
     {
         $testString = 'randomName';
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['defaultMailFromName'] = $testString;
@@ -50,23 +48,21 @@ class ConfigurationUtilityTest extends UnitTestCase
     }
 
     /**
-     * @return void
      * @test
      * @covers ::getIconPath
      * @covers \In2code\Powermail\Utility\AbstractUtility::getTypo3ConfigurationVariables
      */
-    public function getIconPathReturnsString()
+    public function getIconPathReturnsString(): void
     {
         $icon = 'random';
         self::assertSame('EXT:powermail/Resources/Public/Icons/' . $icon, ConfigurationUtility::getIconPath($icon));
     }
 
     /**
-     * @return void
      * @test
      * @covers ::isValidationEnabled
      */
-    public function isValidationEnabledReturnsBool()
+    public function isValidationEnabledReturnsBool(): void
     {
         $settings = [
             'spamshield' => [
@@ -82,9 +78,6 @@ class ConfigurationUtilityTest extends UnitTestCase
         self::assertTrue(ConfigurationUtility::isvalidationenabled($settings, 'anyClass'));
     }
 
-    /**
-     * @return array
-     */
     public static function mergeTypoScript2FlexFormReturnsVoidDataProvider(): array
     {
         return [
@@ -242,11 +235,10 @@ class ConfigurationUtilityTest extends UnitTestCase
      * @param string $level
      * @param array $expectedResult
      * @dataProvider mergeTypoScript2FlexFormReturnsVoidDataProvider
-     * @return void
      * @covers ::mergeTypoScript2FlexForm
      * @covers \In2code\Powermail\Utility\ArrayUtility::arrayMergeRecursiveOverrule
      */
-    public function testMergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult)
+    public function testMergeTypoScript2FlexFormReturnsVoid($settings, $level, $expectedResult): void
     {
         $settings = ConfigurationUtility::mergeTypoScript2FlexForm($settings, $level);
         self::assertSame($expectedResult, $settings);

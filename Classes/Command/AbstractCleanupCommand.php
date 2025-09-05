@@ -12,12 +12,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class AbstractCleanupCommand extends Command
 {
-    /**
-     * @param OutputInterface $output
-     * @param string $directory
-     * @param int $period
-     * @return void
-     */
     protected function removeFilesFromRelativeDirectory(
         OutputInterface $output,
         string $directory,
@@ -32,6 +26,7 @@ abstract class AbstractCleanupCommand extends Command
                 unlink($file);
             }
         }
+
         $output->writeln($counter . ' files removed from your system');
     }
 }

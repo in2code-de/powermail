@@ -16,11 +16,6 @@ class CountriesFromStaticInfoTablesService
     /**
      * Build array with countries
      *
-     * @param string $key
-     * @param string $value
-     * @param string $sortbyField
-     * @param string $sorting
-     * @return array
      * @throws PropertyNotAccessibleException
      */
     public function getCountries(
@@ -36,6 +31,7 @@ class CountriesFromStaticInfoTablesService
             /** @var $country \SJBR\StaticInfoTables\Domain\Model\Country */
             $countriesArray[ObjectAccess::getProperty($country, $key)] = ObjectAccess::getProperty($country, $value);
         }
+
         return $countriesArray;
     }
 }

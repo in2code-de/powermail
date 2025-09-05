@@ -10,24 +10,19 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class MorestepClassViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('activate', 'bool', 'Activate', true);
         $this->registerArgument('class', 'string', 'classname', false, 'powermail_morestep');
     }
 
-    /**
-     * @return string
-     */
     public function render(): string
     {
         if (!empty($this->arguments['activate'])) {
             return $this->arguments['class'];
         }
+
         return '';
     }
 }

@@ -17,7 +17,6 @@ class AnswerRepository extends AbstractRepository
      *
      * @param int $fieldUid
      * @param int $mailUid
-     * @return Answer|null
      */
     public function findByFieldAndMail($fieldUid, $mailUid): ?Answer
     {
@@ -37,8 +36,6 @@ class AnswerRepository extends AbstractRepository
 
     /**
      * Find answers with uploaded file
-     *
-     * @return QueryResultInterface
      */
     public function findByAnyUpload(): QueryResultInterface
     {

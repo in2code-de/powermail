@@ -1,0 +1,43 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .tx-powermail {
+
+
+
+    & select {
+      appearance: none;
+      background-color: var(--pm-select-background-color);
+      border-radius: 0;
+      border: function.rem(1) solid var(--pm-select-border-color);
+      color: var(--pm-select-color);
+      inline-size: 100%;
+      padding-block: function.rem(6);
+      padding-inline: function.rem(12);
+
+      &:not([multiple]) {
+        background-image: url('../Image/Icons/chevron-down.svg');
+        background-position: calc(100% - ((8 / 16) * 1rem)) center;
+        background-repeat: no-repeat;
+      }
+
+      &:user-invalid:not([multiple]),
+      &.powermail_field_error:not([multiple]) {
+        background-image:
+          url('../Image/Icons/chevron-down.svg'),
+          url('../Image/Icons/error.svg');
+        background-position:
+          calc(100% - ((42 / 16) * 1rem)) function.rem(6),
+          calc(100% - ((12 / 16) * 1rem)) function.rem(6);
+        background-repeat: no-repeat;
+        background-size:
+          function.rem(18),
+          function.rem(18);
+        padding-inline-end: function.rem(72);
+      }
+    }
+  }
+}

@@ -11,9 +11,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class GetDevelopmentContextEmailViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return string
-     */
     public function render(): string
     {
         return ConfigurationUtility::getDevelopmentContextEmail();

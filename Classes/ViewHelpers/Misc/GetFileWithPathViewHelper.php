@@ -20,10 +20,7 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
      */
     protected $uploadPathFallback = 'uploads/tx_powermail/';
 
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('fileName', 'string', 'Filename like "picture.jpg"', true);
@@ -32,8 +29,6 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
 
     /**
      * Get path and filename
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -46,8 +41,8 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
         foreach ($allStorages as $thisStorage) {
             try {
                 $thisStorageBasePath = $thisStorage->getConfiguration()['basePath'];
-                if (strpos($path, $thisStorageBasePath) === 0) {
-                    $subPath = substr($path, strlen($thisStorageBasePath));
+                if (str_starts_with((string)$path, (string)$thisStorageBasePath)) {
+                    $subPath = substr((string)$path, strlen((string)$thisStorageBasePath));
                     if ($thisStorage->hasFolder($subPath)) {
                         $folder = $thisStorage->getFolder($subPath);
                         $file = $thisStorage->getFileInFolder($fileName, $folder);
@@ -59,10 +54,12 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
                 unset($e);
             }
         }
+
         // fallback from FAL storages
         if (file_exists(GeneralUtility::getFileAbsFileName($path . $fileName))) {
             return $path . $fileName;
         }
+
         return $this->uploadPathFallback . $fileName;
     }
 }

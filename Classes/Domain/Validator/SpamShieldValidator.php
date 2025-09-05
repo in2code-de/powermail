@@ -14,12 +14,10 @@ use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
 use In2code\Powermail\Utility\MailUtility;
-use In2code\Powermail\Utility\ObjectUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Error\Result;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
 
@@ -30,40 +28,29 @@ class SpamShieldValidator extends AbstractValidator
 {
     /**
      * Spam indication
-     *
-     * @var int
      */
     protected int $spamIndicator = 0;
 
     /**
      * Spam tolerance limit
-     *
-     * @var float
      */
     protected float $spamFactorLimit = 1.0;
 
     /**
      * Calculated spam factor
-     *
-     * @var float
      */
     protected float $calculatedSpamFactor = 0.0;
 
     /**
      * Error messages for email to admin
-     *
-     * @var array
      */
     protected array $messages = [];
 
-    /**
-     * @var string
-     */
     protected string $methodInterface = MethodInterface::class;
 
     /**
      * @param Mail $mail
-     * @return bool
+     * @return Result
      * @throws Exception
      */
     public function validate($mail): Result
@@ -72,19 +59,19 @@ class SpamShieldValidator extends AbstractValidator
         if ($this->isSpamShieldEnabled($mail)) {
             $this->isValid($mail);
         }
+
         return $this->result;
     }
 
     /**
-     * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
+        $this->initFlexform();
         $this->runAllSpamMethods($mail);
         $this->calculateMailSpamFactor();
         $this->saveSpamFactorInSession();
-        $this->saveSpamPropertiesInDevelopmentLog();
         if ($this->isSpamToleranceLimitReached()) {
             $this->addError('spam_details', 1580681599, ['spamfactor' => $this->getCalculatedSpamFactor(true)]);
             $this->setValidState(false);
@@ -94,8 +81,6 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws Exception
      */
     protected function runAllSpamMethods(Mail $mail): void
@@ -108,9 +93,6 @@ class SpamShieldValidator extends AbstractValidator
     /**
      * Run a single spam prevention method
      *
-     * @param Mail $mail
-     * @param array $method
-     * @return void
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
      */
@@ -123,6 +105,7 @@ class SpamShieldValidator extends AbstractValidator
                     1578609568
                 );
             }
+
             if (is_subclass_of($method['class'], $this->methodInterface)) {
                 /** @var AbstractMethod $methodInstance */
                 $methodInstance = GeneralUtility::makeInstance(
@@ -151,8 +134,6 @@ class SpamShieldValidator extends AbstractValidator
     /**
      * calculate spam factor for this mail
      *        spam formula with asymptote 1 (100%)
-     *
-     * @return void
      */
     protected function calculateMailSpamFactor(): void
     {
@@ -160,17 +141,13 @@ class SpamShieldValidator extends AbstractValidator
         if ($this->getSpamIndicator() > 0) {
             $calculatedSpamFactor = -1 / $this->getSpamIndicator() + 1;
         }
+
         $this->setCalculatedSpamFactor($calculatedSpamFactor);
     }
 
     /**
      * Send spam notification mail to admin
-     *
-     * @param Mail $mail
-     * @return void
-     * @throws InvalidConfigurationTypeException
      * @throws InvalidExtensionNameException
-     * @throws Exception
      */
     protected function sendSpamNotificationMail(Mail $mail): void
     {
@@ -190,8 +167,6 @@ class SpamShieldValidator extends AbstractValidator
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws Exception
      */
     protected function logSpamNotification(Mail $mail): void
@@ -210,15 +185,11 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Create message for spam logging
-     *        - bodytext for spamnotification mail OR
-     *        - log entry
-     *
-     * @param string $path relative path to mail
+     *     - bodytext for spamnotification mail OR
+     *     - log entry
+     * @param string $path
      * @param array $multipleAssign
      * @return string
-     * @throws InvalidConfigurationTypeException
-     * @throws InvalidExtensionNameException
-     * @throws Exception
      */
     protected function createSpamNotificationMessage(string $path, array $multipleAssign = []): string
     {
@@ -231,8 +202,6 @@ class SpamShieldValidator extends AbstractValidator
     /**
      * Prepare variables for assignment in spam notifications
      *
-     * @param Mail $mail
-     * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      * @throws Exception
      */
@@ -252,27 +221,17 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Format for Spamfactor (0.23 => 23%)
-     *
-     * @param float $factor
-     * @return string
      */
     protected function formatSpamFactor(float $factor): string
     {
         return number_format(($factor * 100), 0) . '%';
     }
 
-    /**
-     * @param int $spamIndicator
-     * @return void
-     */
     public function setSpamIndicator(int $spamIndicator): void
     {
         $this->spamIndicator = $spamIndicator;
     }
 
-    /**
-     * @return int
-     */
     public function getSpamIndicator(): int
     {
         return $this->spamIndicator;
@@ -280,85 +239,55 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Increase Global Indicator
-     *
-     * @param int $indication
-     * @return void
      */
     public function increaseSpamIndicator(int $indication): void
     {
         $this->setSpamIndicator($this->getSpamIndicator() + $indication);
     }
 
-    /**
-     * @return float
-     */
     public function getSpamFactorLimit(): float
     {
         return $this->spamFactorLimit;
     }
 
-    /**
-     * @param float $spamFactorLimit
-     * @return void
-     */
     public function setSpamFactorLimit(float $spamFactorLimit): void
     {
         $this->spamFactorLimit = $spamFactorLimit;
     }
 
-    /**
-     * @param bool $readableOutput
-     * @return float|string
-     */
-    public function getCalculatedSpamFactor(bool $readableOutput = false)
+    public function getCalculatedSpamFactor(bool $readableOutput = false): string|float
     {
         $calculatedSpamFactor = $this->calculatedSpamFactor;
         if ($readableOutput) {
-            $calculatedSpamFactor = $this->formatSpamFactor($calculatedSpamFactor);
+            return $this->formatSpamFactor($calculatedSpamFactor);
         }
+
         return $calculatedSpamFactor;
     }
 
     /**
      * Return if spam tolerance limit is reached
-     *
-     * @return bool
      */
     public function isSpamToleranceLimitReached(): bool
     {
         return $this->getCalculatedSpamFactor() >= $this->getSpamFactorLimit();
     }
 
-    /**
-     * @param float $calculatedSpamFactor
-     * @return void
-     */
     public function setCalculatedSpamFactor(float $calculatedSpamFactor): void
     {
         $this->calculatedSpamFactor = $calculatedSpamFactor;
     }
 
-    /**
-     * @param array $messages
-     * @return void
-     */
     public function setMessages(array $messages): void
     {
         $this->messages = $messages;
     }
 
-    /**
-     * @return array
-     */
     public function getMessages(): array
     {
         return $this->messages;
     }
 
-    /**
-     * @param string $message
-     * @return void
-     */
     public function addMessage(string $message): void
     {
         $messages = $this->getMessages();
@@ -368,32 +297,17 @@ class SpamShieldValidator extends AbstractValidator
 
     /**
      * Save Spam Factor in session for db storage
-     *
-     * @return void
      */
     protected function saveSpamFactorInSession(): void
     {
-        $typoScriptFrontend = ObjectUtility::getTyposcriptFrontendController();
-        $typoScriptFrontend->fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
-    }
-
-    /**
-     * Save spam properties in development log
-     *
-     * @return void
-     */
-    protected function saveSpamPropertiesInDevelopmentLog(): void
-    {
-        if (!empty($this->settings['debug']['spamshield'])) {
-            $logger = ObjectUtility::getLogger(__CLASS__);
-            $logger->info('Spamshield (Spamfactor ' . $this->getCalculatedSpamFactor(true) . ')', $this->getMessages());
+        if ($this->request !== null) {
+            $fe_user = $this->request->getAttribute('frontend.user');
+            $fe_user->setKey('ses', 'powermail_spamfactor', $this->getCalculatedSpamFactor(true));
         }
     }
 
     /**
      * Get all spamshield method classes from typoscript and sort them
-     *
-     * @return array
      */
     protected function getSpamShieldMethodClasses(): array
     {
@@ -402,27 +316,21 @@ class SpamShieldValidator extends AbstractValidator
         return $methods;
     }
 
-    /**
-     * @return void
-     */
     public function initializeObject(): void
     {
         $this->setSpamFactorLimit((int)($this->settings['spamshield']['factor'] ?? 0) / 100);
     }
 
     /**
-     * @return string
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      */
     protected function getIpAddress(): string
     {
-        return !ConfigurationUtility::isDisableIpLogActive() ? GeneralUtility::getIndpEnv('REMOTE_ADDR') : '';
+        return ConfigurationUtility::isDisableIpLogActive() ? '' : GeneralUtility::getIndpEnv('REMOTE_ADDR');
     }
 
     /**
-     * @param Mail $mail
-     * @return bool
      * @throws Exception
      */
     protected function isSpamShieldEnabled(Mail $mail): bool

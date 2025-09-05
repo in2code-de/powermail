@@ -15,20 +15,11 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class FinisherRunner
 {
-    /**
-     * @var string
-     */
     protected string $interface = FinisherInterface::class;
 
     /**
      * Call finisher classes after submit
      *
-     * @param Mail $mail
-     * @param bool $formSubmitted
-     * @param string $actionMethodName
-     * @param array $settings
-     * @param ContentObjectRenderer $contentObject
-     * @return void
      * @throws ClassDoesNotExistException
      * @throws InterfaceNotImplementedException
      */
@@ -38,7 +29,7 @@ class FinisherRunner
         string $actionMethodName,
         array $settings,
         ContentObjectRenderer $contentObject
-    ) {
+    ): void {
         foreach ($this->getFinisherClasses($settings) as $finisherSettings) {
             $class = $finisherSettings['class'];
             $this->requireFile($finisherSettings);
@@ -48,6 +39,7 @@ class FinisherRunner
                     1578644684
                 );
             }
+
             $contentObjectParent = clone $contentObject;
             if (is_subclass_of($class, $this->interface)) {
                 /** @var AbstractFinisher $finisher */
@@ -68,6 +60,7 @@ class FinisherRunner
                     1578644680
                 );
             }
+
             $contentObject = $contentObjectParent;
         }
     }
@@ -75,9 +68,6 @@ class FinisherRunner
     /**
      * Call methods in finisher class
      *      *Finisher()
-     *
-     * @param AbstractFinisher $finisher
-     * @return void
      */
     protected function callFinisherMethods(AbstractFinisher $finisher): void
     {
@@ -91,10 +81,6 @@ class FinisherRunner
 
     /**
      * Call initializeFinisherMethods like "initializeUploadFinisher()"
-     *
-     * @param AbstractFinisher $finisher
-     * @param string $finisherMethod
-     * @return void
      */
     protected function callInitializeFinisherMethod(AbstractFinisher $finisher, string $finisherMethod): void
     {
@@ -105,9 +91,6 @@ class FinisherRunner
 
     /**
      * Get all finisher classes from typoscript and sort them
-     *
-     * @param array $settings
-     * @return array
      */
     protected function getFinisherClasses(array $settings): array
     {
@@ -116,16 +99,11 @@ class FinisherRunner
         return $finishers;
     }
 
-    /**
-     * @param array $finisherSettings
-     */
     protected function requireFile(array $finisherSettings): void
     {
-        if (!empty($finisherSettings['require'])) {
-            if (file_exists($finisherSettings['require'])) {
-                /** @noinspection PhpIncludeInspection */
-                require_once($finisherSettings['require']);
-            }
+        if (!empty($finisherSettings['require']) && file_exists($finisherSettings['require'])) {
+            /** @noinspection PhpIncludeInspection */
+            require_once($finisherSettings['require']);
         }
     }
 }

@@ -1,10 +1,16 @@
+import './Vendor/jQueryGlobal';
+import './Vendor/jquery-ui.min';
+import './Vendor/jquery.flot.min';
+import './Vendor/jquery.flot.pie.min';
+import Modal from '@typo3/backend/modal.js';
+
 /**
  * Powermail functions
  *
  * @params {jQuery} $
  * @class PowermailBackend
  */
-function PowermailBackend($, Modal) {
+function PowermailBackend() {
   'use strict';
 
   /**
@@ -100,7 +106,7 @@ function PowermailBackend($, Modal) {
    * @private
    */
   let addPageBrowseParamsListener = function () {
-    let paginationItems = document.querySelectorAll('.powermail_list .pagination a');
+    let paginationItems = document.querySelectorAll('.powermail_list ._pagination a');
     paginationItems.forEach(function(item) {
       item.addEventListener('click', function(event) {
         event.preventDefault();
@@ -116,7 +122,7 @@ function PowermailBackend($, Modal) {
           const form = document.querySelector('#powermail_module_search');
           const paginationHiddenField = document.createElement('input');
           paginationHiddenField.setAttribute('type', 'hidden');
-          paginationHiddenField.setAttribute('name', 'tx_powermail_web_powermailm1[currentPage]');
+          paginationHiddenField.setAttribute('name', 'currentPage');
           paginationHiddenField.setAttribute('value', page.toString());
           form.appendChild(paginationHiddenField);
           form.submit();
@@ -244,7 +250,7 @@ function PowermailBackend($, Modal) {
           [
             {
               text: $(this).data('modal-cancel'),
-              btnClass: 'btn-default',
+              btnClass: 'btn-secondary',
               name: 'abort',
               trigger: function (){
                 Modal.dismiss();
@@ -614,47 +620,5 @@ function PowermailBackend($, Modal) {
   window.PowermailBackend = PowermailBackend;
 }
 
-requirejs.config({
-  map: {
-    '*': {
-      'jquery.flot.min': 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'
-    }
-  },
-  shim: {
-    'TYPO3/CMS/Powermail/Libraries/jquery-ui.min': {
-      deps: ['jquery'],
-      exports: 'jQuery'
-    },
-    'TYPO3/CMS/Powermail/Libraries/jquery.datetimepicker.min': {
-      deps: ['jquery', 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'],
-      exports: 'jQuery'
-    },
-    'TYPO3/CMS/Powermail/Libraries/jquery.flot.min': {
-      deps: ['jquery'],
-      exports: 'jQuery'
-    },
-    'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min': {
-      deps: ['jquery', 'TYPO3/CMS/Powermail/Libraries/jquery.flot.min'],
-      exports: 'jQuery'
-    },
-    'TYPO3/CMS/Powermail/Libraries/bootstrap.min': {
-      deps: ['jquery'],
-      exports: 'jQuery'
-    }
-  }
-});
-define(
-  [
-    'jquery',
-    'TYPO3/CMS/Backend/Modal',
-    'TYPO3/CMS/Powermail/Libraries/jquery-ui.min',
-    'TYPO3/CMS/Powermail/Libraries/jquery.flot.min',
-    'TYPO3/CMS/Powermail/Libraries/jquery.flot.pie.min',
-    'TYPO3/CMS/Powermail/Libraries/bootstrap.min',
-  ],
-  function ($, Modal) {
-    $(document).ready(function ($) {
-      var PowermailBackend = new window.PowermailBackend($, Modal);
-      PowermailBackend.initialize();
-    });
-  });
+var powermailBackend = new PowermailBackend();
+powermailBackend.initialize();

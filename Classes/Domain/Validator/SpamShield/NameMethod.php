@@ -15,7 +15,8 @@ class NameMethod extends AbstractMethod
      */
     public function spamCheck(): bool
     {
-        $firstname = $lastname = '';
+        $firstname = '';
+        $lastname = '';
         $keysFirstName = [
             'first_name',
             'firstname',
@@ -33,13 +34,16 @@ class NameMethod extends AbstractMethod
             if (is_array($answer->getValue())) {
                 continue;
             }
+
             if (in_array($answer->getField()->getMarker(), $keysFirstName)) {
                 $firstname = $answer->getValue();
             }
+
             if (in_array($answer->getField()->getMarker(), $keysLastName)) {
                 $lastname = $answer->getValue();
             }
         }
+
         return !empty($firstname) && $firstname === $lastname;
     }
 }

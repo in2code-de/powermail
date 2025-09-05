@@ -13,10 +13,7 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  */
 class Marker extends AbstractFormElement
 {
-    /**
-     * @return array
-     */
-    public function render()
+    public function render(): array
     {
         $result = $this->initializeResultArray();
         $result['html'] = $this->getHtml();
@@ -25,20 +22,13 @@ class Marker extends AbstractFormElement
 
     /**
      * Create individual marker for powermail field
-     *
-     * @return string
      */
     protected function getHtml(): string
     {
         $content = '';
 
         // if entry in db
-        if (!empty($this->data['databaseRow']['marker'])) {
-            $marker = $this->data['databaseRow']['marker'];
-        } else {
-            // no entry - take "marker"
-            $marker = 'marker';
-        }
+        $marker = empty($this->data['databaseRow']['marker']) ? 'marker' : $this->data['databaseRow']['marker'];
 
         // field just generated
         if (StringUtility::startsWith((string)$this->data['databaseRow']['uid'], 'NEW')) {
@@ -48,10 +38,10 @@ class Marker extends AbstractFormElement
         } else {
             // was saved before
             $content .= '<span style="background-color: #ddd; padding: 5px 10px; display: block;">';
-            $content .= '{' . strtolower($marker) . '}';
+            $content .= '{' . strtolower((string)$marker) . '}';
             $content .= '</span>';
             $content .= '<input type="hidden" name="data[' . Field::TABLE_NAME . '][' .
-                $this->data['databaseRow']['uid'] . '][marker]" value="' . strtolower($marker) . '" />';
+                $this->data['databaseRow']['uid'] . '][marker]" value="' . strtolower((string)$marker) . '" />';
         }
 
         return $content;

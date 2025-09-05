@@ -25,21 +25,17 @@ class EscapeLabelsViewHelper extends AbstractViewHelper
     /**
      * Decide if a string should be escaped or not depending on
      *      settings.misc.htmlForLabels=1
-     *
-     * @return string
      */
     public function render(): string
     {
         $string = $this->renderChildren();
         if ($this->isHtmlEnabled() === false) {
-            $string = htmlspecialchars($string);
+            return htmlspecialchars((string)$string);
         }
+
         return $string;
     }
 
-    /**
-     * @return bool
-     */
     protected function isHtmlEnabled(): bool
     {
         $configurationService = GeneralUtility::makeInstance(ConfigurationService::class);

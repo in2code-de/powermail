@@ -1,0 +1,51 @@
+@use "functions" as function;
+
+@layer powermail-field {
+
+
+
+  .powermail_radiowrap {
+    align-items: baseline;
+    display: grid;
+    gap: function.rem(8);
+    grid-template-columns: function.rem(20) auto;
+    justify-items: start;
+
+
+    & + & {
+      margin-block-start: function.rem(8);
+    }
+  }
+
+  .tx-powermail {
+
+
+
+    & input[type='radio'] {
+      appearance: none;
+      background-color: var(--pm-radio-background-color);
+      block-size: function.rem(20);
+      border-radius: 50%;
+      border: function.rem(1) solid var(--pm-radio-border-color);
+      color: var(--pm-radio-color);
+      display: grid;
+      inline-size: function.rem(20);
+      margin: 0;
+      place-content: center;
+
+      &::before {
+        background-color: CanvasText;
+        block-size: function.rem(8);
+        border-radius: 50%;
+        box-shadow: inset 1em 1em var(--pm-radio-color);
+        content: '';
+        inline-size: function.rem(8);
+        opacity: 0;
+      }
+
+      &:checked::before {
+        opacity: 1;
+      }
+    }
+  }
+}

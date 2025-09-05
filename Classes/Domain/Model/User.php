@@ -14,16 +14,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 class User extends AbstractEntity
 {
     /**
-     * @var string
-     */
-    protected $username = '';
-
-    /**
-     * @var string
-     */
-    protected $password = '';
-
-    /**
      * @var ObjectStorage<UserGroup>
      */
     protected $usergroup;
@@ -114,21 +104,18 @@ class User extends AbstractEntity
      * @param string $username
      * @param string $password
      */
-    public function __construct($username = '', $password = '')
+    public function __construct(protected $username = '', protected $password = '')
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->usergroup = new ObjectStorage();
-        $this->image = new ObjectStorage();
+        $this->initializeObject();
     }
 
     /**
      * Called again with initialize object, as fetching an entity from the DB does not use the constructor
      */
-    public function initializeObject()
+    public function initializeObject(): void
     {
-        $this->usergroup = $this->usergroup ?? new ObjectStorage();
-        $this->image = $this->image ?? new ObjectStorage();
+        $this->usergroup ??= new ObjectStorage();
+        $this->image ??= new ObjectStorage();
     }
 
     /**
@@ -136,7 +123,7 @@ class User extends AbstractEntity
      *
      * @param string $username
      */
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = $username;
     }
@@ -156,7 +143,7 @@ class User extends AbstractEntity
      *
      * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = $password;
     }
@@ -177,27 +164,23 @@ class User extends AbstractEntity
      *
      * @param ObjectStorage<UserGroup> $usergroup
      */
-    public function setUsergroup(ObjectStorage $usergroup)
+    public function setUsergroup(ObjectStorage $usergroup): void
     {
         $this->usergroup = $usergroup;
     }
 
     /**
      * Adds a usergroup to the frontend user
-     *
-     * @param UserGroup $usergroup
      */
-    public function addUsergroup(UserGroup $usergroup)
+    public function addUsergroup(UserGroup $usergroup): void
     {
         $this->usergroup->attach($usergroup);
     }
 
     /**
      * Removes a usergroup from the frontend user
-     *
-     * @param UserGroup $usergroup
      */
-    public function removeUsergroup(UserGroup $usergroup)
+    public function removeUsergroup(UserGroup $usergroup): void
     {
         $this->usergroup->detach($usergroup);
     }
@@ -218,7 +201,7 @@ class User extends AbstractEntity
      *
      * @param string $name
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -238,7 +221,7 @@ class User extends AbstractEntity
      *
      * @param string $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName($firstName): void
     {
         $this->firstName = $firstName;
     }
@@ -258,7 +241,7 @@ class User extends AbstractEntity
      *
      * @param string $middleName
      */
-    public function setMiddleName($middleName)
+    public function setMiddleName($middleName): void
     {
         $this->middleName = $middleName;
     }
@@ -278,7 +261,7 @@ class User extends AbstractEntity
      *
      * @param string $lastName
      */
-    public function setLastName($lastName)
+    public function setLastName($lastName): void
     {
         $this->lastName = $lastName;
     }
@@ -298,7 +281,7 @@ class User extends AbstractEntity
      *
      * @param string $address
      */
-    public function setAddress($address)
+    public function setAddress($address): void
     {
         $this->address = $address;
     }
@@ -318,7 +301,7 @@ class User extends AbstractEntity
      *
      * @param string $telephone
      */
-    public function setTelephone($telephone)
+    public function setTelephone($telephone): void
     {
         $this->telephone = $telephone;
     }
@@ -338,7 +321,7 @@ class User extends AbstractEntity
      *
      * @param string $fax
      */
-    public function setFax($fax)
+    public function setFax($fax): void
     {
         $this->fax = $fax;
     }
@@ -358,7 +341,7 @@ class User extends AbstractEntity
      *
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -378,7 +361,7 @@ class User extends AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -398,7 +381,7 @@ class User extends AbstractEntity
      *
      * @param string $zip
      */
-    public function setZip($zip)
+    public function setZip($zip): void
     {
         $this->zip = $zip;
     }
@@ -418,7 +401,7 @@ class User extends AbstractEntity
      *
      * @param string $city
      */
-    public function setCity($city)
+    public function setCity($city): void
     {
         $this->city = $city;
     }
@@ -438,7 +421,7 @@ class User extends AbstractEntity
      *
      * @param string $country
      */
-    public function setCountry($country)
+    public function setCountry($country): void
     {
         $this->country = $country;
     }
@@ -458,7 +441,7 @@ class User extends AbstractEntity
      *
      * @param string $www
      */
-    public function setWww($www)
+    public function setWww($www): void
     {
         $this->www = $www;
     }
@@ -478,7 +461,7 @@ class User extends AbstractEntity
      *
      * @param string $company
      */
-    public function setCompany($company)
+    public function setCompany($company): void
     {
         $this->company = $company;
     }
@@ -498,7 +481,7 @@ class User extends AbstractEntity
      *
      * @param ObjectStorage<FileReference> $image
      */
-    public function setImage(ObjectStorage $image)
+    public function setImage(ObjectStorage $image): void
     {
         $this->image = $image;
     }
@@ -515,10 +498,8 @@ class User extends AbstractEntity
 
     /**
      * Sets the lastlogin value
-     *
-     * @param \DateTime $lastlogin
      */
-    public function setLastlogin(\DateTime $lastlogin)
+    public function setLastlogin(\DateTime $lastlogin): void
     {
         $this->lastlogin = $lastlogin;
     }

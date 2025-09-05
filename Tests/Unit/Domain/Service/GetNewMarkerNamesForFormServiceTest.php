@@ -17,9 +17,6 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
      */
     protected $createMarkerMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->createMarkerMock = $this->getAccessibleMock(
@@ -28,9 +25,6 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->createMarkerMock);
@@ -165,12 +159,11 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
     /**
      * @param array $propertiesFields
      * @param array $expectedResult
-     * @return void
      * @dataProvider makeUniqueValueInArrayReturnsVoidDataProvider
      * @test
      * @covers ::makeUniqueValueInArray
      */
-    public function makeUniqueValueInArrayReturnsVoid($propertiesFields, $expectedResult, $forceReset)
+    public function makeUniqueValueInArrayReturnsVoid($propertiesFields, $expectedResult, $forceReset): void
     {
         $fieldArray = [];
         foreach ($propertiesFields as $properties) {
@@ -178,11 +171,14 @@ class GetNewMarkerNamesForFormServiceTest extends UnitTestCase
             foreach ($properties as $key => $value) {
                 $field->_setProperty($key, $value);
             }
+
             $fieldArray[$field->getUid()] = $field;
         }
+
         if ($forceReset) {
             $this->createMarkerMock->method('cleanString')->willReturnOnConsecutiveCalls('def', 'def_01');
         }
+
         self::assertSame(
             $expectedResult,
             $this->createMarkerMock->_call('makeUniqueValueInArray', $fieldArray, $forceReset)

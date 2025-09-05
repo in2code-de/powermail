@@ -21,40 +21,23 @@ class ReceiverMailSenderPropertiesService
     /**
      * @var MailRepository
      */
-    protected $mailRepository;
-
-    /**
-     * @var Mail|null
-     */
-    protected ?Mail $mail = null;
-
-    /**
-     * TypoScript settings as plain array
-     *
-     * @var array
-     */
-    protected array $settings = [];
+    protected object $mailRepository;
 
     /**
      * TypoScript configuration for cObject parsing
-     *
-     * @var array
      */
     protected array $configuration = [];
 
-    /**
-     * @var EventDispatcherInterface
-     */
-    private EventDispatcherInterface $eventDispatcher;
+    private readonly EventDispatcherInterface $eventDispatcher;
 
     /**
      * @param Mail $mail
-     * @param array $settings
      */
-    public function __construct(Mail $mail, array $settings)
+    public function __construct(protected ?Mail $mail, /**
+     * TypoScript settings as plain array
+     */
+        protected array $settings)
     {
-        $this->mail = $mail;
-        $this->settings = $settings;
         $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         $this->configuration = $typoScriptService->convertPlainArrayToTypoScriptArray($this->settings);
@@ -64,7 +47,6 @@ class ReceiverMailSenderPropertiesService
     /**
      * Get sender email from configuration in fields and params. If empty, take default from TypoScript
      *
-     * @return string
      * @throws ExceptionExtbaseObject
      */
     public function getSenderEmail(): string
@@ -78,7 +60,7 @@ class ReceiverMailSenderPropertiesService
 
         /** @var ReceiverMailSenderPropertiesGetSenderEmailEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(ReceiverMailSenderPropertiesGetSenderEmailEvent::class, $senderEmail, $this)
+            new ReceiverMailSenderPropertiesGetSenderEmailEvent($senderEmail, $this)
         );
         return $event->getSenderEmail();
     }
@@ -86,7 +68,6 @@ class ReceiverMailSenderPropertiesService
     /**
      * Get sender name from configuration in fields and params. If empty, take default from TypoScript
      *
-     * @return string
      * @throws ExceptionExtbaseObject
      */
     public function getSenderName(): string
@@ -100,7 +81,7 @@ class ReceiverMailSenderPropertiesService
 
         /** @var ReceiverMailSenderPropertiesGetSenderNameEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            GeneralUtility::makeInstance(ReceiverMailSenderPropertiesGetSenderNameEvent::class, $senderName, $this)
+            new ReceiverMailSenderPropertiesGetSenderNameEvent($senderName, $this)
         );
         return $event->getSenderName();
     }

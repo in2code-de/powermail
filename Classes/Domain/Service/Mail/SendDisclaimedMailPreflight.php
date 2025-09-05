@@ -17,42 +17,19 @@ use TYPO3\CMS\Extbase\Object\Exception as ExceptionExtbaseObject;
  */
 class SendDisclaimedMailPreflight
 {
-    /**
-     * @var SendMailService
-     */
     protected SendMailService $sendMailService;
 
-    /**
-     * @var MailRepository
-     */
     protected MailRepository $mailRepository;
 
-    /**
-     * @var array
-     */
-    protected array $settings = [];
-
-    /**
-     * @var array
-     */
-    protected array $conf = [];
-
     protected Request $request;
-    /**
-     * @param array $settings
-     * @param array $conf
-     */
-    public function __construct(array $settings, array $conf, Request $request)
+
+    public function __construct(protected array $settings, protected array $conf, Request $request)
     {
-        $this->settings = $settings;
-        $this->conf = $conf;
         $this->sendMailService = GeneralUtility::makeInstance(SendMailService::class, $request);
         $this->mailRepository = GeneralUtility::makeInstance(MailRepository::class);
     }
 
     /**
-     * @param Mail $mail
-     * @return void
      * @throws InvalidConfigurationTypeException
      * @throws ExceptionExtbaseObject
      */

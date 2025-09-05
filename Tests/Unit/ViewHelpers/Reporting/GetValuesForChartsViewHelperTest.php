@@ -16,9 +16,6 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
      */
     protected $abstractValidationViewHelperMock;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         $this->abstractValidationViewHelperMock = $this->getAccessibleMock(
@@ -27,9 +24,6 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
         );
     }
 
-    /**
-     * @return void
-     */
     public function tearDown(): void
     {
         unset($this->generalValidatorMock);
@@ -37,8 +31,6 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
 
     /**
      * Dataprovider for renderReturnsString()
-     *
-     * @return array
      */
     public static function renderReturnsStringDataProvider(): array
     {
@@ -91,12 +83,11 @@ class GetValuesForChartsViewHelperTest extends UnitTestCase
      * @param string $glue
      * @param bool $urlEncode
      * @param string $expectedResult
-     * @return void
      * @dataProvider renderReturnsStringDataProvider
      * @test
      * @covers ::render
      */
-    public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult)
+    public function renderReturnsString($answers, $field, $glue, $urlEncode, $expectedResult): void
     {
         $arguments = [
             'answers' => $answers,

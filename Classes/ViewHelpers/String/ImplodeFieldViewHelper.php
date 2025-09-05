@@ -10,10 +10,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class ImplodeFieldViewHelper extends AbstractViewHelper
 {
-    /**
-     * @return void
-     */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('objects', 'mixed', 'Object', true);
@@ -24,8 +21,6 @@ class ImplodeFieldViewHelper extends AbstractViewHelper
 
     /**
      * View helper to implode an array or objects to a list
-     *
-     * @return string
      */
     public function render(): string
     {
@@ -42,20 +37,24 @@ class ImplodeFieldViewHelper extends AbstractViewHelper
             $string = implode($separator, $objects);
         } else {
             foreach ($objects as $object) {
-                if (method_exists($object, 'get' . ucfirst($field))) {
-                    $tempString = $object->{'get' . ucfirst($field)}();
+                if (method_exists($object, 'get' . ucfirst((string)$field))) {
+                    $tempString = $object->{'get' . ucfirst((string)$field)}();
                     if (method_exists(htmlentities((string)$tempString), 'getUid')) {
                         $tempString = $tempString->getUid();
                     }
+
                     $string .= $tempString;
                     $string .= $separator;
                 }
             }
-            $string = substr($string, 0, (-1 * strlen($separator)));
+
+            $string = substr($string, 0, (-1 * strlen((string)$separator)));
         }
+
         if ($htmlSpecialChars) {
-            $string = htmlspecialchars($string);
+            return htmlspecialchars($string);
         }
+
         return $string;
     }
 }

@@ -1,5 +1,29 @@
 # Upgrade Instructions and breaking changes
 
+## Version 13.0.0
+
+### Breaking Changes
+
+#### Plugins pi2 - pi4
+
+These plugins were removed from EXT:powermail. They are available as a premium extension. If you need them, please
+contact service@in2code.de for a quote.
+
+#### Debug functionality removed
+
+A bunch of debug options could be set.
+
+- debugMail
+- debugSettings
+- debugSaveToTable
+- debugSpamshield
+- debugVariables
+
+These were removed without any replacement. No migration is available. You should use php standard methods like
+xdebug to debug the code.
+
+For `debugSpamshield` there is still the possibility to send a notification email to an admin.
+
 ## Version 12.4.0
 
 ### Breaking Change

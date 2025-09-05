@@ -16,8 +16,4 @@ Powermail offers 2 conditions, that could make your live easier
 [isPowermailOnCurrentPage()]
     // Powermail plugin Pi1 (Form) is on the current page, add own stuff (include CSS or JS, etc...)
 [end]
-
-[isPowermailOnCurrentPage(['powermail_pi1', 'powermail_pi1'])]
-    // Any powermail plugin Pi1 (Form) or Pi2 (Powermail Frontend) is on the current page, add own stuff
-[end]
 ```

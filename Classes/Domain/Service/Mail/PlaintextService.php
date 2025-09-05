@@ -31,13 +31,10 @@ class PlaintextService
 
     /**
      * Remove all invisible elements
-     *
-     * @param string $content
-     * @return string
      */
     protected function removeInvisibleElements(string $content): string
     {
-        $content = preg_replace(
+        return preg_replace(
             [
                 '/<head[^>]*?>.*?<\/head>/siu',
                 '/<style[^>]*?>.*?<\/style>/siu',
@@ -54,26 +51,18 @@ class PlaintextService
             ],
             $content
         );
-        return $content;
     }
 
     /**
      * Remove linebreaks and tabs
-     *
-     * @param string $content
-     * @return string
      */
     protected function removeLinebreaksAndTabs(string $content): string
     {
-        $content = trim(str_replace(["\n", "\r", "\t"], '', $content));
-        return $content;
+        return trim(str_replace(["\n", "\r", "\t"], '', $content));
     }
 
     /**
      * add linebreaks on some parts (</p> => </p><br />)
-     *
-     * @param string $content
-     * @return string
      */
     protected function addLineBreaks(string $content): string
     {
@@ -99,9 +88,6 @@ class PlaintextService
 
     /**
      * Add a space character to a table cell
-     *
-     * @param string $content
-     * @return string
      */
     protected function addSpaceToTableCells(string $content): string
     {
@@ -110,9 +96,6 @@ class PlaintextService
 
     /**
      * Remove all tags but keep br and address
-     *
-     * @param string $content
-     * @return string
      */
     protected function removeTags(string $content): string
     {
@@ -126,15 +109,10 @@ class PlaintextService
      *      <a href="xyz">LINK</a>
      *      ->
      *      LINK [xyz]
-     *
-     * @param string $content
-     * @return string
      */
     protected function extractLinkForPlainTextContent(string $content): string
     {
         $pattern = '/<a[^>]+href\s*=\s*["\']([^"\']+)["\'][^>]*>(.*?)<\/a>/misu';
-        return preg_replace_callback($pattern, function ($matches) {
-            return $matches[2] . ' [' . htmlspecialchars_decode($matches[1]) . ']';
-        }, $content);
+        return preg_replace_callback($pattern, fn ($matches): string => $matches[2] . ' [' . htmlspecialchars_decode((string)$matches[1]) . ']', $content);
     }
 }

@@ -16,7 +16,7 @@ class CleanupExportsCommand extends AbstractCleanupCommand
     /**
      * @return void
      */
-    public function configure()
+    protected function configure()
     {
         $this->setDescription('Remove all export files in typo3temp/assets/tx_powermail/');
         $this->addArgument(
@@ -29,12 +29,8 @@ class CleanupExportsCommand extends AbstractCleanupCommand
     /**
      * This task will clean up all (!) files which are located in typo3temp/assets/tx_powermail/
      * e.g.: old captcha images and old export files (from export task - if stored in typo3temp folder)
-     *
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int
      */
-    public function execute(InputInterface $input, OutputInterface $output): int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->removeFilesFromRelativeDirectory(
             $output,

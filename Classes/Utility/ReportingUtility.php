@@ -33,7 +33,6 @@ class ReportingUtility
      * @param QueryResultInterface|array $mails Mail array
      * @param int $limit Max number of allowed Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
-     * @return array
      */
     public static function getGroupedAnswersFromMails(
         iterable $mails,
@@ -56,6 +55,7 @@ class ReportingUtility
                 }
             }
         }
+
         self::sortReportingArrayDescending($groupedAnswers);
         self::cutArrayByKeyLimitAndAddTotalValues($groupedAnswers, $limit, $limitLabel);
         return $groupedAnswers;
@@ -67,7 +67,6 @@ class ReportingUtility
      * @param QueryResultInterface|array $mails Mails
      * @param int $limit Max Labels
      * @param string $limitLabel Label for "Max Labels" - could be "all others"
-     * @return array
      * @throws PropertyNotAccessibleException
      */
     public static function getGroupedMarketingPropertiesFromMails(
@@ -83,6 +82,7 @@ class ReportingUtility
                 if (!$value) {
                     $value = '-';
                 }
+
                 if (!isset($groupedProperties[$key][$value])) {
                     $groupedProperties[$key][$value] = 1;
                 } else {
@@ -90,6 +90,7 @@ class ReportingUtility
                 }
             }
         }
+
         self::sortReportingArrayDescending($groupedProperties);
         self::cutArrayByKeyLimitAndAddTotalValues($groupedProperties, $limit, $limitLabel);
         return $groupedProperties;
@@ -97,9 +98,6 @@ class ReportingUtility
 
     /**
      * Sort multiple array descending
-     *
-     * @param array $reportingArray
-     * @return void
      */
     public static function sortReportingArrayDescending(array &$reportingArray): void
     {
@@ -127,11 +125,6 @@ class ReportingUtility
      *                'All others' => 10
      *            )
      *        )
-     *
-     * @param array $reportingArray
-     * @param int $limit
-     * @param string $limitLabel
-     * @return void
      */
     public static function cutArrayByKeyLimitAndAddTotalValues(
         array &$reportingArray,
@@ -140,7 +133,8 @@ class ReportingUtility
     ): void {
         foreach (array_keys($reportingArray) as $key) {
             if (count($reportingArray[$key]) >= $limit) {
-                $i = $totalAmount = 0;
+                $i = 0;
+                $totalAmount = 0;
                 foreach ($reportingArray[$key] as $value => $amount) {
                     $i++;
                     if ($i >= $limit) {
@@ -148,6 +142,7 @@ class ReportingUtility
                         $totalAmount += $amount;
                     }
                 }
+
                 $reportingArray[$key][$limitLabel] = $totalAmount;
             }
         }

@@ -22,14 +22,13 @@ class UniqueValidator extends AbstractValidator
 {
     /**
      * @param Mail $mail
-     * @return bool
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
      * @throws InvalidQueryException
      * @throws DeprecatedException
      * @throws ExceptionExtbaseObject
      */
-    public function isValid($mail): void
+    protected function isValid($mail): void
     {
         if (!empty($this->settings['validation']['unique'])) {
             foreach ($this->settings['validation']['unique'] as $marker => $amount) {
@@ -58,8 +57,6 @@ class UniqueValidator extends AbstractValidator
 
     /**
      * Get storage pid from FlexForm, TypoScript or current page
-     *
-     * @return int
      */
     protected function getStoragePid(): int
     {
@@ -67,9 +64,11 @@ class UniqueValidator extends AbstractValidator
         if (!empty($this->flexForm['settings']['flexform']['main']['pid'])) {
             $pid = (int)$this->flexForm['settings']['flexform']['main']['pid'];
         }
+
         if ($pid === 0) {
-            $pid = FrontendUtility::getCurrentPageIdentifier();
+            return FrontendUtility::getCurrentPageIdentifier();
         }
+
         return $pid;
     }
 }

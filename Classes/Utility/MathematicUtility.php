@@ -11,27 +11,15 @@ class MathematicUtility
     /**
      * Basic mathematic operation with two variables and one operator
      *
-     * @param int $number1
-     * @param int $number2
      * @param string $operator +|-|x|:
-     * @return int
      */
     public static function mathematicOperation(int $number1, int $number2, string $operator = '+'): int
     {
-        switch ($operator) {
-            case '-':
-                $result = $number1 - $number2;
-                break;
-            case 'x':
-                $result = $number1 * $number2;
-                break;
-            case ':':
-                $result = $number1 / $number2;
-                break;
-            case '+':
-            default:
-                $result = $number1 + $number2;
-        }
-        return $result;
+        return match ($operator) {
+            '-' => $number1 - $number2,
+            'x' => $number1 * $number2,
+            ':' => $number1 / $number2,
+            default => $number1 + $number2,
+        };
     }
 }

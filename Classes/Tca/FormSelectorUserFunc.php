@@ -22,15 +22,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class FormSelectorUserFunc
 {
-    /**
-     * @var PageRepository|null
-     */
     protected ?PageRepository $pageRepository = null;
 
     /**
      * PageTS of current page
-     *
-     * @var array
      */
     protected array $tsConfiguration = [];
 
@@ -60,8 +55,6 @@ class FormSelectorUserFunc
      *
      *      Commaseparated values are allowed. If no TSConfig set, all forms will be shown
      *
-     * @param array $params
-     * @return void
      * @throws DBALException
      * @noinspection PhpUnused
      */
@@ -74,8 +67,8 @@ class FormSelectorUserFunc
                 foreach ($this->getAllForms((int)$startPid, $language) as $form) {
                     if ($this->hasUserAccessToPage((int)$form['pid'])) {
                         $params['items'][] = [
-                            BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
-                            (int)$form['uid'],
+                            'label' => BackendUtilityCore::getRecordTitle(Form::TABLE_NAME, $form),
+                            'value' =>  (int)$form['uid'],
                         ];
                     }
                 }
@@ -86,8 +79,6 @@ class FormSelectorUserFunc
     /**
      * Get starting page uids
      *      current pid or given pid from Page TSConfig
-     *
-     * @return array
      */
     protected function getStartPids(): array
     {
@@ -102,20 +93,19 @@ class FormSelectorUserFunc
                 if ($startPid === 'current') {
                     $startPid = BackendUtility::getPidFromBackendPage();
                 }
-                array_push($startPids, (int)$startPid);
+
+                $startPids[] = (int)$startPid;
             }
         } else {
             $startPids = [0];
         }
+
         return $startPids;
     }
 
     /**
      * Get Forms from Database
      *
-     * @param int $startPid
-     * @param int $language
-     * @return array
      * @throws Exception
      */
     protected function getAllForms(int $startPid, int $language): array
@@ -131,25 +121,19 @@ class FormSelectorUserFunc
             ->fetchAllAssociative();
     }
 
-    /**
-     * @param int $startPid
-     * @param int $language
-     * @return string
-     */
     protected function getWhereStatement(int $startPid, int $language): string
     {
-        $where = '(sys_language_uid IN (-1,0) or (l10n_parent = 0 and sys_language_uid = ' . (int)$language . '))';
-        if (!empty($startPid)) {
+        $where = '(sys_language_uid IN (-1,0) or (l10n_parent = 0 and sys_language_uid = ' . $language . '))';
+        if ($startPid !== 0) {
             $where .= ' and pid in (' . $this->getPidListFromStartingPoint($startPid) . ')';
         }
+
         return $where;
     }
 
     /**
      * Get commaseparated list of PID under a starting Page
      *
-     * @param int $startPid
-     * @return string
      * @throws Exception
      */
     protected function getPidListFromStartingPoint(int $startPid = 0): string
@@ -160,9 +144,6 @@ class FormSelectorUserFunc
 
     /**
      * Check if backend user has access to given page
-     *
-     * @param int $pageIdentifier
-     * @return bool
      */
     protected function hasUserAccessToPage(int $pageIdentifier): bool
     {
@@ -172,6 +153,7 @@ class FormSelectorUserFunc
                 return BackendUtility::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1);
             }
         }
+
         return true;
     }
 
@@ -179,13 +161,13 @@ class FormSelectorUserFunc
      * Check if the current user has full access to all forms
      *      - if the backend user is an admin OR
      *      - if we grant full access with tx_powermail.flexForm.formSelection = *
-     *
-     * @return bool
      */
     protected function hasFullAccess(): bool
     {
-        return BackendUtility::isBackendAdmin() ||
-        (!empty($this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection']) &&
-            $this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection'] === '*');
+        if (BackendUtility::isBackendAdmin()) {
+            return true;
+        }
+        return !empty($this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection']) &&
+            $this->tsConfiguration['tx_powermail.']['flexForm.']['formSelection'] === '*';
     }
 }

@@ -150,22 +150,28 @@ class PowermailForm {
   #deleteAllFilesListener() {
     const that = this;
     const deleteAllFiles = document.querySelectorAll('.deleteAllFiles');
+
     deleteAllFiles.forEach(function(file) {
-      let fileWrapper = file.closest('.powermail_fieldwrap_file');
-      if (fileWrapper !== null) {
-        let element = fileWrapper.querySelector('input[type="file"]');
+      let fileFieldWrapper = file.closest('.powermail_fieldwrap_type_file');
+      let fileFieldList = fileFieldWrapper.querySelector('.powermail_fieldwrap_file_list');
+
+      if (fileFieldList !== null) {
+        let element = fileFieldWrapper.querySelector('input[type="file"]');
+
         that.#disableUploadField(element);
       }
 
       file.addEventListener('click', function() {
-        let fileWrapper = file.closest('.powermail_fieldwrap_file');
-        if (fileWrapper !== null) {
-          let element = fileWrapper.querySelector('input[type="hidden"]');
+        let fileFieldList = fileFieldWrapper.querySelector('.powermail_fieldwrap_file_list');
+
+        if (fileFieldList !== null) {
+          let element = fileFieldWrapper.querySelector('input[type="file"]');
+
+          fileFieldList.remove();
+
+          console.log('tada');
+
           that.#enableUploadField(element);
-        }
-        let ul = file.closest('ul');
-        if (ul !== null) {
-          ul.remove();
         }
       });
     });
@@ -197,12 +203,13 @@ class PowermailForm {
     });
   };
 
-  #disableUploadField($element) {
-    $element.prop('disabled', 'disabled').addClass('hide').prop('type', 'hidden');
+  #disableUploadField(element) {
+    element.setAttribute('disabled', 'disabled');
   };
 
-  #enableUploadField($element) {
-    $element.prop('disabled', false).removeClass('hide').prop('type', 'file');
+  #enableUploadField(element) {
+    console.log('tada2');
+    element.removeAttribute('disabled');
   };
 }
 

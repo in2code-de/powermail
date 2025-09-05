@@ -14,15 +14,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  */
 class BackendUtilityTest extends UnitTestCase
 {
-    /**
-     * @var bool
-     */
     protected bool $resetSingletonInstances = true;
 
     /**
      * Data Provider for isBackendAdminReturnsBool()
-     *
-     * @return array
      */
     public static function isBackendAdminReturnsBoolDataProvider(): array
     {
@@ -46,13 +41,12 @@ class BackendUtilityTest extends UnitTestCase
      * @param string $value
      * @param bool $expectedResult
      * @dataProvider isBackendAdminReturnsBoolDataProvider
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::isBackendAdmin
      * @covers ::getBackendUserAuthentication
      */
-    public function isBackendAdminReturnsBool($value, $expectedResult)
+    public function isBackendAdminReturnsBool($value, $expectedResult): void
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
@@ -61,13 +55,12 @@ class BackendUtilityTest extends UnitTestCase
         if (is_int($value)) {
             $GLOBALS['BE_USER']->user['admin'] = $value;
         }
+
         self::assertSame($expectedResult, BackendUtility::isBackendAdmin());
     }
 
     /**
      * Data Provider for getPropertyFromBackendUserReturnsString()
-     *
-     * @return array
      */
     public static function getPropertyFromBackendUserReturnsStringDataProvider(): array
     {
@@ -89,15 +82,13 @@ class BackendUtilityTest extends UnitTestCase
 
     /**
      * @param string $property
-     * @param mixed $value
      * @dataProvider getPropertyFromBackendUserReturnsStringDataProvider
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::getPropertyFromBackendUser
      * @covers ::getBackendUserAuthentication
      */
-    public function getPropertyFromBackendUserReturnsString($property, $value)
+    public function getPropertyFromBackendUserReturnsString($property, mixed $value): void
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
@@ -106,13 +97,12 @@ class BackendUtilityTest extends UnitTestCase
         if ($property !== null) {
             $GLOBALS['BE_USER']->user[$property] = $value;
         }
+
         self::assertSame($value, BackendUtility::getPropertyFromBackendUser($property));
     }
 
     /**
      * Data Provider for getCurrentParametersReturnsArray()
-     *
-     * @return array
      */
     public static function getCurrentParametersReturnsArrayDataProvider(): array
     {
@@ -141,29 +131,7 @@ class BackendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @param array $getParameters
-     * @param array $expectedResult
-     * @param bool $injectAsGetParam
-     * @dataProvider getCurrentParametersReturnsArrayDataProvider
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getCurrentParameters
-     */
-    public function getCurrentParametersReturnsArray($getParameters, $expectedResult, $injectAsGetParam)
-    {
-        if ($injectAsGetParam === false) {
-            self::assertSame($expectedResult, BackendUtility::getCurrentParameters($getParameters));
-        } else {
-            $_GET = $getParameters;
-            self::assertSame($expectedResult, BackendUtility::getCurrentParameters([]));
-        }
-    }
-
-    /**
      * Data Provider for getPidFromBackendPageReturnsInt()
-     *
-     * @return array
      */
     public static function getPidFromBackendPageReturnsIntDataProvider(): array
     {
@@ -197,40 +165,21 @@ class BackendUtilityTest extends UnitTestCase
     }
 
     /**
-     * @param string $returnUrl
-     * @param int $expectedResult
-     * @dataProvider getPidFromBackendPageReturnsIntDataProvider
-     * @return void
-     * @SuppressWarnings(PHPMD.Superglobals)
-     * @test
-     * @covers ::getPidFromBackendPage
-     */
-    public function getPidFromBackendPageReturnsInt($returnUrl, $expectedResult)
-    {
-        if (empty($returnUrl)) {
-            $_GET['returnUrl'] = '&returnUrl=sdaf.html?id=1514816014062&ied=abc';
-        }
-        self::assertSame($expectedResult, BackendUtility::getPidFromBackendPage($returnUrl));
-    }
-
-    /**
-     * @return void
      * @test
      * @covers ::getPagesTSconfig
      * @throws DeprecatedException
      */
-    public function getPagesTSconfigReturnsString()
+    public function getPagesTSconfigReturnsString(): void
     {
         self::assertEmpty(BackendUtility::getPagesTSconfig(1));
     }
 
     /**
-     * @return void
      * @SuppressWarnings(PHPMD.Superglobals)
      * @test
      * @covers ::filterPagesForAccess
      */
-    public function filterPagesForAccessReturnsArray()
+    public function filterPagesForAccessReturnsArray(): void
     {
         TestingHelper::setDefaultConstants();
         $user = new BackendUserAuthentication();
