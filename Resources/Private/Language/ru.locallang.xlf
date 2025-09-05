@@ -7,6 +7,10 @@
         <source>Please choose...</source>
         <target state="final">Выберете...</target>
       </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">Ошибка, нет отображаемых опций</target>
+      </trans-unit>
       <trans-unit id="back" resname="back" approved="yes">
         <source>Go back</source>
         <target state="final">назад</target>
@@ -163,6 +167,10 @@
         <source>This data was completely disclaimed:</source>
         <target state="final">Следующие данные были указаны как неверные:</target>
       </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Email could not be sent correctly!</source>
+        <target state="final">Ошибка, Email не может быть отправлен правильно!</target>
+      </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
         <target state="final">Настройки TypoScript не заданы. Проверьте, включен ли "основной" (Mine) статический шаблон?</target>
@@ -243,6 +251,10 @@
         <source>Please decrease number!</source>
         <target state="final">Уменьшите число!</target>
       </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
+        <source>Number too high or too low!</source>
+        <target state="final">Число больше или меньше допустимого!</target>
+      </trans-unit>
       <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
         <source>Your input is not valid (too many or too less signs)</source>
         <target state="final">Неверное значение (слишком мало или много знаков)</target>
@@ -258,6 +270,18 @@
       <trans-unit id="validationerror_upload_size" resname="validationerror_upload_size" approved="yes">
         <source>The file, that you want to upload is too large!</source>
         <target state="final">Слишком большой размер загружаемого файла!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
+        <source>Upload failed, please check permissions on the server!</source>
+        <target state="final">Ошибка при загрузке, проверьте разрешения на сервере!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_container_label" resname="validationerror_container_label" approved="yes">
+        <source>Problematic form fields</source>
+        <target state="final">Проблемные поля формы</target>
+      </trans-unit>
+      <trans-unit id="validationerror_title" resname="validationerror_title" approved="yes">
+        <source>There are errors in this form</source>
+        <target state="final">Форма содержит ошибки</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
