@@ -322,7 +322,7 @@ class UploadService implements SingletonInterface
             $randomizedFileName .= $fileInfo['filename'] . '-';
         }
         $randomizedFileName .= StringUtility::getRandomString(32, false);
-        $randomizedFileName .= '.' . $fileInfo['extension'];
+        $randomizedFileName .= '.' . ($fileInfo['extension'] ?? '');
         return $randomizedFileName;
     }
 
