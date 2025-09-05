@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_mod.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
+        <source>Mails</source>
+        <target>crwdns336818:0crwdne336818:0</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
+        <source>List of all registered mails in database. Possibility to filter and export to CSV (Excel).</source>
+        <target>crwdns336820:0crwdne336820:0</target>
+      </trans-unit>
+      <trans-unit id="mlang_labels_tablabel" resname="mlang_labels_tablabel">
+        <source>Powermail list</source>
+        <target>crwdns336822:0crwdne336822:0</target>
+      </trans-unit>
+      <trans-unit id="pluginWizardTitle" resname="pluginWizardTitle">
+        <source>Powermail</source>
+        <target>crwdns336824:0crwdne336824:0</target>
+      </trans-unit>
+      <trans-unit id="pluginWizardDescription" resname="pluginWizardDescription">
+        <source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
+        <target>crwdns336826:0crwdne336826:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi1.title">
+        <source>Powermail</source>
+        <target>crwdns336828:0crwdne336828:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi1.description">
+        <source>Powerful and easy mailform extension optimized for editors.</source>
+        <target>crwdns336830:0crwdne336830:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.title">
+        <source>Powermail Frontend (List, Detail)</source>
+        <target>crwdns375104:0crwdne375104:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.description">
+        <source>Displays powermail mails in the frontend</source>
+        <target>crwdns375106:0crwdne375106:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.title">
+        <source>Powermail Frontend (Edit, Update, Delete)</source>
+        <target>crwdns375108:0crwdne375108:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.description">
+        <source>Displays an edit form and allows to delete sent emails</source>
+        <target>crwdns375110:0crwdne375110:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.title">
+        <source>Powermail Frontend (All functions)</source>
+        <target>crwdns375112:0crwdne375112:0</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.description">
+        <source>A plugin with all actions</source>
+        <target>crwdns375114:0crwdne375114:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
