@@ -3,10 +3,10 @@
   <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_answers.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="it">
     <header/>
     <body>
-			
-			
-			
-			
-		</body>
+      <trans-unit id="value.description" resname="value.description" approved="yes">
+        <source>This is the Answer of a User within this field</source>
+        <target state="final">Questa è la Risposta di un Utente all'interno di questo campo</target>
+      </trans-unit>
+    </body>
   </file>
 </xliff>
