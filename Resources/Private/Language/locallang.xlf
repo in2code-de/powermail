@@ -772,6 +772,51 @@
 			<trans-unit id="BackendPluginInformationTitleLastMails" resname="BackendPluginInformationTitleLastMails">
 				<source>Last mails from this form</source>
 			</trans-unit>
+			<trans-unit id="BackendPluginInformationTitlePi2" resname="BackendPluginInformationTitlePi2">
+				<source>Show and manage mails in Frontend</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendNoMails" resname="PowermailFrontendNoMails">
+				<source>No Mails found.</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendFilterAll" resname="PowermailFrontendFilterAll">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendFilterSubmit" resname="PowermailFrontendFilterSubmit">
+				<source>Filter Now</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendNoMailsDetail" resname="PowermailFrontendNoMailsDetail">
+				<source>Please edit your filter settings.</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDetailView" resname="PowermailFrontendDetailView">
+				<source>Details</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditView" resname="PowermailFrontendEditView">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteView" resname="PowermailFrontendDeleteView">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditSubmit" resname="PowermailFrontendEditSubmit">
+				<source>Save Changes</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditConfirm" resname="PowermailFrontendEditConfirm">
+				<source>Changes successfully saved</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditNoMail" resname="PowermailFrontendEditNoMail">
+				<source>Missing required Mail parameter</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditFailed" resname="PowermailFrontendEditFailed">
+				<source>You are not allowed to make changes</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendEditSuccessful" resname="PowermailFrontendEditSuccessful">
+				<source>Changes successfully saved</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteFailed" resname="PowermailFrontendDeleteFailed">
+				<source>Record could not be removed</source>
+			</trans-unit>
+			<trans-unit id="PowermailFrontendDeleteSuccessful" resname="PowermailFrontendDeleteSuccessful">
+				<source>Record successfully removed</source>
+			</trans-unit>
 			<trans-unit id="ExtensionManagerConvertingScriptSuccess" resname="ExtensionManagerConvertingScriptSuccess">
 				<source>All tables successfully converted</source>
 			</trans-unit>
