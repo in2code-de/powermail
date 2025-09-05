@@ -7,6 +7,10 @@
         <source>Please choose...</source>
         <target state="final">Veuillez choisir...</target>
       </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">Erreur, aucune option à afficher</target>
+      </trans-unit>
       <trans-unit id="back" resname="back" approved="yes">
         <source>Go back</source>
         <target state="final">Retour</target>
