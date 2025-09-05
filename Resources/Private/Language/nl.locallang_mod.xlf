@@ -19,6 +19,18 @@
         <source>Powermail</source>
         <target state="final">Powermail</target>
       </trans-unit>
+      <trans-unit id="pluginWizardDescription" resname="pluginWizardDescription" approved="yes">
+        <source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
+        <target state="final">Krachtige en eenvoudige extensie voor e-mailformulieren, geoptimaliseerd voor editors. Powermail biedt gegevensopslag, uitgebreide invoer validatie, geavanceerde spam-preventie, marketing analyses en vele configuratieïnstellingen.</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi1.title" approved="yes">
+        <source>Powermail</source>
+        <target state="final">Powermail</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi1.description" approved="yes">
+        <source>Powerful and easy mailform extension optimized for editors.</source>
+        <target state="final">Krachtige en eenvoudige mailform extensie geoptimaliseerd voor editors.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
