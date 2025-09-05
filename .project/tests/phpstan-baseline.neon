@@ -1671,11 +1671,6 @@ parameters:
 			path: ../../Classes/Domain/Service/UploadService.php
 
 		-
-			message: "#^Offset 'extension' does not exist on array\\{dirname\\?\\: string, basename\\: string, extension\\?\\: string, filename\\: string\\}\\.$#"
-			count: 2
-			path: ../../Classes/Domain/Service/UploadService.php
-
-		-
 			message: "#^Parameter \\#2 \\$prependOriginalFileName of method In2code\\\\Powermail\\\\Domain\\\\Service\\\\UploadService\\:\\:randomizeFileName\\(\\) expects false, bool given\\.$#"
 			count: 1
 			path: ../../Classes/Domain/Service/UploadService.php
