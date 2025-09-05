@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="ro">
+    <header/>
+    <body>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">Vă rugăm să alegeți ...</target>
+      </trans-unit>
+      <trans-unit id="back" resname="back" approved="yes">
+        <source>Go back</source>
+        <target state="final">Mergi înapoi</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderName" resname="\In2code\Powermail\Domain\Model\Mail.senderName" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">Nume expeditor</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderMail" resname="\In2code\Powermail\Domain\Model\Mail.senderMail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">Email expeditor</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.subject" resname="\In2code\Powermail\Domain\Model\Mail.subject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Subiect</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.receiverMail" resname="\In2code\Powermail\Domain\Model\Mail.receiverMail" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">Email Recipient</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.body" resname="\In2code\Powermail\Domain\Model\Mail.body" approved="yes">
+        <source>Email Text</source>
+        <target state="final">Text Email</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.feuser" resname="\In2code\Powermail\Domain\Model\Mail.feuser" approved="yes">
+        <source>Frontend User</source>
+        <target state="final">Utilizator Frontend</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.senderIp" resname="\In2code\Powermail\Domain\Model\Mail.senderIp" approved="yes">
+        <source>Senders IP-Address</source>
+        <target state="final">Adresa IP a Expeditorului</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.userAgent" resname="\In2code\Powermail\Domain\Model\Mail.userAgent" approved="yes">
+        <source>Senders Browser-Signature</source>
+        <target state="final">Semnătura navigator a Expeditorului</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.spamFactor" resname="\In2code\Powermail\Domain\Model\Mail.spamFactor" approved="yes">
+        <source>Spamfactor</source>
+        <target state="final">Factor spam</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.crdate" resname="\In2code\Powermail\Domain\Model\Mail.crdate" approved="yes">
+        <source>Date</source>
+        <target state="final">Dată</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.date" resname="\In2code\Powermail\Domain\Model\Mail.date" approved="yes">
+        <source>Date</source>
+        <target state="final">Dată</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.datetime" resname="\In2code\Powermail\Domain\Model\Mail.datetime" approved="yes">
+        <source>Time</source>
+        <target state="final">Oră</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" resname="\In2code\Powermail\Domain\Model\Mail.marketingRefererDomain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">Domeniu referer</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingReferer" resname="\In2code\Powermail\Domain\Model\Mail.marketingReferer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">URI Referer</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingCountry" resname="\In2code\Powermail\Domain\Model\Mail.marketingCountry" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">Țară Vizitator</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" resname="\In2code\Powermail\Domain\Model\Mail.marketingMobileDevice" approved="yes">
+        <source>Visitor uses a Mobile Device</source>
+        <target state="final">Vizitatorul folosește un dispozitiv mobil</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingFrontendLanguage" approved="yes">
+        <source>Website Language</source>
+        <target state="final">Limbă site web</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" resname="\In2code\Powermail\Domain\Model\Mail.marketingBrowserLanguage" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">Limbă navigator</target>
+      </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" resname="\In2code\Powermail\Domain\Model\Mail.marketingPageFunnel" approved="yes">
+        <source>Page Funnel</source>
+        <target state="final">Funnel pagină</target>
+      </trans-unit>
+      <trans-unit id="note_html" resname="note_html" approved="yes">
+        <source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
+        <target state="final">Din motive de securitate, nu este permisă afișarea tag-urilor html. Puteți să o activați folosind TypoScript (vedeți manualul powermail), dar atenție, editorii pot de asemenea să adauge HTML și XSS.</target>
+      </trans-unit>
+      <trans-unit id="mail_created" resname="mail_created" approved="yes">
+        <source>Mail successfully sent!</source>
+        <target state="final">Email trimis cu succes!</target>
+      </trans-unit>
+      <trans-unit id="confirmation_message" resname="confirmation_message" approved="yes">
+        <source>Are these values correct?</source>
+        <target state="final">Aceste valori sunt corecte?</target>
+      </trans-unit>
+      <trans-unit id="confirmation_next" resname="confirmation_next" approved="yes">
+        <source>Next</source>
+        <target state="final">Următor</target>
+      </trans-unit>
+      <trans-unit id="confirmation_prev" resname="confirmation_prev" approved="yes">
+        <source>Previous</source>
+        <target state="final">Precedent</target>
+      </trans-unit>
+      <trans-unit id="optin_seeMail" resname="optin_seeMail" approved="yes">
+        <source>Please have a look into your mail account and confirm this action.</source>
+        <target state="final">Vă rugăm verificați-vă contul email și confirmați această acțiune.</target>
+      </trans-unit>
+      <trans-unit id="optin_subject" resname="optin_subject" approved="yes">
+        <source>Please confirm your Email</source>
+        <target state="final">Vă rugăm confirmați-vă adresa email</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_link" resname="optin_mail_link" approved="yes">
+        <source>Please confirm with a click:</source>
+        <target state="final">Vă rugăm confirmați cu un click:</target>
+      </trans-unit>
+      <trans-unit id="optin_mail_confirm_failed" resname="optin_mail_confirm_failed" approved="yes">
+        <source>The given Link is not correct</source>
+        <target state="final">Linkul dat nu este corect</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_deleted" resname="error_mail_not_deleted" approved="yes">
+        <source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
+        <target state="final">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterSubject" resname="BackendConverterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Subiect</target>
+      </trans-unit>
+      <trans-unit id="BackendConverterUpdatePageUid" resname="BackendConverterUpdatePageUid" approved="yes">
+        <source>Uid</source>
+        <target state="final">Uid</target>
+      </trans-unit>
+      <trans-unit id="BackendListFilterSubject" resname="BackendListFilterSubject" approved="yes">
+        <source>Subject</source>
+        <target state="final">Subiect</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
