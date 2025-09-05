@@ -7,6 +7,10 @@
         <source>Please choose...</source>
         <target state="final">Seleziona...</target>
       </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">Errore, nessuna opzione da mostrare</target>
+      </trans-unit>
       <trans-unit id="back" resname="back" approved="yes">
         <source>Go back</source>
         <target state="final">Indietro</target>
@@ -91,6 +95,10 @@
         <source>Page Funnel</source>
         <target state="final">Pagina imbuto</target>
       </trans-unit>
+      <trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden" resname="\In2code\Powermail\Domain\Model\Mail.hidden" approved="yes">
+        <source>Disabled</source>
+        <target state="final">Disabilitato</target>
+      </trans-unit>
       <trans-unit id="note_html" resname="note_html" approved="yes">
         <source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
         <target state="final">Per questioni di sicurezza non è permesso visualizzare i tag html di default- Puoi abilitarli con Typoscript (vedi il manuale di powermail), ma stai attento, alcuni redattori possono anche aggiungere codice html e XSS.</target>
@@ -138,6 +146,30 @@
       <trans-unit id="optin_mail_confirm_done" resname="optin_mail_confirm_done" approved="yes">
         <source>The mail was already confirmed</source>
         <target state="final">L'indirizzo email è già stato confermato</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mail_deleted" resname="disclaimer_mail_deleted" approved="yes">
+        <source>Mail was successfully deleted</source>
+        <target state="final">Mail eliminata con successo</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage" resname="disclaimer_mailmessage" approved="yes">
+        <source>Was this email a mistake and you want to delete your request?</source>
+        <target state="final">Questa email è stata un errore e si desidera eliminare la richiesta?</target>
+      </trans-unit>
+      <trans-unit id="disclaimer_mailmessage_link" resname="disclaimer_mailmessage_link" approved="yes">
+        <source>Delete all email data.</source>
+        <target state="final">Elimina tutti i dati email.</target>
+      </trans-unit>
+      <trans-unit id="disclaimed_subject" resname="disclaimed_subject" approved="yes">
+        <source>Email was just disclaimed</source>
+        <target state="final">L'email è stata appena respinta</target>
+      </trans-unit>
+      <trans-unit id="disclaimed_entries" resname="disclaimed_entries" approved="yes">
+        <source>This data was completely disclaimed:</source>
+        <target state="final">Questi dati sono stati completamente esclusi:</target>
+      </trans-unit>
+      <trans-unit id="error_mail_not_created" resname="error_mail_not_created" approved="yes">
+        <source>Error, Email could not be sent correctly!</source>
+        <target state="final">Errore, l'email non può essere inviata correttamente!</target>
       </trans-unit>
       <trans-unit id="error_no_typoscript" resname="error_no_typoscript" approved="yes">
         <source>TypoScript settings are missing. Did you include the related static templates?</source>
@@ -218,6 +250,14 @@
       <trans-unit id="validationerror_validation.7" resname="validationerror_validation.7" approved="yes">
         <source>Please decrease number!</source>
         <target state="final">Diminuire il valore inserito</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.8" resname="validationerror_validation.8" approved="yes">
+        <source>Number too high or too low!</source>
+        <target state="final">Numero troppo alto o troppo basso!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_validation.9" resname="validationerror_validation.9" approved="yes">
+        <source>Your input is not valid (too many or too less signs)</source>
+        <target state="final">Il tuo input non è valido (troppi o troppo meno segni)</target>
       </trans-unit>
       <trans-unit id="validationerror_validation.10" resname="validationerror_validation.10" approved="yes">
         <source>Error in validation!</source>
