@@ -43,6 +43,10 @@
         <source>Should this field be a mandatory field?</source>
         <target state="final">Pflichtfeld?</target>
       </trans-unit>
+      <trans-unit id="mandatory_text.description" resname="mandatory_text.description" approved="yes">
+        <source>A custom error message improves the user experience</source>
+        <target state="final">Eine benutzerdefinierte Fehlermeldung verbessert die Benutzererfahrung</target>
+      </trans-unit>
       <trans-unit id="validation.description" resname="validation.description" approved="yes">
         <source>Validate the field value (url, email, etc...)</source>
         <target state="final">Validierung der Eingabe (Url, E-Mail, etc...)</target>
