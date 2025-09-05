@@ -31,6 +31,30 @@
         <source>Powerful and easy mailform extension optimized for editors.</source>
         <target state="final">Krachtige en eenvoudige mailform extensie geoptimaliseerd voor editors.</target>
       </trans-unit>
+      <trans-unit id="powermail_pi2.title" approved="yes">
+        <source>Powermail Frontend (List, Detail)</source>
+        <target state="final">Powermail Frontend (lijst, detail)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.description" approved="yes">
+        <source>Displays powermail mails in the frontend</source>
+        <target state="final">Geeft powermail-mails weer in de frontend</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.title" approved="yes">
+        <source>Powermail Frontend (Edit, Update, Delete)</source>
+        <target state="final">Powermail Frontend (Bewerken, Bijwerken, Verwijderen)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.description" approved="yes">
+        <source>Displays an edit form and allows to delete sent emails</source>
+        <target state="final">Toont een bewerkformulier en maakt het mogelijk om verzonden e-mails te verwijderen</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.title" approved="yes">
+        <source>Powermail Frontend (All functions)</source>
+        <target state="final">Powermail Frontend (alle functies)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.description" approved="yes">
+        <source>A plugin with all actions</source>
+        <target state="final">Een plug-in met alle acties</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
