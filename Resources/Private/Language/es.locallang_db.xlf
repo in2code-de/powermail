@@ -7,6 +7,10 @@
         <source>Access</source>
         <target state="final">Acceso</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Correo</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Remitente</target>
@@ -91,6 +95,10 @@
         <source>Page Funnel which leads to this mail</source>
         <target state="final">Embudo de página que conduce a este correo</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Form</source>
+        <target state="final">Formulario</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Título</target>
@@ -143,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Páginas</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Page</source>
+        <target state="final">Página</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Título</target>
@@ -174,6 +186,10 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Formulario relacionado</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Field</source>
+        <target state="final">Campo</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -395,6 +411,10 @@
         <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
         <target state="final">Crear a partir de TypoScript (p.e. lib.fieldvalues)</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value" approved="yes">
+        <source>Value from logged in Frontend User</source>
+        <target state="final">Valor del usuario con la sesión iniciada en el Frontend</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
         <source>Name</source>
         <target state="final">Nombre</target>
@@ -479,6 +499,10 @@
         <source>Email or Name</source>
         <target state="final">Email o nombre</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answer</source>
+        <target state="final">Respuesta</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
         <target state="final">El valor transferido</target>
@@ -522,6 +546,10 @@
       <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
         <source>Choose a Powermail Form</source>
         <target state="final">Elige un formulario Powermail</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote" approved="yes">
+        <source>Form overview</source>
+        <target state="final">Resumen de formularios</target>
       </trans-unit>
       <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform" approved="yes">
         <source>Please select a form</source>
