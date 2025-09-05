@@ -23,6 +23,38 @@
         <source>Powerful and easy mailform extension optimized for editors. Powermail offers data storing, extended input validation, advanced spam-prevention, marketing analyses and a lot of configuration settings.</source>
         <target state="final">Potente y fácil extensión de formulario de correo optimizado para editores. Powermail ofrece almacenamiento de datos, validación de entrada extendida, prevención avanzada de spam, análisis de marketing y una gran cantidad de ajustes de configuración.</target>
       </trans-unit>
+      <trans-unit id="powermail_pi1.title" approved="yes">
+        <source>Powermail</source>
+        <target state="final">Powermail</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi1.description" approved="yes">
+        <source>Powerful and easy mailform extension optimized for editors.</source>
+        <target state="final">Extensión fácil y potente para crear formularios web optimizada para editores.</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.title" approved="yes">
+        <source>Powermail Frontend (List, Detail)</source>
+        <target state="final">Powermail Frontend (Lista, Detalle)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi2.description" approved="yes">
+        <source>Displays powermail mails in the frontend</source>
+        <target state="final">Muestra los correos de powermail en el frontend</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.title" approved="yes">
+        <source>Powermail Frontend (Edit, Update, Delete)</source>
+        <target state="final">Powermail Frontend (Editar, Actualizar, Eliminar)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi3.description" approved="yes">
+        <source>Displays an edit form and allows to delete sent emails</source>
+        <target state="final">Muestra un formulario de edición y permite eliminar correos enviados</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.title" approved="yes">
+        <source>Powermail Frontend (All functions)</source>
+        <target state="final">Powermail Frontend (Todas las funciones)</target>
+      </trans-unit>
+      <trans-unit id="powermail_pi4.description" approved="yes">
+        <source>A plugin with all actions</source>
+        <target state="final">Un plugin con todas las acciones</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
