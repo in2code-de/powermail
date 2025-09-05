@@ -144,6 +144,26 @@ class Field extends AbstractEntity
     protected int $l10nParent = 0;
 
     /**
+     * @var string
+     */
+    protected string $autocompleteToken = '';
+
+    /**
+     * @var string
+     */
+    protected string $autocompleteSection = '';
+
+    /**
+     * @var string
+     */
+    protected string $autocompleteType = '';
+
+    /**
+     * @var string
+     */
+    protected string $autocompletePurpose = '';
+
+    /**
      * @var Page
      * This property can hold Page|int|null (depending on the context). "@var" must set to Page for property mapping.
      */
@@ -830,4 +850,78 @@ class Field extends AbstractEntity
         }
         return $types;
     }
+
+    /**
+     * @return string
+     */
+    public function getAutocompleteToken(): string
+    {
+        return $this->autocompleteToken;
+    }
+
+    /**
+     * @param string $autocompleteToken
+     *
+     * @return void
+     */
+    public function setAutocompleteToken(string $autocompleteToken): void
+    {
+        $this->autocompleteToken = $autocompleteToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutocompleteSection(): string
+    {
+        return $this->autocompleteSection;
+    }
+
+    /**
+     * @param string $autocompleteSection
+     *
+     * @return void
+     */
+    public function setAutocompleteSection(string $autocompleteSection): void
+    {
+        $this->autocompleteSection = $autocompleteSection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutocompleteType(): string
+    {
+        return $this->autocompleteType;
+    }
+
+    /**
+     * @param string $autocompleteType
+     *
+     * @return void
+     */
+    public function setAutocompleteType(string $autocompleteType): void
+    {
+        $this->autocompleteType = $autocompleteType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutocompletePurpose(): string
+    {
+        return $this->autocompletePurpose;
+    }
+
+    /**
+     * @param string $autocompletePurpose
+     *
+     * @return void
+     */
+    public function setAutocompletePurpose(string $autocompletePurpose): void
+    {
+        $this->autocompletePurpose = $autocompletePurpose;
+    }
+
+
 }
