@@ -7,6 +7,10 @@
         <source>Please choose...</source>
         <target state="final">Prosím vyberte...</target>
       </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">Chyba, žádné možnosti k zobrazení</target>
+      </trans-unit>
       <trans-unit id="back" resname="back" approved="yes">
         <source>Go back</source>
         <target state="final">Jít zpět</target>
