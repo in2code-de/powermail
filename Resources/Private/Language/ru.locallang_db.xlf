@@ -7,6 +7,10 @@
         <source>Access</source>
         <target state="final">Доступ</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">Почта</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
         <source>Sender</source>
         <target state="final">Отправитель</target>
@@ -91,6 +95,10 @@
         <source>Page Funnel which leads to this mail</source>
         <target state="final">Страница воронка, приведшая к этому письму</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Form</source>
+        <target state="final">Форма</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
         <source>Title</source>
         <target state="final">Название</target>
@@ -143,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Страницы</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Page</source>
+        <target state="final">Страница</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
         <source>Title</source>
         <target state="final">Название</target>
@@ -174,6 +186,10 @@
       <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
         <source>Related Form</source>
         <target state="final">Связать с формой</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Field</source>
+        <target state="final">Поле</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
         <source>Title</source>
@@ -290,6 +306,10 @@
       <trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory" approved="yes">
         <source>Mandatory Field</source>
         <target state="final">Обязательное поле</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text" approved="yes">
+        <source>Custom error message</source>
+        <target state="final">Персонализированное сообщение об ошибке</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
         <source>Validation</source>
@@ -483,6 +503,10 @@
         <source>Email or Name</source>
         <target state="final">Эл. почта или имя</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answer</source>
+        <target state="final">Ответ</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
         <source>The transferred value</source>
         <target state="final">Переданное значение</target>
@@ -526,6 +550,10 @@
       <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
         <source>Choose a Powermail Form</source>
         <target state="final">Выберите форму Powermail</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote" approved="yes">
+        <source>Form overview</source>
+        <target state="final">Обзор формы</target>
       </trans-unit>
       <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform" approved="yes">
         <source>Please select a form</source>
@@ -627,6 +655,10 @@
         <source>Bodytext for Email to Receiver</source>
         <target state="final">Текст тела письма получателю</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment" approved="yes">
+        <source>Send uploaded files to receiver</source>
+        <target state="final">Отправить загруженные файлы получателю</target>
+      </trans-unit>
       <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
         <source>Mail to User</source>
         <target state="final">Отправитель</target>
@@ -646,6 +678,10 @@
       <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
         <source>Bodytext for Email to Sender</source>
         <target state="final">Тело письма отправителю</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment" approved="yes">
+        <source>Send uploaded files to sender</source>
+        <target state="final">Отправить загруженные файлы отправителю</target>
       </trans-unit>
       <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
         <source>Submit Page</source>
