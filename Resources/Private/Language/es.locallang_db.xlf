@@ -307,6 +307,10 @@
         <source>Mandatory Field</source>
         <target state="final">Campo obligatorio</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text" approved="yes">
+        <source>Custom error message</source>
+        <target state="final">Mensaje de error personalizado</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
         <source>Validation</source>
         <target state="final">Validación</target>
@@ -651,6 +655,10 @@
         <source>Bodytext for Email to Receiver</source>
         <target state="final">Cuerpo del email al destinatario</target>
       </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment" approved="yes">
+        <source>Send uploaded files to receiver</source>
+        <target state="final">Enviar archivos subidos al receptor</target>
+      </trans-unit>
       <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
         <source>Mail to User</source>
         <target state="final">Email al usuario</target>
@@ -671,6 +679,10 @@
         <source>Bodytext for Email to Sender</source>
         <target state="final">Cuerpo del correo al remitente</target>
       </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment" approved="yes">
+        <source>Send uploaded files to sender</source>
+        <target state="final">Enviar archivos subidos al remitente</target>
+      </trans-unit>
       <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
         <source>Submit Page</source>
         <target state="final">Página a mostrar tras el envío</target>
@@ -682,6 +694,126 @@
       <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
         <source>Redirect to any other Page after submit</source>
         <target state="final">Redireccionar a cualquier otra página tras el envío</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">¡ATENCIÓN: selecciona antes un formulario en la Configuración!</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">Configuración principal</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">Elige un formulario</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">Selecciona una página con correos (opcional)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">Vista de listado</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Elige campos para mostrar (vacío: todos los campos)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">Mostrar entradas de los últimos X segundos (vacío: función desactivada)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">Mostrar máx. X entradas (vacío: sin límite)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">Página con plugin para la vista de listado (Vacío: Misma página)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">Entradas propias</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">Mostrar solo las entradas de los usuarios registrados en el Frontend</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
+        <source>Detailview</source>
+        <target state="final">Vista de detalle</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">Elige los ampos a mostrar (vacío: todos los campos)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink" approved="yes">
+        <source>Link to detail view</source>
+        <target state="final">Enlace a la vista de detalle</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0" approved="yes">
+        <source>active</source>
+        <target state="final">activo</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid" approved="yes">
+        <source>Page with Plugin for detail view (Empty: Same page)</source>
+        <target state="final">Página con plugin para la vista de detalle (vacío: misma página)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search" approved="yes">
+        <source>Searchsettings</source>
+        <target state="final">Configuración de búsqueda</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields" approved="yes">
+        <source>Add searchfield</source>
+        <target state="final">Añadir campo de búsqueda</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all" approved="yes">
+        <source>[Fulltext Search]</source>
+        <target state="final">[Búsqueda de texto completo]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator" approved="yes">
+        <source>search fields operator (AND / OR)</source>
+        <target state="final">operador de campos de búsqueda (AND / OR)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0" approved="yes">
+        <source>OR (Find keyword in Field1 OR Field2)</source>
+        <target state="final">OR (buscar palabra clave en Campo1 o Campo2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1" approved="yes">
+        <source>AND (Find keyword in Field1 AND Field2)</source>
+        <target state="final">AND (buscar palabra clave en Campo1 y Campo2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc" approved="yes">
+        <source>Add ABC filter</source>
+        <target state="final">Añadir filtro ABC</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off" approved="yes">
+        <source>[Deactivated]</source>
+        <target state="final">[Desactivado]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit" approved="yes">
+        <source>Editview</source>
+        <target state="final">Vista de edición</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields" approved="yes">
+        <source>Choose Fields to edit (Empty: All fields)</source>
+        <target state="final">Elige campos para editar (vacío: Todos los campos)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser" approved="yes">
+        <source>Choose one or more Frontend-Users with permission to change</source>
+        <target state="final">Elige uno o más usuarios de frontend con permisos para cambiar</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner" approved="yes">
+        <source>[Owner]</source>
+        <target state="final">[Propietario]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup" approved="yes">
+        <source>Choose one or more Frontend-Groups with permission to change</source>
+        <target state="final">Elige uno o más grupos de frontend con permisos para cambiar</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid" approved="yes">
+        <source>Page with Plugin for edit view (Empty: Same page)</source>
+        <target state="final">Página con plugin para vista de edición (vacío: misma página)</target>
       </trans-unit>
       <trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail" approved="yes">
         <source>Receiver email address</source>
