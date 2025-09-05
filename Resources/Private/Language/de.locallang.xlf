@@ -7,6 +7,10 @@
         <source>Please choose...</source>
         <target state="final">Bitte wählen...</target>
       </trans-unit>
+      <trans-unit id="selectErrorEmpty" resname="selectErrorEmpty" approved="yes">
+        <source>Error, no options to show</source>
+        <target state="final">Fehler, keine Optionen zum Anzeigen</target>
+      </trans-unit>
       <trans-unit id="back" resname="back" approved="yes">
         <source>Go back</source>
         <target state="final">Zur letzten Ansicht</target>
@@ -270,6 +274,14 @@
       <trans-unit id="validationerror_upload_error" resname="validationerror_upload_error" approved="yes">
         <source>Upload failed, please check permissions on the server!</source>
         <target state="final">Upload fehlgeschlagen, bitte Berechtigungen auf Server überprüfen!</target>
+      </trans-unit>
+      <trans-unit id="validationerror_container_label" resname="validationerror_container_label" approved="yes">
+        <source>Problematic form fields</source>
+        <target state="final">Problematische Formularfelder</target>
+      </trans-unit>
+      <trans-unit id="validationerror_title" resname="validationerror_title" approved="yes">
+        <source>There are errors in this form</source>
+        <target state="final">Dieses Formular enthält Fehler</target>
       </trans-unit>
       <trans-unit id="validationerror_spam" resname="validationerror_spam" approved="yes">
         <source>Spam recognized:</source>
