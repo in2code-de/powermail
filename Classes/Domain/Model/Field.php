@@ -53,6 +53,8 @@ class Field extends AbstractEntity
 
     protected string $placeholder = '';
 
+    protected string $placeholderRepeat = '';
+
     protected string $createFromTyposcript = '';
 
     protected int $validation = 0;
@@ -273,6 +275,16 @@ class Field extends AbstractEntity
     public function getPlaceholder(): string
     {
         return $this->placeholder;
+    }
+
+    public function setPlaceholderRepeat(string $placeholder_repeat): void
+    {
+        $this->placeholderRepeat = $placeholder_repeat;
+    }
+
+    public function getPlaceholderRepeat(): string
+    {
+        return $this->placeholderRepeat;
     }
 
     public function setCreateFromTyposcript(string $createFromTyposcript): void
