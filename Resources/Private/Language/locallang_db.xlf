@@ -309,6 +309,9 @@
 			<trans-unit id="tx_powermail_domain_model_field.placeholder" resname="tx_powermail_domain_model_field.placeholder">
 				<source>Placeholder</source>
 			</trans-unit>
+			<trans-unit id="tx_powermail_domain_model_field.placeholder_repeat" resname="tx_powermail_domain_model_field.placeholder_repeat">
+				<source>Placeholder for repeat</source>
+			</trans-unit>
 			<trans-unit id="tx_powermail_domain_model_field.create_from_typoscript" resname="tx_powermail_domain_model_field.create_from_typoscript">
 				<source>Create from TypoScript (e.g. lib.fieldvalues)</source>
 			</trans-unit>

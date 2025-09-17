@@ -129,6 +129,8 @@ $typeSmallMandatory = 'page, title, type, ' .
     '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.sheet1, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
         Field::TABLE_NAME . '.validation_title;21, ' .
+    '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+    Field::TABLE_NAME . '.prefill_title;34, ' .
     '--palette--;Layout;43, ' .
     'description, ' .
     '--palette--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
@@ -260,6 +262,10 @@ $fieldsTca = [
         ],
         '33' => [
             'showitem' => 'feuser_value, create_from_typoscript',
+            'canNotCollapse' => 1,
+        ],
+        '34' => [
+            'showitem' => 'placeholder, placeholder_repeat',
             'canNotCollapse' => 1,
         ],
         '4' => [
@@ -808,6 +814,17 @@ $fieldsTca = [
             'exclude' => true,
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.placeholder',
+            'config' => [
+                'type' => 'text',
+                'cols' => '26',
+                'rows' => '2',
+                'default' => '',
+            ],
+        ],
+        'placeholder_repeat' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                Field::TABLE_NAME . '.placeholder_repeat',
             'config' => [
                 'type' => 'text',
                 'cols' => '26',
