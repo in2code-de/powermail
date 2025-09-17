@@ -525,9 +525,6 @@ class FormController extends AbstractController
         if ($mail instanceof \In2code\Powermail\Domain\Model\Mail) {
             $formsToContent = GeneralUtility::intExplode(',', $this->settings['main']['form']);
             if (!in_array($mail->getForm()->getUid(), $formsToContent)) {
-                $logger = ObjectUtility::getLogger(self::class);
-                $logger->warning('Redirect (optin)', [$formsToContent, (array)$mail]);
-
                 $response = new ForwardResponse('form');
                 throw new PropagateResponseException($response);
             }
