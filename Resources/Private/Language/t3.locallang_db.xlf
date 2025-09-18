@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="t3">
+    <header/>
+    <body>
+      <trans-unit id="tabs.access" resname="tabs.access">
+        <source>Access</source>
+        <target>crwdns336384:0crwdne336384:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail">
+        <source>Mail</source>
+        <target>crwdns337126:0crwdne337126:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1">
+        <source>Sender</source>
+        <target>crwdns336388:0crwdne336388:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_mail" resname="tx_powermail_domain_model_mail.sender_mail">
+        <source>Senders Email</source>
+        <target>crwdns336390:0crwdne336390:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_name" resname="tx_powermail_domain_model_mail.sender_name">
+        <source>Senders Name</source>
+        <target>crwdns336392:0crwdne336392:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.subject" resname="tx_powermail_domain_model_mail.subject">
+        <source>Mail Subject</source>
+        <target>crwdns336394:0crwdne336394:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.body" resname="tx_powermail_domain_model_mail.body">
+        <source>Email Body</source>
+        <target>crwdns336396:0crwdne336396:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.receiver_mail" resname="tx_powermail_domain_model_mail.receiver_mail">
+        <source>Receivers Mail</source>
+        <target>crwdns336398:0crwdne336398:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.form" resname="tx_powermail_domain_model_mail.form">
+        <source>Related Form</source>
+        <target>crwdns336400:0crwdne336400:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.answers" resname="tx_powermail_domain_model_mail.answers">
+        <source>Answers</source>
+        <target>crwdns336402:0crwdne336402:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.feuser" resname="tx_powermail_domain_model_mail.feuser">
+        <source>FE_User</source>
+        <target>crwdns336404:0crwdne336404:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.spam_factor" resname="tx_powermail_domain_model_mail.spam_factor">
+        <source>Spam Factor</source>
+        <target>crwdns336406:0crwdne336406:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.time" resname="tx_powermail_domain_model_mail.time">
+        <source>Time for submitting form (in seconds)</source>
+        <target>crwdns336408:0crwdne336408:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_ip" resname="tx_powermail_domain_model_mail.sender_ip">
+        <source>Senders IP address</source>
+        <target>crwdns336410:0crwdne336410:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.user_agent" resname="tx_powermail_domain_model_mail.user_agent">
+        <source>Senders User Agent</source>
+        <target>crwdns336412:0crwdne336412:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.crdate" resname="tx_powermail_domain_model_mail.crdate">
+        <source>Creation Date</source>
+        <target>crwdns336414:0crwdne336414:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer_domain" resname="tx_powermail_domain_model_mail.marketing_referer_domain">
+        <source>Referer Domain</source>
+        <target>crwdns336416:0crwdne336416:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer" resname="tx_powermail_domain_model_mail.marketing_referer">
+        <source>Referer URI</source>
+        <target>crwdns336418:0crwdne336418:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_country" resname="tx_powermail_domain_model_mail.marketing_country">
+        <source>Visitors Country</source>
+        <target>crwdns336420:0crwdne336420:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_mobile_device" resname="tx_powermail_domain_model_mail.marketing_mobile_device">
+        <source>Visitor uses a Mobile Device</source>
+        <target>crwdns336422:0crwdne336422:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_frontend_language" resname="tx_powermail_domain_model_mail.marketing_frontend_language">
+        <source>Website Language</source>
+        <target>crwdns336424:0crwdne336424:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_browser_language" resname="tx_powermail_domain_model_mail.marketing_browser_language">
+        <source>Browser Language</source>
+        <target>crwdns336426:0crwdne336426:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_page_funnel" resname="tx_powermail_domain_model_mail.marketing_page_funnel">
+        <source>Page Funnel which leads to this mail</source>
+        <target>crwdns336428:0crwdne336428:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form">
+        <source>Form</source>
+        <target>crwdns337128:0crwdne337128:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title">
+        <source>Title</source>
+        <target>crwdns336432:0crwdne336432:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.1" resname="tx_powermail_domain_model_form.note.1">
+        <source>Note:</source>
+        <target>crwdns336434:0crwdne336434:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.2" resname="tx_powermail_domain_model_form.note.2">
+        <source>There are no fields marked as sender-email or sender-name</source>
+        <target>crwdns336436:0crwdne336436:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.3" resname="tx_powermail_domain_model_form.note.3">
+        <source>Do not show this note again for this form</source>
+        <target>crwdns336438:0crwdne336438:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.4" resname="tx_powermail_domain_model_form.note.4">
+        <source>Note hidden</source>
+        <target>crwdns336440:0crwdne336440:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.1" resname="tx_powermail_domain_model_form.error.1">
+        <source>Error: Non-Unique or empty marker names in the fields of this form detected</source>
+        <target>crwdns336442:0crwdne336442:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.2" resname="tx_powermail_domain_model_form.error.2">
+        <source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
+        <target>crwdns336444:0crwdne336444:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css">
+        <source>Layout</source>
+        <target>crwdns336446:0crwdne336446:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.1" resname="tx_powermail_domain_model_form.css.1">
+        <source>Layout1</source>
+        <target>crwdns336448:0crwdne336448:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.2" resname="tx_powermail_domain_model_form.css.2">
+        <source>Layout2</source>
+        <target>crwdns336450:0crwdne336450:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3">
+        <source>Layout3</source>
+        <target>crwdns336452:0crwdne336452:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.4" resname="tx_powermail_domain_model_form.css.4">
+        <source>Hide label</source>
+        <target>crwdns336454:0crwdne336454:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages">
+        <source>Pages</source>
+        <target>crwdns336456:0crwdne336456:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page">
+        <source>Page</source>
+        <target>crwdns337130:0crwdne337130:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title">
+        <source>Title</source>
+        <target>crwdns336460:0crwdne336460:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css" resname="tx_powermail_domain_model_page.css">
+        <source>Layout</source>
+        <target>crwdns336462:0crwdne336462:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.1" resname="tx_powermail_domain_model_page.css.1">
+        <source>Layout1</source>
+        <target>crwdns336464:0crwdne336464:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.2" resname="tx_powermail_domain_model_page.css.2">
+        <source>Layout2</source>
+        <target>crwdns336466:0crwdne336466:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.3" resname="tx_powermail_domain_model_page.css.3">
+        <source>Layout3</source>
+        <target>crwdns336468:0crwdne336468:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.4" resname="tx_powermail_domain_model_page.css.4">
+        <source>Hide label</source>
+        <target>crwdns336470:0crwdne336470:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.fields" resname="tx_powermail_domain_model_page.fields">
+        <source>Fields</source>
+        <target>crwdns336472:0crwdne336472:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms">
+        <source>Related Form</source>
+        <target>crwdns336474:0crwdne336474:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field">
+        <source>Field</source>
+        <target>crwdns337132:0crwdne337132:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title">
+        <source>Title</source>
+        <target>crwdns336478:0crwdne336478:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type" resname="tx_powermail_domain_model_field.type">
+        <source>Type</source>
+        <target>crwdns336480:0crwdne336480:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1">
+        <source>Standard</source>
+        <target>crwdns336482:0crwdne336482:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2">
+        <source>Extra</source>
+        <target>crwdns336484:0crwdne336484:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3">
+        <source>Extensions</source>
+        <target>crwdns336486:0crwdne336486:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0">
+        <source>Textfield (Input)</source>
+        <target>crwdns336488:0crwdne336488:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.1" resname="tx_powermail_domain_model_field.type.1">
+        <source>Textfield with more Rows (Textarea)</source>
+        <target>crwdns336490:0crwdne336490:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.2" resname="tx_powermail_domain_model_field.type.2">
+        <source>Selectfield</source>
+        <target>crwdns336492:0crwdne336492:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.3" resname="tx_powermail_domain_model_field.type.3">
+        <source>Checkboxes</source>
+        <target>crwdns336494:0crwdne336494:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.4" resname="tx_powermail_domain_model_field.type.4">
+        <source>Radiobuttons</source>
+        <target>crwdns336496:0crwdne336496:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.5" resname="tx_powermail_domain_model_field.type.5">
+        <source>Submit</source>
+        <target>crwdns336498:0crwdne336498:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.6" resname="tx_powermail_domain_model_field.type.6">
+        <source>Captcha Field</source>
+        <target>crwdns336500:0crwdne336500:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.7" resname="tx_powermail_domain_model_field.type.7">
+        <source>Reset</source>
+        <target>crwdns336502:0crwdne336502:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.8" resname="tx_powermail_domain_model_field.type.8">
+        <source>Show some Text</source>
+        <target>crwdns336504:0crwdne336504:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.9" resname="tx_powermail_domain_model_field.type.9">
+        <source>Content Element</source>
+        <target>crwdns336506:0crwdne336506:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.10" resname="tx_powermail_domain_model_field.type.10">
+        <source>Show HTML</source>
+        <target>crwdns336508:0crwdne336508:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.11" resname="tx_powermail_domain_model_field.type.11">
+        <source>Password Field</source>
+        <target>crwdns336510:0crwdne336510:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.12" resname="tx_powermail_domain_model_field.type.12">
+        <source>File Upload</source>
+        <target>crwdns336512:0crwdne336512:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.13" resname="tx_powermail_domain_model_field.type.13">
+        <source>Hidden Field</source>
+        <target>crwdns336514:0crwdne336514:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.14" resname="tx_powermail_domain_model_field.type.14">
+        <source>Date</source>
+        <target>crwdns336516:0crwdne336516:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.15" resname="tx_powermail_domain_model_field.type.15">
+        <source>Location</source>
+        <target>crwdns336518:0crwdne336518:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.16" resname="tx_powermail_domain_model_field.type.16">
+        <source>TypoScript</source>
+        <target>crwdns336520:0crwdne336520:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.17" resname="tx_powermail_domain_model_field.type.17">
+        <source>Country Selection</source>
+        <target>crwdns336522:0crwdne336522:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.settings" resname="tx_powermail_domain_model_field.settings">
+        <source>Options</source>
+        <target>crwdns336524:0crwdne336524:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.path" resname="tx_powermail_domain_model_field.path">
+        <source>TypoScript Path (e.g. lib.test)</source>
+        <target>crwdns336526:0crwdne336526:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.content_element" resname="tx_powermail_domain_model_field.content_element">
+        <source>Select Content Element</source>
+        <target>crwdns336528:0crwdne336528:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.text" resname="tx_powermail_domain_model_field.text">
+        <source>Add some text</source>
+        <target>crwdns336530:0crwdne336530:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation_title" resname="tx_powermail_domain_model_field.validation_title">
+        <source>Validation</source>
+        <target>crwdns336532:0crwdne336532:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory">
+        <source>Mandatory Field</source>
+        <target>crwdns336534:0crwdne336534:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text">
+        <source>Custom error message</source>
+        <target>crwdns372848:0crwdne372848:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation">
+        <source>Validation</source>
+        <target>crwdns336536:0crwdne336536:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.1" resname="tx_powermail_domain_model_field.validation.1">
+        <source>Email</source>
+        <target>crwdns336538:0crwdne336538:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.2" resname="tx_powermail_domain_model_field.validation.2">
+        <source>URL</source>
+        <target>crwdns336540:0crwdne336540:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.3" resname="tx_powermail_domain_model_field.validation.3">
+        <source>Phone</source>
+        <target>crwdns336542:0crwdne336542:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.4" resname="tx_powermail_domain_model_field.validation.4">
+        <source>Numbers Only</source>
+        <target>crwdns336544:0crwdne336544:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.5" resname="tx_powermail_domain_model_field.validation.5">
+        <source>Letters Only</source>
+        <target>crwdns336546:0crwdne336546:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.6" resname="tx_powermail_domain_model_field.validation.6">
+        <source>Min Number</source>
+        <target>crwdns336548:0crwdne336548:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.7" resname="tx_powermail_domain_model_field.validation.7">
+        <source>Max Number</source>
+        <target>crwdns336550:0crwdne336550:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.8" resname="tx_powermail_domain_model_field.validation.8">
+        <source>Range</source>
+        <target>crwdns336552:0crwdne336552:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.9" resname="tx_powermail_domain_model_field.validation.9">
+        <source>Length</source>
+        <target>crwdns336554:0crwdne336554:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.10" resname="tx_powermail_domain_model_field.validation.10">
+        <source>Pattern (RegEx)</source>
+        <target>crwdns336556:0crwdne336556:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validationConfiguration" resname="tx_powermail_domain_model_field.validationConfiguration">
+        <source>Validation Configuration</source>
+        <target>crwdns336558:0crwdne336558:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css" resname="tx_powermail_domain_model_field.css">
+        <source>Layout</source>
+        <target>crwdns336560:0crwdne336560:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.1" resname="tx_powermail_domain_model_field.css.1">
+        <source>Layout 1</source>
+        <target>crwdns336562:0crwdne336562:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.2" resname="tx_powermail_domain_model_field.css.2">
+        <source>Layout 2</source>
+        <target>crwdns336564:0crwdne336564:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.3" resname="tx_powermail_domain_model_field.css.3">
+        <source>Layout 3</source>
+        <target>crwdns336566:0crwdne336566:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.4" resname="tx_powermail_domain_model_field.css.4">
+        <source>Hide label</source>
+        <target>crwdns336568:0crwdne336568:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.multiselect" resname="tx_powermail_domain_model_field.multiselect">
+        <source>Multiselect</source>
+        <target>crwdns336570:0crwdne336570:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings" resname="tx_powermail_domain_model_field.datepicker_settings">
+        <source>Datepicker Mode</source>
+        <target>crwdns336572:0crwdne336572:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1">
+        <source>Date</source>
+        <target>crwdns336574:0crwdne336574:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.2" resname="tx_powermail_domain_model_field.datepicker_settings.2">
+        <source>Date and Time</source>
+        <target>crwdns336576:0crwdne336576:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3">
+        <source>Time</source>
+        <target>crwdns336578:0crwdne336578:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_title" resname="tx_powermail_domain_model_field.prefill_title">
+        <source>Prefill Field</source>
+        <target>crwdns336580:0crwdne336580:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_value" resname="tx_powermail_domain_model_field.prefill_value">
+        <source>With Value</source>
+        <target>crwdns336582:0crwdne336582:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder" resname="tx_powermail_domain_model_field.placeholder">
+        <source>Placeholder</source>
+        <target>crwdns336584:0crwdne336584:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder_repeat" resname="tx_powermail_domain_model_field.placeholder_repeat">
+        <source>Placeholder for repeat</source>
+        <target>crwdns376678:0crwdne376678:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.create_from_typoscript" resname="tx_powermail_domain_model_field.create_from_typoscript">
+        <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
+        <target>crwdns336586:0crwdne336586:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value">
+        <source>Value from logged in Frontend User</source>
+        <target>crwdns336588:0crwdne336588:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name">
+        <source>Name</source>
+        <target>crwdns336590:0crwdne336590:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.address" resname="tx_powermail_domain_model_field.feuser_value.address">
+        <source>Address</source>
+        <target>crwdns336592:0crwdne336592:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.phone" resname="tx_powermail_domain_model_field.feuser_value.phone">
+        <source>Phone</source>
+        <target>crwdns336594:0crwdne336594:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.fax" resname="tx_powermail_domain_model_field.feuser_value.fax">
+        <source>Fax</source>
+        <target>crwdns336596:0crwdne336596:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.email" resname="tx_powermail_domain_model_field.feuser_value.email">
+        <source>Email</source>
+        <target>crwdns336598:0crwdne336598:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.zip" resname="tx_powermail_domain_model_field.feuser_value.zip">
+        <source>ZIP</source>
+        <target>crwdns336600:0crwdne336600:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.city" resname="tx_powermail_domain_model_field.feuser_value.city">
+        <source>City</source>
+        <target>crwdns336602:0crwdne336602:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.country" resname="tx_powermail_domain_model_field.feuser_value.country">
+        <source>Country</source>
+        <target>crwdns336604:0crwdne336604:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.www" resname="tx_powermail_domain_model_field.feuser_value.www">
+        <source>Website</source>
+        <target>crwdns336606:0crwdne336606:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.company" resname="tx_powermail_domain_model_field.feuser_value.company">
+        <source>Company</source>
+        <target>crwdns336608:0crwdne336608:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_email" resname="tx_powermail_domain_model_field.sender_email">
+        <source>This field contains the Email of the sender</source>
+        <target>crwdns336610:0crwdne336610:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_name" resname="tx_powermail_domain_model_field.sender_name">
+        <source>This field contains the Name of the sender</source>
+        <target>crwdns336612:0crwdne336612:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.marker_title" resname="tx_powermail_domain_model_field.marker_title">
+        <source>Variables</source>
+        <target>crwdns336614:0crwdne336614:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.description" resname="tx_powermail_domain_model_field.description">
+        <source>Description</source>
+        <target>crwdns336616:0crwdne336616:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker" resname="tx_powermail_domain_model_field.own_marker">
+        <source>Enter your own Variable Name</source>
+        <target>crwdns336618:0crwdne336618:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.auto_marker" resname="tx_powermail_domain_model_field.auto_marker">
+        <source>Individual Fieldname to use as Variable (automaticly wrapped with {})</source>
+        <target>crwdns336620:0crwdne336620:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker_select" resname="tx_powermail_domain_model_field.own_marker_select">
+        <source>Add my own Variable Name</source>
+        <target>crwdns336622:0crwdne336622:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.pages" resname="tx_powermail_domain_model_field.pages">
+        <source>Related Page</source>
+        <target>crwdns336624:0crwdne336624:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet1" resname="tx_powermail_domain_model_field.sheet1">
+        <source>Extended</source>
+        <target>crwdns336626:0crwdne336626:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2">
+        <source>Marketing</source>
+        <target>crwdns336628:0crwdne336628:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1">
+        <source>Email or Name</source>
+        <target>crwdns336630:0crwdne336630:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer">
+        <source>Answer</source>
+        <target>crwdns337134:0crwdne337134:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value">
+        <source>The transferred value</source>
+        <target>crwdns336634:0crwdne336634:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type" resname="tx_powermail_domain_model_answer.value_type">
+        <source>Data Type</source>
+        <target>crwdns336636:0crwdne336636:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.0" resname="tx_powermail_domain_model_answer.value_type.0">
+        <source>Text</source>
+        <target>crwdns336638:0crwdne336638:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.1" resname="tx_powermail_domain_model_answer.value_type.1">
+        <source>Multi Text (Array)</source>
+        <target>crwdns336640:0crwdne336640:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2">
+        <source>Date</source>
+        <target>crwdns336642:0crwdne336642:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.3" resname="tx_powermail_domain_model_answer.value_type.3">
+        <source>Upload</source>
+        <target>crwdns336644:0crwdne336644:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail">
+        <source>Mail</source>
+        <target>crwdns336646:0crwdne336646:0</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field">
+        <source>Field</source>
+        <target>crwdns336648:0crwdne336648:0</target>
+      </trans-unit>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose">
+        <source>Please choose...</source>
+        <target>crwdns336650:0crwdne336650:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main" resname="flexform.main">
+        <source>Main Settings</source>
+        <target>crwdns336652:0crwdne336652:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.form" resname="flexform.main.form">
+        <source>Choose a Powermail Form</source>
+        <target>crwdns336654:0crwdne336654:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote">
+        <source>Form overview</source>
+        <target>crwdns336656:0crwdne336656:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform">
+        <source>Please select a form</source>
+        <target>crwdns336658:0crwdne336658:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.new" resname="flexform.main.formnote.new">
+        <source>Add a new form</source>
+        <target>crwdns336660:0crwdne336660:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.edit" resname="flexform.main.formnote.edit">
+        <source>Manage the current form</source>
+        <target>crwdns336662:0crwdne336662:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.formname" resname="flexform.main.formnote.formname">
+        <source>Form Name</source>
+        <target>crwdns336664:0crwdne336664:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.storedinpage" resname="flexform.main.formnote.storedinpage">
+        <source>Stored in Page</source>
+        <target>crwdns336666:0crwdne336666:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.pages" resname="flexform.main.formnote.pages">
+        <source>Pages</source>
+        <target>crwdns336668:0crwdne336668:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.fields" resname="flexform.main.formnote.fields">
+        <source>Fields</source>
+        <target>crwdns336670:0crwdne336670:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.pid" resname="flexform.main.pid">
+        <source>Where to save Mails (empty = same page)</source>
+        <target>crwdns336672:0crwdne336672:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.optin" resname="flexform.main.optin">
+        <source>Mail must be confirmed (Double Opt-In)</source>
+        <target>crwdns336674:0crwdne336674:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.confirmation" resname="flexform.main.confirmation">
+        <source>Do you want a confirmation page?</source>
+        <target>crwdns336676:0crwdne336676:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.moresteps" resname="flexform.main.moresteps">
+        <source>Do you want to split each page (step by step)?</source>
+        <target>crwdns336678:0crwdne336678:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver" resname="flexform.receiver">
+        <source>Mail to Receiver</source>
+        <target>crwdns336680:0crwdne336680:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.name" resname="flexform.receiver.name">
+        <source>Receivers Name</source>
+        <target>crwdns336682:0crwdne336682:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type" resname="flexform.receiver.type">
+        <source>Receiver type</source>
+        <target>crwdns336684:0crwdne336684:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.0" resname="flexform.receiver.type.0">
+        <source>Email addresses</source>
+        <target>crwdns336686:0crwdne336686:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.1" resname="flexform.receiver.type.1">
+        <source>Frontend user group</source>
+        <target>crwdns336688:0crwdne336688:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.2" resname="flexform.receiver.type.2">
+        <source>Predefined receivers</source>
+        <target>crwdns336690:0crwdne336690:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.3" resname="flexform.receiver.type.3">
+        <source>Backend user group</source>
+        <target>crwdns336692:0crwdne336692:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email">
+        <source>Receivers Email</source>
+        <target>crwdns336694:0crwdne336694:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group">
+        <source>Send Email to Frontend User Group</source>
+        <target>crwdns336696:0crwdne336696:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail" resname="flexform.receiver.predefinedemail">
+        <source>Predefined receivers</source>
+        <target>crwdns336698:0crwdne336698:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.be_group" resname="flexform.receiver.be_group">
+        <source>Send Email to Backend User Group</source>
+        <target>crwdns336700:0crwdne336700:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail.1" resname="flexform.receiver.predefinedemail.1">
+        <source>Example receivers 1</source>
+        <target>crwdns336702:0crwdne336702:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject">
+        <source>Subject for Email to Receiver (Empty subject disables mail)</source>
+        <target>crwdns336704:0crwdne336704:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.body" resname="flexform.receiver.body">
+        <source>Bodytext for Email to Receiver</source>
+        <target>crwdns336706:0crwdne336706:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment">
+        <source>Send uploaded files to receiver</source>
+        <target>crwdns372850:0crwdne372850:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender">
+        <source>Mail to User</source>
+        <target>crwdns336708:0crwdne336708:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.email" resname="flexform.sender.email">
+        <source>Sender Email (For Confirmation Mail to User)</source>
+        <target>crwdns336710:0crwdne336710:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target>crwdns336712:0crwdne336712:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target>crwdns336714:0crwdne336714:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body">
+        <source>Bodytext for Email to Sender</source>
+        <target>crwdns336716:0crwdne336716:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment">
+        <source>Send uploaded files to sender</source>
+        <target>crwdns372852:0crwdne372852:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx">
+        <source>Submit Page</source>
+        <target>crwdns336718:0crwdne336718:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body">
+        <source>Text on submit page</source>
+        <target>crwdns336720:0crwdne336720:0</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect">
+        <source>Redirect to any other Page after submit</source>
+        <target>crwdns336722:0crwdne336722:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target>crwdns375044:0crwdne375044:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main">
+        <source>Main Settings</source>
+        <target>crwdns375046:0crwdne375046:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form">
+        <source>Choose a form</source>
+        <target>crwdns375048:0crwdne375048:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid">
+        <source>Select a page with mails (optional)</source>
+        <target>crwdns375050:0crwdne375050:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list">
+        <source>Listview</source>
+        <target>crwdns375052:0crwdne375052:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target>crwdns375054:0crwdne375054:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target>crwdns375056:0crwdne375056:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target>crwdns375058:0crwdne375058:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target>crwdns375060:0crwdne375060:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly">
+        <source>Own entries</source>
+        <target>crwdns375062:0crwdne375062:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target>crwdns375064:0crwdne375064:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single">
+        <source>Detailview</source>
+        <target>crwdns375066:0crwdne375066:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target>crwdns375068:0crwdne375068:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink">
+        <source>Link to detail view</source>
+        <target>crwdns375070:0crwdne375070:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0">
+        <source>active</source>
+        <target>crwdns375072:0crwdne375072:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid">
+        <source>Page with Plugin for detail view (Empty: Same page)</source>
+        <target>crwdns375074:0crwdne375074:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search">
+        <source>Searchsettings</source>
+        <target>crwdns375076:0crwdne375076:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields">
+        <source>Add searchfield</source>
+        <target>crwdns375078:0crwdne375078:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all">
+        <source>[Fulltext Search]</source>
+        <target>crwdns375080:0crwdne375080:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator">
+        <source>search fields operator (AND / OR)</source>
+        <target>crwdns375082:0crwdne375082:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0">
+        <source>OR (Find keyword in Field1 OR Field2)</source>
+        <target>crwdns375084:0crwdne375084:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1">
+        <source>AND (Find keyword in Field1 AND Field2)</source>
+        <target>crwdns375086:0crwdne375086:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc">
+        <source>Add ABC filter</source>
+        <target>crwdns375088:0crwdne375088:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off">
+        <source>[Deactivated]</source>
+        <target>crwdns375090:0crwdne375090:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit">
+        <source>Editview</source>
+        <target>crwdns375092:0crwdne375092:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields">
+        <source>Choose Fields to edit (Empty: All fields)</source>
+        <target>crwdns375094:0crwdne375094:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser">
+        <source>Choose one or more Frontend-Users with permission to change</source>
+        <target>crwdns375096:0crwdne375096:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner">
+        <source>[Owner]</source>
+        <target>crwdns375098:0crwdne375098:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup">
+        <source>Choose one or more Frontend-Groups with permission to change</source>
+        <target>crwdns375100:0crwdne375100:0</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid">
+        <source>Page with Plugin for edit view (Empty: Same page)</source>
+        <target>crwdns375102:0crwdne375102:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail">
+        <source>Receiver email address</source>
+        <target>crwdns336802:0crwdne336802:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverName" resname="pluginInfo.receiverName">
+        <source>Receiver name</source>
+        <target>crwdns336804:0crwdne336804:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.subject" resname="pluginInfo.subject">
+        <source>Mail subject</source>
+        <target>crwdns336806:0crwdne336806:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.form" resname="pluginInfo.form">
+        <source>Form title</source>
+        <target>crwdns336808:0crwdne336808:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.savePid" resname="pluginInfo.savePid">
+        <source>Storage Location for Mails</source>
+        <target>crwdns336810:0crwdne336810:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.confirmationPage" resname="pluginInfo.confirmationPage">
+        <source>Confirmation page activated</source>
+        <target>crwdns336812:0crwdne336812:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.optin" resname="pluginInfo.optin">
+        <source>Double-opt-in activated</source>
+        <target>crwdns336814:0crwdne336814:0</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.more" resname="pluginInfo.more">
+        <source>More ...</source>
+        <target>crwdns336816:0crwdne336816:0</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
