@@ -113,6 +113,8 @@ class SendMailService
         $event = $this->eventDispatcher->dispatch(
             new SendMailServicePrepareAndSendEvent($message, $email, $this)
         );
+        $email = $event->getEmail();
+        $message = $event->getMailMessage();
         if ($event->isAllowedToSend() === false) {
             if ($GLOBALS['TYPO3_CONF_VARS']['BE']['debug']) {
                 $logger = ObjectUtility::getLogger(self::class);
