@@ -137,6 +137,8 @@ class SendMailService
         $event = $this->eventDispatcher->dispatch(
             GeneralUtility::makeInstance(SendMailServicePrepareAndSendEvent::class, $message, $email, $this)
         );
+        $email = $event->getEmail();
+        $message = $event->getMailMessage();
         if ($event->isAllowedToSend() === false) {
             if ($this->settings['debug']['mail']) {
                 $logger = ObjectUtility::getLogger(__CLASS__);
