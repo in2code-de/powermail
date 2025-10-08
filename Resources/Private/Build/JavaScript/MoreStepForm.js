@@ -52,7 +52,7 @@ export default function MoreStepForm() {
         let form = event.target.closest('form');
 
         // CUSTOM visible field validation
-        let validateVisibleFields = event.target.getAttribute('data-powermail-morestep-validate') === 'true';
+        let validateVisibleFields = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-validate'));
         let scrollIntoView = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-scroll'));
         // validate visible fields if set before proceed
         if (validateVisibleFields
