@@ -53,6 +53,7 @@ export default function MoreStepForm() {
 
         // CUSTOM visible field validation
         let validateVisibleFields = event.target.getAttribute('data-powermail-morestep-validate') === 'true';
+        let scrollIntoView = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-scroll'));
         // validate visible fields if set before proceed
         if (validateVisibleFields
           && !form.powermailFormValidation.validateVisibleFields()
@@ -64,7 +65,9 @@ export default function MoreStepForm() {
         }
 
         that.showFieldset(targetFieldset, form, backwards);
-        getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior: 'smooth'});
+        if (scrollIntoView) {
+          getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior:'smooth'});
+        }
       });
     }
   }
