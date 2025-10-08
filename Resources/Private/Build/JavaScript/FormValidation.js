@@ -129,7 +129,7 @@ class Form {
         fieldsWithError.forEach((field) => {
           if (Utility.isElementVisible(field)) {
             field.scrollIntoView({behavior:'smooth', block:'center'});
-            field.focus({preventScroll:true});
+            setTimeout(() => field.focus({ preventScroll: true }), 300);
             throw 'StopException';
           }
         });
