@@ -411,6 +411,10 @@
         <source>Placeholder</source>
         <target state="final">Platzhalter</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder_repeat" resname="tx_powermail_domain_model_field.placeholder_repeat" approved="yes">
+        <source>Placeholder for repeat</source>
+        <target state="final">Platzhalter für Passwortwiederholung</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.create_from_typoscript" resname="tx_powermail_domain_model_field.create_from_typoscript" approved="yes">
         <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
         <target state="final">Über TypoScript erstellen (z.B. lib.fieldvalues)</target>
