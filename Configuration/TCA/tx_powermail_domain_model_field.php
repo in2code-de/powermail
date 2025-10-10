@@ -238,35 +238,27 @@ $fieldsTca = [
     'palettes' => [
         '1' => [
             'showitem' => 'sender_email, sender_name',
-            'canNotCollapse' => 1,
         ],
         '2' => [
             'showitem' => 'mandatory, mandatory_text, validation, validation_configuration',
-            'canNotCollapse' => 1,
         ],
         '21' => [
             'showitem' => 'mandatory, mandatory_text',
-            'canNotCollapse' => 1,
         ],
         '3' => [
             'showitem' => 'prefill_value, placeholder, feuser_value, create_from_typoscript',
-            'canNotCollapse' => 1,
         ],
         '31' => [
             'showitem' => 'prefill_value, feuser_value',
-            'canNotCollapse' => 1,
         ],
         '32' => [
             'showitem' => 'prefill_value, placeholder, feuser_value',
-            'canNotCollapse' => 1,
         ],
         '33' => [
             'showitem' => 'feuser_value, create_from_typoscript',
-            'canNotCollapse' => 1,
         ],
         '34' => [
             'showitem' => 'placeholder, placeholder_repeat',
-            'canNotCollapse' => 1,
         ],
         '4' => [
             'showitem' => 'css, multiselect, datepicker_settings',
@@ -282,9 +274,7 @@ $fieldsTca = [
         ],
         '5' => [
             'showitem' => 'auto_marker, marker, own_marker_select',
-            'canNotCollapse' => 1,
         ],
-        'canNotCollapse' => '1',
     ],
     'types' => [
         '0' => [
