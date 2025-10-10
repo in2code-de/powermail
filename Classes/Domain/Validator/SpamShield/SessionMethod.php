@@ -21,7 +21,7 @@ class SessionMethod extends AbstractMethod
             $this->mail->getForm()->getUid(),
             $this->settings
         );
-        $referrer = $this->arguments['__referrer']['@action'];
+        $referrer = $this->arguments['__referrer']['@action'] ?? $this->arguments['action'] ?? '';
         return $referrer !== 'optinConfirm' && empty($timeFromSession);
     }
 }
