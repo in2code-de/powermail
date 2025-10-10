@@ -371,6 +371,12 @@ settings:
       both: 'HTML and Plain text e-mails'
       html: 'HTML e-mails only'
       plain: 'Plain text e-mails only'
+  plugin.tx_powermail.settings.sender.addDisclaimerLink:
+    label: 'Add disclaimer link'
+    description: 'Add disclaimer link to the sender email (also in optin mail)'
+    category: powermail.mail-sender.common
+    default: true
+    type: bool
   plugin.tx_powermail.settings.sender.default.senderName:
     label: 'Default Sender Name'
     description: 'Senders name, if no sender name given'
