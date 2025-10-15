@@ -106,7 +106,7 @@
 		"test:behaviour": "behat --config Tests/Behavior/behat.yml",
 		"test:behaviour:tag": "behat --config Tests/Behavior/behat.yml --tags",
 		"test:behaviour:stop": "behat --config Tests/Behavior/behat.yml --stop-on-failure",
-		"test:php:cs": "php-cs-fixer --version && php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
+		"test:php:cs": "php-cs-fixer fix --dry-run --config=.project/tests/.php-cs-fixer.php --diff",
 		"test:php:lint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
 		"test:php:phpstan": "phpstan analyse -c .project/tests/phpstan.neon",
 		"test:php:phpstan:generate-baseline": "phpstan analyse -c .project/tests/phpstan.neon --generate-baseline .project/tests/phpstan-baseline.neon",
