@@ -1,11 +1,15 @@
+/.crowdin.yaml export-ignore
+/.ddev export-ignore
+/.editorconfig export-ignore
 /.gitattributes export-ignore
+/.github export-ignore
 /.gitignore export-ignore
 /.project export-ignore
+/crowdin.yaml export-ignore
+/phpunit.xml.dist export-ignore
+/rector.php export-ignore
+/Resources/Private/Build export-ignore
 /Tests export-ignore
-/Resources/Private/Sass/
-/Resources/Private/gulpfile.js
-/Resources/Private/package.json
-/readme.md
 # Enforce checkout with linux lf consistent over all plattforms
 *.html text eol=lf
 *.css text eol=lf
