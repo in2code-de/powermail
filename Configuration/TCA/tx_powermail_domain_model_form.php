@@ -33,7 +33,7 @@ $formsTca = [
             'showitem' => 'title, pages, note, ' .
                 '--div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
                 Field::TABLE_NAME . '.sheet1, ' .
-                'css, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
+                'css,autocomplete_token, --div--;LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:tabs.access, ' .
                 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, starttime, endtime',
         ],
     ],
@@ -174,6 +174,23 @@ $formsTca = [
                     'showSynchronizationLink' => 0,
                     'showAllLocalizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
+                ],
+            ],
+        ],
+        'autocomplete_token' => [
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.autocomplete_token',
+            'description' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.autocomplete_token.description',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:autocomplete_token.none', 'value' => ''],
+                    ['label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:autocomplete_token.on', 'value' => 'on'],
+                    ['label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:autocomplete_token.off', 'value' => 'off'],
+                ],
+                'default' => '',
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
                 ],
             ],
         ],
