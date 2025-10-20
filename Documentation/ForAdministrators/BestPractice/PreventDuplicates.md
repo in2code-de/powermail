@@ -87,7 +87,7 @@ See a possible solution for an inline JavaScript in the Submit-Partial of powerm
 
         <f:comment>
             New from here: Prevent duplicate clicks within 6 seconds
-        </comment
+        </f:comment>
         <f:asset.css identifier="powermailSubmit">
             input.{settings.styles.framework.submitClasses}[disabled] {
                 opacity: 0.3;
