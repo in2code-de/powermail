@@ -18,7 +18,7 @@
 							<th>
 								<f:if condition="{vh:condition.isNumber(val:fieldUid)}">
 									<f:then>
-										<vh:Getter.GetFieldLabelFromUid uid="{fieldUid}" />
+										<vh:getter.getFieldLabelFromUid uid="{fieldUid}" />
 									</f:then>
 									<f:else>
 										<f:translate key="\In2code\Powermail\Domain\Model\Mail.{vh:string.underscoredToLowerCamelCase(val:fieldUid)}" extensionName="powermail" />
@@ -65,7 +65,7 @@
 															<f:format.date format="%M:%S"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
 														</f:then>
 														<f:else>
-															<f:format.date format="H:i:s"><vh:Misc.VariableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
+															<f:format.date format="H:i:s"><vh:misc.variableInVariable obj="{mail}" prop="{fieldUid}" /></f:format.date>
 														</f:else>
 													</f:if>
 												</f:else>
