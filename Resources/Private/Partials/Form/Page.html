@@ -6,7 +6,7 @@
 
     <f:for each="{page.fields}" as="field" iteration="iteration">
         <vh:misc.createRowTags columns="{settings.styles.numberOfColumns}" class="{settings.styles.framework.rowClasses}" iteration="{iteration}">
-            <f:render partial="Form/Field/{vh:String.Upper(string:field.type)}" arguments="{field:field}"/>
+            <f:render partial="Form/Field/{vh:string.upper(string:field.type)}" arguments="{field:field}"/>
         </vh:misc.createRowTags>
     </f:for>
 

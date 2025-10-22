@@ -37,10 +37,10 @@ Section for Mails
 <f:section name="mail">
 	<table class="powermail_all">
 		<f:for each="{mail.answers}" as="answer">
-			<f:if condition="{vh:Condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
+			<f:if condition="{vh:condition.isNotExcludedFromPowermailAll(answer:answer, type:type, settings:settings)}">
 				<f:if condition="{settings.misc.showOnlyFilledValues}">
 					<f:then>
-						<f:if condition="{vh:Condition.IsNotEmpty(val:'{answer.value}')}">
+						<f:if condition="{vh:condition.isNotEmpty(val:'{answer.value}')}">
 							<f:render partial="PowermailAll/Mail" arguments="{_all}" />
 						</f:if>
 					</f:then>
