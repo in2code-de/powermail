@@ -193,7 +193,6 @@ if (ConfigurationUtility::isReplaceIrreWithElementBrowserActive()) {
         'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Form::TABLE_NAME . '.pages',
         'config' => [
             'type' => 'group',
-            'internal_type' => 'db',
             'allowed' => Page::TABLE_NAME,
             'foreign_table' => Page::TABLE_NAME,
             'minitems' => 1,
