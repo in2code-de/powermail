@@ -126,7 +126,7 @@
 							<type>text</type>
 							<cols>32</cols>
 							<rows>2</rows>
-                            <max>1000</max>
+							<max>1000</max>
 						</config>
 					</settings.flexform.receiver.email>
 					<settings.flexform.receiver.fe_group>
@@ -201,24 +201,24 @@
 						</config>
 					</settings.flexform.receiver.subject>
 					<settings.flexform.receiver.body>
-                        <exclude>1</exclude>
-                        <label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.body</label>
-                        <config>
-                            <type>text</type>
-                            <default>{powermail_all}</default>
-                            <enableRichtext>1</enableRichtext>
-                        </config>
+						<exclude>1</exclude>
+						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.body</label>
+						<config>
+							<type>text</type>
+							<default>{powermail_all}</default>
+							<enableRichtext>1</enableRichtext>
+						</config>
 					</settings.flexform.receiver.body>
-                    <settings.flexform.receiver.attachment>
-                        <displayCond>USER:In2code\Powermail\UserFunc\TestForFeature->isFeatureEnabled:powermailEditorsAreAllowedToSendAttachments</displayCond>
-                        <exclude>1</exclude>
-                        <label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.attachment</label>
-                        <config>
-                            <type>check</type>
-                            <default>0</default>
-                        </config>
-                    </settings.flexform.receiver.attachment>
-                </el>
+					<settings.flexform.receiver.attachment>
+						<displayCond>USER:In2code\Powermail\UserFunc\TestForFeature->isFeatureEnabled:powermailEditorsAreAllowedToSendAttachments</displayCond>
+						<exclude>1</exclude>
+						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.receiver.attachment</label>
+						<config>
+							<type>check</type>
+							<default>0</default>
+						</config>
+					</settings.flexform.receiver.attachment>
+				</el>
 			</ROOT>
 		</receiver>
 		<sender>
@@ -259,16 +259,16 @@
 							<enableRichtext>1</enableRichtext>
 						</config>
 					</settings.flexform.sender.body>
-                    <settings.flexform.sender.attachment>
-                        <displayCond>USER:In2code\Powermail\UserFunc\TestForFeature->isFeatureEnabled:powermailEditorsAreAllowedToSendAttachments</displayCond>
-                        <exclude>1</exclude>
-                        <label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.sender.attachment</label>
-                        <config>
-                            <type>check</type>
-                            <default>0</default>
-                        </config>
-                    </settings.flexform.sender.attachment>
-                </el>
+					<settings.flexform.sender.attachment>
+						<displayCond>USER:In2code\Powermail\UserFunc\TestForFeature->isFeatureEnabled:powermailEditorsAreAllowedToSendAttachments</displayCond>
+						<exclude>1</exclude>
+						<label>LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:flexform.sender.attachment</label>
+						<config>
+							<type>check</type>
+							<default>0</default>
+						</config>
+					</settings.flexform.sender.attachment>
+				</el>
 			</ROOT>
 		</sender>
 		<thx>
