@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:powermail/Configuration/Sets/Styling/labels.xlf" date="2025-10-31T08:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="settings.plugin.tx_powermail.settings.BasicCss">
+				<source>Path to a file with (very) basic css definitions</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.BasicCss">
+				<source>Default css delivered by EXT:powermail. You want to overwrite them definitely</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
