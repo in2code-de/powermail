@@ -2,6 +2,4 @@ settings:
   plugin.tx_powermail.settings.BasicCss:
     default: 'EXT:powermail/Resources/Public/Css/Basic.css'
     type: text
-    label: Path to a file with (very) basic css definitions
-    description: Default css delivered by EXT:powermail. You want to overwrite them definitely
     category: powermail.styling
