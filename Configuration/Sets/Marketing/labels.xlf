@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:powermail/Configuration/Sets/Marketing/labels.xlf" date="2025-10-31T08:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.enable">
+				<source>Enable Marketing</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.enable">
+				<source>Enable JavaScript for google conversion - This is interesting if you want to track every submit in your Google Adwords account for a complete conversion.</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.googleAdwords._enable">
+				<source>Enable Google Adwords</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.googleAdwords._enable">
+				<source>Enable Google Adwords</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_id">
+				<source>Google Conversion Id</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_id">
+				<source>Add your google conversion id (see www.google.com/adwords for details)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_label">
+				<source>Google Conversion Label</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_label">
+				<source>Add your google conversion label (see www.google.com/adwords for details)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_language">
+				<source>Google Conversion Language</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.marketing.googleAdwords.google_conversion_language">
+				<source>Add your google conversion language (see www.google.com/adwords for details)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

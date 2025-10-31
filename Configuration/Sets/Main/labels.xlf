@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:powermail/Configuration/Sets/Styling/labels.xlf" date="2025-10-31T08:00:00Z" product-name="powermail">
+		<header/>
+		<body>
+			<trans-unit id="categories.powermail">
+				<source>Powermail - Main</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.captcha">
+				<source>Captcha</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-receiver">
+				<source>Mail for Receiver</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-receiver.common">
+				<source>Common</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-receiver.overwrite">
+				<source>Overwrite</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-receiver.senderheader">
+				<source>Sender header</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-sender">
+				<source>Mail for Sender</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-sender.common">
+				<source>Common</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-sender.overwrite">
+				<source>Overwrite</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.mail-sender.senderheader">
+				<source>Sender header</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.marketing">
+				<source>Marketing</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.misc">
+				<source>Miscellaneous</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.spamshield">
+				<source>Spamshield</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.db">
+				<source>Storage</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.styling">
+				<source>Styling</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.validation">
+				<source>Validation</source>
+			</trans-unit>
+			<trans-unit id="categories.powermail.view">
+				<source>View</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.image">
+				<source>Captcha Background</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.image">
+				<source>Set own captcha background image (e.g. fileadmin/bg.png)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.font">
+				<source>Captcha Font</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.font">
+				<source>Set TTF-Font for captcha image (e.g. fileadmin/font.ttf)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.textColor">
+				<source>Captcha Text Color</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.textColor">
+				<source>Define your text color in hex code - must start with # (e.g. #ff0000)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.textSize">
+				<source>Captcha Text Size</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.textSize">
+				<source>Define your text size in px (e.g. 24)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.textAngle">
+				<source>Captcha Text Angle</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.textAngle">
+				<source>Define two different values (start and stop) for your text random angle and separate it with a comma (e.g. -10,10)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.distanceHor">
+				<source>Captcha Text Distance Hor</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.distanceHor">
+				<source>Define two different values (start and stop) for your text horizontal random distance and separate it with a comma (e.g. 20,80)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.captcha.distanceVer">
+				<source>Captcha Text Distance Ver</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.captcha.distanceVer">
+				<source>Define two different values (start and stop) for your text vertical random distance and separate it with a comma (e.g. 30,60)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.db.enable">
+				<source>Mail Storage enabled</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.db.enable">
+				<source>Store Mails in database</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.db.hidden">
+				<source>Hidden Mails in Storage</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.db.hidden">
+				<source>Add mails with hidden flag (e.g. 1)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.main.pid">
+				<source>Storage PID</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.main.pid">
+				<source>Save mails in a defined Page (normally set via Flexform)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.main.form">
+				<source>Form Uids</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.main.form">
+				<source>Comma separated list of forms to show (normally set via Flexform)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.main.confirmation">
+				<source>Confirmation Page Active</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.main.confirmation">
+				<source>Activate Confirmation Page (normally set via Flexform)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.main.optin">
+				<source>Double Optin Active</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.main.optin">
+				<source>Activate Double Optin for Mail sender (normally set via Flexform)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.main.moresteps">
+				<source>Morestep Active</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.main.moresteps">
+				<source>Activate Morestep Forms (normally set via Flexform)</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.htmlForHtmlFields">
+				<source>Allow HTML in html fields</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.htmlForHtmlFields">
+				<source>Per default output of fields of type HTML is parsed through a htmlspecialchars() function to avoid cross-site-scripting (XSS) for security reasons. If you are aware of possible XSS-problems, caused by editors, you can enable it and your original HTML is shown in the Frontend.</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.htmlForLabels">
+				<source>Allow HTML in field labels</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.htmlForLabels">
+				<source>Per default labels are generated with htmlspecialchars() to prevent xss. This also disables links in labels. If you aware of possible XSS-problems, caused by editors, you can enable it.</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.showOnlyFilledValues">
+				<source>Show only filled values</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.showOnlyFilledValues">
+				<source>If the user submits a form, even not filled values are viewable. If you only want to show labels with filled values, use this setting</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.ajaxSubmit">
+				<source>AJAX Submit Form</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.ajaxSubmit">
+				<source>Submit Powermail Forms with AJAX (browser will not reload complete page)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.addQueryString">
+				<source>Enable AddQueryString</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.addQueryString">
+				<source>Possible Values are 0,1, untrusted (https://docs.typo3.org/m/typo3/reference-typoscript/main/en-us/Functions/Typolink.html#addquerystring), Keep GET-params in form Action (e.g. to use powermail on a tx_news detail page)
+				</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.uploadFolder">
+				<source>Upload Folder</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.uploadFolder">
+				<source>Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.uploadSize">
+				<source>upload filesize</source>
+			</trans-unit>^
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.uploadSize">
+				<source>Define the maximum filesize of file uploads in bytes (10485760 Byte -> 10 MB)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.uploadFileExtensions">
+				<source>Upload file extensions</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.uploadFileExtensions">
+				<source>Define the allowed filetypes with their extensions for file uploads and separate them with commas (e.g. jpg,jpeg,gif)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.randomizeFileName">
+				<source>Randomized Filenames</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.randomizeFileName">
+				<source>Uploaded filenames can be randomized to respect data privacy</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName">
+				<source>Prepend original file name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.randomizePrependOriginalFileName">
+				<source>Prepend original file name to randomized file name if randomizeFileName is enabled</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.debugSettings">
+				<source>Debug Settings</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.debugSettings">
+				<source>Show all Settings from TypoScript, Flexform and Global Config in Devlog</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.debugVariables">
+				<source>Debug Variables</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.debugVariables">
+				<source>Show all given Plugin variables from GET or POST in Devlog</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.debugMail">
+				<source>Debug Mails</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.debugMail">
+				<source>Show all mail values in Devlog</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.debugSaveToTable">
+				<source>Debug Save to Table</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.debugSaveToTable">
+				<source>Show all values if you want to save powermail variables to another table in Devlog</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.misc.debugSpamshield">
+				<source>Debug Spamshield</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.debugSpamshield">
+				<source>Show Spamshield Functions in Devlog</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.enable">
+				<source>Receiver Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.enable">
+				<source>Enable Email to Receiver</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.attachment">
+				<source>Receiver Attachments</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.attachment">
+				<source>Add uploaded files to emails</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.mailformat">
+				<source>Receiver Mail Format</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.mailformat">
+				<source>Change mail format</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.default.senderName">
+				<source>Default Sender Name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.default.senderName">
+				<source>Senders name, if no sender name given</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.default.senderEmail">
+				<source>Default Sender E-Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.default.senderEmail">
+				<source>Senders e-mail, if no sender e-mail given</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.email">
+				<source>Receiver overwrite e-mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.email">
+				<source>Comma separated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.name">
+				<source>Receiver overwrite name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.name">
+				<source>Receiver name overwrites flexform settings (e.g. Receiver Name)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.senderName">
+				<source>Receiver overwrite SenderName</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.senderName">
+				<source>Sender Name for mail to receiver overwrites flexform settings (e.g. Sender Name)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.senderEmail">
+				<source>Receiver overwrite SenderEmail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.senderEmail">
+				<source>Sender Email for mail to receiver overwrites flexform settings (e.g. sender@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.subject">
+				<source>Receiver overwrite Mail Subject</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.subject">
+				<source>Subject for mail to receiver overwrites flexform settings (e.g. New Mail from website)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.cc">
+				<source>Receiver CC Email Addresses</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.cc">
+				<source>Comma separated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.bcc">
+				<source>Receiver BCC Email Addresses</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.bcc">
+				<source>Comma separated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.returnPath">
+				<source>Receiver Mail Return Path</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.returnPath">
+				<source>Return Path for emails to receiver (e.g. return@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.replyToEmail">
+				<source>Receiver Mail ReplyTo Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.replyToEmail">
+				<source>ReplyTo email address for mail to receiver (e.g. reply@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.replyToName">
+				<source>Receiver Mail ReplyTo Name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.replyToName">
+				<source>ReplyTo name for mail to receiver (e.g. Mr. Reply)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.overwrite.priority">
+				<source>Receiver Mail Priority</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.overwrite.priority">
+				<source>Set mail priority for mail to receiver (e.g. 3)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.senderHeader.email">
+				<source>Sender header email address</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.senderHeader.email">
+				<source>If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.receiver.senderHeader.name">
+				<source>Sender header name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.receiver.senderHeader.name">
+				<source>You can define a name along with the mail address (optional)</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.enable">
+				<source>Sender Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.enable">
+				<source>Enable e-mail to sender</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.attachment">
+				<source>Sender Attachments</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.attachment">
+				<source>Add uploaded files to emails</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.mailformat">
+				<source>Sender Mail Format</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.mailformat">
+				<source>Change mail format</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.addDisclaimerLink">
+				<source>Add disclaimer link</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.addDisclaimerLink">
+				<source>Add disclaimer link to the sender email (also in optin mail)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.default.senderName">
+				<source>Default Sender Name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.default.senderName">
+				<source>Senders name, if no sender name given</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.default.senderEmail">
+				<source>Default Sender E-Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.default.senderEmail">
+				<source>Senders e-mail, if no sender e-mail given</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.email">
+				<source>Sender overwrite e-mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.email">
+				<source>Comma separated list of mail receivers overwrites flexform settings (e.g. receiver1@mail.com, receiver1@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.name">
+				<source>Sender overwrite name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.name">
+				<source>Sender name overwrites flexform settings: Receiver Name</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.senderName">
+				<source>Sender overwrite SenderName</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.senderName">
+				<source>Sender Name for mail to sender overwrites flexform settings (e.g. Sender Name)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.senderEmail">
+				<source>Sender overwrite SenderEmail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.senderEmail">
+				<source>Sender email for mail to sender overwrites flexform settings (e.g. sender@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.subject">
+				<source>Sender overwrite Mail Subject</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.subject">
+				<source>Subject for mail to sender overwrites flexform settings (e.g. New Mail from website)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.cc">
+				<source>Sender CC Email Addresses</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.cc">
+				<source>Comma separated list of cc mail receivers (e.g. rec2@mail.com, rec3@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.bcc">
+				<source>Sender BCC Email Addresses</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.bcc">
+				<source>Comma separated list of bcc mail receivers (e.g. rec2@mail.com, rec3@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.returnPath">
+				<source>Sender Mail Return Path</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.returnPath">
+				<source>Return Path for emails to sender (e.g. return@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.replyToEmail">
+				<source>Sender Mail Reply Mail</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.replyToEmail">
+				<source>Reply Email address for mail to sender (e.g. reply@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.replyToName">
+				<source>Sender Mail Reply Name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.replyToName">
+				<source>Reply Name for mail to sender (e.g. Mr. Reply)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.overwrite.priority">
+				<source>Sender Mail Priority</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.overwrite.priority">
+				<source>Set mail priority for mail to sender (e.g. 3)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.senderHeader.email">
+				<source>Server: Sender header email address</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.senderHeader.email">
+				<source>If set, the Mail-Header Sender is set (RFC 2822 - 3.6.2 Originator fields)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.sender.senderHeader.name">
+				<source>Server: Sender header name</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.sender.senderHeader.name">
+				<source>You can define a name along with the mail address (optional)</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.enable">
+				<source>Activate SpamShield</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.enable">
+				<source>En- or disable Spamshield for Powermail</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.factor">
+				<source>Spamshield Spamfactor in %</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.factor">
+				<source>Set limit for spamfactor in powermail forms in % (e.g. 85)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.email">
+				<source>Notify email address</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.email">
+				<source>Admin can get an email if he/she wants to get informed if a mail failed. Let this field empty and no mail will be sent (e.g. admin@mail.com)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.senderEmail">
+				<source>Notify email sender address</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.senderEmail">
+				<source>Define sender email address for mails</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.emailSubject">
+				<source>Notify email subject</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.emailSubject">
+				<source>Subject for notification email to admin</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.emailTemplate">
+				<source>Notify email template</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.emailTemplate">
+				<source>Template for notification email to admin</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.logfileLocation">
+				<source>Logfile location</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.logfileLocation">
+				<source>Path of log file, ie. typo3temp/logs/powermail_spam.log, if empty, logging is deactivated</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.spamshield.logTemplate">
+				<source>Log template path</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.spamshield.logTemplate">
+				<source>Path of log template</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.validation.native">
+				<source>Native Browser Validation</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.validation.native">
+				<source>Validate User Input with HTML5 native browser validation on clientside</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.validation.client">
+				<source>JavaScript Browser Validation</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.validation.client">
+				<source>Validate User Input with JavaScript on clientside</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.validation.server">
+				<source>PHP Server Validation</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.validation.server">
+				<source>Validate User Input with PHP on serverside</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.numberOfColumns">
+				<source>Number of columns</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.rowClasses">
+				<source>Framework classname(s) for containers to build rows</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.formClasses">
+				<source>Framework classname(s) for form</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses">
+				<source>Framework classname(s) for overall wrapping container of a field/label pair</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.fieldAndLabelWrappingClasses">
+				<source>e.g. "col-md-6"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.fieldWrappingClasses">
+				<source>Framework classname(s) for wrapping container of a field</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.labelClasses">
+				<source>Framework classname(s) for field labels</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.labelClasses">
+				<source>e.g. "form-label"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.fieldClasses">
+				<source>Framework classname(s) for fields</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.fieldClasses">
+				<source>e.g. "form-control"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.offsetClasses">
+				<source>Framework classname(s) for fields with an offset</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.offsetClasses">
+				<source>e.g. "col-sm-offset-2"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.radioClasses">
+				<source>Framework classname(s) especially for radiobuttons</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.radioClasses">
+				<source>e.g. "form-check"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.checkClasses">
+				<source>Framework classname(s) especially for checkboxes</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.checkClasses">
+				<source>e.g. "form-check"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.submitClasses">
+				<source>Framework classname(s) for the submit button</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.submitClasses">
+				<source>e.g. "btn btn-primary"</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.createClasses">
+				<source>Framework classname(s) for "create" message after submit</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.styles.framework.createClasses">
+				<source>e.g. "powermail_create"</source>
+			</trans-unit>
+
+			<trans-unit id="settings.plugin.tx_powermail.view.templateRootPath">
+				<source>Path to fluid templates (FE)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.view.partialRootPath">
+				<source>Path to fluid partials (FE)</source>
+			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.view.layoutRootPath">
+				<source>Path to fluid layouts (FE)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
