@@ -1948,6 +1948,11 @@ parameters:
 		-
 			message: "#^Cannot call method getUid\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Form\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\LazyLoadingProxy\\|null\\.$#"
 			count: 1
+			path: ../../Classes/Domain/Validator/SpamShield/RateLimitMethod.php
+
+		-
+			message: "#^Cannot call method getUid\\(\\) on In2code\\\\Powermail\\\\Domain\\\\Model\\\\Form\\|TYPO3\\\\CMS\\\\Extbase\\\\Persistence\\\\Generic\\\\LazyLoadingProxy\\|null\\.$#"
+			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/SessionMethod.php
 
 		-
