@@ -46,3 +46,6 @@ services:
       - name: 'event.listener'
         identifier: 'powermail/modify-data-structure'
         method: 'modifyDataStructure'
+
+  In2code\Powermail\Storage\RateLimitStorage:
+    public: true
