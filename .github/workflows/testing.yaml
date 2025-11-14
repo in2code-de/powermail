@@ -35,11 +35,14 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
-      - name: "Run TypoScript lint"
-        uses: TYPO3-Continuous-Integration/TYPO3-CI-Typoscript-Lint@v1
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
         with:
-          files: "./Configuration"
-          config_file: ".project/tests/typoscript-lint.yml"
+          php-version: 8.2
+      - name: "Composer Install"
+        run: "composer install"
+      - name: "Run typoscript lint"
+        run: "composer test:typoscript:lint"
   php-cs-fixer:
     name: "PHP CS Fixer"
     runs-on: ubuntu-24.04
