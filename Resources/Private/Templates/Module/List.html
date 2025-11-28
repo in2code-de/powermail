@@ -26,7 +26,7 @@
 			<f:then>
 				<f:render partial="Module/List" arguments="{_all}" />
 				<f:render partial="Module/SelectedLineMessage" arguments="{_all}" />
-				<f:render partial="Module/Pagination" arguments="{pagination: pagination.pagination, paginator: pagination.paginator}" />
+				<f:render partial="Module/Pagination" arguments="{pagination: pagination.pagination, paginator: pagination.paginator, piVars: piVars}" />
 			</f:then>
 			<f:else>
 				<h3><f:translate key="BackendListNoMails" /></h3>
