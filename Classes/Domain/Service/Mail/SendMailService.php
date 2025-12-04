@@ -290,18 +290,18 @@ class SendMailService
     protected function addSenderHeader(MailMessage $message): MailMessage
     {
         if ($this->type === 'sender') {
-            $senderHeaderConfig= $this->configuration['sender.']['senderHeader.']??[];
+            $senderHeaderConfig= $this->configuration['sender.']['senderHeader.'] ?? [];
         } elseif ($this->type === 'receiver') {
-            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.']??[];
+            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.'] ?? [];
         }
 
         $email = ObjectUtility::getContentObject()->cObjGetSingle(
-            $senderHeaderConfig['email']??'',
-            $senderHeaderConfig['email.']??[]
+            $senderHeaderConfig['email'] ?? '',
+            $senderHeaderConfig['email.'] ?? []
         );
         $name = ObjectUtility::getContentObject()->cObjGetSingle(
-            $senderHeaderConfig['name']??'',
-            $senderHeaderConfig['name.']??[]
+            $senderHeaderConfig['name'] ?? '',
+            $senderHeaderConfig['name.'] ?? []
         );
         if (GeneralUtility::validEmail($email)) {
             if (empty($name)) {
