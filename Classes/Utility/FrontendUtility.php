@@ -158,12 +158,7 @@ class FrontendUtility
      */
     public static function isLoggedInFrontendUser(): bool
     {
-        $request = self::getRequest();
-        if ($request !== null) {
-            return $request->getAttribute('frontend.user')->isActiveLogin($request);
-        }
-
-        return false;
+        return (int)self::getPropertyFromLoggedInFrontendUser() > 0;
     }
 
     /**
