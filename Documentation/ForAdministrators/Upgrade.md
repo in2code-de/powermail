@@ -28,7 +28,7 @@ Please follow these steps before you create a bug entry on GitHub:
 * Reload Frontend
 * Reload Backend
 * Check again
-* Still problems? Please report to `GitHub <https://github.com/einpraegsam/powermail/issues>`_
+* Still problems? Please report to [GitHub](https://github.com/einpraegsam/powermail/issues)
 
 
 ## Bugfix Upgrade
