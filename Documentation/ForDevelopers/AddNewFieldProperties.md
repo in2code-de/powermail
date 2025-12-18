@@ -23,7 +23,7 @@ powermailextended.
 
 EXT:powermailextended/ext_tables.sql:
 
-```
+```sql
 #
 # Table structure for table 'tx_powermail_domain_model_field'
 #
@@ -36,11 +36,11 @@ CREATE TABLE tx_powermail_domain_model_field (
 
 EXT:powermailextended/ext_tables.php:
 
-```
+```php
 <?php
 /**
-* Include Static TypoScript
-*/
+ * Include Static TypoScript
+ */
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'Configuration/TypoScript',
@@ -48,26 +48,26 @@ EXT:powermailextended/ext_tables.php:
 );
 
 /**
-* extend powermail fields tx_powermail_domain_model_field
-*/
-$tempColumns = array (
-'tx_powermailextended_powermail_text' => array(
-    'exclude' => 1,
-    'label' => 'Text before field',
-    'config' => array (
-        'type' => 'text',
-        'cols' => '32',
-        'rows' => '2'
-    )
-),
-'tx_powermailextended_powermail_readonly' => array(
-    'exclude' => 1,
-    'label' => 'Readonly',
-    'config' => array (
-        'type' => 'check'
-    )
-),
-);
+ * extend powermail fields tx_powermail_domain_model_field
+ */
+$tempColumns = [
+    'tx_powermailextended_powermail_text' => [
+        'exclude' => 1,
+        'label' => 'Text before field',
+        'config' => [
+            'type' => 'text',
+            'cols' => 32,
+            'rows' => 2,
+        ],
+    ],
+    'tx_powermailextended_powermail_readonly' => [
+        'exclude' => 1,
+        'label' => 'Readonly',
+        'config' => [
+            'type' => 'check',
+        ],
+    ],
+];
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
     'tx_powermail_domain_model_field',
     $tempColumns
@@ -79,7 +79,6 @@ $tempColumns = array (
     'after:own_marker_select'
 );
 ```
-
 
 
 EXT:powermailextended/Configuration/TypoScript/setup.txt:
@@ -136,7 +135,7 @@ config.tx_extbase{
 
 EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
 
-```
+```html
 {namespace vh=In2code\Powermail\ViewHelpers}
 
 <div id="powermail_fieldwrap_{field.uid}" class="powermail_fieldwrap powermail_fieldwrap_input powermail_fieldwrap_{field.uid} {field.css}">
@@ -176,17 +175,12 @@ EXT:powermailextended/Resources/Private/Partials/Form/Field/Input.html:
 
 EXT:powermailextended/Classes/Domain/Model/Field.php:
 
-```
+```php
 <?php
 namespace In2code\Powermailextended\Domain\Model;
 
-/**
-* Class Field
-* @package In2code\Powermailextended\Domain\Model
-*/
 class Field extends \In2code\Powermail\Domain\Model\Field
 {
-
     /**
      * New property text
      *
@@ -240,23 +234,18 @@ class Field extends \In2code\Powermail\Domain\Model\Field
 
 EXT:powermailextended/Classes/Domain/Model/Page.php:
 
-```
+```php
 <?php
 namespace In2code\Powermailextended\Domain\Model;
 
-/**
-* Class Page
-* @package In2code\Powermailextended\Domain\Model
-*/
 class Page extends \In2code\Powermail\Domain\Model\Page
 {
-
     /**
      * Powermail Fields
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\In2code\Powermailextended\Domain\Model\Field>
      */
-    protected $fields = NULL;
+    protected $fields = null;
 
     /**
      * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage $fields
@@ -280,17 +269,12 @@ class Page extends \In2code\Powermail\Domain\Model\Page
 
 EXT:powermailextended/Classes/Domain/Model/Form.php:
 
-```
+```php
 <?php
 namespace In2code\Powermailextended\Domain\Model;
 
-/**
-* Class Form
-* @package In2code\Powermailextended\Domain\Model
-*/
 class Form extends \In2code\Powermail\Domain\Model\Form
 {
-
     /**
      * pages
      *
@@ -320,14 +304,10 @@ class Form extends \In2code\Powermail\Domain\Model\Form
 
 EXT:powermailextended/Classes/Domain/Repository/FormRepository.php:
 
-```
+```php
 <?php
 namespace In2code\Powermailextended\Domain\Repository;
 
-/**
-* Class FormRepository
-* @package In2code\Powermailextended\Domain\Repository
-*/
 class FormRepository extends \In2code\Powermail\Domain\Repository\FormRepository
 {
 }
