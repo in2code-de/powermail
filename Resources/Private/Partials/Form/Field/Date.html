@@ -10,6 +10,9 @@
 				property="{field.marker}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}"
 				additionalAttributes="{vh:validation.datepickerDataAttribute(field:field, value:'{vh:misc.prefillField(field:field)}')}"
-				class="powermail_date {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}" />
+				class="powermail_date {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+				aria-describedby="powermail_field_description_{field.marker}" />
+
+		<f:render partial="Form/FieldDescription" arguments="{_all}" />
 	</div>
 </div>

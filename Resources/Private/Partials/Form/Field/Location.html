@@ -9,6 +9,9 @@
 			property="{field.marker}"
 			value="{vh:misc.prefillField(field:field, mail:mail)}"
 			additionalAttributes="{data-powermail-location:'prefill',data-powermail-eidurl:'{f:uri.page(absolute:1)}'}"
-			class="powermail_location {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"/>
+			class="powermail_location {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+			aria-describedby="powermail_field_description_{field.marker}" />
+
+		<f:render partial="Form/FieldDescription" arguments="{_all}" />
 	</div>
 </div>

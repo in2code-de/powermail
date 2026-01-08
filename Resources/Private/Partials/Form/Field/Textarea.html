@@ -12,6 +12,9 @@
 				placeholder="{field.placeholder}"
 				value="{vh:misc.prefillField(field:field, mail:mail)}"
 				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
-				class="powermail_textarea {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}" />
-		</div>
+				class="powermail_textarea {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class:'powermail_field_error')}"
+				aria-describedby="powermail_field_description_{field.marker}" />
+
+		<f:render partial="Form/FieldDescription" arguments="{_all}" />
+	</div>
 </div>

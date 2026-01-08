@@ -11,7 +11,10 @@
 				id="powermail_field_{field.marker}"
 				additionalAttributes="{vh:validation.validationDataAttribute(field:field)}"
 				multiple="{field.multiselectForField}"
-				value="{vh:misc.prefillField(field:field, mail:mail)}" />
+				value="{vh:misc.prefillField(field:field, mail:mail)}"
+				aria-describedby="powermail_field_description_{field.marker}" />
+
+		<f:render partial="Form/FieldDescription" arguments="{_all}" />
 
 		<f:if condition="{field.multiselect}">
 			<f:if condition="{settings.validation.client}">

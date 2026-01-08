@@ -1,0 +1,9 @@
+{namespace vh=In2code\Powermail\ViewHelpers}
+
+<f:comment>
+    Partial file for the HTML-structure of nearly all fields
+</f:comment>
+
+<f:if condition="{field.description}">
+    <p id="powermail_field_description_{field.marker}" class="powermail_field_description">{field.description}</p>
+</f:if>

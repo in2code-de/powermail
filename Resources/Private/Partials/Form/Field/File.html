@@ -8,7 +8,10 @@
 				id="powermail_field_{field.marker}"
 				property="{field.marker}"
 				additionalAttributes="{vh:validation.uploadAttributes(field:field)}"
-				class="powermail_file {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class: 'powermail_field_error')}" />
+				class="powermail_file {settings.styles.framework.fieldClasses} {vh:validation.errorClass(field:field, class: 'powermail_field_error')}"
+				aria-describedby="powermail_field_description_{field.marker}" />
+
+		<f:render partial="Form/FieldDescription" arguments="{_all}" />
 
 		<f:if condition="{vh:misc.prefillField(field:field, mail:mail)}">
 			<div class="powermail_fieldwrap_file_list">
