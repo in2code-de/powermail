@@ -50,7 +50,24 @@ export default function MoreStepForm() {
         let targetFieldset = event.target.getAttribute('data-powermail-morestep-show');
         const backwards = event.target.getAttribute('data-powermail-morestep-previous') !== null;
         let form = event.target.closest('form');
+
+        // CUSTOM visible field validation
+        let validateVisibleFields = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-validate'));
+        let scrollIntoView = ['true', '1'].includes(event.target.getAttribute('data-powermail-morestep-scroll'));
+        // validate visible fields if set before proceed
+        if (validateVisibleFields
+          && !form.powermailFormValidation.validateVisibleFields()
+        ) {
+          this.form.powermailFormValidation.scrollToFirstError();
+          event.target.blur();
+          event.preventDefault();
+          return;
+        }
+
         that.showFieldset(targetFieldset, form, backwards);
+        if (scrollIntoView) {
+          getAllFieldsetsOfForm(form)[targetFieldset]?.scrollIntoView({behavior:'smooth'});
+        }
       });
     }
   }
