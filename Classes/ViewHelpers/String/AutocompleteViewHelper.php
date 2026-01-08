@@ -12,7 +12,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class AutocompleteViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         parent::initializeArguments();
         $this->registerArgument('field', Field::class, 'Field', true);
@@ -174,5 +174,7 @@ class AutocompleteViewHelper extends AbstractViewHelper
             case 'password':
                 return in_array($token, $allowedForAllTypes, true) || in_array($token, $allowedForPassword, true);
         }
+
+        return false;
     }
 }

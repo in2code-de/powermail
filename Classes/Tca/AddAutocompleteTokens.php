@@ -15,7 +15,7 @@ class AddAutocompleteTokens
     public static string $LLL = 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:autocomplete_token.';
 
     /**
-     * @param array $config
+     * @param array<array<string>> $config
      *
      * @return void
      */
@@ -32,7 +32,7 @@ class AddAutocompleteTokens
 
     /**
      * https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill-field
-     * @return array[]
+     * @return array<array<string>>
      */
     public static function getDefaultAutocompleteTokens(): array
     {
