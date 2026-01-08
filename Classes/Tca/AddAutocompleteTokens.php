@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace In2code\Powermail\Tca;
 
 /**
  * Class AddAutocompleteTokens
- * @package In2code\Powermail\Tca
  */
 class AddAutocompleteTokens
 {

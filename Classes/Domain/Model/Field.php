@@ -922,6 +922,4 @@ class Field extends AbstractEntity
     {
         $this->autocompletePurpose = $autocompletePurpose;
     }
-
-
 }

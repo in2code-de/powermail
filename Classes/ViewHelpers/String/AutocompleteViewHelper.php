@@ -70,7 +70,6 @@ class AutocompleteViewHelper extends AbstractViewHelper
         return $autocompleteTokens . $token;
     }
 
-
     /**
      * Checks if the given type token is allowed for the specified autocomplete field token.
      *
@@ -90,7 +89,7 @@ class AutocompleteViewHelper extends AbstractViewHelper
             'tel-country-code', 'tel-area-code', 'tel-national', 'tel-local',
             'tel-local-prefix', 'tel-local-suffix', 'tel-extension',
             'username', 'new-password', 'current-password', 'one-time-code',
-            'bday', 'bday-day', 'bday-month', 'bday-year', 'language', 'photo'
+            'bday', 'bday-day', 'bday-month', 'bday-year', 'language', 'photo',
         ];
         return in_array($type, $allowedTypes)
             && !in_array($token, $tokensNotSupportingType);
@@ -134,7 +133,7 @@ class AutocompleteViewHelper extends AbstractViewHelper
         $tokensNotSupportingSection = [
             'nickname', 'sex', 'impp', 'url', 'organization-title',
             'username', 'new-password', 'current-password', 'one-time-code',
-            'bday', 'bday-day', 'bday-month', 'bday-year', 'language', 'photo'
+            'bday', 'bday-day', 'bday-month', 'bday-year', 'language', 'photo',
         ];
         return !in_array($token, $tokensNotSupportingSection, true);
     }
