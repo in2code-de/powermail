@@ -64,7 +64,6 @@ class DatepickerDataAttributeViewHelperTest extends UnitTestCase
                     'data-datepicker-format' => 'YYYY-MM-DD HH:mm',
                     'data-date-value' => 'anyvalue',
                     'required' => 'required',
-                    'aria-required' => 'true',
                     'data-powermail-required-message' => 'validationerror_mandatory',
                 ],
             ],
