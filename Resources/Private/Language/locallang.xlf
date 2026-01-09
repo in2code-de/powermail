@@ -96,6 +96,9 @@
 			<trans-unit id="confirmation_prev" resname="confirmation_prev">
 				<source>Previous</source>
 			</trans-unit>
+			<trans-unit id="confirmation_submit" resname="confirmation_submit">
+				<source>Submit</source>
+			</trans-unit>
 			<trans-unit id="optin_seeMail" resname="optin_seeMail">
 				<source>Please have a look into your mail account and confirm this action.</source>
 			</trans-unit>
