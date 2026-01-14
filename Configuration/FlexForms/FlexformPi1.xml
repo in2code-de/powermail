@@ -15,6 +15,7 @@
 							<renderType>selectMultipleSideBySide</renderType>
 							<items type="array">
 							</items>
+                            <foreign_table>tx_powermail_domain_model_form</foreign_table>
 							<minitems>1</minitems>
 							<maxitems>1</maxitems>
 							<wizards>
