@@ -40,6 +40,11 @@ class Form extends AbstractEntity
      */
     protected array $pagesByUid = [];
 
+    protected string $autocompleteToken = '';
+
+    /**
+     * @return string
+     */
     public function getTitle(): string
     {
         return $this->title;
@@ -194,5 +199,23 @@ class Form extends AbstractEntity
         }
 
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutocompleteToken(): string
+    {
+        return $this->autocompleteToken;
+    }
+
+    /**
+     * @param string $autocompleteToken
+     *
+     * @return void
+     */
+    public function setAutocompleteToken(string $autocompleteToken): void
+    {
+        $this->autocompleteToken = $autocompleteToken;
     }
 }

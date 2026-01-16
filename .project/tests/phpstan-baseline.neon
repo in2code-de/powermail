@@ -2516,6 +2516,16 @@ parameters:
 			path: ../../Classes/Hook/PluginPreviewRenderer.php
 
 		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: ../../Classes/Tca/AddAutocompleteTokens.php
+
+		-
+			message: "#^Offset 'useDefaultItems' on string on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: ../../Classes/Tca/AddAutocompleteTokens.php
+
+		-
 			message: "#^Method In2code\\\\Powermail\\\\Tca\\\\AddOptionsToSelection\\:\\:addOptionsForFeUserProperty\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Tca/AddOptionsToSelection.php
