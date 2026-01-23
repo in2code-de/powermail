@@ -1168,7 +1168,7 @@ $fieldsTca = [
                     'allowLanguageSynchronization' => true,
                 ],
             ],
-            'displayCond' => 'FIELD:type:IN:' . $fieldsWithAutocompleteOptions,
+            'displayCond' => 'FIELD:type:IN:input,textarea,select,country,location,hidden',
         ],
     ],
 ];
