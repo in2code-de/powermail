@@ -16,7 +16,7 @@ class Marker extends AbstractFormElement
     /**
      * Default field information enabled for this element.
      *
-     * @var array
+     * @var array<array<string>>
      */
     protected $defaultFieldInformation = [
         'tcaDescription' => [
