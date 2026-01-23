@@ -1091,7 +1091,7 @@ $fieldsTca = [
             ],
             'displayCond' => [
                 'AND' => [
-                    'FIELD:type:IN:input,textarea,password,select,country,location,hidden',
+                    'FIELD:type:IN:input,textarea,select,country,location,hidden',
                     'FIELD:autocomplete_token:!IN:on,off,nickname,sex,impp,url,organization-title,username,new-password,current-password,one-time-code,bday,bday-day,bday-month,bday-year,language,photo',
                     'FIELD:autocomplete_token:REQ:true',
                 ],
