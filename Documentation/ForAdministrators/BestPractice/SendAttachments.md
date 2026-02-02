@@ -7,7 +7,7 @@ was used for all forms and plugins (unless you used conditions or set the value 
 
 ```typo3_typoscript
 plugin.tx_powermail.settings.setup {
-    reciever {
+    receiver {
         attachment = {$plugin.tx_powermail.settings.receiver.attachment}
     }
     sender {
