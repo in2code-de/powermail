@@ -113,6 +113,8 @@ class SendMailService
         $event = $this->eventDispatcher->dispatch(
             new SendMailServicePrepareAndSendEvent($message, $email, $this)
         );
+        $email = $event->getEmail();
+        $message = $event->getMailMessage();
         if ($event->isAllowedToSend() === false) {
             if ($GLOBALS['TYPO3_CONF_VARS']['BE']['debug']) {
                 $logger = ObjectUtility::getLogger(self::class);
@@ -288,9 +290,13 @@ class SendMailService
     protected function addSenderHeader(MailMessage $message): MailMessage
     {
         if ($this->type === 'sender') {
-            $senderHeaderConfig= $this->configuration['sender.']['senderHeader.']??[];
+            $senderHeaderConfig= $this->configuration['sender.']['senderHeader.'] ?? [];
         } elseif ($this->type === 'receiver') {
-            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.']??[];
+            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.'] ?? [];
+        } elseif ($this->type === 'optin') {
+            $senderHeaderConfig = $this->configuration['optin.']['senderHeader.'] ?? [];
+        } elseif ($this->type === 'disclaimer') {
+            $senderHeaderConfig = $this->configuration['disclaimer.']['senderHeader.'] ?? [];
         }
 
         $email = ObjectUtility::getContentObject()->cObjGetSingle(

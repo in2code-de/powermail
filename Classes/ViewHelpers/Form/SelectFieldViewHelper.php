@@ -181,6 +181,10 @@ class SelectFieldViewHelper extends AbstractFormFieldViewHelper
      */
     protected function isSelectedAlternative(array $option): bool
     {
+        if (empty($option)) {
+            return false;
+        }
+
         if (is_array($this->getValueAttribute())) {
             return $this->isSelectedAlternativeForArray($option);
         }

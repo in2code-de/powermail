@@ -4,6 +4,7 @@
 plugin.tx_powermail.settings.setup {
   finishers {
     # Powermail finishers
+    0.class = In2code\Powermail\Finisher\RateLimitFinisher
     10.class = In2code\Powermail\Finisher\SaveToAnyTableFinisher
     20.class = In2code\Powermail\Finisher\SendParametersFinisher
     100.class = In2code\Powermail\Finisher\RedirectFinisher

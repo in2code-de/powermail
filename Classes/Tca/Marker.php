@@ -13,6 +13,17 @@ use TYPO3\CMS\Backend\Form\Element\AbstractFormElement;
  */
 class Marker extends AbstractFormElement
 {
+    /**
+     * Default field information enabled for this element.
+     *
+     * @var array<array<string>>
+     */
+    protected $defaultFieldInformation = [
+        'tcaDescription' => [
+            'renderType' => 'tcaDescription',
+        ],
+    ];
+
     public function render(): array
     {
         $result = $this->initializeResultArray();
@@ -25,7 +36,9 @@ class Marker extends AbstractFormElement
      */
     protected function getHtml(): string
     {
-        $content = '';
+        // Render the description of the field
+        $fieldInformationResult = $this->renderFieldInformation();
+        $content = $fieldInformationResult['html'];
 
         // if entry in db
         $marker = empty($this->data['databaseRow']['marker']) ? 'marker' : $this->data['databaseRow']['marker'];
@@ -44,6 +57,7 @@ class Marker extends AbstractFormElement
                 $this->data['databaseRow']['uid'] . '][marker]" value="' . strtolower((string)$marker) . '" />';
         }
 
-        return $content;
+        // Add the label & legend
+        return $this->wrapWithFieldsetAndLegend($content);
     }
 }

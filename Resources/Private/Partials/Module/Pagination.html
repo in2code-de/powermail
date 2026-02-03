@@ -3,7 +3,7 @@
         <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
             <f:then>
                 <li class="page-item previous">
-                    <a href="{f:uri.action(action:actionName, arguments:{currentPage: pagination.previousPageNumber})}"
+                    <a href="{f:uri.action(action:actionName, arguments:{currentPage: pagination.previousPageNumber, filter: piVars.filter, sorting: piVars.sorting})}"
                        title="{f:translate(key:'pagination.previous')}" class="page-link">
                         {f:translate(key:'widget.pagination.previous', extensionName: 'fluid')}
                     </a>
@@ -17,7 +17,7 @@
         </f:if>
         <f:for each="{pagination.allPageNumbers}" as="page">
             <li class="page-item {f:if(condition: '{page} == {paginator.currentPageNumber}', then:'active')}">
-                <a href="{f:uri.action(action:actionName, arguments:{currentPage: page})}" class="page-link">{page}</a>
+                <a href="{f:uri.action(action:actionName, arguments:{currentPage: page, filter: piVars.filter, sorting: piVars.sorting})}" class="page-link">{page}</a>
             </li>
         </f:for>
         <f:if condition="{pagination.hasMorePages}">
@@ -26,7 +26,7 @@
         <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
             <f:then>
                 <li class="page-item next">
-                    <a href="{f:uri.action(action:actionName, arguments:{currentPage: pagination.nextPageNumber})}"
+                    <a href="{f:uri.action(action:actionName, arguments:{currentPage: pagination.nextPageNumber, filter: piVars.filter, sorting: piVars.sorting})}"
                        title="{f:translate(key:'pagination.next')}" class="page-link">
                         {f:translate(key:'widget.pagination.next', extensionName: 'fluid')}
                     </a>

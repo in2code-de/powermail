@@ -37,7 +37,10 @@ class FrontendUtility
      */
     public static function getCurrentPageIdentifier(): int
     {
-        return self::getRequest()->getAttribute('frontend.page.information')->getId() ?? 0;
+        if (self::getRequest() !== null) {
+            return self::getRequest()->getAttribute('frontend.page.information')->getId() ?? 0;
+        }
+        return 0;
     }
 
     /**
@@ -45,7 +48,10 @@ class FrontendUtility
      */
     public static function getSysLanguageUid(): int
     {
-        return self::getRequest()->getAttribute('language')->getLanguageId();
+        if (self::getRequest() !== null) {
+            return self::getRequest()->getAttribute('language')->getLanguageId();
+        }
+        return 0;
     }
 
     public static function getPluginName(): string
@@ -91,13 +97,17 @@ class FrontendUtility
             $mail = $mailRepository->findByUid((int)$mail);
         }
 
-        $userObject = self::getRequest()->getAttribute('frontend.user');
-        $feUser = self::getRequest()->getAttribute('frontend.user')->getUserId();
+        $request = self::getRequest();
+        if ($request === null) {
+            return false;
+        }
+
+        $feUser = $request->getAttribute('frontend.user')->getUserId();
         if ($feUser === 0 || $mail === null) {
             return false;
         }
 
-        $usergroups = self::getRequest()->getAttribute('frontend.user')->createUserAspect()->getGroupIds();
+        $usergroups = $request->getAttribute('frontend.user')->createUserAspect()->getGroupIds();
         $usersSettings = GeneralUtility::trimExplode(',', $settings['edit']['feuser'] ?? '', true);
         $usergroupsSettings = GeneralUtility::trimExplode(',', $settings['edit']['fegroup'] ?? '', true);
 
@@ -123,7 +133,13 @@ class FrontendUtility
 
     public static function isAllowedToView(array $settings, Mail $mail): bool
     {
-        $feUser =self::getRequest()->getAttribute('frontend.user')->getUserId();
+        $request = self::getRequest();
+
+        if ($request === null) {
+            return false;
+        }
+
+        $feUser = $request->getAttribute('frontend.user')->getUserId();
         if (
             $feUser === 0 ||
             (
@@ -142,7 +158,7 @@ class FrontendUtility
      */
     public static function isLoggedInFrontendUser(): bool
     {
-        return self::getRequest()->getAttribute('frontend.user')->isActiveLogin(self::getRequest());
+        return (int)self::getPropertyFromLoggedInFrontendUser() > 0;
     }
 
     /**
@@ -150,8 +166,12 @@ class FrontendUtility
      */
     public static function getPropertyFromLoggedInFrontendUser(string $propertyName = 'uid'): string
     {
-        $feUser = self::getRequest()->getAttribute('frontend.user');
-        return (string)($feUser->user[$propertyName] ?? '');
+        $request = self::getRequest();
+        if ($request !== null) {
+            $feUser = $request->getAttribute('frontend.user');
+            return (string)($feUser->user[$propertyName] ?? '');
+        }
+        return '';
     }
 
     /**
@@ -254,16 +274,19 @@ class FrontendUtility
 
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
-        $pageArguments = self::getRequest()->getAttribute('routing');
-        $arguments = $pageArguments->getArguments();
-        if (array_key_exists($key, $arguments)) {
-            return (array)$arguments[$key];
+        $request = self::getRequest();
+        if ($request !== null) {
+            $pageArguments = $request->getAttribute('routing');
+            $arguments = $pageArguments->getArguments();
+            if (array_key_exists($key, $arguments)) {
+                return (array)$arguments[$key];
+            }
         }
         return [];
     }
 
-    protected static function getRequest(): ServerRequestInterface
+    protected static function getRequest(): ?ServerRequestInterface
     {
-        return $GLOBALS['TYPO3_REQUEST'];
+        return $GLOBALS['TYPO3_REQUEST'] ?? null;
     }
 }

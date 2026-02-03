@@ -44,6 +44,7 @@ use Psr\Http\Message\ResponseInterface;
 use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
+use TYPO3\CMS\Core\Error\Http\BadRequestException;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -609,6 +610,17 @@ class FormController extends AbstractController
             return parent::processRequest($request);
         } catch (PropagateResponseException $e) {
             return $e->getResponse();
+        } catch (BadRequestException $e) {
+            if (in_array($e->getCode(), [1581862822, 1699604555, 1691267306])) {
+                // If the trustedProperties HMAC can not be validated, we redirect to an empty form because the
+                // request cannot be salvaged and would lead to an infinite loop.
+                $logger = ObjectUtility::getLogger(__CLASS__);
+                $logger->warning('Redirecting to empty form because HMAC validation failed.', [$e->getMessage()]);
+                return $this->redirect('form');
+            }
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('An error occurred: ', [$e->getMessage()]);
+            return (new ForwardResponse('form'))->withoutArguments();
         } catch (\Exception $e) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->critical('An error occurred: ', [$e->getMessage()]);
