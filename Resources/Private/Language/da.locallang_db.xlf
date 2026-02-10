@@ -151,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Sider</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.autocomplete_token" resname="tx_powermail_domain_model_form.autocomplete_token" approved="yes">
+        <source>Autocomplete</source>
+        <target state="final">Autofuldfør</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
         <source>Page</source>
         <target state="final">Side</target>
@@ -507,6 +511,30 @@
         <source>Email or Name</source>
         <target state="final">E-mail eller navn</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete" resname="tx_powermail_domain_model_field.palette.autocomplete" approved="yes">
+        <source>Autocomplete options</source>
+        <target state="final">Autofuldfør indstillinger</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete_additional" resname="tx_powermail_domain_model_field.palette.autocomplete_additional" approved="yes">
+        <source>Additional autocomplete options</source>
+        <target state="final">Yderligere autofuldførelses indstillinger</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token" approved="yes">
+        <source>Token (optional)</source>
+        <target state="final">Token (valgfri)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_section" resname="tx_powermail_domain_model_field.autocomplete_section" approved="yes">
+        <source>Section (optional)</source>
+        <target state="final">Afsnit (valgfrit)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_purpose" resname="tx_powermail_domain_model_field.autocomplete_purpose" approved="yes">
+        <source>Purpose (optional)</source>
+        <target state="final">Formål (valgfrit)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_type" resname="tx_powermail_domain_model_field.autocomplete_type" approved="yes">
+        <source>Type (optional)</source>
+        <target state="final">Type (valgfrit)</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
         <source>Answer</source>
         <target state="final">Svar</target>
@@ -850,6 +878,130 @@
       <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
         <source>More ...</source>
         <target state="final">Mere ...</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.none" resname="autocomplete_token.none" approved="yes">
+        <source>Disable attribute (default)</source>
+        <target state="final">Deaktivér attribut (standard)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.on" resname="autocomplete_token.on" approved="yes">
+        <source>Automatically complete (on)</source>
+        <target state="final">Automatisk fuldførelse (tændt)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.off" resname="autocomplete_token.off" approved="yes">
+        <source>Do not automatically complete (off)</source>
+        <target state="final">Gennemfør ikke automatisk fuldføres (slukket)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.general" resname="autocomplete_token.groups.general" approved="yes">
+        <source>General</source>
+        <target state="final">Generelt</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.name" resname="autocomplete_token.groups.name" approved="yes">
+        <source>Personal information</source>
+        <target state="final">Personligt information</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.bday" resname="autocomplete_token.groups.bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">Fødselsdag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.user" resname="autocomplete_token.groups.user" approved="yes">
+        <source>User information</source>
+        <target state="final">Brugerinformation</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.contact" resname="autocomplete_token.groups.contact" approved="yes">
+        <source>Contact information</source>
+        <target state="final">Kontaktinformation</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.address" resname="autocomplete_token.groups.address" approved="yes">
+        <source>Individual address information</source>
+        <target state="final">Individuelle adresseoplysninger</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.cc" resname="autocomplete_token.groups.cc" approved="yes">
+        <source>Payment information</source>
+        <target state="final">Betalingsinformation</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.tel" resname="autocomplete_token.groups.tel" approved="yes">
+        <source>Telephone</source>
+        <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.other" resname="autocomplete_token.groups.other" approved="yes">
+        <source>Other</source>
+        <target state="final">Andre</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.name" resname="name" approved="yes">
+        <source>Full name</source>
+        <target state="final">Fulde navn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-prefix" resname="honorific-prefix" approved="yes">
+        <source>Prefix or title</source>
+        <target state="final">Præfiks eller titel</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.given-name" resname="given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">Givet (eller "først") navn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.additional-name" resname="additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">Mellemnavn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.family-name" resname="family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">Familienavn (eller "sidste")</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-suffix" resname="honorific-suffix" approved="yes">
+        <source>Honorific suffix</source>
+        <target state="final">Ærestitel suffiks</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.nickname" resname="nickname" approved="yes">
+        <source>Nickname</source>
+        <target state="final">Kaldenavn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.sex" resname="sex" approved="yes">
+        <source>Gender identity</source>
+        <target state="final">Kønsidentitet</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.email" resname="email" approved="yes">
+        <source>Email address</source>
+        <target state="final">E-mailadresse</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.impp" resname="impp" approved="yes">
+        <source>Instant messaging protocol endpoint</source>
+        <target state="final">Instant beskedprotokol slutpunkt</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.url" resname="url" approved="yes">
+        <source>Website</source>
+        <target state="final">Webside</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization-title" resname="organization-title" approved="yes">
+        <source>Organization title</source>
+        <target state="final">Organisationstitel</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization" resname="organization" approved="yes">
+        <source>Organization</source>
+        <target state="final">Organisation</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.street-address" resname="street-address" approved="yes">
+        <source>Street address</source>
+        <target state="final">Vejnavn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line1" resname="address-line1" approved="yes">
+        <source>Address line 1</source>
+        <target state="final">Adresselinje 1</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line2" resname="address-line2" approved="yes">
+        <source>Address line 2</source>
+        <target state="final">Adresselinje 2</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line3" resname="address-line3" approved="yes">
+        <source>Address line 3</source>
+        <target state="final">Adresselinje 3</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level1" resname="address-level1" approved="yes">
+        <source>First administrative level</source>
+        <target state="final">Første administrative niveau</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level2" resname="address-level2" approved="yes">
+        <source>Second administrative level</source>
+        <target state="final">Andet administrativt niveau</target>
       </trans-unit>
     </body>
   </file>
