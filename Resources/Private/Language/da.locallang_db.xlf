@@ -1003,6 +1003,174 @@
         <source>Second administrative level</source>
         <target state="final">Andet administrativt niveau</target>
       </trans-unit>
+      <trans-unit id="autocomplete_token.address-level3" resname="address-level3" approved="yes">
+        <source>Third administrative level</source>
+        <target state="final">Tredje administrative niveau</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level4" resname="address-level1" approved="yes">
+        <source>Fourth administrative level</source>
+        <target state="final">Fjerde administrative niveau</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country" resname="country" approved="yes">
+        <source>Country or territory code</source>
+        <target state="final">Lande- eller områdekode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country-name" resname="country-name" approved="yes">
+        <source>Country or territory name</source>
+        <target state="final">Navn på land eller område</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.postal-code" resname="postal-code" approved="yes">
+        <source>Postal code (ZIP)</source>
+        <target state="final">Postnummer</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel" resname="tel" approved="yes">
+        <source>Full telephone no.</source>
+        <target state="final">Fulde telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-country-code" resname="tel-country-code" approved="yes">
+        <source>Country code</source>
+        <target state="final">Landekode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-area-code" resname="tel-area-code" approved="yes">
+        <source>Area code</source>
+        <target state="final">Områdekode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-national" resname="tel-national" approved="yes">
+        <source>Telephone number without the county code component</source>
+        <target state="final">Telefonnummer uden distriktkode komponent</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local" resname="tel-local" approved="yes">
+        <source>Telephone number without the country or area code</source>
+        <target state="final">Telefonnummer uden lande- eller områdekode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-prefix" resname="tel-local-prefix" approved="yes">
+        <source>Exchange number</source>
+        <target state="final">Udvekslingsnummer</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-suffix" resname="tel-local-suffix" approved="yes">
+        <source>Number within exchange</source>
+        <target state="final">Nummer i udvekslingen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-extension" resname="tel-extension" approved="yes">
+        <source>Internal extension code</source>
+        <target state="final">Intern udvidelseskode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.username" resname="username" approved="yes">
+        <source>Username</source>
+        <target state="final">Brugernavn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.new-password" resname="new-password" approved="yes">
+        <source>New password</source>
+        <target state="final">Ny adgangskode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.current-password" resname="current-password" approved="yes">
+        <source>Current password</source>
+        <target state="final">Nuværende adgangskode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.one-time-code" resname="one-time-code" approved="yes">
+        <source>One-time verification code</source>
+        <target state="final">Engangs verifikationskode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday" resname="bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">Fødselsdag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-day" resname="bday-day" approved="yes">
+        <source>Day component of birthday</source>
+        <target state="final">Dagkomponent af fødselsdag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-month" resname="bday-month" approved="yes">
+        <source>Month component of birthday</source>
+        <target state="final">Månedkomponent af fødselsdag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-year" resname="bday-year" approved="yes">
+        <source>Year component of birthday</source>
+        <target state="final">Årkomponent af fødselsdag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-name" resname="cc-name" approved="yes">
+        <source>Full name</source>
+        <target state="final">Fulde navn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-given-name" resname="cc-given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">Givet (eller "først") navn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-additional-name" resname="cc-additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">Mellemnavn</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-family-name" resname="cc-family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">Familienavn (eller "sidste")</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-number" resname="cc-number" approved="yes">
+        <source>Identification code, e.g. CC no.</source>
+        <target state="final">Identifikationskode, f.eks. CC-nr.</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp" resname="cc-exp" approved="yes">
+        <source>Expiration date</source>
+        <target state="final">Udløbsdato</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-month" resname="cc-exp-month" approved="yes">
+        <source>Month component of the expiration date</source>
+        <target state="final">Månedkomponent af udløbsdatoen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-year" resname="cc-exp-year" approved="yes">
+        <source>Year component of the expiration date</source>
+        <target state="final">Årskomponent for udløbsdatoen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-csc" resname="cc-csc" approved="yes">
+        <source>Security code</source>
+        <target state="final">Sikkerhedskode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-type" resname="cc-type" approved="yes">
+        <source>Type of payment instrument</source>
+        <target state="final">Type betalingsinstrument</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-currency" resname="transaction-currency" approved="yes">
+        <source>Transaction currency</source>
+        <target state="final">Transaktionsvaluta</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-amount" resname="transaction-amount" approved="yes">
+        <source>Transaction amount</source>
+        <target state="final">Transaktionsbeløb</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.language" resname="language" approved="yes">
+        <source>Preferred language</source>
+        <target state="final">Foretrukne sprog</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.photo" resname="photo" approved="yes">
+        <source>Photo</source>
+        <target state="final">Foto</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.home" resname="autocomplete_purpose.home" approved="yes">
+        <source>Home</source>
+        <target state="final">Hjem</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.work" resname="autocomplete_purpose.work" approved="yes">
+        <source>Work</source>
+        <target state="final">Arbejd</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.mobile" resname="autocomplete_purpose.mobile" approved="yes">
+        <source>Mobile</source>
+        <target state="final">Mobil</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.fax" resname="autocomplete_purpose.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Fax</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.pager" resname="autocomplete_purpose.pager" approved="yes">
+        <source>Pager</source>
+        <target state="final">Personsøger</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.billing" resname="autocomplete_type.billing" approved="yes">
+        <source>Billing</source>
+        <target state="final">Fakturering</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.shipping" resname="autocomplete_type.shipping" approved="yes">
+        <source>Shipping</source>
+        <target state="final">Fragt</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
