@@ -95,6 +95,19 @@ class FinisherRunner
     protected function getFinisherClasses(array $settings): array
     {
         $finishers = (array)$settings['finishers'];
+
+        if (!empty($finishers['finally'])) {
+            $finalFinisher = $finishers['finally'];
+            unset($finishers['finally']);
+
+            // backwards compatibility: check if someone "moved" the RedirectFinisher in typoscript
+            $finalClassName = $finalFinisher['class'] ?? null;
+            if ($finalClassName && !in_array($finalClassName, array_column($finishers, 'class'), true)) {
+                // add the finally finisher at the next numeric key
+                $finishers[max(array_keys($finishers)) + 1] = $finalFinisher;
+            }
+        }
+
         ksort($finishers);
         return $finishers;
     }
