@@ -170,3 +170,20 @@ class DoSomethingFinisher extends AbstractFinisher
 * Every finisher method could have its own initialize method, which will be called before. Like `initializeMyFinisher()` before `myFinisher()`.
 * Classes in extensions (if namespace and filename fits) will be automatically included from TYPO3 autoloader. If you place a single file in fileadmin, use "require" in TypoScript.
 * Per default 10, 20 and 100 is already in use from powermail itself (SaveToAnyTableFinisher, SendParametersFinisher, RedirectFinisher).
+* The `RedirectFinisher` is automatically treated as a "finally" finisher and will always execute **last**.
+  This ensures that all other finishers, including custom finishers from other extensions, are executed before the redirect.
+* Developers can continue to define finishers with numeric keys. These finishers will run in order, but the RedirectFinisher will always run at the end.
+* The full configuration of the RedirectFinisher, including `config` and `require` options, is preserved.
+
+
+## Execution Order and the RedirectFinisher
+
+Powermail finishers are executed in the order of their numeric keys.
+Previously, a `RedirectFinisher` with a lower numeric key could prevent finishers with higher keys from executing, because it throws a `PropagateResponseException`.
+
+To solve this, the `RedirectFinisher` is now always executed **last** by default, regardless of its numeric key.
+This guarantees that:
+
+* Custom finishers from your extensions or other integrations will run reliably.
+* Redirects happen only after all other finishers have finished their work.
+* You do not need to add a special `finally` key yourself — it is handled automatically.

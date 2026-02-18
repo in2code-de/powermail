@@ -6,7 +6,7 @@ plugin.tx_powermail.settings.setup {
     # Powermail finishers
     10.class = In2code\Powermail\Finisher\SaveToAnyTableFinisher
     20.class = In2code\Powermail\Finisher\SendParametersFinisher
-    100.class = In2code\Powermail\Finisher\RedirectFinisher
+    finally.class = In2code\Powermail\Finisher\RedirectFinisher
 
     # EXAMPLE: Add your own finishers classes (e.g. if you want to do something with form values by your own: Save into tables, call an API, make your own redirect etc...)
     # 1 {
