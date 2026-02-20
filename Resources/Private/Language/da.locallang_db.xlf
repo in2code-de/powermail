@@ -753,7 +753,7 @@
       </trans-unit>
       <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
         <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
-        <target state="final">Vis indgange fra de sidste X sekunder (tom: Funktion deaktiveret)</target>
+        <target state="final">Vis indtastninger fra de sidste X sekunder (tom: Funktion deaktiveret)</target>
       </trans-unit>
       <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
         <source>Show max. X entries (Empty: No Limit)</source>
