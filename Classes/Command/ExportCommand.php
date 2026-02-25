@@ -33,6 +33,7 @@ class ExportCommand extends Command
         $this->setDescription($description);
         $this->addArgument('receiverEmails', InputArgument::REQUIRED, 'Comma separated email addresses for export');
         $this->addArgument('senderEmail', InputArgument::OPTIONAL, 'Sender email address', 'sender@domain.org');
+        $this->addArgument('senderName', InputArgument::OPTIONAL, 'Sender email name', 'Powermail Export Service');
         $this->addArgument('subject', InputArgument::OPTIONAL, 'Mail subject', 'New mail export');
         $this->addArgument('pageUid', InputArgument::OPTIONAL, 'Page Id with existing mails', 0);
         $this->addArgument('domain', InputArgument::OPTIONAL, 'Domainname for linkgeneration', 'https://domain.org/');
@@ -79,6 +80,7 @@ class ExportCommand extends Command
         $exportService
             ->setReceiverEmails($input->getArgument('receiverEmails'))
             ->setSenderEmails($input->getArgument('senderEmail'))
+            ->setSenderName($input->getArgument('senderName'))
             ->setSubject($input->getArgument('subject'))
             ->setFieldList($input->getArgument('fieldList'))
             ->setAddAttachment((bool)$input->getArgument('attachment'))
