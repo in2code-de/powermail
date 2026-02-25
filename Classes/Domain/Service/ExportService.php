@@ -41,6 +41,8 @@ class ExportService
         'powermail@domain.org',
     ];
 
+    protected string $senderName = 'Powermail Export Service';
+
     /**
      * Mail subject
      */
@@ -307,7 +309,7 @@ class ExportService
     {
         $mailArray = [];
         foreach ($this->senderEmails as $email) {
-            $mailArray[$email] = 'Sender';
+            $mailArray[$email] = $this->getSenderName();
         }
 
         return $mailArray;
@@ -321,6 +323,18 @@ class ExportService
 
         $this->senderEmails = $senderEmails;
         return $this;
+    }
+
+    public function setSenderName(string $senderName): ExportService
+    {
+        if ($senderName != '') {
+            $this->senderName = $senderName;
+        }
+        return $this;
+    }
+    public function getSenderName(): string
+    {
+        return $this->senderName;
     }
 
     public function getSubject(): string
