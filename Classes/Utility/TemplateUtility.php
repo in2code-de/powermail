@@ -84,6 +84,7 @@ class TemplateUtility
         /** @var StandaloneView $standaloneView */
         $standaloneView = GeneralUtility::makeInstance(StandaloneView::class);
         $standaloneView->setFormat($format);
+        $standaloneView->setRequest($GLOBALS['TYPO3_REQUEST']);
         $standaloneView->setLayoutRootPaths(self::getTemplateFolders('layout'));
         $standaloneView->setPartialRootPaths(self::getTemplateFolders('partial'));
         return $standaloneView;
