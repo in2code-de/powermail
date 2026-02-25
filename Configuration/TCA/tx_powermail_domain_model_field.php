@@ -1057,7 +1057,6 @@ $fieldsTca = [
         ],
         'page' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:sys_language_uid:<=:0',
             'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' . Field::TABLE_NAME . '.pages',
             'config' => [
                 'type' => 'select',
