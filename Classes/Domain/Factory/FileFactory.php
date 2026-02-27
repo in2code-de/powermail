@@ -105,7 +105,9 @@ class FileFactory
         $file->setNewName(StringUtility::cleanString($originalName));
         $file->setUploadFolder($this->getUploadFolder());
         if ($size === 0) {
-            $size = (int)filesize($file->getNewPathAndFilename(true));
+            $size = (int)filesize(
+                $uploaded ? $file->getNewPathAndFilename(true) : $file->getTemporaryName()
+            );
         }
 
         $file->setSize($size);
