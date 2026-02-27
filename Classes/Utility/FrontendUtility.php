@@ -202,6 +202,9 @@ class FrontendUtility
             if (!empty($geoInfo->country)) {
                 $country = $geoInfo->country;
             }
+            if ($geoInfo->status === 'fail') {
+                $country = $geoInfo->message;
+            }
         }
 
         return $country;
