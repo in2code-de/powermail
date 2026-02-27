@@ -9,7 +9,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TYPO3\CMS\Core\Core\Bootstrap;
+use TYPO3\CMS\Core\Core\SystemEnvironmentBuilder;
+use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * Class CleanupUnusedUploadsCommand
@@ -34,6 +38,13 @@ class CleanupUnusedUploadsCommand extends Command
      */
     public function execute(InputInterface $input, OutputInterface $output): int
     {
+        Bootstrap::initializeBackendAuthentication();
+        /** @var ConfigurationManagerInterface $configurationManager */
+        $configurationManager = GeneralUtility::makeInstance(ConfigurationManagerInterface::class);
+        $configurationManager->setRequest(
+            (new ServerRequest())->withAttribute('applicationType', SystemEnvironmentBuilder::REQUESTTYPE_BE)
+        );
+
         $usedUploads = $this->getUsedUploads();
         $allUploads = BasicFileUtility::getFilesFromRelativePath($input->getArgument('uploadPath'));
         $removeCounter = 0;

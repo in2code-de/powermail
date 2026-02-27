@@ -6,6 +6,11 @@ parameters:
 			path: ../../Classes/Command/AbstractCleanupCommand.php
 
 		-
+			message: "#^Call to an undefined method TYPO3\\\\CMS\\\\Extbase\\\\Configuration\\\\ConfigurationManagerInterface\\:\\:setRequest\\(\\)\\.$#"
+			count: 1
+			path: ../../Classes/Command/CleanupUnusedUploadsCommand.php
+
+		-
 			message: "#^Method In2code\\\\Powermail\\\\Command\\\\CleanupUnusedUploadsCommand\\:\\:getUsedUploads\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: ../../Classes/Command/CleanupUnusedUploadsCommand.php
