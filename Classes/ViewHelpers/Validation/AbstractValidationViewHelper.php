@@ -75,7 +75,6 @@ abstract class AbstractValidationViewHelper extends AbstractViewHelper
                     $additionalAttributes['data-powermail-required'] = 'true';
                 }
             }
-            $additionalAttributes['aria-required'] = 'true';
 
             if ($this->isClientValidationEnabled()) {
                 $additionalAttributes['data-powermail-required-message'] =
