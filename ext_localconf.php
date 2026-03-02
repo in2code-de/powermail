@@ -39,6 +39,7 @@ call_user_func(function () {
         [
             \In2code\Powermail\Controller\FormController::class => 'marketing'
         ],
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
     );
 
     /**
