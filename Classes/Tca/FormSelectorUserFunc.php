@@ -12,6 +12,8 @@ use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\StartTimeRestriction;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -111,6 +113,11 @@ class FormSelectorUserFunc
     protected function getAllForms(int $startPid, int $language): array
     {
         $queryBuilder = DatabaseUtility::getQueryBuilderForTable(Form::TABLE_NAME);
+        // Remove frontend-only time restrictions so forms with starttime/endtime
+        // remain selectable in the backend plugin configuration regardless of their
+        // frontend visibility window.
+        $queryBuilder->getRestrictions()->removeByType(StartTimeRestriction::class);
+        $queryBuilder->getRestrictions()->removeByType(EndTimeRestriction::class);
         return $queryBuilder
             ->select('*')
             ->from(Form::TABLE_NAME)

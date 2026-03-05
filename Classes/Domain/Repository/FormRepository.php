@@ -95,7 +95,10 @@ class FormRepository extends AbstractRepository
     public function findAll()
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()
+            ->setRespectStoragePage(false)
+            ->setIgnoreEnableFields(true)
+            ->setEnableFieldsToBeIgnored(['disabled', 'starttime', 'endtime']);
         return $query->execute();
     }
 
@@ -108,7 +111,10 @@ class FormRepository extends AbstractRepository
     public function findAllInPidAndRootline(int $pid): QueryResultInterface
     {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->getQuerySettings()
+            ->setRespectStoragePage(false)
+            ->setIgnoreEnableFields(true)
+            ->setEnableFieldsToBeIgnored(['disabled', 'starttime', 'endtime']);
 
         if ($pid > 0) {
             $queryGenerator = GeneralUtility::makeInstance(QueryGenerator::class);
