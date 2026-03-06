@@ -30,6 +30,7 @@ class UniqueValidator extends AbstractValidator
      */
     protected function isValid($mail): void
     {
+        $this->initFlexform();
         if (!empty($this->settings['validation']['unique'])) {
             foreach ($this->settings['validation']['unique'] as $marker => $amount) {
                 if ($amount > 0) {
