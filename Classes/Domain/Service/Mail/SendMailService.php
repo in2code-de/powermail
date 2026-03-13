@@ -292,7 +292,7 @@ class SendMailService
         if ($this->type === 'sender') {
             $senderHeaderConfig= $this->configuration['sender.']['senderHeader.'] ?? [];
         } elseif ($this->type === 'receiver') {
-            $senderHeaderConfig = $this->settings['receiver.']['senderHeader.'] ?? [];
+            $senderHeaderConfig = $this->configuration['receiver.']['senderHeader.'] ?? [];
         } elseif ($this->type === 'optin') {
             $senderHeaderConfig = $this->configuration['optin.']['senderHeader.'] ?? [];
         } elseif ($this->type === 'disclaimer') {
