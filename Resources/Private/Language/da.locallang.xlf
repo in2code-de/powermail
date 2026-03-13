@@ -123,6 +123,10 @@
         <source>Previous</source>
         <target state="final">Forrige</target>
       </trans-unit>
+      <trans-unit id="confirmation_submit" resname="confirmation_submit" approved="yes">
+        <source>Submit</source>
+        <target state="final">Send</target>
+      </trans-unit>
       <trans-unit id="optin_seeMail" resname="optin_seeMail" approved="yes">
         <source>Please have a look into your mail account and confirm this action.</source>
         <target state="final">Tjek venligst din mailkonto og bekræft denne handling.</target>
