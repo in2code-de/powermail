@@ -151,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Страницы</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.autocomplete_token" resname="tx_powermail_domain_model_form.autocomplete_token" approved="yes">
+        <source>Autocomplete</source>
+        <target state="final">Автозаполнение</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
         <source>Page</source>
         <target state="final">Страница</target>
@@ -507,6 +511,30 @@
         <source>Email or Name</source>
         <target state="final">Эл. почта или имя</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete" resname="tx_powermail_domain_model_field.palette.autocomplete" approved="yes">
+        <source>Autocomplete options</source>
+        <target state="final">Параметры автозаполнения</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete_additional" resname="tx_powermail_domain_model_field.palette.autocomplete_additional" approved="yes">
+        <source>Additional autocomplete options</source>
+        <target state="final">Дополнительные настройки автозаполнения</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token" approved="yes">
+        <source>Token (optional)</source>
+        <target state="final">Токен (необязательно)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_section" resname="tx_powermail_domain_model_field.autocomplete_section" approved="yes">
+        <source>Section (optional)</source>
+        <target state="final">Раздел (необязательный)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_purpose" resname="tx_powermail_domain_model_field.autocomplete_purpose" approved="yes">
+        <source>Purpose (optional)</source>
+        <target state="final">Назначение (необязательно)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_type" resname="tx_powermail_domain_model_field.autocomplete_type" approved="yes">
+        <source>Type (optional)</source>
+        <target state="final">Тип (необязательно)</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
         <source>Answer</source>
         <target state="final">Ответ</target>
@@ -850,6 +878,62 @@
       <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
         <source>More ...</source>
         <target state="final">Ещё...</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.none" resname="autocomplete_token.none" approved="yes">
+        <source>Disable attribute (default)</source>
+        <target state="final">Отключить атрибут (по умолчанию)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.on" resname="autocomplete_token.on" approved="yes">
+        <source>Automatically complete (on)</source>
+        <target state="final">Автоматическое завершение (включено)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.off" resname="autocomplete_token.off" approved="yes">
+        <source>Do not automatically complete (off)</source>
+        <target state="final">Не завершать автоматически (выключено)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.general" resname="autocomplete_token.groups.general" approved="yes">
+        <source>General</source>
+        <target state="final">Общие</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.name" resname="autocomplete_token.groups.name" approved="yes">
+        <source>Personal information</source>
+        <target state="final">Личная информация</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.bday" resname="autocomplete_token.groups.bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">День рождения</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.user" resname="autocomplete_token.groups.user" approved="yes">
+        <source>User information</source>
+        <target state="final">Информация о пользователе</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.contact" resname="autocomplete_token.groups.contact" approved="yes">
+        <source>Contact information</source>
+        <target state="final">Контактная информация</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.address" resname="autocomplete_token.groups.address" approved="yes">
+        <source>Individual address information</source>
+        <target state="final">Информация об индивидуальном адресе</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.cc" resname="autocomplete_token.groups.cc" approved="yes">
+        <source>Payment information</source>
+        <target state="final">Платежная информация</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.tel" resname="autocomplete_token.groups.tel" approved="yes">
+        <source>Telephone</source>
+        <target state="final">Телефон</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.other" resname="autocomplete_token.groups.other" approved="yes">
+        <source>Other</source>
+        <target state="final">Другое</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.name" resname="name" approved="yes">
+        <source>Full name</source>
+        <target state="final">Полное имя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-prefix" resname="honorific-prefix" approved="yes">
+        <source>Prefix or title</source>
+        <target state="final">Префикс или титул</target>
       </trans-unit>
     </body>
   </file>
