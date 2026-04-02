@@ -521,7 +521,7 @@
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token" approved="yes">
         <source>Token (optional)</source>
-        <target state="final">Токен (необязательно)</target>
+        <target state="final">Token (optional)</target>
       </trans-unit>
       <trans-unit id="tx_powermail_domain_model_field.autocomplete_section" resname="tx_powermail_domain_model_field.autocomplete_section" approved="yes">
         <source>Section (optional)</source>
@@ -913,7 +913,7 @@
       </trans-unit>
       <trans-unit id="autocomplete_token.groups.address" resname="autocomplete_token.groups.address" approved="yes">
         <source>Individual address information</source>
-        <target state="final">Информация об индивидуальном адресе</target>
+        <target state="final">Individual address information</target>
       </trans-unit>
       <trans-unit id="autocomplete_token.groups.cc" resname="autocomplete_token.groups.cc" approved="yes">
         <source>Payment information</source>
@@ -934,6 +934,242 @@
       <trans-unit id="autocomplete_token.honorific-prefix" resname="honorific-prefix" approved="yes">
         <source>Prefix or title</source>
         <target state="final">Префикс или титул</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.given-name" resname="given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">Данное (или «первое») имя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.additional-name" resname="additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">Отчество</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.family-name" resname="family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">Family (or "last") name</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-suffix" resname="honorific-suffix" approved="yes">
+        <source>Honorific suffix</source>
+        <target state="final">Honorific suffix</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.nickname" resname="nickname" approved="yes">
+        <source>Nickname</source>
+        <target state="final">Прозвище</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.sex" resname="sex" approved="yes">
+        <source>Gender identity</source>
+        <target state="final">Пол</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.email" resname="email" approved="yes">
+        <source>Email address</source>
+        <target state="final">Адрес email</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.impp" resname="impp" approved="yes">
+        <source>Instant messaging protocol endpoint</source>
+        <target state="final">Конечная точка протокола обмена мгновенными сообщениями</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.url" resname="url" approved="yes">
+        <source>Website</source>
+        <target state="final">Сайт</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization-title" resname="organization-title" approved="yes">
+        <source>Organization title</source>
+        <target state="final">Название организации</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization" resname="organization" approved="yes">
+        <source>Organization</source>
+        <target state="final">Организация</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.street-address" resname="street-address" approved="yes">
+        <source>Street address</source>
+        <target state="final">Улица, дом</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line1" resname="address-line1" approved="yes">
+        <source>Address line 1</source>
+        <target state="final">Поле для адреса 1</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line2" resname="address-line2" approved="yes">
+        <source>Address line 2</source>
+        <target state="final">Поле для адреса 2</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line3" resname="address-line3" approved="yes">
+        <source>Address line 3</source>
+        <target state="final">Поле для адреса 3</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level1" resname="address-level1" approved="yes">
+        <source>First administrative level</source>
+        <target state="final">Первый административный уровень</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level2" resname="address-level2" approved="yes">
+        <source>Second administrative level</source>
+        <target state="final">Второй административный уровень</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level3" resname="address-level3" approved="yes">
+        <source>Third administrative level</source>
+        <target state="final">Третий административный уровень</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level4" resname="address-level1" approved="yes">
+        <source>Fourth administrative level</source>
+        <target state="final">Четвертый административный уровень</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country" resname="country" approved="yes">
+        <source>Country or territory code</source>
+        <target state="final">Код страны или территории</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country-name" resname="country-name" approved="yes">
+        <source>Country or territory name</source>
+        <target state="final">Название страны или территории</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.postal-code" resname="postal-code" approved="yes">
+        <source>Postal code (ZIP)</source>
+        <target state="final">Почтовый индекс</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel" resname="tel" approved="yes">
+        <source>Full telephone no.</source>
+        <target state="final">Полный номер телефона</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-country-code" resname="tel-country-code" approved="yes">
+        <source>Country code</source>
+        <target state="final">Код страны</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-area-code" resname="tel-area-code" approved="yes">
+        <source>Area code</source>
+        <target state="final">Код региона</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-national" resname="tel-national" approved="yes">
+        <source>Telephone number without the county code component</source>
+        <target state="final">Телефонный номер без кода округа</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local" resname="tel-local" approved="yes">
+        <source>Telephone number without the country or area code</source>
+        <target state="final">Телефонный номер без указания кода страны или региона</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-prefix" resname="tel-local-prefix" approved="yes">
+        <source>Exchange number</source>
+        <target state="final">Биржевой номер</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-suffix" resname="tel-local-suffix" approved="yes">
+        <source>Number within exchange</source>
+        <target state="final">Номер внутри биржи</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-extension" resname="tel-extension" approved="yes">
+        <source>Internal extension code</source>
+        <target state="final">Внутренний добавочный код</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.username" resname="username" approved="yes">
+        <source>Username</source>
+        <target state="final">Имя пользователя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.new-password" resname="new-password" approved="yes">
+        <source>New password</source>
+        <target state="final">Новый пароль</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.current-password" resname="current-password" approved="yes">
+        <source>Current password</source>
+        <target state="final">Текущий пароль</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.one-time-code" resname="one-time-code" approved="yes">
+        <source>One-time verification code</source>
+        <target state="final">Одноразовый код подтверждения</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday" resname="bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">День рождения</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-day" resname="bday-day" approved="yes">
+        <source>Day component of birthday</source>
+        <target state="final">Дневная составляющая дня рождения</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-month" resname="bday-month" approved="yes">
+        <source>Month component of birthday</source>
+        <target state="final">Месячная составляющая дня рождения</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-year" resname="bday-year" approved="yes">
+        <source>Year component of birthday</source>
+        <target state="final">Year component of birthday</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-name" resname="cc-name" approved="yes">
+        <source>Full name</source>
+        <target state="final">Полное имя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-given-name" resname="cc-given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">Данное (или «первое») имя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-additional-name" resname="cc-additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">Отчество</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-family-name" resname="cc-family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">Фамилия (или "семейное") имя</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-number" resname="cc-number" approved="yes">
+        <source>Identification code, e.g. CC no.</source>
+        <target state="final">Идентификационный код, например CC No.</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp" resname="cc-exp" approved="yes">
+        <source>Expiration date</source>
+        <target state="final">Срок действия</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-month" resname="cc-exp-month" approved="yes">
+        <source>Month component of the expiration date</source>
+        <target state="final">Месяц истечения срока годности</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-year" resname="cc-exp-year" approved="yes">
+        <source>Year component of the expiration date</source>
+        <target state="final">Годовой компонент срока годности</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-csc" resname="cc-csc" approved="yes">
+        <source>Security code</source>
+        <target state="final">Код безопасности</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-type" resname="cc-type" approved="yes">
+        <source>Type of payment instrument</source>
+        <target state="final">Тип платежного инструмента</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-currency" resname="transaction-currency" approved="yes">
+        <source>Transaction currency</source>
+        <target state="final">Валюта транзакции</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-amount" resname="transaction-amount" approved="yes">
+        <source>Transaction amount</source>
+        <target state="final">Сумма транзакции</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.language" resname="language" approved="yes">
+        <source>Preferred language</source>
+        <target state="final">Предпочитаемый язык</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.photo" resname="photo" approved="yes">
+        <source>Photo</source>
+        <target state="final">Фото</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.home" resname="autocomplete_purpose.home" approved="yes">
+        <source>Home</source>
+        <target state="final">Дом</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.work" resname="autocomplete_purpose.work" approved="yes">
+        <source>Work</source>
+        <target state="final">Работа</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.mobile" resname="autocomplete_purpose.mobile" approved="yes">
+        <source>Mobile</source>
+        <target state="final">Мобильный</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.fax" resname="autocomplete_purpose.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">Факс</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.pager" resname="autocomplete_purpose.pager" approved="yes">
+        <source>Pager</source>
+        <target state="final">Пейджер</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.billing" resname="autocomplete_type.billing" approved="yes">
+        <source>Billing</source>
+        <target state="final">Выставление счетов</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.shipping" resname="autocomplete_type.shipping" approved="yes">
+        <source>Shipping</source>
+        <target state="final">Доставка</target>
       </trans-unit>
     </body>
   </file>
