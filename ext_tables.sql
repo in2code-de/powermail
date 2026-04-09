@@ -38,7 +38,7 @@ CREATE TABLE tx_powermail_domain_model_field (
 	text text,
 	prefill_value text,
 	placeholder text,
-	placeholder_repeat text,
+	placeholder_repeat text DEFAULT '' NOT NULL,
 	create_from_typoscript text,
 	validation int(11) DEFAULT '0' NOT NULL,
 	validation_configuration varchar(255) DEFAULT '' NOT NULL,
