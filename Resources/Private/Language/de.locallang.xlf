@@ -123,6 +123,10 @@
         <source>Previous</source>
         <target state="final">Zurück</target>
       </trans-unit>
+      <trans-unit id="confirmation_submit" resname="confirmation_submit" approved="yes">
+        <source>Submit</source>
+        <target state="final">Weiter</target>
+      </trans-unit>
       <trans-unit id="optin_seeMail" resname="optin_seeMail" approved="yes">
         <source>Please have a look into your mail account and confirm this action.</source>
         <target state="final">Bitte überprüfen Sie Ihr E-Mail-Postfach und bestätigen Sie diese Aktion.</target>
