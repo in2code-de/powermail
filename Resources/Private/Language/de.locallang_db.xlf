@@ -151,6 +151,10 @@
         <source>Pages</source>
         <target state="final">Seiten</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.autocomplete_token" resname="tx_powermail_domain_model_form.autocomplete_token" approved="yes">
+        <source>Autocomplete</source>
+        <target state="final">Autovervollständigung</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
         <source>Page</source>
         <target state="final">Seite</target>
@@ -507,6 +511,14 @@
         <source>Email or Name</source>
         <target state="final">E-Mail oder Name</target>
       </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token" approved="yes">
+        <source>Token (optional)</source>
+        <target state="final">Token (optional)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_purpose" resname="tx_powermail_domain_model_field.autocomplete_purpose" approved="yes">
+        <source>Purpose (optional)</source>
+        <target state="final">Zweck (optional)</target>
+      </trans-unit>
       <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
         <source>Answer</source>
         <target state="final">Antwort</target>
@@ -850,6 +862,62 @@
       <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
         <source>More ...</source>
         <target state="final">Mehr ...</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.bday" resname="autocomplete_token.groups.bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">Geburtstag</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.user" resname="autocomplete_token.groups.user" approved="yes">
+        <source>User information</source>
+        <target state="final">Benutzerinformationen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.contact" resname="autocomplete_token.groups.contact" approved="yes">
+        <source>Contact information</source>
+        <target state="final">Kontaktinformationen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.tel" resname="autocomplete_token.groups.tel" approved="yes">
+        <source>Telephone</source>
+        <target state="final">Telefon</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.given-name" resname="given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">Vorname</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.additional-name" resname="additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">Weitere Vornamen</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.email" resname="email" approved="yes">
+        <source>Email address</source>
+        <target state="final">E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.url" resname="url" approved="yes">
+        <source>Website</source>
+        <target state="final">Website</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization" resname="organization" approved="yes">
+        <source>Organization</source>
+        <target state="final">Firma/Organisation</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.street-address" resname="street-address" approved="yes">
+        <source>Street address</source>
+        <target state="final">Straße und Hausnummer</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.postal-code" resname="postal-code" approved="yes">
+        <source>Postal code (ZIP)</source>
+        <target state="final">Postleitzahl (PLZ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel" resname="tel" approved="yes">
+        <source>Full telephone no.</source>
+        <target state="final">Vollständige Telefonnummer.</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-country-code" resname="tel-country-code" approved="yes">
+        <source>Country code</source>
+        <target state="final">Ländercode</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-area-code" resname="tel-area-code" approved="yes">
+        <source>Area code</source>
+        <target state="final">Landesvorwahl</target>
       </trans-unit>
     </body>
   </file>
