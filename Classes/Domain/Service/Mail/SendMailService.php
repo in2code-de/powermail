@@ -350,7 +350,7 @@ class SendMailService
 
         /** @var SendMailServiceCreateEmailBodyEvent $event */
         $event = $this->eventDispatcher->dispatch(
-            new SendMailServiceCreateEmailBodyEvent($standaloneView, $email, $this)
+            new SendMailServiceCreateEmailBodyEvent($standaloneView, $email, $this, $this->request)
         );
         $body = $event->getStandaloneView()->render();
         $this->mail->setBody($body);
