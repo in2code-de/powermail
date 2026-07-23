@@ -10,6 +10,7 @@ use In2code\Powermail\Domain\Validator\SpamShield\Breaker\BreakerRunner;
 use In2code\Powermail\Domain\Validator\SpamShield\MethodInterface;
 use In2code\Powermail\Exception\ClassDoesNotExistException;
 use In2code\Powermail\Exception\InterfaceNotImplementedException;
+use In2code\Powermail\Exception\SpamDetectedException;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -77,6 +78,13 @@ class SpamShieldValidator extends AbstractValidator
             $this->setValidState(false);
             $this->sendSpamNotificationMail($mail);
             $this->logSpamNotification($mail);
+            throw new SpamDetectedException(
+                'Powermail: Spam tolerance limit reached;'
+                . '; value: ' . $this->getCalculatedSpamFactor(true)
+                . '; form: ' . $mail->getForm()->getUid()
+                . ' on page: ' . $mail->getForm()->getPid(),
+                1784729722
+            );
         }
     }
 

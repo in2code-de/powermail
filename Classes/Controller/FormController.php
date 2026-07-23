@@ -30,6 +30,7 @@ use In2code\Powermail\Events\FormControllerInitializeObjectEvent;
 use In2code\Powermail\Events\FormControllerOptinConfirmActionAfterPersistEvent;
 use In2code\Powermail\Events\FormControllerOptinConfirmActionBeforeRenderViewEvent;
 use In2code\Powermail\Exception\DeprecatedException;
+use In2code\Powermail\Exception\SpamDetectedException;
 use In2code\Powermail\Finisher\FinisherRunner;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\DatabaseUtility;
@@ -611,16 +612,20 @@ class FormController extends AbstractController
         } catch (PropagateResponseException $e) {
             return $e->getResponse();
         } catch (BadRequestException $e) {
+            $logger = ObjectUtility::getLogger(__CLASS__);
             if (in_array($e->getCode(), [1581862822, 1699604555, 1691267306])) {
                 // If the trustedProperties HMAC can not be validated, we redirect to an empty form because the
                 // request cannot be salvaged and would lead to an infinite loop.
-                $logger = ObjectUtility::getLogger(__CLASS__);
                 $logger->warning('Redirecting to empty form because HMAC validation failed.', [$e->getMessage()]);
                 return $this->redirect('form');
             }
-            $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->critical('An error occurred: ', [$e->getMessage()]);
             return (new ForwardResponse('form'))->withoutArguments();
+        } catch (SpamDetectedException $e) {
+            // Catch "Could not ultimately dispatch the request after 101 iterations" within spamshield
+            $logger = ObjectUtility::getLogger(__CLASS__);
+            $logger->critical('SPAM detected: ', [$e->getMessage()]);
+            return $this->redirect('form');
         } catch (\Exception $e) {
             $logger = ObjectUtility::getLogger(__CLASS__);
             $logger->critical('An error occurred: ', [$e->getMessage()]);

@@ -7,6 +7,12 @@ parameters:
 			path: ../../Classes/Command/AbstractCleanupCommand.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: ../../Classes/Command/CleanupUnusedUploadsCommand.php
+
+		-
 			message: '#^Method In2code\\Powermail\\Command\\CleanupUnusedUploadsCommand\:\:getUsedUploads\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -295,13 +301,13 @@ parameters:
 			path: ../../Classes/Domain/Factory/FileFactory.php
 
 		-
-			message: '#^Cannot call method getUid\(\) on In2code\\Powermail\\Domain\\Model\\Form\|TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:setPid\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
 
 		-
-			message: '#^Cannot call method setPid\(\) on object\|null\.$#'
+			message: '#^Cannot call method getUid\(\) on In2code\\Powermail\\Domain\\Model\\Form\|TYPO3\\CMS\\Extbase\\Persistence\\Generic\\LazyLoadingProxy\|null\.$#'
 			identifier: method.nonObject
 			count: 1
 			path: ../../Classes/Domain/Factory/MailFactory.php
@@ -937,6 +943,12 @@ parameters:
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: ../../Classes/Domain/Repository/MailRepository.php
+
+		-
 			message: '#^Call to an undefined method object\:\:getForm\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -955,33 +967,27 @@ parameters:
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
-			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			message: '#^Call to an undefined method object\:\:getUid\(\)\.$#'
 			identifier: method.notFound
-			count: 1
+			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
+			count: 3
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
 			message: '#^Cannot call method getMarker\(\) on class\-string\|object\.$#'
 			identifier: method.nonObject
-			count: 3
+			count: 1
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
 			message: '#^Cannot call method getTitle\(\) on class\-string\|object\.$#'
 			identifier: method.nonObject
 			count: 1
-			path: ../../Classes/Domain/Repository/MailRepository.php
-
-		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
-			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
@@ -1150,12 +1156,6 @@ parameters:
 			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, In2code\\Powermail\\Domain\\Model\\Field\|null given\.$#'
 			identifier: argument.type
 			count: 1
-			path: ../../Classes/Domain/Repository/MailRepository.php
-
-		-
-			message: '#^Parameter \#1 \$object_or_class of function method_exists expects object\|string, object\|null given\.$#'
-			identifier: argument.type
-			count: 2
 			path: ../../Classes/Domain/Repository/MailRepository.php
 
 		-
@@ -2323,8 +2323,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/IpBreaker.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShield/Breaker/ValueBreaker.php
 
@@ -2347,8 +2347,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/IpBlacklistMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: ../../Classes/Domain/Validator/SpamShield/LinkMethod.php
 
@@ -2371,14 +2371,14 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/MethodInterface.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
 			count: 2
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/NameMethod.php
 
@@ -2401,8 +2401,8 @@ parameters:
 			path: ../../Classes/Domain/Validator/SpamShield/SessionMethod.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 3
 			path: ../../Classes/Domain/Validator/SpamShield/UniqueMethod.php
 
@@ -2477,6 +2477,24 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: ../../Classes/Domain/Validator/SpamShieldValidator.php
+
+		-
+			message: '#^Result of && is always true\.$#'
+			identifier: booleanAnd.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/Domain/Validator/StringValidator.php
 
 		-
 			message: '#^Cannot call method getMarker\(\) on In2code\\Powermail\\Domain\\Model\\Field\|null\.$#'
@@ -3819,13 +3837,7 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedAnswersFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/Utility/ReportingUtility.php
-
-		-
-			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedAnswersFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			count: 2
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
@@ -3843,13 +3855,7 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedMarketingPropertiesFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\.$#'
 			identifier: missingType.iterableValue
-			count: 1
-			path: ../../Classes/Utility/ReportingUtility.php
-
-		-
-			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedMarketingPropertiesFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\|TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\.$#'
-			identifier: missingType.iterableValue
-			count: 1
+			count: 2
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
@@ -3963,6 +3969,12 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\StringUtility\:\:cleanString\(\) should return string but returns string\|null\.$#'
 			identifier: return.type
+			count: 1
+			path: ../../Classes/Utility/StringUtility.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, string\}\.$#'
+			identifier: offsetAccess.notFound
 			count: 1
 			path: ../../Classes/Utility/StringUtility.php
 
@@ -4097,6 +4109,18 @@ parameters:
 			identifier: varTag.differentVariable
 			count: 1
 			path: ../../Classes/ViewHelpers/Condition/IsThereAMailWithStartingLetterViewHelper.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: ../../Classes/ViewHelpers/Condition/OrViewHelper.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between 0\|0\.0\|''''\|''0''\|array\{\}\|false\|null and mixed will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: ../../Classes/ViewHelpers/Condition/OrViewHelper.php
 
 		-
 			message: '#^Cannot cast object to string\.$#'
@@ -4495,14 +4519,20 @@ parameters:
 			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
 
 		-
-			message: '#^Cannot call method getField\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Strict comparison using \!\=\= between object and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: ../../Classes/ViewHelpers/Misc/PrefillFieldViewHelper.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getField\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 
 		-
-			message: '#^Cannot call method getValue\(\) on object\|null\.$#'
-			identifier: method.nonObject
+			message: '#^Call to an undefined method object\:\:getValue\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: ../../Classes/ViewHelpers/Misc/PrefillMultiFieldViewHelper.php
 

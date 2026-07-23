@@ -9,6 +9,7 @@ use Throwable;
 use TYPO3\CMS\Install\Attribute\UpgradeWizard;
 use TYPO3\CMS\Install\Updates\DatabaseUpdatedPrerequisite;
 use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
+
 /**
  * If there are any TEXT legacy fields in the database, that have a NULL value
  * update them with an empty string.
