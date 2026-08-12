@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Events\BackendPageModulePreviewContentEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
+use In2code\Powermail\Utility\LocalizationUtility;
 use In2code\Powermail\Utility\TemplateUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Backend\Preview\StandardContentPreviewRenderer;
@@ -40,6 +41,10 @@ class PluginPreviewRenderer extends StandardContentPreviewRenderer
     public function renderPageModulePreviewContent(GridColumnItem $item): string
     {
         $row = $item->getRecord();
+
+        if (is_null($row['pi_flexform'])) {
+            return LocalizationUtility::translate('error_no_form');
+        }
 
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
 
