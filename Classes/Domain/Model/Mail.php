@@ -134,6 +134,11 @@ class Mail extends AbstractEntity
     protected $answersByFieldUid;
 
     /**
+     * @var array<int, Answer[]>|null
+     */
+    protected $answersGroupedByFieldUid;
+
+    /**
      * This property can be used by extensions to hold some data over a request
      * Use e.g. extension key as array key
      *
@@ -484,6 +489,33 @@ class Mail extends AbstractEntity
         }
 
         return $this->answersByFieldUid;
+    }
+
+    /**
+     * Returns all answers grouped by the uid of their related field.
+     *
+     * In contrast to getAnswersByFieldUid() a field can hold more than one answer here, which is what
+     * the export needs: it has to render every answer of a field, not just the last one.
+     *
+     * @return array<int, Answer[]>
+     */
+    public function getAnswersGroupedByFieldUid(): array
+    {
+        if ($this->answersGroupedByFieldUid === null) {
+            $this->answersGroupedByFieldUid = [];
+            /** @var Answer $answer */
+            foreach ($this->getAnswers() as $answer) {
+                // An answer without a persisted field can never match an exported column
+                $fieldUid = $answer->getField()?->getUid();
+                if ($fieldUid === null) {
+                    continue;
+                }
+
+                $this->answersGroupedByFieldUid[$fieldUid][] = $answer;
+            }
+        }
+
+        return $this->answersGroupedByFieldUid;
     }
 
     /**

@@ -7,6 +7,7 @@ namespace In2code\Powermail\Domain\Repository;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Form;
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Domain\Service\Export\BatchedMailQueryResult;
 use In2code\Powermail\Events\MailRepositoryGetVariablesWithMarkersFromMailEvent;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\ArrayUtility;
@@ -19,6 +20,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException as InvalidQueryExceptionAlias;
 use TYPO3\CMS\Extbase\Persistence\Generic\Query;
 use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
@@ -38,37 +40,113 @@ class MailRepository extends AbstractRepository
      */
     public function findAllInPid(int $pid = 0, array $settings = [], array $piVars = []): QueryResultInterface
     {
+        $query = $this->createQueryForFindAllInPid($pid, $settings, $piVars);
+        $this->restrictQueryToUniqueMails($query, $piVars);
+        return $query->execute();
+    }
+
+    /**
+     * Same result as findAllInPid(), but the mails are fetched in batches while iterating instead of
+     * all at once
+     *
+     * @param int $pid
+     * @param array<string, mixed> $settings
+     * @param array<string, mixed> $piVars
+     * @param int $batchSize
+     * @return QueryResultInterface<int, Mail>
+     * @throws InvalidQueryExceptionAlias
+     */
+    public function findAllInPidBatched(
+        int $pid = 0,
+        array $settings = [],
+        array $piVars = [],
+        int $batchSize = BatchedMailQueryResult::DEFAULT_BATCH_SIZE
+    ): QueryResultInterface {
+        $query = $this->createQueryForFindAllInPid($pid, $settings, $piVars);
+        $this->restrictQueryToUniqueMails($query, $piVars);
+        return GeneralUtility::makeInstance(
+            BatchedMailQueryResult::class,
+            $query,
+            $batchSize,
+            $this->persistenceManager
+        );
+    }
+
+    /**
+     * @param int $pid
+     * @param array<string, mixed> $settings
+     * @param array<string, mixed> $piVars
+     * @return QueryInterface<DomainObjectInterface>
+     * @throws InvalidQueryExceptionAlias
+     */
+    protected function createQueryForFindAllInPid(int $pid, array $settings, array $piVars): QueryInterface
+    {
         $query = $this->createQuery();
         $query->getQuerySettings()->setIgnoreEnableFields(true);
+        // findAllInPid() constrains the pid itself. Setting this explicitly keeps the method working when
+        // the repository was not created through the DI container and initializeObject() never ran - which
+        // is the case for GeneralUtility::makeInstance() in a CLI context (e.g. the export command).
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $and = $this->getConstraintsForFindAllInPid($piVars, $query, $pid);
         $query->matching($query->logicalAnd(...$and));
         $query->setOrderings(
             $this->getSorting($settings['sortby'] ?? '', $settings['order'] ?? '', $piVars)
         );
-        $mails = $query->execute();
-        return $this->makeUniqueQuery($mails, $query);
+
+        return $query;
     }
 
     /**
-     * Workarround for "group by uid"
+     * Workaround for "group by uid" - filtering on answer values joins the answer table, which can
+     * return the same mail more than once. Only then the extra roundtrip is needed.
      *
+     * The uids are read from the raw result on purpose: mapping them to objects first would hydrate the
+     * complete result set only to throw it away again, and would leave every object pinned in the
+     * persistence session afterwards.
+     *
+     * @param QueryInterface<DomainObjectInterface> $query
+     * @param array<string, mixed> $piVars
      * @throws InvalidQueryExceptionAlias
      */
-    protected function makeUniqueQuery(QueryResultInterface $result, QueryInterface $query): QueryResultInterface
+    protected function restrictQueryToUniqueMails(QueryInterface $query, array $piVars): void
     {
-        if ($result->count() > 0) {
-            $items = [];
-            foreach ($result as $resultItem) {
-                if (!in_array($resultItem->getUid(), $items)) {
-                    $items[] = $resultItem->getUid();
-                }
-            }
-
-            $query->matching($query->in('uid', $items));
-            return $query->execute();
+        if ($this->filterJoinsAnswers($piVars) === false) {
+            return;
         }
 
-        return $result;
+        $rows = $query->execute(true);
+        if ($rows === []) {
+            return;
+        }
+
+        $query->matching($query->in('uid', array_unique(array_column($rows, 'uid'))));
+    }
+
+    /**
+     * Whether the given filter produces a constraint on the answers relation - see
+     * getConstraintsForFindAllInPid(), which is the only place a join can be introduced.
+     *
+     * @param array<string, mixed> $piVars
+     */
+    protected function filterJoinsAnswers(array $piVars): bool
+    {
+        foreach ((array)($piVars['filter'] ?? []) as $field => $value) {
+            if (!is_array($value)) {
+                if ($field === 'all' && !empty($value)) {
+                    return true;
+                }
+
+                continue;
+            }
+
+            foreach ($value as $answerField => $answerValue) {
+                if (!empty($answerValue) && $answerField !== 'crdate') {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -69,7 +69,7 @@ class ExportCommand extends Command
         $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
         $exportService = GeneralUtility::makeInstance(
             ExportService::class,
-            $mailRepository->findAllInPid(
+            $mailRepository->findAllInPidBatched(
                 (int)$input->getArgument('pageUid'),
                 [],
                 $this->getFilterVariables((int)$input->getArgument('period'))

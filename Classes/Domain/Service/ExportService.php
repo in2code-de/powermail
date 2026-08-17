@@ -16,7 +16,6 @@ use TYPO3\CMS\Core\Mail\MailMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
 use TYPO3\CMS\Extbase\Mvc\Exception\InvalidExtensionNameException;
-use TYPO3\CMS\Extbase\Persistence\Generic\QueryResult;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /**
@@ -26,8 +25,10 @@ class ExportService
 {
     /**
      * Contains mails for export
+     *
+     * @var QueryResultInterface<int, Mail>|null
      */
-    protected ?QueryResult $mails = null;
+    protected ?QueryResultInterface $mails = null;
 
     /**
      * Receiver email addresses
@@ -89,7 +90,7 @@ class ExportService
     protected string $emailTemplate = 'Module/ExportTaskMail.html';
 
     /**
-     * @param QueryResultInterface|null $mails Given mails for export
+     * @param QueryResultInterface<int, Mail>|null $mails Given mails for export
      * @param string $format can be 'xls' or 'csv'
      * @param array $additionalProperties add additional properties
      */
@@ -196,7 +197,7 @@ class ExportService
     /**
      * Get a list with all default fields
      *
-     * @param QueryResultInterface|null $mails
+     * @param QueryResultInterface<int, Mail>|null $mails
      * @throws DeprecatedException
      * @throws ExtensionConfigurationExtensionNotConfiguredException
      * @throws ExtensionConfigurationPathDoesNotExistException
@@ -217,11 +218,17 @@ class ExportService
         return $fieldList;
     }
 
+    /**
+     * @return QueryResultInterface<int, Mail>
+     */
     public function getMails(): QueryResultInterface
     {
         return $this->mails;
     }
 
+    /**
+     * @param QueryResultInterface<int, Mail>|null $mails
+     */
     public function setMails(?QueryResultInterface $mails): ExportService
     {
         $this->mails = $mails;
