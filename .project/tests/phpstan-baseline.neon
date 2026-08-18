@@ -1249,36 +1249,6 @@ parameters:
 			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
 
 		-
-			message: '#^Parameter \#1 \$image of function imagecolorallocate expects GdImage, resource given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagedestroy expects GdImage, GdImage\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagepng expects GdImage, GdImage\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
-
-		-
-			message: '#^Parameter \#1 \$image of function imagettftext expects GdImage, GdImage\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
-
-		-
-			message: '#^Parameter \#1 \$imageResource of method In2code\\Powermail\\Domain\\Service\\CalculatingCaptchaService\:\:getColorForCaptcha\(\) expects resource, GdImage\|false given\.$#'
-			identifier: argument.type
-			count: 1
-			path: ../../Classes/Domain/Service/CalculatingCaptchaService.php
-
-		-
 			message: '#^Parameter \#2 \$fieldUid of static method In2code\\Powermail\\Utility\\SessionUtility\:\:setCaptchaSession\(\) expects int, int\<1, max\>\|null given\.$#'
 			identifier: argument.type
 			count: 1
