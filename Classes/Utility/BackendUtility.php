@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Repository\PageRepository;
@@ -12,6 +13,7 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -123,7 +125,7 @@ class BackendUtility
     public static function getRoute(string $route, array $parameters = []): string
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-        return (string)$uriBuilder->buildUriFromRoute($route, $parameters);
+        return (string) $uriBuilder->buildUriFromRoute($route, $parameters);
     }
 
     /**
@@ -135,7 +137,7 @@ class BackendUtility
     {
         $moduleName = 'record_edit';
         if (GeneralUtility::_GET('route') !== null) {
-            $routePath = (string)GeneralUtility::_GET('route');
+            $routePath = (string) GeneralUtility::_GET('route');
             $router = GeneralUtility::makeInstance(Router::class);
             try {
                 $route = $router->match($routePath);
@@ -190,9 +192,9 @@ class BackendUtility
             $returnUrl = GeneralUtility::_GP('returnUrl') ?: '';
         }
         $urlParts = parse_url($returnUrl);
-        parse_str((string)$urlParts['query'], $queryParts);
+        parse_str((string) $urlParts['query'], $queryParts);
         if (array_key_exists('id', $queryParts)) {
-            return (int)$queryParts['id'];
+            return (int) $queryParts['id'];
         }
         return 0;
     }
@@ -235,7 +237,7 @@ class BackendUtility
             // @codeCoverageIgnoreStart
             $newPids = [];
             foreach ($pids as $pid) {
-                $properties = $pageRepository->getPropertiesFromUid((int)$pid);
+                $properties = $pageRepository->getPropertiesFromUid((int) $pid);
                 if (self::getBackendUserAuthentication()->doesUserHaveAccess($properties, 1)) {
                     $newPids[] = $pid;
                 }
@@ -244,6 +246,22 @@ class BackendUtility
             // @codeCoverageIgnoreEnd
         }
         return $pids;
+    }
+
+    /**
+     * Check whether the current backend user is allowed to access (show) a single page.
+     *
+     * @param int $pageId
+     * @return bool
+     */
+    public static function isPageAccessGranted(int $pageId): bool
+    {
+        if ($pageId <= 0) {
+            return false;
+        }
+
+        $permissionClause = self::getBackendUserAuthentication()->getPagePermsClause(Permission::PAGE_SHOW);
+        return is_array(BackendUtilityCore::readPageAccess($pageId, $permissionClause));
     }
 
     /**

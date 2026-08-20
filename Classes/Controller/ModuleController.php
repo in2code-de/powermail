@@ -9,6 +9,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
 use In2code\Powermail\Domain\Service\SlidingWindowPagination;
 use In2code\Powermail\Exception\FileCannotBeCreatedException;
+use In2code\Powermail\Exception\NoPageAccessException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -31,6 +32,20 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ModuleController extends AbstractController
 {
+    /**
+     * @return void
+     * @throws NoPageAccessException
+     */
+    protected function initializeAction(): void
+    {
+        parent::initializeAction();
+        $this->id = (int)(GeneralUtility::_GET('id') ?? GeneralUtility::_POST('id') ?? 0);
+
+        if ($this->id > 0 && BackendUtility::isPageAccessGranted($this->id) === false) {
+            throw new NoPageAccessException('You don\'t have access to this page', 1755000000);
+        }
+    }
+
     /**
      * @param string $forwardToAction
      * @throws StopActionException

@@ -7,6 +7,7 @@ use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\BackendUtility;
 use Nimut\TestingFramework\TestCase\UnitTestCase;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
 /**
@@ -244,5 +245,98 @@ class BackendUtilityTest extends UnitTestCase
 
         $GLOBALS['BE_USER']->user['admin'] = 1;
         self::assertSame([1, 2], BackendUtility::filterPagesForAccess([1, 2]));
+    }
+
+    /**
+     * Data Provider for isPageAccessGrantedDeniesNonPositivePageId()
+     *
+     * @return array
+     */
+    public function isPageAccessGrantedDeniesNonPositivePageIdDataProvider()
+    {
+        return [
+            'no page selected' => [
+                0,
+            ],
+            'negative page id' => [
+                -1,
+            ],
+            'negative foreign page id' => [
+                -50,
+            ],
+        ];
+    }
+
+    /**
+     * A page id that is not a real page must never be granted - especially not id 0, for which the core
+     * BackendUtility::readPageAccess() returns a truthy pseudo record ("_thePath") for administrators.
+     *
+     * @param int $pageId
+     * @dataProvider isPageAccessGrantedDeniesNonPositivePageIdDataProvider
+     * @return void
+     * @test
+     * @covers ::isPageAccessGranted
+     */
+    public function isPageAccessGrantedDeniesNonPositivePageId($pageId)
+    {
+        self::assertFalse(BackendUtility::isPageAccessGranted($pageId));
+    }
+
+    /**
+     * Data Provider for nonCanonicalPageIdsAreNotCoveredByTheFrameworkGate()
+     *
+     * @return array
+     */
+    public function nonCanonicalPageIdsAreNotCoveredByTheFrameworkGateDataProvider()
+    {
+        return [
+            'leading zero' => [
+                '050',
+                50,
+            ],
+            'leading plus' => [
+                '+50',
+                50,
+            ],
+            'trailing space' => [
+                '50 ',
+                50,
+            ],
+            'leading space' => [
+                ' 50',
+                50,
+            ],
+            'decimal notation' => [
+                '50.0',
+                50,
+            ],
+            'trailing garbage' => [
+                '50abc',
+                50,
+            ],
+        ];
+    }
+
+    /**
+     * Regression coverage for the backend module IDOR: the backend route dispatcher only page access checks
+     * an id when MathUtility::canBeInterpretedAsInteger() accepts it, while the module resolves the same
+     * request value with a raw (int) cast. Every id below therefore reaches a foreign page without ever
+     * being checked by the framework - which is why ModuleController::initializeAction() has to run
+     * BackendUtility::isPageAccessGranted() on the casted value itself.
+     *
+     * @param string $requestId
+     * @param int $expectedPageId
+     * @dataProvider nonCanonicalPageIdsAreNotCoveredByTheFrameworkGateDataProvider
+     * @return void
+     * @test
+     * @coversNothing
+     */
+    public function nonCanonicalPageIdsAreNotCoveredByTheFrameworkGate($requestId, $expectedPageId)
+    {
+        self::assertFalse(
+            MathUtility::canBeInterpretedAsInteger($requestId),
+            'The framework gate would have checked this id, the test case is pointless then'
+        );
+        self::assertSame($expectedPageId, (int)$requestId);
     }
 }
