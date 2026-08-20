@@ -35,6 +35,25 @@ Main configuration for powermail for CMS wide settings.
 | Enable Form caching                     | With this setting, you can enable the caching of the form generation, what speeds up sites with powermail forms in the frontend. On the other hand, some additional features (like prefilling values from GET paramter, etc...) are not working any more. | 0             |
 | Enable Merge for l10n_mode              | All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.                                                                                    | 0             |
 | ElementBrowser replaces IRRE            | Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!                                                                   | 0             |
+| Allowed ViewHelpers in parsed strings   | Comma separated list of ViewHelpers that powermail may execute while it replaces variables in a mail subject, in the receiver name and email, in field titles and in select options. Every other ViewHelper is removed. See the note below.                | f:cObject     |
+
+### Allowed ViewHelpers in parsed strings
+
+Powermail replaces variables like `{firstname}` in a couple of configured values by parsing them with
+Fluid. Some of those values can contain data that a website visitor submitted - the sender name of a
+mail to the receiver is taken from a form field, for example. Powermail therefore never parses
+submitted values, and in the values it does parse it only executes the ViewHelpers listed in this
+setting.
+
+- `f:cObject` is part of the default, because using it in the receiver name, the receiver mail and the
+  subject is a documented feature.
+- Wildcards are possible: `f:format.*` allows every formatting ViewHelper, `f:*` allows all of them.
+- The entries are case sensitive, `f:cobject` is not the same as `f:cObject`.
+- An empty value allows no ViewHelper at all. Variables like `{firstname}` keep working in any case.
+- Keep the list as short as possible and prefer specific entries over wildcards.
+
+This does not affect templates and RTE fields. Arbitrary ViewHelpers and own namespaces keep working
+there, see BestPractice/Templates.
 
 ## Static Templates
 

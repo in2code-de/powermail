@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Exception\SoftwareIsMissingException;
+use Throwable;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
@@ -105,6 +106,36 @@ class ConfigurationUtility
     {
         $extensionConfig = self::getExtensionConfiguration();
         return (bool)$extensionConfig['replaceIrreWithElementBrowser'] === true;
+    }
+
+    /**
+     * ViewHelpers that powermail is allowed to execute while parsing a configured string with Fluid.
+     * Everything else is removed. "f:cObject" is part of the default because it is a documented
+     * feature for the receiver name, the receiver email and the mail subject.
+     */
+    public const DEFAULT_ALLOWED_VIEWHELPERS_IN_PARSED_STRINGS = 'f:cObject';
+
+    /**
+     * Get the allowlist of ViewHelpers for strings that are parsed with Fluid
+     *
+     * @return string[]
+     */
+    public static function getAllowedViewHelpersInParsedStrings(): array
+    {
+        try {
+            $extensionConfig = self::getExtensionConfiguration();
+        } catch (Throwable $throwable) {
+            unset($throwable);
+            $extensionConfig = [];
+        }
+
+        // A missing key means the extension configuration was not synchronized after an update.
+        // Falling back to the default keeps the documented ViewHelpers working, while an
+        // intentionally empty value still means "allow nothing".
+        $allowedViewHelpers = $extensionConfig['allowedViewHelpersInParsedStrings']
+            ?? self::DEFAULT_ALLOWED_VIEWHELPERS_IN_PARSED_STRINGS;
+
+        return GeneralUtility::trimExplode(',', (string)$allowedViewHelpers, true);
     }
 
     /**

@@ -95,3 +95,11 @@ To avoid escaping the tag of the ViewHelper, the inline notation should be used.
 
 
 Look at the official documentation how to add own ViewHelpers to your sitepackage.
+
+**Note** This applies to templates and to RTE fields. Powermail also replaces variables in a few
+short configured values - the mail subject, the receiver name and email, field titles and the options
+of select, radio and checkbox fields. Those values are more restricted, because some of them can
+contain data that a website visitor submitted: only the ViewHelpers listed in the extension
+configuration `allowedViewHelpersInParsedStrings` are executed there, and an own namespace cannot be
+imported. Variables like `{firstname}` work everywhere.
+See ForAdministrators/Installation for that setting.

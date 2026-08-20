@@ -18,3 +18,6 @@ enableCaching = 0
 
 # cat=basic/enable/080; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!
 replaceIrreWithElementBrowser = 0
+
+# cat=basic/enable/090; type=string; label= Allowed ViewHelpers in parsed strings: Comma separated list of ViewHelpers that powermail may execute while it replaces variables like {firstname} in a mail subject, in the receiver name and email, in field titles and in select options. Every other ViewHelper is removed. Some of these values can contain data that was submitted by a website visitor, so keep this list as short as possible - an empty value allows no ViewHelper at all. Wildcards are possible: "f:format.*" or "f:*". The entries are case sensitive.
+allowedViewHelpersInParsedStrings = f:cObject
