@@ -415,7 +415,11 @@ class SendMailService
     }
 
     /**
-     * Parsing variables with fluid engine to allow viewhelpers in flexform
+     * Parse configured values with Fluid.
+     *
+     * A visitor-controlled value must never be used as Fluid template source.
+     * Otherwise a submitted sender name or email address could execute Fluid
+     * ViewHelpers while the mail headers are prepared.
      *
      * @param array $email
      * @param Mail $mail
@@ -434,19 +438,46 @@ class SendMailService
             // overwrite with TypoScript already done in ReceiverMailReceiverPropertiesService
             TypoScriptUtility::overwriteValueFromTypoScript($email['receiverEmail'], $this->overwriteConfig, 'email');
         }
-        $parse = [
-            'receiverName',
-            'receiverEmail',
-            'senderName',
-            'senderEmail',
-            'subject'
-        ];
-        foreach ($parse as $value) {
+        foreach ($this->getConfiguredKeysAllowedToContainFluid() as $value) {
             $email[$value] = TemplateUtility::fluidParseString(
                 $email[$value],
                 $mailRepository->getVariablesWithMarkersFromMail($mail)
             );
         }
+    }
+
+    /**
+     * Return header values whose source is controlled by an editor or integrator.
+     *
+     * Values on the other side of a mail are supplied by the form visitor: the
+     * sender values of a receiver mail and the receiver values of a sender or
+     * opt-in mail. They may contain braces as ordinary input, but must not be
+     * rendered as Fluid.
+     *
+     * @return array
+     */
+    protected function getConfiguredKeysAllowedToContainFluid()
+    {
+        $configuredKeysByType = [
+            'receiver' => [
+                'receiverName',
+                'subject'
+            ],
+            'sender' => [
+                'senderName',
+                'senderEmail',
+                'subject'
+            ],
+            'optin' => [
+                'senderName',
+                'senderEmail',
+                'subject'
+            ]
+        ];
+
+        // Extensions may use their own mail type. The subject is the only
+        // header that is always configured by Powermail in that case.
+        return $configuredKeysByType[$this->type] ?? ['subject'];
     }
 
     /**
