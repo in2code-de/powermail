@@ -13,8 +13,15 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Version
    :Date:
       Release Date
-   :Changes:
+ :Changes:
       Release Description
+
+ - :Version:
+      7.5.2
+   :Date:
+      2026-08-25
+   :Changes:
+      * Security: prevent visitor-controlled mail-header values from being evaluated as Fluid
 
  - :Version:
       7.5.1
