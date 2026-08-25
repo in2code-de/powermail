@@ -13,7 +13,7 @@ All changes are documented on https://docs.typo3.org/typo3cms/extensions/powerma
       Version
    :Date:
       Release Date
- :Changes:
+   :Changes:
       Release Description
 
  - :Version:
