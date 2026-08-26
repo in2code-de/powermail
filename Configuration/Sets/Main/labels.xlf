@@ -523,6 +523,12 @@
 			<trans-unit id="settings.description.plugin.tx_powermail.settings.validation.server">
 				<source>Validate User Input with PHP on serverside</source>
 			</trans-unit>
+			<trans-unit id="settings.plugin.tx_powermail.settings.validation.lettersOnlyPattern">
+				<source>Pattern for "lettersOnly"" validation</source>
+			</trans-unit>
+			<trans-unit id="settings.description.plugin.tx_powermail.settings.validation.lettersOnlyPattern">
+				<source>Regex pattern to match,when using the "letters only" validation</source>
+			</trans-unit>
 
 			<trans-unit id="settings.plugin.tx_powermail.settings.styles.framework.numberOfColumns">
 				<source>Number of columns</source>

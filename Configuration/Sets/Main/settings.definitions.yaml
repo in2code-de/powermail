@@ -370,6 +370,10 @@ settings:
     category: powermail.validation
     type: bool
     default: true
+  plugin.tx_powermail.settings.validation.lettersOnlyPattern:
+    category: powermail.validation
+    type: string
+    default: '^[A-Za-z]+$'
 
   plugin.tx_powermail.settings.styles.framework.numberOfColumns:
     default: 2
