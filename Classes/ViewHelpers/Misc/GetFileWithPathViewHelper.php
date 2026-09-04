@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Domain\Service\UploadFolderService;
 use Throwable;
 use TYPO3\CMS\Core\Resource\StorageRepository;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -24,7 +25,7 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
     {
         parent::initializeArguments();
         $this->registerArgument('fileName', 'string', 'Filename like "picture.jpg"', true);
-        $this->registerArgument('path', 'string', 'Path like "fileadmin/powermail/uploads/"', true);
+        $this->registerArgument('path', 'string', 'Path like "fileadmin/powermail/uploads/" or "2:/tx_powermail/"', true);
     }
 
     /**
@@ -35,7 +36,16 @@ class GetFileWithPathViewHelper extends AbstractTagBasedViewHelper
         $fileName = $this->arguments['fileName'] ?? '';
         $path = $this->arguments['path'] ?? '';
 
-        // using FAL although plain path/file is supplied to trigger all hooks and evemts
+        $service = GeneralUtility::makeInstance(UploadFolderService::class);
+        if ($service->isFalCombinedIdentifier((string)$path)) {
+            $publicUrl = $service->getPublicUrl((string)$path, (string)$fileName);
+            if ($publicUrl !== '') {
+                return $publicUrl;
+            }
+            return $this->uploadPathFallback . $fileName;
+        }
+
+        // using FAL although plain path/file is supplied to trigger all hooks and events
         $storageRepository = GeneralUtility::makeInstance(StorageRepository::class);
         $allStorages = $storageRepository->findAll();
         foreach ($allStorages as $thisStorage) {

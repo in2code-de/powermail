@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace In2code\Powermail\Command;
 
 use In2code\Powermail\Domain\Repository\AnswerRepository;
-use In2code\Powermail\Utility\BasicFileUtility;
+use In2code\Powermail\Domain\Service\UploadFolderService;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -22,7 +22,7 @@ class CleanupUnusedUploadsCommand extends Command
     protected function configure()
     {
         $this->setDescription('Remove unused uploaded Files with a scheduler task');
-        $this->addArgument('uploadPath', InputArgument::OPTIONAL, 'Define the upload Path', 'uploads/tx_powermail/');
+        $this->addArgument('uploadPath', InputArgument::OPTIONAL, 'Define the upload Path (relative path or FAL combined identifier like "2:/tx_powermail/")', 'uploads/tx_powermail/');
     }
 
     /**
@@ -30,14 +30,15 @@ class CleanupUnusedUploadsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $uploadPath = (string)$input->getArgument('uploadPath');
+        $service = GeneralUtility::makeInstance(UploadFolderService::class);
         $usedUploads = $this->getUsedUploads();
-        $allUploads = BasicFileUtility::getFilesFromRelativePath($input->getArgument('uploadPath'));
+        $allUploads = $service->getFileNames($uploadPath);
         $removeCounter = 0;
         foreach ($allUploads as $upload) {
             if (!in_array($upload, $usedUploads)) {
-                $absoluteFilePath = GeneralUtility::getFileAbsFileName($input->getArgument('uploadPath') . $upload);
-                if (filemtime($absoluteFilePath) < (time() - 3600)) {
-                    unlink($absoluteFilePath);
+                if ($service->getModificationTime($uploadPath, $upload) < (time() - 3600)) {
+                    $service->deleteFile($uploadPath, $upload);
                     $removeCounter++;
                 }
             }
