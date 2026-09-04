@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Domain\Service\UploadFolderService;
 use In2code\Powermail\Utility\BasicFileUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
@@ -19,7 +20,7 @@ class GetHmacForFileViewHelper extends AbstractTagBasedViewHelper
     {
         parent::initializeArguments();
         $this->registerArgument('fileName', 'string', 'Filename like "picture.jpg"', true);
-        $this->registerArgument('path', 'string', 'Path like "fileadmin/powermail/uploads/"', true);
+        $this->registerArgument('path', 'string', 'Path like "fileadmin/powermail/uploads/" or "2:/tx_powermail/"', true);
     }
 
     public function render(): string
@@ -27,7 +28,12 @@ class GetHmacForFileViewHelper extends AbstractTagBasedViewHelper
         $fileName = $this->arguments['fileName'] ?? '';
         $path = $this->arguments['path'] ?? $this->uploadPathFallback;
 
-        $absFileName = GeneralUtility::getFileAbsFileName($path . $fileName);
+        $service = GeneralUtility::makeInstance(UploadFolderService::class);
+        if ($service->isFalCombinedIdentifier((string)$path)) {
+            $absFileName = $service->getAbsoluteLocalPath((string)$path, (string)$fileName);
+        } else {
+            $absFileName = GeneralUtility::getFileAbsFileName($path . $fileName);
+        }
 
         return BasicFileUtility::getHmacForFile($absFileName);
     }
