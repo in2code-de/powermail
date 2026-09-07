@@ -137,7 +137,8 @@ class InputValidator extends StringValidator
 
                     // letters only
                 case 5:
-                    if (!$this->validateLettersOnly($value)) {
+                    $pattern = $this->settings['validation']['lettersOnlyPattern'] ?? '^[A-Za-z]+$';
+                    if (!$this->validatePattern($value, $pattern)) {
                         $this->setErrorAndMessage($field, 'validation.' . $field->getValidation());
                     }
 
