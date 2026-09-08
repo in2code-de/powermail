@@ -35,7 +35,24 @@
     "typo3-ter/powermail": "self.version"
   },
   "require-dev": {
-    "typo3/cms-core": "^10.4",
+    "typo3/cms-adminpanel": "^10.4",
+    "typo3/cms-beuser": "^10.4",
+    "typo3/cms-dashboard": "^10.4",
+    "typo3/cms-extbase": "^10.4",
+    "typo3/cms-extensionmanager": "^10.4",
+    "typo3/cms-felogin": "^10.4",
+    "typo3/cms-filelist": "^10.4",
+    "typo3/cms-fluid-styled-content": "^10.4",
+    "typo3/cms-frontend": "^10.4",
+    "typo3/cms-info": "^10.4",
+    "typo3/cms-install": "^10.4",
+    "typo3/cms-recordlist": "^10.4",
+    "typo3/cms-rte-ckeditor": "^10.4",
+    "typo3/cms-scheduler": "^10.4",
+    "typo3/cms-setup": "^10.4",
+    "typo3/cms-t3editor": "^10.4",
+    "typo3/cms-tstemplate": "^10.4",
+    "typo3/cms-lowlevel": "^10.4",
     "nimut/testing-framework": "^5.0",
     "mikey179/vfsstream": "^1.6",
     "phpunit/phpunit": "^6.0",
@@ -47,6 +64,7 @@
     "squizlabs/php_codesniffer": "^3.5",
     "phpmd/phpmd": "^2.8",
     "friendsofphp/php-cs-fixer": "^2.19",
+    "helhum/typo3-console": "^6.3",
     "helmich/typo3-typoscript-lint": "^2.5"
   },
   "autoload": {
@@ -62,6 +80,7 @@
     }
   },
   "config": {
+    "policy": false,
     "vendor-dir": ".Build/vendor",
     "bin-dir": ".Build/bin",
     "allow-plugins": {
