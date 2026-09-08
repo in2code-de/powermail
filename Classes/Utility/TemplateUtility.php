@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace In2code\Powermail\Utility;
 
 use In2code\Powermail\Domain\Model\Mail;
+use In2code\Powermail\Fluid\RestrictedStringRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
@@ -150,6 +151,10 @@ class TemplateUtility
     /**
      * Parse String with Fluid View
      *
+     * Only variables and the ViewHelpers configured in the extension configuration are evaluated -
+     * some of the parsed values can hold data that was submitted by a website visitor, which would
+     * otherwise allow arbitrary ViewHelper execution from an unauthenticated request.
+     *
      * @param string $string Any string
      * @param array $variables Variables
      * @return string Parsed string
@@ -161,9 +166,6 @@ class TemplateUtility
             || BackendUtility::isBackendContext()) {
             return $string;
         }
-        $standaloneView = ObjectUtility::getObjectManager()->get(StandaloneView::class);
-        $standaloneView->setTemplateSource($string);
-        $standaloneView->assignMultiple($variables);
-        return $standaloneView->render() ?? '';
+        return GeneralUtility::makeInstance(RestrictedStringRenderer::class)->render($string, $variables);
     }
 }

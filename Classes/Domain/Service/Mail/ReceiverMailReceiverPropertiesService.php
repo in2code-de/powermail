@@ -135,6 +135,11 @@ class ReceiverMailReceiverPropertiesService
     /**
      * Get emails from FlexForm and parse with fluid
      *
+     * Security: this is the only place where settings.receiver.email may be parsed. The result can
+     * contain values that were substituted in from the submitted data, so parsing it a second time
+     * would evaluate what a website visitor wrote - see SendMailService::getKeysAllowedToContainFluid(),
+     * which is why receiverEmail is never parsed there.
+     *
      * @return array
      * @throws Exception
      */

@@ -360,6 +360,10 @@ class MailRepository extends AbstractRepository
     /**
      * Returns senderemail from a couple of arguments
      *
+     * Security: the returned value was submitted by a website visitor and is returned verbatim. It
+     * must never be used as a Fluid template source. Note that GeneralUtility::validEmail() accepts a
+     * quoted local part, so being a valid address is no proof that the value is harmless.
+     *
      * @param Mail $mail
      * @param string $default
      * @return string Sender Email
@@ -384,6 +388,11 @@ class MailRepository extends AbstractRepository
 
     /**
      * Returns sendername from a couple of arguments
+     *
+     * Security: the returned value was submitted by a website visitor and is returned verbatim - it
+     * is persisted, shown in the backend module and exported, so it must not be modified here. It
+     * must never be used as a Fluid template source, see
+     * SendMailService::getKeysAllowedToContainFluid().
      *
      * @param Mail $mail Given Params
      * @param string|array $default String as default or cObject array
