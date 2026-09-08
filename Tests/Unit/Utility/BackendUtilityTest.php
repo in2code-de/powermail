@@ -343,6 +343,38 @@ class BackendUtilityTest extends UnitTestCase
     }
 
     /**
+     * Data Provider for isPageAccessGrantedReturnsBool()
+     *
+     * @return array
+     */
+    public function isPageAccessGrantedReturnsBoolDataProvider()
+    {
+        return [
+            'no page selected in module' => [
+                0
+            ],
+            'negative page identifier' => [
+                -1
+            ]
+        ];
+    }
+
+    /**
+     * Page identifiers that can never be accessed are denied before any page record is read.
+     * The permission check itself needs a database and is covered by manual and behaviour tests.
+     *
+     * @param int $pageIdentifier
+     * @dataProvider isPageAccessGrantedReturnsBoolDataProvider
+     * @return void
+     * @test
+     * @covers ::isPageAccessGranted
+     */
+    public function isPageAccessGrantedReturnsBool($pageIdentifier)
+    {
+        $this->assertFalse(BackendUtility::isPageAccessGranted($pageIdentifier));
+    }
+
+    /**
      * @return void
      * @test
      * @covers ::isBackendContext

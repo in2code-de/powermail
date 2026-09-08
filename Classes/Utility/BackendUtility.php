@@ -10,6 +10,7 @@ use TYPO3\CMS\Backend\Routing\Router;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
+use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\Exception;
 
@@ -245,6 +246,30 @@ class BackendUtility
             // @codeCoverageIgnoreEnd
         }
         return $pids;
+    }
+
+    /**
+     * Check if the current backend user is allowed to see a single page
+     *
+     * This check is done on the already resolved (int) page identifier that the actions of the backend module
+     * are working with. \TYPO3\CMS\Backend\Http\RouteDispatcher checks the page access of a module request
+     * as well, but only for page identifiers that pass MathUtility::canBeInterpretedAsInteger() and it reads
+     * them from the query params before the parsed body. The module resolves its page identifier with
+     * GeneralUtility::_GP() (parsed body first) and a raw (int) cast, so a non canonical identifier like
+     * "09002" or an identifier that is only sent via POST would reach the mails of a page that the backend
+     * user is not allowed to see.
+     * Admins are allowed to see every page, not existing, deleted and not permitted pages are denied.
+     *
+     * @param int $pageIdentifier
+     * @return bool
+     */
+    public static function isPageAccessGranted(int $pageIdentifier): bool
+    {
+        if ($pageIdentifier <= 0) {
+            return false;
+        }
+        $permissionClause = self::getBackendUserAuthentication()->getPagePermsClause(Permission::PAGE_SHOW);
+        return is_array(BackendUtilityCore::readPageAccess($pageIdentifier, $permissionClause));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace In2code\Powermail\Controller;
 use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\PageRepository;
+use In2code\Powermail\Exception\NoPageAccessException;
 use In2code\Powermail\Utility\BackendUtility;
 use In2code\Powermail\Utility\BasicFileUtility;
 use In2code\Powermail\Utility\ConfigurationUtility;
@@ -24,6 +25,23 @@ use TYPO3\CMS\Extbase\Reflection\Exception\PropertyNotAccessibleException;
  */
 class ModuleController extends AbstractController
 {
+
+    /**
+     * Enforce the page access of the current backend user before any action of this module reads records
+     *        of the given page. The check is done on the same value ($this->id) that all actions are working
+     *        with, so it can not be circumvented with a non canonical page identifier (e.g. "09002") or by
+     *        sending the identifier via POST only - see BackendUtility::isPageAccessGranted()
+     *
+     * @return void
+     * @throws NoPageAccessException
+     */
+    protected function initializeAction(): void
+    {
+        parent::initializeAction();
+        if ($this->id > 0 && !BackendUtility::isPageAccessGranted($this->id)) {
+            throw new NoPageAccessException('You don\'t have access to this page', 1755000000);
+        }
+    }
 
     /**
      * @param string $forwardToAction
