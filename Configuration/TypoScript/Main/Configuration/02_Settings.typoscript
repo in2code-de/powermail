@@ -54,5 +54,6 @@ module.tx_powermail.settings {
     # Don't touch this (this is just to let the extension know, that there is TypoScript included)
     staticTemplate = 1
   }
+  perPage = 10
   uploadPath = {$plugin.tx_powermail.settings.misc.uploadFolder}
 }

@@ -116,7 +116,7 @@ class ModuleController extends AbstractController
 
         $itemsPerPage = (int)($this->settings['perPage'] ?? 10);
         $paginator = GeneralUtility::makeInstance(QueryResultPaginator::class, $mails, $currentPage, $itemsPerPage);
-        $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, 15);
+        $pagination = GeneralUtility::makeInstance(SlidingWindowPagination::class, $paginator, $itemsPerPage);
 
         $firstFormUid = StringUtility::conditionalVariable($this->piVars['filter']['form'] ?? '', key($formUids));
         $beUser = BackendUtility::getBackendUserAuthentication();
@@ -132,7 +132,7 @@ class ModuleController extends AbstractController
                 'paginator' => $paginator,
             ],
             'settings' => $this->settings,
-            'perPage' => $this->settings['perPage'] ?? 10,
+            'perPage' => $itemsPerPage,
             'writeAccess' => $beUser->check('tables_modify', Answer::TABLE_NAME)
                 && $beUser->check('tables_modify', Mail::TABLE_NAME),
             'activateXlsxExport' => $this->isPhpSpreadsheetInstalled,
