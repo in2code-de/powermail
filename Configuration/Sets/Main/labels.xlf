@@ -175,7 +175,7 @@
 				<source>Upload Folder</source>
 			</trans-unit>
 			<trans-unit id="settings.description.plugin.tx_powermail.settings.misc.uploadFolder">
-				<source>Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)</source>
+				<source>Define the folder where files should be uploaded with upload fields. Can be a relative path (e.g. fileadmin/uploads/) or a FAL storage combined identifier (e.g. 2:/tx_powermail/)</source>
 			</trans-unit>
 			<trans-unit id="settings.plugin.tx_powermail.settings.misc.uploadSize">
 				<source>upload filesize</source>

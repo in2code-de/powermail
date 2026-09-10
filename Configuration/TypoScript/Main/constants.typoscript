@@ -216,7 +216,7 @@ plugin.tx_powermail {
       # cat=powermail_additional//0809; type=string; label= Use EXT:static-info-tables instead of CountryAPI, Possible Values are 0, 1
       useStaticInfoTables = 0
 
-      # cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields (e.g. fileadmin/uploads/)
+      # cat=powermail_additional//0810; type=text; label= Misc Upload Folder: Define the folder where files should be uploaded with upload fields. Can be a relative path (e.g. fileadmin/uploads/) or a FAL storage combined identifier (e.g. 2:/tx_powermail/)
       uploadFolder = uploads/tx_powermail/
 
       # cat=powermail_additional//0820; type=int+; label= Misc Upload Filesize: Define the maximum filesize of file uploads in bytes (10485760 Byte -> 10 MB)

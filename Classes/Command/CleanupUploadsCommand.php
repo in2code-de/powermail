@@ -18,20 +18,30 @@ class CleanupUploadsCommand extends AbstractCleanupCommand
      */
     protected function configure()
     {
-        $this->setDescription('Remove all uploaded files in uploads/tx_powermail/');
+        $this->setDescription('Remove all (!) uploaded files in a given upload folder');
         $this->addArgument(
             'period',
             InputArgument::REQUIRED,
             'Define how old the files could be (in seconds) that should be deleted (0 = delete all)'
         );
+        $this->addArgument(
+            'uploadPath',
+            InputArgument::OPTIONAL,
+            'Define the upload Path (relative path or FAL combined identifier like "2:/tx_powermail/")',
+            'uploads/tx_powermail/'
+        );
     }
 
     /**
-     * This task will clean up all (!) files which are located in uploads/tx_powermail/
+     * This task will clean up all (!) files which are located in the configured upload folder
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->removeFilesFromRelativeDirectory($output, 'uploads/tx_powermail/', (int)$input->getArgument('period'));
+        $this->removeFilesFromRelativeDirectory(
+            $output,
+            (string)$input->getArgument('uploadPath'),
+            (int)$input->getArgument('period')
+        );
         // todo implement error handling
         return Command::SUCCESS;
     }

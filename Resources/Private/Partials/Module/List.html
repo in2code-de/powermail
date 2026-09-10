@@ -207,9 +207,9 @@
 																<a href="{vh:misc.link(path:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}', absolute:1)}" title="{settings.uploadPath}{subValue}" target="_blank">
 																	<f:if condition="{vh:condition.isImage(path:subValue)}">
 																		<f:then>
-																			<f:if condition="{vh:condition.fileExists(file:'{vh:misc.getFileWithPath(path:\'{settings.uploadPath}\',fileName:\'{subValue}\')}')}">
+																			<f:if condition="{vh:condition.fileExists(file:'{settings.uploadPath}{subValue}')}">
 																				<f:then>
-																					<f:image src="{vh:misc.getFileWithPath(path:'{settings.uploadPath}',fileName:'{subValue}')}" alt="{subValue}" width="200" maxHeight="200" />
+																					<f:image src="{settings.uploadPath}{subValue}" alt="{subValue}" width="200" maxHeight="200" />
 																				</f:then>
 																				<f:else>
 																					File does not exist

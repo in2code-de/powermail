@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace In2code\Powermail\Domain\Model;
 
+use In2code\Powermail\Domain\Service\UploadFolderService;
 use In2code\Powermail\Events\GetNewPathAndFilenameEvent;
 use In2code\Powermail\Utility\StringUtility;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -55,6 +56,8 @@ class File
 
     private readonly EventDispatcherInterface $eventDispatcher;
 
+    private ?UploadFolderService $uploadFolderService = null;
+
     /**
      * @param string $temporaryName
      */
@@ -70,6 +73,15 @@ class File
         protected ?string $temporaryName
     ) {
         $this->eventDispatcher = GeneralUtility::makeInstance(EventDispatcherInterface::class);
+    }
+
+    /**
+     * Lazily instantiated because the File model is created via makeInstance
+     * and the service is a singleton.
+     */
+    protected function getUploadFolderService(): UploadFolderService
+    {
+        return $this->uploadFolderService ??= GeneralUtility::makeInstance(UploadFolderService::class);
     }
 
     public function getMarker(): string
@@ -219,13 +231,28 @@ class File
      */
     public function isFileExisting(): bool
     {
-        return $this->isUploaded() && file_exists($this->getNewPathAndFilename(true));
+        if (!$this->isUploaded()) {
+            return false;
+        }
+        return $this->getUploadFolderService()->fileExists($this->getUploadFolder(), $this->getNewName());
     }
 
+    /**
+     * Returns the path-and-filename of the uploaded file.
+     *
+     * For absolute=true a local filesystem path is returned (resolved through
+     * the FAL storage for combined-identifier folders). For absolute=false the
+     * public web-facing path is returned (relative to the site root).
+     */
     public function getNewPathAndFilename(bool $absolute = false): string
     {
-        $pathAndFilename = $this->getUploadFolder() . $this->getNewName();
-        if ($absolute) {
+        $service = $this->getUploadFolderService();
+        $pathAndFilename = $service->isFalCombinedIdentifier($this->getUploadFolder())
+            ? ($absolute
+                ? $service->getAbsoluteLocalPath($this->getUploadFolder(), $this->getNewName())
+                : $service->getPublicUrl($this->getUploadFolder(), $this->getNewName()))
+            : $this->getUploadFolder() . $this->getNewName();
+        if ($absolute && !$service->isFalCombinedIdentifier($this->getUploadFolder())) {
             $pathAndFilename = GeneralUtility::getFileAbsFileName($pathAndFilename);
         }
 

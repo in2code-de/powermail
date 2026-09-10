@@ -326,7 +326,20 @@ class ModuleController extends AbstractController
      */
     public function fixUploadFolderAction(): ResponseInterface
     {
-        BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName('uploads/tx_powermail/'));
+        $uploadFolder = (string)($this->settings['uploadPath'] ?? 'uploads/tx_powermail/');
+        $service = GeneralUtility::makeInstance(\In2code\Powermail\Domain\Service\UploadFolderService::class);
+        if ($service->isFalCombinedIdentifier($uploadFolder)) {
+            try {
+                $service->getOrCreateFolder($uploadFolder);
+            } catch (\TYPO3\CMS\Core\Resource\Exception\FolderDoesNotExistException $e) {
+                throw new FileCannotBeCreatedException(
+                    'Folder ' . $uploadFolder . ' could not be created: ' . $e->getMessage(),
+                    1730000010
+                );
+            }
+        } else {
+            BasicFileUtility::createFolderIfNotExists(GeneralUtility::getFileAbsFileName($uploadFolder));
+        }
         return new ForwardResponse('checkBe');
     }
 
@@ -382,9 +395,12 @@ class ModuleController extends AbstractController
     {
         $queryParams = $request->getQueryParams();
         if (array_key_exists('file', $queryParams) && array_key_exists('hmac', $queryParams)) {
-            $fileName = basename($queryParams['file']);
-            $absoluteFileName = GeneralUtility::getFileAbsFileName($queryParams['file']);
-            if (is_file($absoluteFileName) && $this->isValidHmac($absoluteFileName, $queryParams['hmac'])) {
+            $file = (string)$queryParams['file'];
+            $fileName = basename($file);
+            $folder = dirname($file) . '/';
+            $service = GeneralUtility::makeInstance(\In2code\Powermail\Domain\Service\UploadFolderService::class);
+            $absoluteFileName = $service->getAbsoluteLocalPath($folder, $fileName);
+            if ($absoluteFileName !== '' && is_file($absoluteFileName) && $this->isValidHmac($absoluteFileName, $queryParams['hmac'])) {
                 (mime_content_type($absoluteFileName) === false) ? $mimeType = '' : $mimeType = mime_content_type($absoluteFileName);
                 return $this->responseFactory->createResponse()
                     ->withHeader('Content-Type', $mimeType)

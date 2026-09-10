@@ -77,10 +77,14 @@ class UploadService implements SingletonInterface
     public function uploadAllFiles(): bool
     {
         $result = false;
+        $service = GeneralUtility::makeInstance(UploadFolderService::class);
         foreach ($this->getFiles() as $file) {
             if (!$file->isUploaded() && $file->isValid() && $this->isFileExtensionAllowed($file, $this->getAllowedExtensions())) {
-                BasicFileUtility::createFolderIfNotExists($file->getUploadFolder());
-                if (GeneralUtility::upload_copy_move($file->getTemporaryName(), $file->getNewPathAndFilename())) {
+                $uploadFolder = $file->getUploadFolder();
+                if (!$service->isFalCombinedIdentifier($uploadFolder)) {
+                    BasicFileUtility::createFolderIfNotExists($uploadFolder);
+                }
+                if ($service->addUploadedFile($uploadFolder, $file->getTemporaryName(), $file->getNewName())) {
                     $file->setUploaded(true);
                     $result = true;
                 } else {
@@ -276,7 +280,8 @@ class UploadService implements SingletonInterface
      */
     protected function isFileExistingInUploadFolder(File $file): bool
     {
-        return file_exists($file->getNewPathAndFilename(true));
+        $service = GeneralUtility::makeInstance(UploadFolderService::class);
+        return $service->fileExists($file->getUploadFolder(), $file->getNewName());
     }
 
     /**
