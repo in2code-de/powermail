@@ -52,8 +52,8 @@ class SendDisclaimedMailPreflight
                 'receiverName' => $receiverService->getReceiverName(),
                 'senderEmail' => $senderService->getSenderEmail(),
                 'senderName' => $senderService->getSenderName(),
-                'replyToEmail' => $senderService->getSenderEmail(),
-                'replyToName' => $senderService->getSenderName(),
+                'replyToEmail' => $senderService->getReplyToEmail(),
+                'replyToName' => $senderService->getReplyToName(),
                 'subject' => ObjectUtility::getContentObject()->cObjGetSingle(
                     $this->conf['disclaimer.']['subject'],
                     $this->conf['disclaimer.']['subject.']
