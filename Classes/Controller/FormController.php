@@ -18,6 +18,8 @@ use In2code\Powermail\Domain\Service\Mail\SendDisclaimedMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendOptinConfirmationMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendReceiverMailPreflight;
 use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
+use In2code\Powermail\Domain\Service\RequestTokenService;
+use In2code\Powermail\Domain\Service\RequestTokenStatus;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Events\CheckIfMailIsAllowedToSaveEvent;
 use In2code\Powermail\Events\FormControllerConfirmationActionEvent;
@@ -47,6 +49,8 @@ use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotCon
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Error\Http\BadRequestException;
 use TYPO3\CMS\Core\Http\PropagateResponseException;
+use TYPO3\CMS\Core\Security\RequestToken;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\ArrayUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewInterface;
@@ -66,6 +70,8 @@ use TYPO3Fluid\Fluid\View\ViewInterface as FluidViewInterface;
  */
 class FormController extends AbstractController
 {
+    protected RequestTokenService $requestTokenService;
+
     public function __construct(
         protected FormRepository $formRepository,
         protected FieldRepository $fieldRepository,
@@ -75,6 +81,14 @@ class FormController extends AbstractController
         protected DataProcessorRunner $dataProcessorRunner,
         protected PersistenceManager $persistenceManager,
     ) {
+    }
+
+    /**
+     * @todo Move RequestTokenService to the constructor in powermail v15 (breaking change, add upgrade instructions)
+     */
+    public function injectRequestTokenService(RequestTokenService $requestTokenService): void
+    {
+        $this->requestTokenService = $requestTokenService;
     }
 
     public function initializeAction(): void
@@ -104,12 +118,15 @@ class FormController extends AbstractController
         }
         $form = $event->getForm();
         SessionUtility::saveFormStartInSession($this->settings, $form);
+        $action = ($this->settings['main']['confirmation'] ? 'confirmation' : 'create');
         $this->view->assignMultiple(
             [
                 'form' => $form,
                 'ttContentData' => $this->contentObject->data,
                 'messageClass' => $this->messageClass,
-                'action' => ($this->settings['main']['confirmation'] ? 'confirmation' : 'create'),
+                'action' => $action,
+                // With a confirmation step, the token is rendered in the confirmation view
+                'requestToken' => $action === 'create' ? $this->createRequestToken((int)$form?->getUid()) : null,
             ]
         );
 
@@ -164,6 +181,7 @@ class FormController extends AbstractController
             $this->contentObject
         );
         $this->prepareOutput($mail);
+        $this->view->assign('requestToken', $this->createRequestToken((int)$mail->getForm()?->getUid()));
 
         return $this->htmlResponse();
     }
@@ -180,6 +198,7 @@ class FormController extends AbstractController
     {
         $this->forwardIfFormParamsDoNotMatch();
         $this->forwardIfMailParamIsEmpty();
+        $this->forwardIfRequestTokenIsInvalid();
         $this->reformatParamsForAction();
     }
 
@@ -265,6 +284,9 @@ class FormController extends AbstractController
             $this->settings,
             $this->contentObject
         );
+
+        // Every rendered form can only be sent once
+        $this->requestTokenService->revoke();
 
         return $this->htmlResponse();
     }
@@ -506,6 +528,39 @@ class FormController extends AbstractController
     }
 
     /**
+     * Forward to formAction (with the given values) if request tokens are turned on and the received token is not
+     * valid (missing, expired, already used or issued for another form)
+     */
+    protected function forwardIfRequestTokenIsInvalid(): bool
+    {
+        if ($this->requestTokenService->isActive() === false) {
+            return false;
+        }
+        $arguments = $this->request->getArguments();
+        // optinConfirmAction() forwards with a persisted mail object that is secured by a hash
+        if (($arguments['mail'] ?? null) instanceof Mail) {
+            return false;
+        }
+
+        $formUid = (int)($arguments['mail']['form'] ?? 0);
+        $status = $this->requestTokenService->validate($formUid);
+        if ($status !== RequestTokenStatus::Valid) {
+            ObjectUtility::getLogger(self::class)->warning(
+                'Form submit rejected because the request token is not valid.',
+                ['status' => $status->value, 'form' => $formUid]
+            );
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error_requesttoken_invalid'),
+                '',
+                ContextualFeedbackSeverity::ERROR
+            );
+            $response = (new ForwardResponse('form'))->withArguments($arguments);
+            throw new PropagateResponseException($response);
+        }
+        return false;
+    }
+
+    /**
      * Forward to formAction if no mail param given
      */
     protected function forwardIfMailParamIsEmpty(): bool
@@ -603,6 +658,11 @@ class FormController extends AbstractController
                 }
             }
         }
+    }
+
+    protected function createRequestToken(int $formUid): ?RequestToken
+    {
+        return $this->requestTokenService->create($formUid, (int)($this->contentObject->data['uid'] ?? 0));
     }
 
     public function processRequest(RequestInterface $request): ResponseInterface

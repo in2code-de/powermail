@@ -13,6 +13,9 @@ disablePluginInformationMailPreview = 0
 # cat=basic/enable/050; type=boolean; label= Enable Form caching: With this setting, you can enable the caching of the form view, what speeds up sites with powermail forms in the frontend. On the other hand there is no more form prefilling - even with confirmation pages and previous-buttons. Enable this only if you know, what your are doing.
 enableCaching = 0
 
+# cat=basic/enable/060; type=boolean; label= Enable request tokens (CSRF protection): Protects the form submit with a TYPO3 request token (hidden field plus nonce cookie), so forms can only be sent after they were rendered in the same browser and every rendered form can only be sent once. Has no effect if "Enable Form caching" is turned on. If you use your own Form.html or Confirmation.html templates, add requestToken="{requestToken}" to the f:form ViewHelper that submits to the create action.
+enableRequestToken = 0
+
 # cat=basic/enable/080; type=boolean; label= ElementBrowser replaces IRRE: Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!
 replaceIrreWithElementBrowser = 0
 

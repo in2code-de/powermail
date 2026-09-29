@@ -9,16 +9,20 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\FieldRepository;
 use In2code\Powermail\Domain\Repository\FormRepository;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Domain\Service\RequestTokenService;
 use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use PHPUnit\Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\EventDispatcher\ListenerProviderInterface;
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\SecurityAspect;
 use TYPO3\CMS\Core\EventDispatcher\EventDispatcher;
 use TYPO3\CMS\Core\Http\Response;
 use TYPO3\CMS\Core\Http\ResponseFactory;
 use TYPO3\CMS\Core\Http\ServerRequest;
 use TYPO3\CMS\Core\Http\StreamFactory;
+use TYPO3\CMS\Core\Security\RequestToken;
 use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
@@ -37,14 +41,26 @@ class FormControllerTest extends UnitTestCase
      */
     protected $generalValidatorMock;
 
+    protected Context $context;
+
     public function setUp(): void
+    {
+        $this->context = new Context();
+        $this->generalValidatorMock = $this->getFormControllerMock();
+    }
+
+    /**
+     * @param string[]|null $mockedMethods
+     * @return AccessibleObjectInterface|MockObject
+     */
+    protected function getFormControllerMock(?array $mockedMethods = null)
     {
         $listenerProviderMock = $this->getMockBuilder(ListenerProviderInterface::class)->getMock();
         $eventDispatcher = new EventDispatcher($listenerProviderMock);
 
-        $this->generalValidatorMock = $this->getAccessibleMock(
+        $formController = $this->getAccessibleMock(
             FormController::class,
-            null,
+            $mockedMethods,
             [
                 new FormRepository(),
                 new FieldRepository(),
@@ -55,6 +71,8 @@ class FormControllerTest extends UnitTestCase
                 $this->getMockBuilder(PersistenceManager::class)->disableOriginalConstructor()->getMock(),
             ]
         );
+        $formController->injectRequestTokenService(new RequestTokenService($this->context));
+        return $formController;
     }
 
     public function tearDown(): void
@@ -404,6 +422,84 @@ class FormControllerTest extends UnitTestCase
         ];
         $this->generalValidatorMock->_set('settings', $settings);
         self::assertTrue($this->generalValidatorMock->_call('isReceiverMailEnabled'));
+    }
+
+    public static function forwardIfRequestTokenIsInvalidThrowsNoExceptionDataProvider(): array
+    {
+        $form = new Form();
+        $form->_setProperty('uid', 1);
+        $mail = new Mail();
+        $mail->setForm($form);
+
+        return [
+            'turned off, no token sent' => [
+                '0',
+                ['mail' => ['form' => '1']],
+                null,
+            ],
+            'turned on, valid token for form' => [
+                '1',
+                ['mail' => ['form' => '1']],
+                new RequestToken('powermail/create', null, ['form' => 1]),
+            ],
+            'turned on, forward from optinConfirmAction with mail object' => [
+                '1',
+                ['mail' => $mail, 'hash' => 'abc'],
+                null,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider forwardIfRequestTokenIsInvalidThrowsNoExceptionDataProvider
+     * @test
+     * @covers ::forwardIfRequestTokenIsInvalid
+     */
+    public function forwardIfRequestTokenIsInvalidThrowsNoException(
+        string $enableRequestToken,
+        array $arguments,
+        ?RequestToken $receivedToken
+    ): void {
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['powermail'] = ['enableRequestToken' => $enableRequestToken];
+        SecurityAspect::provideIn($this->context)->setReceivedRequestToken($receivedToken);
+        $this->setDefaultControllerProperties($arguments);
+
+        self::assertFalse($this->generalValidatorMock->_call('forwardIfRequestTokenIsInvalid'));
+    }
+
+    public static function forwardIfRequestTokenIsInvalidThrowsExceptionDataProvider(): array
+    {
+        return [
+            'no token sent' => [null],
+            'token could not be verified' => [false],
+            'token of another form' => [new RequestToken('powermail/create', null, ['form' => 2])],
+        ];
+    }
+
+    /**
+     * @dataProvider forwardIfRequestTokenIsInvalidThrowsExceptionDataProvider
+     * @test
+     * @covers ::forwardIfRequestTokenIsInvalid
+     */
+    public function forwardIfRequestTokenIsInvalidThrowsException(RequestToken|false|null $receivedToken): void
+    {
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['powermail'] = ['enableRequestToken' => '1'];
+        SecurityAspect::provideIn($this->context)->setReceivedRequestToken($receivedToken);
+        $this->generalValidatorMock = $this->getFormControllerMock(['addFlashMessage']);
+        $this->generalValidatorMock->expects(self::once())->method('addFlashMessage');
+        $arguments = ['mail' => ['form' => '1'], 'field' => ['firstname' => 'Alex']];
+        $this->setDefaultControllerProperties($arguments);
+
+        try {
+            $this->generalValidatorMock->_call('forwardIfRequestTokenIsInvalid');
+            self::fail('Expected PropagateResponseException was not thrown');
+        } catch (\TYPO3\CMS\Core\Http\PropagateResponseException $exception) {
+            $response = $exception->getResponse();
+            self::assertInstanceOf(\TYPO3\CMS\Extbase\Http\ForwardResponse::class, $response);
+            self::assertSame('form', $response->getActionName());
+            // given values are kept to prefill the form again
+            self::assertSame($arguments, $response->getArguments());
+        }
     }
 
     /**

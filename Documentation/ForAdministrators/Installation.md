@@ -33,6 +33,7 @@ Main configuration for powermail for CMS wide settings.
 | Disable plugin information              | Below every powermail plugin is a short info table with form settings. You can disable these information.                                                                                                                                                 | 0             |
 | Disable plugin information mail preview | The plugin information shows 3 latest mails. If you want to disable this preview, you can check the button.                                                                                                                                               | 0             |
 | Enable Form caching                     | With this setting, you can enable the caching of the form generation, what speeds up sites with powermail forms in the frontend. On the other hand, some additional features (like prefilling values from GET paramter, etc...) are not working any more. | 0             |
+| Enable request tokens (CSRF protection) | Protects the form submit with a TYPO3 request token. A form can only be sent after it was rendered in the same browser, and only once. Has no effect if "Enable Form caching" is turned on. See the note below.                                               | 0             |
 | Enable Merge for l10n_mode              | All fields with l10n_mode exclude should change their translation behaviour to mergeIfNotBlank. This allows you to have different field values in different languages.                                                                                    | 0             |
 | ElementBrowser replaces IRRE            | Editors can add pages within a form table via IRRE. If this checkbox is enabled, an element browser replaces the IRRE Relation. Note: this is a beta-feature and not completely tested!                                                                   | 0             |
 | Allowed ViewHelpers in parsed strings   | Comma separated list of ViewHelpers that powermail may execute while it replaces variables in a mail subject, in the receiver name and email, in field titles and in select options. Every other ViewHelper is removed. See the note below.                | f:cObject     |
@@ -54,6 +55,31 @@ setting.
 
 This does not affect templates and RTE fields. Arbitrary ViewHelpers and own namespaces keep working
 there, see BestPractice/Templates.
+
+### Request tokens (CSRF protection)
+
+With `enableRequestToken` powermail uses the CSRF-like request tokens of the TYPO3 core for the final
+submit of a form (the `create` action):
+
+- The form contains a hidden field `__RequestToken` and TYPO3 sends a nonce cookie `typo3nonce_*`.
+  No logged-in user is needed.
+- A submit without a valid token - no token, no matching cookie, an expired or already used token, or
+  a token of another form - is not processed. The visitor sees the form again with all entries and a
+  message to submit it again. The reason is written to the TYPO3 log.
+- After a successful submit the token is revoked, so sending the same form twice (e.g. with the back
+  button or a restored browser tab) is not possible.
+- The confirmation step and AJAX submit are supported. Double opt-in links are not affected.
+
+Things to know before you turn it on:
+
+- **Form caching:** A token can not be used in a cached form view. If `enableCaching` is turned on,
+  this setting has no effect.
+- **Lifetime:** The TYPO3 core expires a nonce after 15 minutes and keeps at most 5 nonces per browser.
+  A visitor who needs longer to fill in a form, or has many forms open in different tabs, is asked to
+  submit the form again - the entries are kept.
+- **Own templates:** If you have overridden `Form/Form.html` or `Form/Confirmation.html`, add
+  `requestToken="{requestToken}"` to the `<f:form>` ViewHelper that submits to the `create` action
+  (`Form.html`, and the "submit" form in `Confirmation.html`). Without it every submit is rejected.
 
 ## Static Templates
 

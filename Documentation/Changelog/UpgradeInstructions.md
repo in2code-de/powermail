@@ -1,5 +1,17 @@
 # Upgrade Instructions and breaking changes
 
+## Upcoming release
+
+### Request tokens (CSRF protection) - opt-in, no breaking change
+
+A new extension configuration `enableRequestToken` (default: off) protects the form submit with the
+CSRF-like request tokens of the TYPO3 core. As long as it is turned off, nothing changes.
+
+The shipped templates `Form/Form.html` and `Form/Confirmation.html` now pass
+`requestToken="{requestToken}"` to `<f:form>`. The variable is empty while the feature is turned off,
+so the markup does not change. If you turn the feature on and use your own copies of these templates,
+add the attribute there as well - see ForAdministrators/Installation.
+
 ## Version 13.1.1
 
 ### ViewHelpers in values that powermail parses with Fluid
