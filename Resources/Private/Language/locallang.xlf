@@ -151,6 +151,9 @@
 				<source>Mail could not be deleted. Wrong link or mail was probably already removed from the system.</source>
 				<target state="translated">Mail konnte nicht gelöscht werden. Fehlerhafter Link oder Mail wurde bereits zuvor gelöscht.</target>
 			</trans-unit>
+			<trans-unit id="error_requesttoken_invalid" resname="error_requesttoken_invalid">
+				<source>This form has expired or was already sent. Please check your entries and submit the form again.</source>
+			</trans-unit>
 			<trans-unit id="error_wrong_captcha" resname="error_wrong_captcha">
 				<source>Wrong Captcha value, please try again!</source>
 			</trans-unit>

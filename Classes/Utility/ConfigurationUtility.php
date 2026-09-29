@@ -79,6 +79,25 @@ class ConfigurationUtility
     }
 
     /**
+     * Check if request tokens (CSRF protection) should be used for the form submit
+     *
+     * A request token can not be used together with a cached form view, because the token would be stored in the
+     * page cache while the nonce cookie is only sent on the first (uncached) rendering.
+     */
+    public static function isRequestTokenActive(): bool
+    {
+        try {
+            $extensionConfig = self::getExtensionConfiguration();
+        } catch (Throwable) {
+            $extensionConfig = [];
+        }
+
+        $isEnabled = (bool)($extensionConfig['enableRequestToken'] ?? false);
+        $isCachingEnabled = (bool)($extensionConfig['enableCaching'] ?? false);
+        return $isEnabled === true && $isCachingEnabled === false;
+    }
+
+    /**
      * Check if replaceIrreWithElementBrowser is active
      *
      * @throws ExtensionConfigurationExtensionNotConfiguredException

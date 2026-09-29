@@ -47,12 +47,13 @@ return [
             'offlineMode' => '0',
         ],
         'powermail' => [
-            'disableBackendModule' => '0',
+            'allowedViewHelpersInParsedStrings' => 'f:cObject',
             'disableIpLog' => '1',
             'disableMarketingInformation' => '0',
             'disablePluginInformation' => '0',
             'disablePluginInformationMailPreview' => '0',
             'enableCaching' => '0',
+            'enableRequestToken' => '0',
             'replaceIrreWithElementBrowser' => '0',
         ],
         'scheduler' => [

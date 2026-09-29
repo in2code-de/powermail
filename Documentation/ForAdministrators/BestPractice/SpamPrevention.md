@@ -289,6 +289,13 @@ Of course you can register own spamshield methods. See manual part "for develope
 Of course you can disable all spamshield methods on some conditions. See manual part "for developers" for examples.
 
 
+## Request tokens (CSRF protection)
+
+Powermail can protect the submit with a TYPO3 request token. Automated submits that did not load the
+form before and double submits are rejected then. Turn it on with the extension configuration
+`enableRequestToken`, see ForAdministrators/Installation for details and limitations.
+
+
 ## Captcha
 
 Using a captcha extension also helps to prevent spam. You can simply add a new field of type captcha.
