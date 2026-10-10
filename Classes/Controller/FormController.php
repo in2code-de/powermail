@@ -396,6 +396,7 @@ class FormController extends AbstractController
 
             if ($mail->getHidden() && $this->isPersistActive()) {
                 $mail->setHidden(false);
+                $mail->setOptinCompleted(true);
                 $this->mailRepository->update($mail);
                 $this->persistenceManager->persistAll();
                 $event = GeneralUtility::makeInstance(

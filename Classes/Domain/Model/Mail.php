@@ -123,6 +123,12 @@ class Mail extends AbstractEntity
      */
     protected $marketingPageFunnel = '';
 
+    /** @var bool */
+    protected $optinNeeded = false;
+
+    /** @var bool */
+    protected $optinCompleted = false;
+
     /**
      * @var array
      */
@@ -456,6 +462,27 @@ class Mail extends AbstractEntity
     {
         parent::setPid($pid);
     }
+
+    public function isOptinNeeded(): bool
+    {
+        return $this->optinNeeded;
+    }
+
+    public function setOptinNeeded(bool $optinNeeded): void
+    {
+        $this->optinNeeded = $optinNeeded;
+    }
+
+    public function isOptinCompleted(): bool
+    {
+        return $this->optinCompleted;
+    }
+
+    public function setOptinCompleted(bool $optinCompleted): void
+    {
+        $this->optinCompleted = $optinCompleted;
+    }
+
 
     /**
      * Returns answers as an array with field marker of related field as key.
