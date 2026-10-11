@@ -356,6 +356,26 @@ $mailsTca = [
                 'default' => '',
             ],
         ],
+        'optin_needed' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                Mail::TABLE_NAME . '.optin_needed',
+            'config' => [
+                'type' => 'check',
+                'readOnly' => 1,
+                'default' => 0,
+            ],
+        ],
+        'optin_completed' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:powermail/Resources/Private/Language/locallang_db.xlf:' .
+                Mail::TABLE_NAME . '.optin_completed',
+            'config' => [
+                'type' => 'check',
+                'readOnly' => 1,
+                'default' => 0,
+            ],
+        ],
         'uid' => [
             'exclude' => true,
             'label' => 'UID',

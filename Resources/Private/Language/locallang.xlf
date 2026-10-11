@@ -78,6 +78,12 @@
 			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.hidden" resname="\In2code\Powermail\Domain\Model\Mail.hidden">
 				<source>Disabled</source>
 			</trans-unit>
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.optinNeeded" resname="\In2code\Powermail\Domain\Model\Mail.optinNeeded">
+				<source>Mail must be confirmed (Double Opt-In)</source>
+			</trans-unit>
+			<trans-unit id="\In2code\Powermail\Domain\Model\Mail.optinCompleted" resname="\In2code\Powermail\Domain\Model\Mail.optinCompleted">
+				<source>Mail has been confirmed (Double Opt-In)</source>
+			</trans-unit>
 			<trans-unit id="note_html" resname="note_html">
 				<source>For security reasons, it is not allowed to show html tags by default. You can enable it with TypoScript (see powermail manual), but be aware, that editors can also add HTML and XSS.</source>
 			</trans-unit>
@@ -864,6 +870,12 @@
 			</trans-unit>
 			<trans-unit id="xlsInfoModalCancel" resname="">
 				<source>Close</source>
+			</trans-unit>
+			<trans-unit id="yes" resname="on">
+				<source>yes</source>
+			</trans-unit>
+			<trans-unit id="no" resname="on">
+				<source>no</source>
 			</trans-unit>
 		</body>
 	</file>

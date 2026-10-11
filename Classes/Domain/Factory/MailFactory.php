@@ -117,6 +117,9 @@ class MailFactory
         if ($settings['main']['optin'] || $settings['db']['hidden']) {
             $mail->setHidden(true);
         }
+        if ($settings['main']['optin'] ?? false) {
+            $mail->setOptinNeeded(true);
+        }
     }
 
     protected function setAnswersPid(Mail $mail, array $settings): void
