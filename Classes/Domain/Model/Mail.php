@@ -483,7 +483,6 @@ class Mail extends AbstractEntity
         $this->optinCompleted = $optinCompleted;
     }
 
-
     /**
      * Returns answers as an array with field marker of related field as key.
      *
