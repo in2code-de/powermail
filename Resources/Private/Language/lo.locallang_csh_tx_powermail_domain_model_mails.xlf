@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_csh_tx_powermail_domain_model_mails.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="lo">
+    <header/>
+    <body>
+      <trans-unit id="crdate.description" resname="crdate.description" approved="yes">
+        <source>Time of mail creation</source>
+        <target state="final">ເວລາທີ່ສ້າງອີເມລ</target>
+      </trans-unit>
+      <trans-unit id="sender_mail.description" resname="sender_mail.description" approved="yes">
+        <source>This is the email of the sender</source>
+        <target state="final">ນີ້ແມ່ນອີເມລຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="sender_name.description" resname="sender_name.description" approved="yes">
+        <source>This is the name of the sender</source>
+        <target state="final">ນີ້ແມ່ນຊື່ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="subject.description" resname="subject.description" approved="yes">
+        <source>E-Mail Subject</source>
+        <target state="final">ຫົວຂໍ້ອີເມລ</target>
+      </trans-unit>
+      <trans-unit id="body.description" resname="body.description" approved="yes">
+        <source>All input values at a glance</source>
+        <target state="final">ພາບລວມຂອງຄ່າທີ່ປ້ອນເຂົ້າທັງໝົດ</target>
+      </trans-unit>
+      <trans-unit id="receiver_mail.description" resname="receiver_mail.description" approved="yes">
+        <source>E-Mail Receiver</source>
+        <target state="final">ຜູ້ຮັບອີເມລ</target>
+      </trans-unit>
+      <trans-unit id="form.description" resname="form.description" approved="yes">
+        <source>Related Form</source>
+        <target state="final">ແບບຟອມທີ່ກ່ຽວຂ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="answers.description" resname="answers.description" approved="yes">
+        <source>All transferred Answers</source>
+        <target state="final">ຄຳຕອບທັງໝົດທີ່ຖືກສົ່ງມາ</target>
+      </trans-unit>
+      <trans-unit id="feuser.description" resname="feuser.description" approved="yes">
+        <source>This FE User send the mail (if empty, no logged in User sends the mail)</source>
+        <target state="final">ຜູ້ໃຊ້ FE ນີ້ເປັນຜູ້ສົ່ງອີເມລ (ຖ້າວ່າງເປົ່າ, ສະແດງວ່າບໍ່ມີຜູ້ໃຊ້ທີ່ເຂົ້າສູ່ລະບົບເປັນຜູ້ສົ່ງ)</target>
+      </trans-unit>
+      <trans-unit id="spam_factor.description" resname="spam_factor.description" approved="yes">
+        <source>Powermail identifies this mail as spam with this factor (if factor is too high, mail sending will be refused)</source>
+        <target state="final">Powermail ລະບຸວ່າອີເມລນີ້ເປັນສະແປມດ້ວຍຄ່ານີ້ (ຖ້າຄ່າສູງເກີນໄປ, ການສົ່ງອີເມລຈະຖືກປະຕິເສດ)</target>
+      </trans-unit>
+      <trans-unit id="time.description" resname="time.description" approved="yes">
+        <source>User needs this time to fill out the form</source>
+        <target state="final">ເວລາທີ່ຜູ້ໃຊ້ໃຊ້ໃນການຕື່ມແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="sender_ip.description" resname="sender_ip.description" approved="yes">
+        <source>IP-Address of the sender</source>
+        <target state="final">ທີ່ຢູ່ IP ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="user_agent.description" resname="user_agent.description" approved="yes">
+        <source>Browser characteristic of the sender</source>
+        <target state="final">ຂໍ້ມູນສະເພາະບຣາວເຊີຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer_domain.description" resname="marketing_referer_domain.description" approved="yes">
+        <source>Last Domain of the user before he surfed to this URL</source>
+        <target state="final">ໂດເມນຫຼ້າສຸດຂອງຜູ້ໃຊ້ກ່ອນທີ່ຈະເຂົ້າມາຫາ URL ນີ້</target>
+      </trans-unit>
+      <trans-unit id="marketing_referer.description" resname="marketing_referer.description" approved="yes">
+        <source>Last URL of the user before he surfed to this URL</source>
+        <target state="final">URL ຫຼ້າສຸດຂອງຜູ້ໃຊ້ກ່ອນທີ່ຈະເຂົ້າມາຫາ URL ນີ້</target>
+      </trans-unit>
+      <trans-unit id="marketing_country.description" resname="marketing_country.description" approved="yes">
+        <source>User is located in this country</source>
+        <target state="final">ຜູ້ໃຊ້ອາໄສຢູ່ໃນປະເທດນີ້</target>
+      </trans-unit>
+      <trans-unit id="marketing_mobile_device.description" resname="marketing_mobile_device.description" approved="yes">
+        <source>User uses a mobile device</source>
+        <target state="final">ຜູ້ໃຊ້ເຂົ້າເຖິງດ້ວຍອຸປະກອນມືຖື</target>
+      </trans-unit>
+      <trans-unit id="marketing_frontend_language.description" resname="marketing_frontend_language.description" approved="yes">
+        <source>User surfed in this TYPO3-Frontend-Language</source>
+        <target state="final">ຜູ້ໃຊ້ທ່ອງເວັບດ້ວຍພາສາ Frontend ຂອງ TYPO3 ນີ້</target>
+      </trans-unit>
+      <trans-unit id="marketing_browser_language.description" resname="marketing_browser_language.description" approved="yes">
+        <source>Users Browser Language</source>
+        <target state="final">ພາສາບຣາວເຊີຂອງຜູ້ໃຊ້</target>
+      </trans-unit>
+      <trans-unit id="marketing_page_funnel.description" resname="marketing_page_funnel.description" approved="yes">
+        <source>Internal Page funnel up to the form submit</source>
+        <target state="final">ລຳດັບການເຂົ້າຊົມໜ້າເວັບພາຍໃນກ່ອນຈະສົ່ງແບບຟອມ</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

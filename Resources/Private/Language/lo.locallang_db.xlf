@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.0">
+  <file source-language="en" datatype="plaintext" original="EXT:powermail/Resources/Private/Language/locallang_db.xlf" date="2014-05-02T12:00:00Z" product-name="powermail" target-language="lo">
+    <header/>
+    <body>
+      <trans-unit id="tabs.access" resname="tabs.access" approved="yes">
+        <source>Access</source>
+        <target state="final">ການເຂົ້າເຖິງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">ຈົດໝາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.palette1" resname="tx_powermail_domain_model_mail.palette1" approved="yes">
+        <source>Sender</source>
+        <target state="final">ຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_mail" resname="tx_powermail_domain_model_mail.sender_mail" approved="yes">
+        <source>Senders Email</source>
+        <target state="final">ອີເມວຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_name" resname="tx_powermail_domain_model_mail.sender_name" approved="yes">
+        <source>Senders Name</source>
+        <target state="final">ຊື່ຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.subject" resname="tx_powermail_domain_model_mail.subject" approved="yes">
+        <source>Mail Subject</source>
+        <target state="final">ຫົວຂໍ້ຈົດໝາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.body" resname="tx_powermail_domain_model_mail.body" approved="yes">
+        <source>Email Body</source>
+        <target state="final">ເນື້ອໃນອີເມວ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.receiver_mail" resname="tx_powermail_domain_model_mail.receiver_mail" approved="yes">
+        <source>Receivers Mail</source>
+        <target state="final">ອີເມວຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.form" resname="tx_powermail_domain_model_mail.form" approved="yes">
+        <source>Related Form</source>
+        <target state="final">ແບບຟອມທີ່ກ່ຽວຂ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.answers" resname="tx_powermail_domain_model_mail.answers" approved="yes">
+        <source>Answers</source>
+        <target state="final">ຄຳຕອບ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.feuser" resname="tx_powermail_domain_model_mail.feuser" approved="yes">
+        <source>FE_User</source>
+        <target state="final">ຜູ້ໃຊ້ເວັບໄຊ (FE_User)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.spam_factor" resname="tx_powermail_domain_model_mail.spam_factor" approved="yes">
+        <source>Spam Factor</source>
+        <target state="final">ຄ່າສະແປມ (Spam Factor)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.time" resname="tx_powermail_domain_model_mail.time" approved="yes">
+        <source>Time for submitting form (in seconds)</source>
+        <target state="final">ເວລາໃນການສົ່ງແບບຟອມ (ເປັນວິນາທີ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.sender_ip" resname="tx_powermail_domain_model_mail.sender_ip" approved="yes">
+        <source>Senders IP address</source>
+        <target state="final">ທີ່ຢູ່ IP ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.user_agent" resname="tx_powermail_domain_model_mail.user_agent" approved="yes">
+        <source>Senders User Agent</source>
+        <target state="final">User Agent ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.crdate" resname="tx_powermail_domain_model_mail.crdate" approved="yes">
+        <source>Creation Date</source>
+        <target state="final">ວັນທີສ້າງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer_domain" resname="tx_powermail_domain_model_mail.marketing_referer_domain" approved="yes">
+        <source>Referer Domain</source>
+        <target state="final">ໂດເມນທີ່ມາ (Referer Domain)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_referer" resname="tx_powermail_domain_model_mail.marketing_referer" approved="yes">
+        <source>Referer URI</source>
+        <target state="final">URI ທີ່ມາ (Referer URI)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_country" resname="tx_powermail_domain_model_mail.marketing_country" approved="yes">
+        <source>Visitors Country</source>
+        <target state="final">ປະເທດຂອງຜູ້ເຂົ້າຊົມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_mobile_device" resname="tx_powermail_domain_model_mail.marketing_mobile_device" approved="yes">
+        <source>Visitor uses a Mobile Device</source>
+        <target state="final">ຜູ້ເຂົ້າຊົມໃຊ້ ອຸປະກອນມືຖື</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_frontend_language" resname="tx_powermail_domain_model_mail.marketing_frontend_language" approved="yes">
+        <source>Website Language</source>
+        <target state="final">ພາສາຂອງເວັບໄຊ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_browser_language" resname="tx_powermail_domain_model_mail.marketing_browser_language" approved="yes">
+        <source>Browser Language</source>
+        <target state="final">ພາສາຂອງບຣາວເຊີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_mail.marketing_page_funnel" resname="tx_powermail_domain_model_mail.marketing_page_funnel" approved="yes">
+        <source>Page Funnel which leads to this mail</source>
+        <target state="final">ລຳດັບການເຂົ້າຊົມໜ້າເວັບ (Page Funnel) ທີ່ນຳມາກັບການສົ່ງຈົດໝາຍນີ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form" resname="tx_powermail_domain_model_form" approved="yes">
+        <source>Form</source>
+        <target state="final">ແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.title" resname="tx_powermail_domain_model_form.title" approved="yes">
+        <source>Title</source>
+        <target state="final">ຫົວຂໍ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.1" resname="tx_powermail_domain_model_form.note.1" approved="yes">
+        <source>Note:</source>
+        <target state="final">ໝາຍເຫດ:</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.2" resname="tx_powermail_domain_model_form.note.2" approved="yes">
+        <source>There are no fields marked as sender-email or sender-name</source>
+        <target state="final">ບໍ່ມີຫ້ອງຂໍ້ມູນໃດທີ່ກຳນົດເປັນ ອີເມວຜູ້ສົ່ງ ຫຼື ຊື່ຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.3" resname="tx_powermail_domain_model_form.note.3" approved="yes">
+        <source>Do not show this note again for this form</source>
+        <target state="final">ບໍ່ຕ້ອງສະແດງໝາຍເຫດນີ້ອີກ ສຳລັບແບບຟອມນີ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.note.4" resname="tx_powermail_domain_model_form.note.4" approved="yes">
+        <source>Note hidden</source>
+        <target state="final">ໝາຍເຫດຖືກເຊື່ອງໄວ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.1" resname="tx_powermail_domain_model_form.error.1" approved="yes">
+        <source>Error: Non-Unique or empty marker names in the fields of this form detected</source>
+        <target state="final">ຂໍ້ຜິດພາດ: ກວດພົບຊື່ Marker ທີ່ຊ້ຳກັນ ຫຼື ຫວ່າງເປົ່າ ໃນຫ້ອງຂໍ້ມູນຂອງແບບຟອມນີ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.error.2" resname="tx_powermail_domain_model_form.error.2" approved="yes">
+        <source>This should not happen in powermail. The problem should be solved if you save the form again. If not, please check marker names of all fields to this form and fix it manually.</source>
+        <target state="final">ສິ່ງນີ້ບໍ່ຄວນເກີດຂຶ້ນໃນ powermail. ບັນຫາຄວນຈະໄດ້ຮັບການແກ້ໄຂ ຖ້າທ່ານບັນທຶກແບບຟອມນີ້ຄືນໃໝ່. ຖ້າບໍ່ໄດ້, ກະລຸນາກວດສອບຊື່ marker ຂອງທຸກຫ້ອງຂໍ້ມູນໃນແບບຟອມນີ້ ແລະ ແກ້ໄຂດ້ວຍຕົນເອງ.</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css" resname="tx_powermail_domain_model_form.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">ຮູບແບບການຈັດວາງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.1" resname="tx_powermail_domain_model_form.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">ຮູບແບບ 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.2" resname="tx_powermail_domain_model_form.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">ຮູບແບບ 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.3" resname="tx_powermail_domain_model_form.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">ຮູບແບບ 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.css.4" resname="tx_powermail_domain_model_form.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">ເຊື່ອງປ້າຍຊື່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.pages" resname="tx_powermail_domain_model_form.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">ໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_form.autocomplete_token" resname="tx_powermail_domain_model_form.autocomplete_token" approved="yes">
+        <source>Autocomplete</source>
+        <target state="final">ການເຕີມຂໍ້ມູນອັດຕະໂນມັດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page" resname="tx_powermail_domain_model_page" approved="yes">
+        <source>Page</source>
+        <target state="final">ໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.title" resname="tx_powermail_domain_model_page.title" approved="yes">
+        <source>Title</source>
+        <target state="final">ຫົວຂໍ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css" resname="tx_powermail_domain_model_page.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">ຮູບແບບການຈັດວາງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.1" resname="tx_powermail_domain_model_page.css.1" approved="yes">
+        <source>Layout1</source>
+        <target state="final">ຮູບແບບ 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.2" resname="tx_powermail_domain_model_page.css.2" approved="yes">
+        <source>Layout2</source>
+        <target state="final">ຮູບແບບ 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.3" resname="tx_powermail_domain_model_page.css.3" approved="yes">
+        <source>Layout3</source>
+        <target state="final">ຮູບແບບ 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.css.4" resname="tx_powermail_domain_model_page.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">ເຊື່ອງປ້າຍຊື່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.fields" resname="tx_powermail_domain_model_page.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_page.forms" resname="tx_powermail_domain_model_page.forms" approved="yes">
+        <source>Related Form</source>
+        <target state="final">ແບບຟອມທີ່ກ່ຽວຂ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field" resname="tx_powermail_domain_model_field" approved="yes">
+        <source>Field</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.title" resname="tx_powermail_domain_model_field.title" approved="yes">
+        <source>Title</source>
+        <target state="final">ຫົວຂໍ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type" resname="tx_powermail_domain_model_field.type" approved="yes">
+        <source>Type</source>
+        <target state="final">ປະເພດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer1" resname="tx_powermail_domain_model_field.type.spacer1" approved="yes">
+        <source>Standard</source>
+        <target state="final">ມາດຕະຖານ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer2" resname="tx_powermail_domain_model_field.type.spacer2" approved="yes">
+        <source>Extra</source>
+        <target state="final">ເພີ່ມເຕີມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.spacer3" resname="tx_powermail_domain_model_field.type.spacer3" approved="yes">
+        <source>Extensions</source>
+        <target state="final">ສ່ວນຂະຫຍາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.0" resname="tx_powermail_domain_model_field.type.0" approved="yes">
+        <source>Textfield (Input)</source>
+        <target state="final">ຫ້ອງປ້ອນຂໍ້ຄວາມ (Input)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.1" resname="tx_powermail_domain_model_field.type.1" approved="yes">
+        <source>Textfield with more Rows (Textarea)</source>
+        <target state="final">ຫ້ອງປ້ອນຂໍ້ຄວາມຫຼາຍແຖວ (Textarea)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.2" resname="tx_powermail_domain_model_field.type.2" approved="yes">
+        <source>Selectfield</source>
+        <target state="final">ຫ້ອງເລືອກ (Selectfield)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.3" resname="tx_powermail_domain_model_field.type.3" approved="yes">
+        <source>Checkboxes</source>
+        <target state="final">ກ່ອງໝາຍ (Checkboxes)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.4" resname="tx_powermail_domain_model_field.type.4" approved="yes">
+        <source>Radiobuttons</source>
+        <target state="final">ປຸ່ມເລືອກ (Radiobuttons)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.5" resname="tx_powermail_domain_model_field.type.5" approved="yes">
+        <source>Submit</source>
+        <target state="final">ປຸ່ມສົ່ງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.6" resname="tx_powermail_domain_model_field.type.6" approved="yes">
+        <source>Captcha Field</source>
+        <target state="final">ຫ້ອງລະຫັດຢືນຢັນ (Captcha)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.7" resname="tx_powermail_domain_model_field.type.7" approved="yes">
+        <source>Reset</source>
+        <target state="final">ຕັ້ງຄ່າໃໝ່ (Reset)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.8" resname="tx_powermail_domain_model_field.type.8" approved="yes">
+        <source>Show some Text</source>
+        <target state="final">ສະແດງຂໍ້ຄວາມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.9" resname="tx_powermail_domain_model_field.type.9" approved="yes">
+        <source>Content Element</source>
+        <target state="final">ອົງປະກອບເນື້ອໃນ (Content Element)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.10" resname="tx_powermail_domain_model_field.type.10" approved="yes">
+        <source>Show HTML</source>
+        <target state="final">ສະແດງ HTML</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.11" resname="tx_powermail_domain_model_field.type.11" approved="yes">
+        <source>Password Field</source>
+        <target state="final">ຫ້ອງລະຫັດຜ່ານ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.12" resname="tx_powermail_domain_model_field.type.12" approved="yes">
+        <source>File Upload</source>
+        <target state="final">ອັບໂຫລດໄຟລ໌</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.13" resname="tx_powermail_domain_model_field.type.13" approved="yes">
+        <source>Hidden Field</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນທີ່ເຊື່ອງໄວ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.14" resname="tx_powermail_domain_model_field.type.14" approved="yes">
+        <source>Date</source>
+        <target state="final">ວັນທີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.15" resname="tx_powermail_domain_model_field.type.15" approved="yes">
+        <source>Location</source>
+        <target state="final">ສະຖານທີ່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.16" resname="tx_powermail_domain_model_field.type.16" approved="yes">
+        <source>TypoScript</source>
+        <target state="final">TypoScript</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.type.17" resname="tx_powermail_domain_model_field.type.17" approved="yes">
+        <source>Country Selection</source>
+        <target state="final">ເລືອກປະເທດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.settings" resname="tx_powermail_domain_model_field.settings" approved="yes">
+        <source>Options</source>
+        <target state="final">ຕົວເລືອກ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.path" resname="tx_powermail_domain_model_field.path" approved="yes">
+        <source>TypoScript Path (e.g. lib.test)</source>
+        <target state="final">ເສັ້ນທາງ TypoScript (ເຊັ່ນ: lib.test)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.content_element" resname="tx_powermail_domain_model_field.content_element" approved="yes">
+        <source>Select Content Element</source>
+        <target state="final">ເລືອກອົງປະກອບເນື້ອໃນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.text" resname="tx_powermail_domain_model_field.text" approved="yes">
+        <source>Add some text</source>
+        <target state="final">ເພີ່ມຂໍ້ຄວາມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation_title" resname="tx_powermail_domain_model_field.validation_title" approved="yes">
+        <source>Validation</source>
+        <target state="final">ການກວດສອບຄວາມຖືກຕ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory" resname="tx_powermail_domain_model_field.mandatory" approved="yes">
+        <source>Mandatory Field</source>
+        <target state="final">ຫ້ອງທີ່ບັງຄັບໃຫ້ປ້ອນຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.mandatory_text" resname="tx_powermail_domain_model_field.mandatory_text" approved="yes">
+        <source>Custom error message</source>
+        <target state="final">ຂໍ້ຄວາມສະແດງຂໍ້ຜິດພາດທີ່ກຳນົດເອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation" resname="tx_powermail_domain_model_field.validation" approved="yes">
+        <source>Validation</source>
+        <target state="final">ການກວດສອບຄວາມຖືກຕ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.1" resname="tx_powermail_domain_model_field.validation.1" approved="yes">
+        <source>Email</source>
+        <target state="final">ອີເມວ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.2" resname="tx_powermail_domain_model_field.validation.2" approved="yes">
+        <source>URL</source>
+        <target state="final">URL</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.3" resname="tx_powermail_domain_model_field.validation.3" approved="yes">
+        <source>Phone</source>
+        <target state="final">ເບີໂທລະສັບ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.4" resname="tx_powermail_domain_model_field.validation.4" approved="yes">
+        <source>Numbers Only</source>
+        <target state="final">ສະເພາະຕົວເລກເທົ່ານັ້ນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.5" resname="tx_powermail_domain_model_field.validation.5" approved="yes">
+        <source>Letters Only</source>
+        <target state="final">ສະເພາະຕົວອັກສອນເທົ່ານັ້ນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.6" resname="tx_powermail_domain_model_field.validation.6" approved="yes">
+        <source>Min Number</source>
+        <target state="final">ຄ່າຕົວເລກຕ່ຳສຸດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.7" resname="tx_powermail_domain_model_field.validation.7" approved="yes">
+        <source>Max Number</source>
+        <target state="final">ຄ່າຕົວເລກສູງສຸດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.8" resname="tx_powermail_domain_model_field.validation.8" approved="yes">
+        <source>Range</source>
+        <target state="final">ຊ່ວງຕົວເລກ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.9" resname="tx_powermail_domain_model_field.validation.9" approved="yes">
+        <source>Length</source>
+        <target state="final">ຄວາມຍາວ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validation.10" resname="tx_powermail_domain_model_field.validation.10" approved="yes">
+        <source>Pattern (RegEx)</source>
+        <target state="final">ຮູບແບບ (RegEx)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.validationConfiguration" resname="tx_powermail_domain_model_field.validationConfiguration" approved="yes">
+        <source>Validation Configuration</source>
+        <target state="final">ການຕັ້ງຄ່າການກວດສອບຄວາມຖືກຕ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css" resname="tx_powermail_domain_model_field.css" approved="yes">
+        <source>Layout</source>
+        <target state="final">ຮູບແບບການຈັດວາງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.1" resname="tx_powermail_domain_model_field.css.1" approved="yes">
+        <source>Layout 1</source>
+        <target state="final">ຮູບແບບ 1</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.2" resname="tx_powermail_domain_model_field.css.2" approved="yes">
+        <source>Layout 2</source>
+        <target state="final">ຮູບແບບ 2</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.3" resname="tx_powermail_domain_model_field.css.3" approved="yes">
+        <source>Layout 3</source>
+        <target state="final">ຮູບແບບ 3</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.css.4" resname="tx_powermail_domain_model_field.css.4" approved="yes">
+        <source>Hide label</source>
+        <target state="final">ເຊື່ອງປ້າຍຊື່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.multiselect" resname="tx_powermail_domain_model_field.multiselect" approved="yes">
+        <source>Multiselect</source>
+        <target state="final">ເລືອກໄດ້ຫຼາຍລາຍການ (Multiselect)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings" resname="tx_powermail_domain_model_field.datepicker_settings" approved="yes">
+        <source>Datepicker Mode</source>
+        <target state="final">ໂໝດການເລືອກວັນທີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.1" resname="tx_powermail_domain_model_field.datepicker_settings.1" approved="yes">
+        <source>Date</source>
+        <target state="final">ວັນທີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.2" resname="tx_powermail_domain_model_field.datepicker_settings.2" approved="yes">
+        <source>Date and Time</source>
+        <target state="final">ວັນທີ ແລະ ເວລາ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.datepicker_settings.3" resname="tx_powermail_domain_model_field.datepicker_settings.3" approved="yes">
+        <source>Time</source>
+        <target state="final">ເວລາ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_title" resname="tx_powermail_domain_model_field.prefill_title" approved="yes">
+        <source>Prefill Field</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນທີ່ປ້ອນໄວ້ລ່ວງໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.prefill_value" resname="tx_powermail_domain_model_field.prefill_value" approved="yes">
+        <source>With Value</source>
+        <target state="final">ດ້ວຍຄ່າ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder" resname="tx_powermail_domain_model_field.placeholder" approved="yes">
+        <source>Placeholder</source>
+        <target state="final">ຂໍ້ຄວາມແນະນຳໃນຫ້ອງປ້ອນ (Placeholder)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.placeholder_repeat" resname="tx_powermail_domain_model_field.placeholder_repeat" approved="yes">
+        <source>Placeholder for repeat</source>
+        <target state="final">ຂໍ້ຄວາມແນະນຳສຳລັບການປ້ອນຄືນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.create_from_typoscript" resname="tx_powermail_domain_model_field.create_from_typoscript" approved="yes">
+        <source>Create from TypoScript (e.g. lib.fieldvalues)</source>
+        <target state="final">ສ້າງຈາກ TypoScript (ເຊັ່ນ: lib.fieldvalues)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value" resname="tx_powermail_domain_model_field.feuser_value" approved="yes">
+        <source>Value from logged in Frontend User</source>
+        <target state="final">ຄ່າຈາກຜູ້ໃຊ້ເວັບໄຊທີ່ເຂົ້າສູ່ລະບົບໄວ້</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.name" resname="tx_powermail_domain_model_field.feuser_value.name" approved="yes">
+        <source>Name</source>
+        <target state="final">ຊື່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.address" resname="tx_powermail_domain_model_field.feuser_value.address" approved="yes">
+        <source>Address</source>
+        <target state="final">ທີ່ຢູ່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.phone" resname="tx_powermail_domain_model_field.feuser_value.phone" approved="yes">
+        <source>Phone</source>
+        <target state="final">ເບີໂທລະສັບ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.fax" resname="tx_powermail_domain_model_field.feuser_value.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">ແຟັກ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.email" resname="tx_powermail_domain_model_field.feuser_value.email" approved="yes">
+        <source>Email</source>
+        <target state="final">ອີເມວ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.zip" resname="tx_powermail_domain_model_field.feuser_value.zip" approved="yes">
+        <source>ZIP</source>
+        <target state="final">ລະຫັດໄປສະນີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.city" resname="tx_powermail_domain_model_field.feuser_value.city" approved="yes">
+        <source>City</source>
+        <target state="final">ເມືອງ/ແຂວງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.country" resname="tx_powermail_domain_model_field.feuser_value.country" approved="yes">
+        <source>Country</source>
+        <target state="final">ປະເທດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.www" resname="tx_powermail_domain_model_field.feuser_value.www" approved="yes">
+        <source>Website</source>
+        <target state="final">ເວັບໄຊ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.feuser_value.company" resname="tx_powermail_domain_model_field.feuser_value.company" approved="yes">
+        <source>Company</source>
+        <target state="final">ບໍລິສັດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_email" resname="tx_powermail_domain_model_field.sender_email" approved="yes">
+        <source>This field contains the Email of the sender</source>
+        <target state="final">ຫ້ອງນີ້ບັນຈຸ ອີເມວ ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sender_name" resname="tx_powermail_domain_model_field.sender_name" approved="yes">
+        <source>This field contains the Name of the sender</source>
+        <target state="final">ຫ້ອງນີ້ບັນຈຸ ຊື່ ຂອງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.marker_title" resname="tx_powermail_domain_model_field.marker_title" approved="yes">
+        <source>Variables</source>
+        <target state="final">ຕົວປ່ຽນ (Variables)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.description" resname="tx_powermail_domain_model_field.description" approved="yes">
+        <source>Description</source>
+        <target state="final">ຄຳອະທິບາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker" resname="tx_powermail_domain_model_field.own_marker" approved="yes">
+        <source>Enter your own Variable Name</source>
+        <target state="final">ປ້ອນຊື່ຕົວປ່ຽນຂອງທ່ານເອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.auto_marker" resname="tx_powermail_domain_model_field.auto_marker" approved="yes">
+        <source>Individual Fieldname to use as Variable (automaticly wrapped with {})</source>
+        <target state="final">ຊື່ຫ້ອງຂໍ້ມູນສ່ວນບຸກຄົນເພື່ອໃຊ້ເປັນຕົວປ່ຽນ (ຈະຖືກໃສ່ {} ໃຫ້ອັດຕະໂນມັດ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.own_marker_select" resname="tx_powermail_domain_model_field.own_marker_select" approved="yes">
+        <source>Add my own Variable Name</source>
+        <target state="final">ເພີ່ມຊື່ຕົວປ່ຽນຂອງຂ້ອຍເອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.pages" resname="tx_powermail_domain_model_field.pages" approved="yes">
+        <source>Related Page</source>
+        <target state="final">ໜ້າທີ່ກ່ຽວຂ້ອງ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet1" resname="tx_powermail_domain_model_field.sheet1" approved="yes">
+        <source>Extended</source>
+        <target state="final">ຂະຫຍາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.sheet2" resname="tx_powermail_domain_model_field.sheet2" approved="yes">
+        <source>Marketing</source>
+        <target state="final">ການຕະຫຼາດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette1" resname="tx_powermail_domain_model_field.palette1" approved="yes">
+        <source>Email or Name</source>
+        <target state="final">ອີເມວ ຫຼື ຊື່</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete" resname="tx_powermail_domain_model_field.palette.autocomplete" approved="yes">
+        <source>Autocomplete options</source>
+        <target state="final">ຕົວເລືອກການເຕີມຂໍ້ມູນອັດຕະໂນມັດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.palette.autocomplete_additional" resname="tx_powermail_domain_model_field.palette.autocomplete_additional" approved="yes">
+        <source>Additional autocomplete options</source>
+        <target state="final">ຕົວເລືອກການເຕີມຂໍ້ມູນອັດຕະໂນມັດເພີ່ມເຕີມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_token" resname="tx_powermail_domain_model_field.autocomplete_token" approved="yes">
+        <source>Token (optional)</source>
+        <target state="final">Token (ບໍ່ບັງຄັບ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_section" resname="tx_powermail_domain_model_field.autocomplete_section" approved="yes">
+        <source>Section (optional)</source>
+        <target state="final">ສ່ວນ (Section) (ບໍ່ບັງຄັບ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_purpose" resname="tx_powermail_domain_model_field.autocomplete_purpose" approved="yes">
+        <source>Purpose (optional)</source>
+        <target state="final">ຈຸດປະສົງ (ບໍ່ບັງຄັບ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_field.autocomplete_type" resname="tx_powermail_domain_model_field.autocomplete_type" approved="yes">
+        <source>Type (optional)</source>
+        <target state="final">ປະເພດ (ບໍ່ບັງຄັບ)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer" resname="tx_powermail_domain_model_answer" approved="yes">
+        <source>Answer</source>
+        <target state="final">ຄຳຕອບ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value" resname="tx_powermail_domain_model_answer.value" approved="yes">
+        <source>The transferred value</source>
+        <target state="final">ຄ່າທີ່ຖືກສົ່ງມາ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type" resname="tx_powermail_domain_model_answer.value_type" approved="yes">
+        <source>Data Type</source>
+        <target state="final">ປະເພດຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.0" resname="tx_powermail_domain_model_answer.value_type.0" approved="yes">
+        <source>Text</source>
+        <target state="final">ຂໍ້ຄວາມ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.1" resname="tx_powermail_domain_model_answer.value_type.1" approved="yes">
+        <source>Multi Text (Array)</source>
+        <target state="final">ຂໍ້ຄວາມຫຼາຍຄ່າ (Array)</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.2" resname="tx_powermail_domain_model_answer.value_type.2" approved="yes">
+        <source>Date</source>
+        <target state="final">ວັນທີ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.value_type.3" resname="tx_powermail_domain_model_answer.value_type.3" approved="yes">
+        <source>Upload</source>
+        <target state="final">ການອັບໂຫລດ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.mail" resname="tx_powermail_domain_model_answer.mail" approved="yes">
+        <source>Mail</source>
+        <target state="final">ຈົດໝາຍ</target>
+      </trans-unit>
+      <trans-unit id="tx_powermail_domain_model_answer.field" resname="tx_powermail_domain_model_answer.field" approved="yes">
+        <source>Field</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="pleaseChoose" resname="pleaseChoose" approved="yes">
+        <source>Please choose...</source>
+        <target state="final">ກະລຸນາເລືອກ...</target>
+      </trans-unit>
+      <trans-unit id="flexform.main" resname="flexform.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">ການຕັ້ງຄ່າຫຼັກ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.form" resname="flexform.main.form" approved="yes">
+        <source>Choose a Powermail Form</source>
+        <target state="final">ເລືອກແບບຟອມ Powermail</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote" resname="flexform.main.formnote" approved="yes">
+        <source>Form overview</source>
+        <target state="final">ພາບລວມຂອງແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.noform" resname="flexform.main.formnote.noform" approved="yes">
+        <source>Please select a form</source>
+        <target state="final">ກະລຸນາເລືອກແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.new" resname="flexform.main.formnote.new" approved="yes">
+        <source>Add a new form</source>
+        <target state="final">ເພີ່ມແບບຟອມໃໝ່</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.edit" resname="flexform.main.formnote.edit" approved="yes">
+        <source>Manage the current form</source>
+        <target state="final">ຈັດການແບບຟອມປັດຈຸບັນ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.formname" resname="flexform.main.formnote.formname" approved="yes">
+        <source>Form Name</source>
+        <target state="final">ຊື່ແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.storedinpage" resname="flexform.main.formnote.storedinpage" approved="yes">
+        <source>Stored in Page</source>
+        <target state="final">ບັນທຶກໄວ້ໃນໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.pages" resname="flexform.main.formnote.pages" approved="yes">
+        <source>Pages</source>
+        <target state="final">ໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.formnote.fields" resname="flexform.main.formnote.fields" approved="yes">
+        <source>Fields</source>
+        <target state="final">ຫ້ອງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.pid" resname="flexform.main.pid" approved="yes">
+        <source>Where to save Mails (empty = same page)</source>
+        <target state="final">ບ່ອນທີ່ຈະບັນທຶກຈົດໝາຍ (ຖ້າຫວ່າງ = ໜ້າດຽວກັນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.optin" resname="flexform.main.optin" approved="yes">
+        <source>Mail must be confirmed (Double Opt-In)</source>
+        <target state="final">ຈົດໝາຍຕ້ອງໄດ້ຮັບການຢືນຢັນ (Double Opt-In)</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.confirmation" resname="flexform.main.confirmation" approved="yes">
+        <source>Do you want a confirmation page?</source>
+        <target state="final">ທ່ານຕ້ອງການໜ້າຢືນຢັນຂໍ້ມູນຫຼືບໍ່?</target>
+      </trans-unit>
+      <trans-unit id="flexform.main.moresteps" resname="flexform.main.moresteps" approved="yes">
+        <source>Do you want to split each page (step by step)?</source>
+        <target state="final">ທ່ານຕ້ອງການແບ່ງແຕ່ລະໜ້າ (ເທື່ອລະຂັ້ນຕອນ) ຫຼືບໍ່?</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver" resname="flexform.receiver" approved="yes">
+        <source>Mail to Receiver</source>
+        <target state="final">ຈົດໝາຍເຖິງຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.name" resname="flexform.receiver.name" approved="yes">
+        <source>Receivers Name</source>
+        <target state="final">ຊື່ຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type" resname="flexform.receiver.type" approved="yes">
+        <source>Receiver type</source>
+        <target state="final">ປະເພດຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.0" resname="flexform.receiver.type.0" approved="yes">
+        <source>Email addresses</source>
+        <target state="final">ທີ່ຢູ່ອີເມວ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.1" resname="flexform.receiver.type.1" approved="yes">
+        <source>Frontend user group</source>
+        <target state="final">ກຸ່ມຜູ້ໃຊ້ເວັບໄຊ (Frontend User Group)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.2" resname="flexform.receiver.type.2" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">ຜູ້ຮັບທີ່ກຳນົດໄວ້ລ່ວງໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.type.3" resname="flexform.receiver.type.3" approved="yes">
+        <source>Backend user group</source>
+        <target state="final">ກຸ່ມຜູ້ໃຊ້ລະບົບ (Backend User Group)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.email" resname="flexform.receiver.email" approved="yes">
+        <source>Receivers Email</source>
+        <target state="final">ອີເມວຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.fe_group" resname="flexform.receiver.fe_group" approved="yes">
+        <source>Send Email to Frontend User Group</source>
+        <target state="final">ສົ່ງອີເມວຫາ ກຸ່ມຜູ້ໃຊ້ເວັບໄຊ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail" resname="flexform.receiver.predefinedemail" approved="yes">
+        <source>Predefined receivers</source>
+        <target state="final">ຜູ້ຮັບທີ່ກຳນົດໄວ້ລ່ວງໜ້າ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.be_group" resname="flexform.receiver.be_group" approved="yes">
+        <source>Send Email to Backend User Group</source>
+        <target state="final">ສົ່ງອີເມວຫາ ກຸ່ມຜູ້ໃຊ້ລະບົບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.predefinedemail.1" resname="flexform.receiver.predefinedemail.1" approved="yes">
+        <source>Example receivers 1</source>
+        <target state="final">ຕົວຢ່າງຜູ້ຮັບ 1</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.subject" resname="flexform.receiver.subject" approved="yes">
+        <source>Subject for Email to Receiver (Empty subject disables mail)</source>
+        <target state="final">ຫົວຂໍ້ອີເມວເຖິງຜູ້ຮັບ (ຫົວຂໍ້ຫວ່າງເປົ່າຈະປິດການສົ່ງຈົດໝາຍ)</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.body" resname="flexform.receiver.body" approved="yes">
+        <source>Bodytext for Email to Receiver</source>
+        <target state="final">ເນື້ອໃນອີເມວເຖິງຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.receiver.attachment" resname="flexform.receiver.attachment" approved="yes">
+        <source>Send uploaded files to receiver</source>
+        <target state="final">ສົ່ງໄຟລ໌ທີ່ອັບໂຫລດໃຫ້ຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender" resname="flexform.sender" approved="yes">
+        <source>Mail to User</source>
+        <target state="final">ຈົດໝາຍເຖິງຜູ້ໃຊ້</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.email" resname="flexform.sender.email" approved="yes">
+        <source>Sender Email (For Confirmation Mail to User)</source>
+        <target state="final">ອີເມວຜູ້ສົ່ງ (ສຳລັບອີເມວຢືນຢັນຫາຜູ້ໃຊ້)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.name" resname="flexform.sender.name" approved="yes">
+        <source>Sender Name (For Confirmation Mail to User)</source>
+        <target state="final">ຊື່ຜູ້ສົ່ງ (ສຳລັບອີເມວຢືນຢັນຫາຜູ້ໃຊ້)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.subject" resname="flexform.sender.subject" approved="yes">
+        <source>Subject for Email to Sender (Empty subject disables mail)</source>
+        <target state="final">ຫົວຂໍ້ອີເມວເຖິງຜູ້ສົ່ງ (ຫົວຂໍ້ຫວ່າງເປົ່າຈະປິດການສົ່ງຈົດໝາຍ)</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.body" resname="flexform.sender.body" approved="yes">
+        <source>Bodytext for Email to Sender</source>
+        <target state="final">ເນື້ອໃນອີເມວເຖິງຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="flexform.sender.attachment" resname="flexform.sender.attachment" approved="yes">
+        <source>Send uploaded files to sender</source>
+        <target state="final">ສົ່ງໄຟລ໌ທີ່ອັບໂຫລດໃຫ້ຜູ້ສົ່ງ</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx" resname="flexform.thx" approved="yes">
+        <source>Submit Page</source>
+        <target state="final">ໜ້າສົ່ງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.body" resname="flexform.thx.body" approved="yes">
+        <source>Text on submit page</source>
+        <target state="final">ຂໍ້ຄວາມໃນໜ້າສົ່ງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="flexform.thx.redirect" resname="flexform.thx.redirect" approved="yes">
+        <source>Redirect to any other Page after submit</source>
+        <target state="final">ປ່ຽນເສັ້ນທາງໄປໜ້າອື່ນຫຼັງຈາກສົ່ງຂໍ້ມູນ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.updateNote" resname="flexform_pi2.updateNote" approved="yes">
+        <source>ATTENTION: Please select a form in Settings before!</source>
+        <target state="final">ຄຳເຕືອນ: ກະລຸນາເລືອກແບບຟອມໃນການຕັ້ງຄ່າກ່ອນ!</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main" resname="flexform_pi2.main" approved="yes">
+        <source>Main Settings</source>
+        <target state="final">ການຕັ້ງຄ່າຫຼັກ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.form" resname="flexform_pi2.main.form" approved="yes">
+        <source>Choose a form</source>
+        <target state="final">ເລືອກແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.main.pid" resname="flexform_pi2.main.pid" approved="yes">
+        <source>Select a page with mails (optional)</source>
+        <target state="final">ເລືອກໜ້າທີ່ມີຈົດໝາຍ (ບໍ່ບັງຄັບ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list" resname="flexform_pi2.list" approved="yes">
+        <source>Listview</source>
+        <target state="final">ມຸມມອງລາຍການ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.fields" resname="flexform_pi2.list.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">ເລືອກຫ້ອງຂໍ້ມູນທີ່ຈະສະແດງ (ຖ້າຫວ່າງ: ທຸກຫ້ອງຂໍ້ມູນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.delta" resname="flexform_pi2.list.delta" approved="yes">
+        <source>Show entries of the last X Seconds (Empty: Function disabled)</source>
+        <target state="final">ສະແດງລາຍການຂອງ X ວິນາທີສຸດທ້າຍ (ຖ້າຫວ່າງ: ປິດການໃຊ້ງານ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.limit" resname="flexform_pi2.list.limit" approved="yes">
+        <source>Show max. X entries (Empty: No Limit)</source>
+        <target state="final">ສະແດງສູງສຸດ X ລາຍການ (ຖ້າຫວ່າງ: ບໍ່ຈຳກັດ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.pid" resname="flexform_pi2.list.pid" approved="yes">
+        <source>Page with Plugin for list view (Empty: Same page)</source>
+        <target state="final">ໜ້າທີ່ມີປລັກອິນສຳລັບມຸມມອງລາຍການ (ຖ້າຫວ່າງ: ໜ້າດຽວກັນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly" resname="flexform_pi2.list.showownonly" approved="yes">
+        <source>Own entries</source>
+        <target state="final">ລາຍການຂອງຕົນເອງ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.list.showownonly.0" resname="flexform_pi2.list.showownonly.0" approved="yes">
+        <source>Show only entries from logged in Frontend-User</source>
+        <target state="final">ສະແດງສະເພາະລາຍການຈາກຜູ້ໃຊ້ເວັບໄຊທີ່ເຂົ້າສູ່ລະບົບໄວ້</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single" resname="flexform_pi2.single" approved="yes">
+        <source>Detailview</source>
+        <target state="final">ມຸມມອງລາຍລະອຽດ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.fields" resname="flexform_pi2.single.fields" approved="yes">
+        <source>Choose Fields to show (Empty: All Fields)</source>
+        <target state="final">ເລືອກຫ້ອງຂໍ້ມູນທີ່ຈະສະແດງ (ຖ້າຫວ່າງ: ທຸກຫ້ອງຂໍ້ມູນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink" resname="flexform_pi2.single.activateLink" approved="yes">
+        <source>Link to detail view</source>
+        <target state="final">ລິ້ງໄປຫາມຸມມອງລາຍລະອຽດ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.activateLink.0" resname="flexform_pi2.single.activateLink.0" approved="yes">
+        <source>active</source>
+        <target state="final">ເປີດໃຊ້ງານ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.single.pid" resname="flexform_pi2.single.pid" approved="yes">
+        <source>Page with Plugin for detail view (Empty: Same page)</source>
+        <target state="final">ໜ້າທີ່ມີປລັກອິນສຳລັບມຸມມອງລາຍລະອຽດ (ຖ້າຫວ່າງ: ໜ້າດຽວກັນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search" resname="flexform_pi2.search" approved="yes">
+        <source>Searchsettings</source>
+        <target state="final">ການຕັ້ງຄ່າການຄົ້ນຫາ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields" resname="flexform_pi2.search.fields" approved="yes">
+        <source>Add searchfield</source>
+        <target state="final">ເພີ່ມຫ້ອງຄົ້ນຫາ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.fields.all" resname="flexform_pi2.search.fields.all" approved="yes">
+        <source>[Fulltext Search]</source>
+        <target state="final">[ຄົ້ນຫາຈາກຂໍ້ຄວາມທັງໝົດ]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator" resname="flexform_pi2.search.operator" approved="yes">
+        <source>search fields operator (AND / OR)</source>
+        <target state="final">ຕົວດຳເນີນການຫ້ອງຄົ້ນຫາ (AND / OR)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.0" resname="flexform_pi2.search.operator.0" approved="yes">
+        <source>OR (Find keyword in Field1 OR Field2)</source>
+        <target state="final">OR (ຄົ້ນຫາຄຳສຳຄັນໃນ ຫ້ອງ1 ຫຼື ຫ້ອງ2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.operator.1" resname="flexform_pi2.search.operator.1" approved="yes">
+        <source>AND (Find keyword in Field1 AND Field2)</source>
+        <target state="final">AND (ຄົ້ນຫາຄຳສຳຄັນໃນ ຫ້ອງ1 ແລະ ຫ້ອງ2)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc" resname="flexform_pi2.search.abc" approved="yes">
+        <source>Add ABC filter</source>
+        <target state="final">ເພີ່ມຕົວກອງ ABC</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.search.abc.off" resname="flexform_pi2.search.abc.off" approved="yes">
+        <source>[Deactivated]</source>
+        <target state="final">[ປິດການໃຊ້ງານ]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit" resname="flexform_pi2.edit" approved="yes">
+        <source>Editview</source>
+        <target state="final">ມຸມມອງການແກ້ໄຂ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fields" resname="flexform_pi2.edit.fields" approved="yes">
+        <source>Choose Fields to edit (Empty: All fields)</source>
+        <target state="final">ເລືອກຫ້ອງຂໍ້ມູນທີ່ຈະແກ້ໄຂ (ຖ້າຫວ່າງ: ທຸກຫ້ອງຂໍ້ມູນ)</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser" resname="flexform_pi2.edit.feuser" approved="yes">
+        <source>Choose one or more Frontend-Users with permission to change</source>
+        <target state="final">ເລືອກຜູ້ໃຊ້ເວັບໄຊໜຶ່ງຄົນ ຫຼື ຫຼາຍກວ່າ ທີ່ມີສິດໃນການປ່ຽນແປງ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.feuser.owner" resname="flexform_pi2.edit.feuser.owner" approved="yes">
+        <source>[Owner]</source>
+        <target state="final">[ເຈົ້າຂອງ]</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.fegroup" resname="flexform_pi2.edit.fegroup" approved="yes">
+        <source>Choose one or more Frontend-Groups with permission to change</source>
+        <target state="final">ເລືອກກຸ່ມຜູ້ໃຊ້ເວັບໄຊໜຶ່ງກຸ່ມ ຫຼື ຫຼາຍກວ່າ ທີ່ມີສິດໃນການປ່ຽນແປງ</target>
+      </trans-unit>
+      <trans-unit id="flexform_pi2.edit.pid" resname="flexform_pi2.edit.pid" approved="yes">
+        <source>Page with Plugin for edit view (Empty: Same page)</source>
+        <target state="final">ໜ້າທີ່ມີປລັກອິນສຳລັບມຸມມອງການແກ້ໄຂ (ຖ້າຫວ່າງ: ໜ້າດຽວກັນ)</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverEmail" resname="pluginInfo.receiverEmail" approved="yes">
+        <source>Receiver email address</source>
+        <target state="final">ທີ່ຢູ່ອີເມວຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.receiverName" resname="pluginInfo.receiverName" approved="yes">
+        <source>Receiver name</source>
+        <target state="final">ຊື່ຜູ້ຮັບ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.subject" resname="pluginInfo.subject" approved="yes">
+        <source>Mail subject</source>
+        <target state="final">ຫົວຂໍ້ຈົດໝາຍ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.form" resname="pluginInfo.form" approved="yes">
+        <source>Form title</source>
+        <target state="final">ຫົວຂໍ້ແບບຟອມ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.savePid" resname="pluginInfo.savePid" approved="yes">
+        <source>Storage Location for Mails</source>
+        <target state="final">ບ່ອນຈັດເກັບຈົດໝາຍ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.confirmationPage" resname="pluginInfo.confirmationPage" approved="yes">
+        <source>Confirmation page activated</source>
+        <target state="final">ເປີດໃຊ້ງານໜ້າຢືນຢັນແລ້ວ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.optin" resname="pluginInfo.optin" approved="yes">
+        <source>Double-opt-in activated</source>
+        <target state="final">ເປີດໃຊ້ງານ Double-opt-in ແລ້ວ</target>
+      </trans-unit>
+      <trans-unit id="pluginInfo.more" resname="pluginInfo.more" approved="yes">
+        <source>More ...</source>
+        <target state="final">ເພີ່ມເຕີມ ...</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.none" resname="autocomplete_token.none" approved="yes">
+        <source>Disable attribute (default)</source>
+        <target state="final">ປິດການໃຊ້ງານຄຸນລັກສະນະ (ຄ່າເລີ່ມຕົ້ນ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.on" resname="autocomplete_token.on" approved="yes">
+        <source>Automatically complete (on)</source>
+        <target state="final">ເຕີມຂໍ້ມູນອັດຕະໂນມັດ (ເປີດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.off" resname="autocomplete_token.off" approved="yes">
+        <source>Do not automatically complete (off)</source>
+        <target state="final">ບໍ່ຕ້ອງເຕີມຂໍ້ມູນອັດຕະໂນມັດ (ປິດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.general" resname="autocomplete_token.groups.general" approved="yes">
+        <source>General</source>
+        <target state="final">ທົ່ວໄປ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.name" resname="autocomplete_token.groups.name" approved="yes">
+        <source>Personal information</source>
+        <target state="final">ຂໍ້ມູນສ່ວນບຸກຄົນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.bday" resname="autocomplete_token.groups.bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">ວັນເດືອນປີເກີດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.user" resname="autocomplete_token.groups.user" approved="yes">
+        <source>User information</source>
+        <target state="final">ຂໍ້ມູນຜູ້ໃຊ້</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.contact" resname="autocomplete_token.groups.contact" approved="yes">
+        <source>Contact information</source>
+        <target state="final">ຂໍ້ມູນການຕິດຕໍ່</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.address" resname="autocomplete_token.groups.address" approved="yes">
+        <source>Individual address information</source>
+        <target state="final">ຂໍ້ມູນທີ່ຢູ່ສ່ວນບຸກຄົນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.cc" resname="autocomplete_token.groups.cc" approved="yes">
+        <source>Payment information</source>
+        <target state="final">ຂໍ້ມູນການຊຳລະເງິນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.tel" resname="autocomplete_token.groups.tel" approved="yes">
+        <source>Telephone</source>
+        <target state="final">ໂທລະສັບ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.groups.other" resname="autocomplete_token.groups.other" approved="yes">
+        <source>Other</source>
+        <target state="final">ອື່ນໆ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.name" resname="name" approved="yes">
+        <source>Full name</source>
+        <target state="final">ຊື່ ແລະ ນາມສະກຸນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-prefix" resname="honorific-prefix" approved="yes">
+        <source>Prefix or title</source>
+        <target state="final">ຄຳນຳໜ້າ ຫຼື ຕຳແໜ່ງ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.given-name" resname="given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">ຊື່ (ຊື່ແທ້)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.additional-name" resname="additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">ຊື່ກາງ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.family-name" resname="family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">ນາມສະກຸນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.honorific-suffix" resname="honorific-suffix" approved="yes">
+        <source>Honorific suffix</source>
+        <target state="final">ຄຳຕໍ່ທ້າຍຊື່</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.nickname" resname="nickname" approved="yes">
+        <source>Nickname</source>
+        <target state="final">ຊື່ຫຼິ້ນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.sex" resname="sex" approved="yes">
+        <source>Gender identity</source>
+        <target state="final">ອັດຕະລັກທາງເພດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.email" resname="email" approved="yes">
+        <source>Email address</source>
+        <target state="final">ທີ່ຢູ່ອີເມວ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.impp" resname="impp" approved="yes">
+        <source>Instant messaging protocol endpoint</source>
+        <target state="final">ທີ່ຢູ່ໂປຣໂຕຄໍການສົ່ງຂໍ້ຄວາມທັນທີ (IMPP)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.url" resname="url" approved="yes">
+        <source>Website</source>
+        <target state="final">ເວັບໄຊ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization-title" resname="organization-title" approved="yes">
+        <source>Organization title</source>
+        <target state="final">ຕຳແໜ່ງໃນອົງກອນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.organization" resname="organization" approved="yes">
+        <source>Organization</source>
+        <target state="final">ອົງກອນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.street-address" resname="street-address" approved="yes">
+        <source>Street address</source>
+        <target state="final">ທີ່ຢູ່ຖະໜົນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line1" resname="address-line1" approved="yes">
+        <source>Address line 1</source>
+        <target state="final">ທີ່ຢູ່ແຖວທີ 1</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line2" resname="address-line2" approved="yes">
+        <source>Address line 2</source>
+        <target state="final">ທີ່ຢູ່ແຖວທີ 2</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-line3" resname="address-line3" approved="yes">
+        <source>Address line 3</source>
+        <target state="final">ທີ່ຢູ່ແຖວທີ 3</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level1" resname="address-level1" approved="yes">
+        <source>First administrative level</source>
+        <target state="final">ລະດັບການປົກຄອງທີ 1 (ເຊັ່ນ: ແຂວງ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level2" resname="address-level2" approved="yes">
+        <source>Second administrative level</source>
+        <target state="final">ລະດັບການປົກຄອງທີ 2 (ເຊັ່ນ: ເມືອງ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level3" resname="address-level3" approved="yes">
+        <source>Third administrative level</source>
+        <target state="final">ລະດັບການປົກຄອງທີ 3</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.address-level4" resname="address-level1" approved="yes">
+        <source>Fourth administrative level</source>
+        <target state="final">ລະດັບການປົກຄອງທີ 4</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country" resname="country" approved="yes">
+        <source>Country or territory code</source>
+        <target state="final">ລະຫັດປະເທດ ຫຼື ເຂດການປົກຄອງ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.country-name" resname="country-name" approved="yes">
+        <source>Country or territory name</source>
+        <target state="final">ຊື່ປະເທດ ຫຼື ເຂດການປົກຄອງ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.postal-code" resname="postal-code" approved="yes">
+        <source>Postal code (ZIP)</source>
+        <target state="final">ລະຫັດໄປສະນີ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel" resname="tel" approved="yes">
+        <source>Full telephone no.</source>
+        <target state="final">ເບີໂທລະສັບເຕັມ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-country-code" resname="tel-country-code" approved="yes">
+        <source>Country code</source>
+        <target state="final">ລະຫັດປະເທດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-area-code" resname="tel-area-code" approved="yes">
+        <source>Area code</source>
+        <target state="final">ລະຫັດພື້ນທີ່</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-national" resname="tel-national" approved="yes">
+        <source>Telephone number without the county code component</source>
+        <target state="final">ເບີໂທລະສັບທີ່ບໍ່ມີລະຫັດປະເທດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local" resname="tel-local" approved="yes">
+        <source>Telephone number without the country or area code</source>
+        <target state="final">ເບີໂທລະສັບທີ່ບໍ່ມີລະຫັດປະເທດ ຫຼື ລະຫັດພື້ນທີ່</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-prefix" resname="tel-local-prefix" approved="yes">
+        <source>Exchange number</source>
+        <target state="final">ເລກໝາຍຊຸມສາຍ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-local-suffix" resname="tel-local-suffix" approved="yes">
+        <source>Number within exchange</source>
+        <target state="final">ເລກໝາຍພາຍໃນຊຸມສາຍ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.tel-extension" resname="tel-extension" approved="yes">
+        <source>Internal extension code</source>
+        <target state="final">ເບີຕໍ່ພາຍໃນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.username" resname="username" approved="yes">
+        <source>Username</source>
+        <target state="final">ຊື່ຜູ້ໃຊ້</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.new-password" resname="new-password" approved="yes">
+        <source>New password</source>
+        <target state="final">ລະຫັດຜ່ານໃໝ່</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.current-password" resname="current-password" approved="yes">
+        <source>Current password</source>
+        <target state="final">ລະຫັດຜ່ານປັດຈຸບັນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.one-time-code" resname="one-time-code" approved="yes">
+        <source>One-time verification code</source>
+        <target state="final">ລະຫັດຢືນຢັນແບບຄັ້ງດຽວ (OTP)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday" resname="bday" approved="yes">
+        <source>Birthday</source>
+        <target state="final">ວັນເກີດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-day" resname="bday-day" approved="yes">
+        <source>Day component of birthday</source>
+        <target state="final">ວັນທີຂອງວັນເກີດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-month" resname="bday-month" approved="yes">
+        <source>Month component of birthday</source>
+        <target state="final">ເດືອນຂອງວັນເກີດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.bday-year" resname="bday-year" approved="yes">
+        <source>Year component of birthday</source>
+        <target state="final">ປີຂອງວັນເກີດ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-name" resname="cc-name" approved="yes">
+        <source>Full name</source>
+        <target state="final">ຊື່ເຕັມ (ເທິງບັດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-given-name" resname="cc-given-name" approved="yes">
+        <source>Given (or "first") name</source>
+        <target state="final">ຊື່ (ເທິງບັດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-additional-name" resname="cc-additional-name" approved="yes">
+        <source>Middle name</source>
+        <target state="final">ຊື່ກາງ (ເທິງບັດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-family-name" resname="cc-family-name" approved="yes">
+        <source>Family (or "last") name</source>
+        <target state="final">ນາມສະກຸນ (ເທິງບັດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-number" resname="cc-number" approved="yes">
+        <source>Identification code, e.g. CC no.</source>
+        <target state="final">ໝາຍເລກບັດ (ເຊັ່ນ: ໝາຍເລກບັດເຄຣດິດ)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp" resname="cc-exp" approved="yes">
+        <source>Expiration date</source>
+        <target state="final">ວັນໝົດອາຍຸ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-month" resname="cc-exp-month" approved="yes">
+        <source>Month component of the expiration date</source>
+        <target state="final">ເດືອນທີ່ໝົດອາຍຸ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-exp-year" resname="cc-exp-year" approved="yes">
+        <source>Year component of the expiration date</source>
+        <target state="final">ປີທີ່ໝົດອາຍຸ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-csc" resname="cc-csc" approved="yes">
+        <source>Security code</source>
+        <target state="final">ລະຫັດຄວາມປອດໄພ (CVV/CSC)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.cc-type" resname="cc-type" approved="yes">
+        <source>Type of payment instrument</source>
+        <target state="final">ປະເພດຂອງບັດຊຳລະເງິນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-currency" resname="transaction-currency" approved="yes">
+        <source>Transaction currency</source>
+        <target state="final">ສະກຸນເງິນທີ່ໃຊ້ເຮັດທຸລະກຳ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.transaction-amount" resname="transaction-amount" approved="yes">
+        <source>Transaction amount</source>
+        <target state="final">ຈຳນວນເງິນທີ່ເຮັດທຸລະກຳ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.language" resname="language" approved="yes">
+        <source>Preferred language</source>
+        <target state="final">ພາສາທີ່ຕ້ອງການ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_token.photo" resname="photo" approved="yes">
+        <source>Photo</source>
+        <target state="final">ຮູບພາບ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.home" resname="autocomplete_purpose.home" approved="yes">
+        <source>Home</source>
+        <target state="final">ບ້ານ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.work" resname="autocomplete_purpose.work" approved="yes">
+        <source>Work</source>
+        <target state="final">ບ່ອນເຮັດວຽກ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.mobile" resname="autocomplete_purpose.mobile" approved="yes">
+        <source>Mobile</source>
+        <target state="final">ມືຖື</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.fax" resname="autocomplete_purpose.fax" approved="yes">
+        <source>Fax</source>
+        <target state="final">ແຟັກ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_purpose.pager" resname="autocomplete_purpose.pager" approved="yes">
+        <source>Pager</source>
+        <target state="final">ເພຈເຈີ (Pager)</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.billing" resname="autocomplete_type.billing" approved="yes">
+        <source>Billing</source>
+        <target state="final">ທີ່ຢູ່ຊຳລະເງິນ</target>
+      </trans-unit>
+      <trans-unit id="autocomplete_type.shipping" resname="autocomplete_type.shipping" approved="yes">
+        <source>Shipping</source>
+        <target state="final">ທີ່ຢູ່ຈັດສົ່ງ</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
