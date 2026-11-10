@@ -4,6 +4,8 @@ namespace In2code\Powermail\Tests\Unit\Utility;
 
 use In2code\Powermail\Tests\Helper\TestingHelper;
 use In2code\Powermail\Utility\FrontendUtility;
+use TYPO3\CMS\Core\Http\ServerRequest;
+use TYPO3\CMS\Core\Routing\PageArguments;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
 
 /**
@@ -16,6 +18,12 @@ class FrontendUtilityTest extends UnitTestCase
     {
         parent::setUp();
         TestingHelper::setDefaultConstants();
+    }
+
+    public function tearDown(): void
+    {
+        unset($GLOBALS['TYPO3_REQUEST']);
+        parent::tearDown();
     }
 
     /**
@@ -171,5 +179,56 @@ class FrontendUtilityTest extends UnitTestCase
     {
         $result = FrontendUtility::getSubFolderOfCurrentUrl($leadingSlash, $trailingSlash, $host, $url);
         self::assertSame($expectedResult, $result);
+    }
+
+    /**
+     * Data Provider for getArgumentsReturnsArray()
+     */
+    public static function getArgumentsReturnsArrayDataProvider(): array
+    {
+        return [
+            'no arguments' => [
+                [],
+                null,
+                [],
+            ],
+            'array in query' => [
+                ['tx_powermail_pi1' => ['field' => ['name' => 'Alex']]],
+                null,
+                ['field' => ['name' => 'Alex']],
+            ],
+            'string in query' => [
+                ['tx_powermail_pi1' => 'foo'],
+                null,
+                [],
+            ],
+            'array in body' => [
+                [],
+                ['tx_powermail_pi1' => ['field' => ['name' => 'Alex']]],
+                ['field' => ['name' => 'Alex']],
+            ],
+            'string in body' => [
+                [],
+                ['tx_powermail_pi1' => 'foo'],
+                [],
+            ],
+        ];
+    }
+
+    /**
+     * @param array $queryParams
+     * @param array|null $parsedBody
+     * @param array $expectedResult
+     * @dataProvider getArgumentsReturnsArrayDataProvider
+     * @test
+     * @covers ::getArguments
+     */
+    public function getArgumentsReturnsArray(array $queryParams, ?array $parsedBody, array $expectedResult): void
+    {
+        $GLOBALS['TYPO3_REQUEST'] = (new ServerRequest())
+            ->withQueryParams($queryParams)
+            ->withParsedBody($parsedBody)
+            ->withAttribute('routing', new PageArguments(1, '0', [], [], $queryParams));
+        self::assertSame($expectedResult, FrontendUtility::getArguments());
     }
 }
