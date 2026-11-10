@@ -136,7 +136,7 @@ class CaptchaValidator extends AbstractValidator
     public function __construct()
     {
         // clear captcha only on create action
-        $pluginVariables = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_powermail_pi1'];
-        $this->setClearSession($pluginVariables['action'] === 'create');
+        $pluginVariables = $GLOBALS['TYPO3_REQUEST']->getQueryParams()['tx_powermail_pi1'] ?? [];
+        $this->setClearSession(is_array($pluginVariables) && ($pluginVariables['action'] ?? '') === 'create');
     }
 }
