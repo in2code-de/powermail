@@ -264,19 +264,28 @@ class FrontendUtility
         );
     }
 
+    /**
+     * Arguments are user input and could be scalar (e.g. "?tx_powermail_pi1=foo"), so only accept arrays
+     */
     protected static function getArgumentsFromGetOrPostRequest(string $key): array
     {
-        return $GLOBALS['TYPO3_REQUEST']->getParsedBody()[$key] ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()[$key] ?? [];
+        $arguments = $GLOBALS['TYPO3_REQUEST']->getParsedBody()[$key]
+            ?? $GLOBALS['TYPO3_REQUEST']->getQueryParams()[$key]
+            ?? [];
+        return is_array($arguments) ? $arguments : [];
     }
 
+    /**
+     * Remaining query arguments are part of the routing arguments, so they could be scalar as well
+     */
     protected static function getArgumentsFromTyposcriptFrontendController(string $key): array
     {
         $request = self::getRequest();
         if ($request !== null) {
             $pageArguments = $request->getAttribute('routing');
             $arguments = $pageArguments->getArguments();
-            if (array_key_exists($key, $arguments)) {
-                return (array)$arguments[$key];
+            if (is_array($arguments[$key] ?? null)) {
+                return $arguments[$key];
             }
         }
         return [];
