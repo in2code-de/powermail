@@ -1,0 +1,11 @@
+"tx_powermail_domain_model_form"
+,"uid","pid","title","pages"
+,1,1,"Contact",1
+
+"tx_powermail_domain_model_page"
+,"uid","pid","form","title","fields"
+,1,1,1,"Page 1",1
+
+"tx_powermail_domain_model_field"
+,"uid","pid","page","title","type","marker","placeholder_repeat","settings"
+,1,1,1,"Firstname","input","firstname",\NULL,\NULL

@@ -229,6 +229,10 @@ class CreateMarker
         $properties['l10n_parent'] = (int)($properties['l10n_parent'] ?? 0);
         $properties['pid'] = (int)($properties['pid'] ?? 0);
         foreach ($properties as $key => $value) {
+            // Nullable columns (e.g. TEXT): keep the property default like the Extbase DataMapper does
+            if ($value === null) {
+                continue;
+            }
             $field->_setProperty(GeneralUtility::underscoredToLowerCamelCase($key), $value);
         }
 
