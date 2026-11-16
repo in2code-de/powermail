@@ -98,13 +98,14 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
         $records = $this->getMigrationRecords($list_type);
 
         foreach ($records as $record) {
-            $flexFormData = GeneralUtility::xml2array($record['pi_flexform']);
-            $flexForm = $this->flexFormService->convertFlexFormContentToArray($record['pi_flexform']);
+            $flexFormXml = (string)($record['pi_flexform'] ?? '');
+            $flexFormData = GeneralUtility::xml2array($flexFormXml);
+            $flexForm = $this->flexFormService->convertFlexFormContentToArray($flexFormXml);
 
             if ($list_type === 'powermail_pi2') {
                 $targetCType = $this->getTargetListType($flexForm['switchableControllerActions'] ?? '');
                 $allowedSettings = $this->getAllowedSettingsFromFlexForm($targetCType);
-                foreach ($flexFormData['data'] as $sheetKey => $sheetData) {
+                foreach ($flexFormData['data'] ?? [] as $sheetKey => $sheetData) {
                     foreach ($sheetData['lDEF'] as $settingName => $setting) {
                         if (!in_array($settingName, $allowedSettings, true)) {
                             unset($flexFormData['data'][$sheetKey]['lDEF'][$settingName]);
@@ -116,7 +117,7 @@ class PowermailPluginUpdater implements UpgradeWizardInterface
                         unset($flexFormData['data'][$sheetKey]);
                     }
                 }
-                $newFlexform = count($flexFormData['data']) > 0 ? $this->array2xml($flexFormData) : '';
+                $newFlexform = count($flexFormData['data'] ?? []) > 0 ? $this->array2xml($flexFormData) : '';
             } else {
                 $targetCType = 'powermail_pi1';
                 $newFlexform = $record['pi_flexform'] ?? '';

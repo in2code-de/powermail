@@ -1,0 +1,8 @@
+"pages"
+,"uid","pid","title"
+,1,0,"Root"
+
+"tt_content"
+,"uid","pid","CType","list_type","pi_flexform"
+,1,1,"list","powermail_pi1",\NULL
+,2,1,"list","powermail_pi2",\NULL

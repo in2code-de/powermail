@@ -3337,14 +3337,14 @@ parameters:
 			path: ../../Classes/Update/PowermailPluginUpdater.php
 
 		-
-			message: '#^Offset ''data'' might not exist on array\|string\.$#'
+			message: '#^Offset ''sheets'' might not exist on array\|string\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: ../../Classes/Update/PowermailPluginUpdater.php
 
 		-
-			message: '#^Offset ''sheets'' might not exist on array\|string\.$#'
-			identifier: offsetAccess.notFound
+			message: '#^Parameter \#1 \$input of method In2code\\Powermail\\Update\\PowermailPluginUpdater\:\:array2xml\(\) expects array, array\|string given\.$#'
+			identifier: argument.type
 			count: 1
 			path: ../../Classes/Update/PowermailPluginUpdater.php
 
