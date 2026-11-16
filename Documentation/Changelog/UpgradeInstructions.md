@@ -2,6 +2,19 @@
 
 ## Upcoming release
 
+### Database: TEXT columns are nullable again
+
+The TEXT columns of fields, mails and answers (e.g. `tx_powermail_domain_model_field.placeholder_repeat`) are
+defined as nullable `text` without a default value again - like the TYPO3 core does for TCA `type=text`.
+`tx_powermail_domain_model_mail.sender_ip` changes from `tinytext` to `varchar(255)`.
+
+The previous definition `text DEFAULT '' NOT NULL` could not be applied by the database compare as long as
+existing rows contained `NULL` ("Data truncated" / "Invalid use of NULL value"). With the new definition the
+database compare only relaxes the columns and runs without errors.
+
+The optional upgrade wizard "Powermail: Update all database TEXT fields that have a null value with a default
+value" replaces remaining `NULL` values with an empty string. It is only offered if there are such values.
+
 ### Request tokens (CSRF protection) - opt-in, no breaking change
 
 A new extension configuration `enableRequestToken` (default: off) protects the form submit with the
