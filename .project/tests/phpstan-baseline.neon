@@ -1351,6 +1351,12 @@ parameters:
 			path: ../../Classes/Domain/Service/ExportService.php
 
 		-
+			message: '#^Method In2code\\Powermail\\Domain\\Service\\ExportService\:\:getMails\(\) should return TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, In2code\\Powermail\\Domain\\Model\\Mail\> but returns TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, In2code\\Powermail\\Domain\\Model\\Mail\>\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: ../../Classes/Domain/Service/ExportService.php
+
+		-
 			message: '#^Method In2code\\Powermail\\Domain\\Service\\ExportService\:\:getReceiverEmails\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -3741,7 +3747,7 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedAnswersFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\.$#'
 			identifier: missingType.iterableValue
-			count: 2
+			count: 1
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
@@ -3759,7 +3765,7 @@ parameters:
 		-
 			message: '#^Method In2code\\Powermail\\Utility\\ReportingUtility\:\:getGroupedMarketingPropertiesFromMails\(\) has parameter \$mails with no value type specified in iterable type iterable\<\(int\|string\), mixed\>\.$#'
 			identifier: missingType.iterableValue
-			count: 2
+			count: 1
 			path: ../../Classes/Utility/ReportingUtility.php
 
 		-
@@ -4721,9 +4727,3 @@ parameters:
 			identifier: throws.notThrowable
 			count: 5
 			path: ../../Classes/ViewHelpers/Validation/ValidationDataAttributeViewHelper.php
-
-		-
-			message: '#^Method In2code\\Powermail\\Domain\\Service\\ExportService\:\:getMails\(\) should return TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, In2code\\Powermail\\Domain\\Model\\Mail\> but returns TYPO3\\CMS\\Extbase\\Persistence\\QueryResultInterface\<int, In2code\\Powermail\\Domain\\Model\\Mail\>\|null\.$#'
-			identifier: return.type
-			count: 1
-			path: ../../Classes/Domain/Service/ExportService.php

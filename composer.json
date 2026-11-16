@@ -76,7 +76,7 @@
 		"friends-of-behat/mink-browserkit-driver": "^1.5",
 		"drevops/behat-screenshot": "^1.1",
 		"typo3/testing-framework": "^8.0",
-		"phpstan/phpstan": "^2.1"
+		"phpstan/phpstan": "^2.3.6"
 	},
 	"autoload": {
 		"psr-4": {
