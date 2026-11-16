@@ -23,6 +23,6 @@
     "watch": "./node_modules/gulp/bin/gulp.js default"
   },
   "dependencies": {
-    "moment": "^2.29.2"
+    "moment": "^2.31.0"
   }
 }
