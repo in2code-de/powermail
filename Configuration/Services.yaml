@@ -27,7 +27,7 @@ services:
     tags:
       - name: 'console.command'
         command: 'powermail:cleanupUploads'
-        description: 'Remove all (!) uploaded files in uploads/tx_powermail/'
+        description: 'Remove all (!) uploaded files in a given upload folder'
 
   In2code\Powermail\Command\ExportCommand:
     tags:
