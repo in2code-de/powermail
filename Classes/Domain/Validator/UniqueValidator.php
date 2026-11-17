@@ -8,6 +8,7 @@ use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
 use In2code\Powermail\Exception\DeprecatedException;
 use In2code\Powermail\Utility\FrontendUtility;
+use In2code\Powermail\Utility\StringUtility;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationExtensionNotConfiguredException;
 use TYPO3\CMS\Core\Configuration\Exception\ExtensionConfigurationPathDoesNotExistException;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -36,7 +37,10 @@ class UniqueValidator extends AbstractValidator
                 if ($amount > 0) {
                     foreach ($mail->getAnswers() as $answer) {
                         /** @var Answer $answer */
-                        if ($answer->getField()->getMarker() === $marker) {
+                        if (
+                            $answer->getField()->getMarker() === $marker
+                            && StringUtility::isNotEmpty($answer->getValue())
+                        ) {
                             /** @var MailRepository $mailRepository */
                             $mailRepository = GeneralUtility::makeInstance(MailRepository::class);
                             $numberOfMails = $mailRepository->findByMarkerValueForm(

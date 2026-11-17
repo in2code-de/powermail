@@ -14,3 +14,5 @@ plugin.tx_powermail.settings.setup.validation {
    }
 }
 ```
+
+Empty values are not checked, so an optional field with a unique check can be left empty in any number of submissions.
