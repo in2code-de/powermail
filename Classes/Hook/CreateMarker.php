@@ -199,11 +199,20 @@ class CreateMarker
 
     /**
      * Add new fields to field array
+     *
+     * If the submitted properties don't contain a "marker" key (e.g. because the marker
+     * field is not visible to the current backend user), keep the marker that was already
+     * loaded from the database in addExistingFields() instead of letting it fall back to
+     * empty - otherwise an existing marker would be regenerated from the title on every save.
      */
     protected function addNewFields(): void
     {
         foreach ((array)($this->data[Field::TABLE_NAME] ?? []) as $fieldUid => $properties) {
-            $this->addField($this->getFieldObjectFromProperties($properties, (string)$fieldUid));
+            $field = $this->getFieldObjectFromProperties($properties, (string)$fieldUid);
+            if (!array_key_exists('marker', $properties) && isset($this->fieldArray[$field->getDescription()])) {
+                $field->setMarker($this->fieldArray[$field->getDescription()]->getMarkerOriginal());
+            }
+            $this->addField($field);
         }
     }
 
