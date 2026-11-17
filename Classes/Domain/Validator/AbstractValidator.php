@@ -100,6 +100,6 @@ abstract class AbstractValidator extends ExtbaseAbstractValidator implements Val
 
     public function isConfirmationActivated(): bool
     {
-        return $this->flexForm['settings']['flexform']['main']['confirmation'] === '1';
+        return ($this->flexForm['settings']['flexform']['main']['confirmation'] ?? '') === '1';
     }
 }
