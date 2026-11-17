@@ -235,6 +235,27 @@ JS;
     }
 
     /**
+     * Turn off HTML5 and JavaScript validation to get a serverside validation error
+     *
+     * @When I disable the clientside validation of the form :selector
+     *
+     * @param string $selector query selector of the form
+     */
+    public function disableClientsideValidation(string $selector): void
+    {
+        $javascript = <<<JS
+document.querySelectorAll("{$selector}").forEach(function (form) {
+  form.noValidate = true;
+  form.removeAttribute("data-powermail-validate");
+  form.querySelectorAll("[required]").forEach(function (element) {
+    element.removeAttribute("required");
+  });
+});
+JS;
+        $this->getSession()->executeScript($javascript);
+    }
+
+    /**
      * createRandomFileName
      *
      * @param int $length

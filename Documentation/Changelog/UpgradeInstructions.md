@@ -15,6 +15,21 @@ database compare only relaxes the columns and runs without errors.
 The optional upgrade wizard "Powermail: Update all database TEXT fields that have a null value with a default
 value" replaces remaining `NULL` values with an empty string. It is only offered if there are such values.
 
+### Checkboxes and radiobuttons keep the submitted values when a form is rendered again
+
+If a form is rendered again after a failed validation or when coming back from the confirmation view,
+checkboxes and radiobuttons only show the values the visitor has submitted. Before, options that are
+preselected in the field settings (e.g. `two|2|*`) were checked again, even if the visitor had unchecked them.
+Prefill values from the frontend user, TypoScript (`prefill`) and the session are not added in this case either.
+
+The first view of a form, prefilling from GET parameters and the edit view are not changed.
+
+The new event listener `In2code\Powermail\EventListener\IgnorePreselectionForSubmittedFormEventListener`
+(identifier `powermail/ignore-preselection-for-submitted-form`) implements this behaviour on the
+`PrefillMultiFieldViewHelperEvent`. It only unchecks options that were not submitted, it never checks an option.
+If your own listener on this event checks options for a form that is rendered again, make sure it runs
+after the powermail listener (`after: 'powermail/ignore-preselection-for-submitted-form'`).
+
 ### Request tokens (CSRF protection) - opt-in, no breaking change
 
 A new extension configuration `enableRequestToken` (default: off) protects the form submit with the
