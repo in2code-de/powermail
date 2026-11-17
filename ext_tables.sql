@@ -88,6 +88,8 @@ CREATE TABLE tx_powermail_domain_model_mail (
 	marketing_browser_language text,
 	marketing_page_funnel text,
 	spam_factor varchar(255) DEFAULT '' NOT NULL,
+	optin_needed tinyint(1) unsigned DEFAULT '0' NOT NULL,
+	optin_completed tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
 	KEY form (form),
 	KEY feuser (feuser)
