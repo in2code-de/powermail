@@ -1,6 +1,8 @@
 <?php
 
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\DriverException;
+use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\MinkExtension\Context\MinkContext;
 use In2code\Powermail\Exception\ElementNotFoundException;
@@ -199,6 +201,36 @@ JS;
             $this->getSession()->executeScript($function);
         } catch (Exception) {
             throw new \Exception(__METHOD__ . ' failed', 6253197633);
+        }
+    }
+
+    /**
+     * Check the order of two options in a select field
+     *
+     * @Then the option :first should be listed before :second in :select
+     *
+     * @param string $select id, name or label of the select field
+     * @throws ExpectationException
+     */
+    public function theOptionShouldBeListedBefore(string $first, string $second, string $select): void
+    {
+        /** @var NodeElement[] $options */
+        $options = $this->assertSession()->fieldExists($select)->findAll('css', 'option');
+        $labels = array_map(static fn (NodeElement $option): string => trim($option->getText()), $options);
+        $firstPosition = array_search($first, $labels, true);
+        $secondPosition = array_search($second, $labels, true);
+        if ($firstPosition === false || $secondPosition === false || $firstPosition > $secondPosition) {
+            throw new ExpectationException(
+                sprintf(
+                    'Option "%s" (position %s) is not listed before "%s" (position %s) in select "%s"',
+                    $first,
+                    var_export($firstPosition, true),
+                    $second,
+                    var_export($secondPosition, true),
+                    $select
+                ),
+                $this->getSession()->getDriver()
+            );
         }
     }
 

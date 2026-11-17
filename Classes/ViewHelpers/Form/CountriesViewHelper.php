@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace In2code\Powermail\ViewHelpers\Form;
 
+use Collator;
 use In2code\Powermail\Domain\Service\CountriesFromStaticInfoTablesService;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Country\CountryProvider;
@@ -65,22 +66,23 @@ class CountriesViewHelper extends AbstractViewHelper
     protected function getCountriesFromCountryAPI(): array
     {
         $allCountries = $this->countryProvider->getAll();
+        /** @var array<string, string> $countryArrayForVH */
         $countryArrayForVH = [];
         $languageService = $this->getLanguageService();
         foreach ($allCountries as $country) {
             $countryArrayForVH[$country->getAlpha3IsoCode()] = $languageService->sL($country->getLocalizedNameLabel());
         }
-        asort($countryArrayForVH);
+        // Sort by the rules of the label language, so e.g. "Österreich" is not sorted after "Zypern"
+        (new Collator($languageService->getLocale()?->getName() ?? 'en'))->asort($countryArrayForVH);
         return $countryArrayForVH;
     }
 
     private function getLanguageService(): LanguageService
     {
         $locale = 'default';
-        $request = $this->getRequest();
-        if ($request instanceof ServerRequestInterface) {
-            /** @var SiteLanguage $language */
-            $language = $request->getAttribute('language');
+        /** @var SiteLanguage|null $language */
+        $language = $this->getRequest()?->getAttribute('language');
+        if ($language instanceof SiteLanguage) {
             $locale = $language->getLocale()->getName();
         }
         return GeneralUtility::makeInstance(LanguageServiceFactory::class)->create($locale);
