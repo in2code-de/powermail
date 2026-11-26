@@ -5,6 +5,8 @@ namespace In2code\Powermail\Domain\Service\Mail;
 
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Repository\MailRepository;
+use In2code\Powermail\Events\ReceiverMailSenderPropertiesGetReplyToEmailEvent;
+use In2code\Powermail\Events\ReceiverMailSenderPropertiesGetReplyToNameEvent;
 use In2code\Powermail\Events\ReceiverMailSenderPropertiesGetSenderEmailEvent;
 use In2code\Powermail\Events\ReceiverMailSenderPropertiesGetSenderNameEvent;
 use In2code\Powermail\Utility\TypoScriptUtility;
@@ -84,5 +86,47 @@ class ReceiverMailSenderPropertiesService
             new ReceiverMailSenderPropertiesGetSenderNameEvent($senderName, $this)
         );
         return $event->getSenderName();
+    }
+
+    /**
+     * Get sender email from configuration in fields and params. If empty, take default from TypoScript
+     *
+     * @throws ExceptionExtbaseObject
+     */
+    public function getReplyToEmail(): string
+    {
+        $defaultSenderEmail = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
+            $this->configuration['receiver.']['default.'],
+            'senderEmail'
+        );
+        $senderEmail = $this->mailRepository->getSenderMailFromArguments($this->mail, $defaultSenderEmail);
+
+        /** @var ReceiverMailSenderPropertiesGetReplyToEmailEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new ReceiverMailSenderPropertiesGetReplyToEmailEvent($senderEmail, $this)
+        );
+        return $event->getReplyToEmail();
+    }
+
+    /**
+     * Get sender name from configuration in fields and params. If empty, take default from TypoScript
+     *
+     * @throws ExceptionExtbaseObject
+     */
+    public function getReplyToName(): string
+    {
+        $defaultSenderName = TypoScriptUtility::overwriteValueFromTypoScript(
+            '',
+            $this->configuration['receiver.']['default.'],
+            'senderName'
+        );
+        $senderName = $this->mailRepository->getSenderNameFromArguments($this->mail, $defaultSenderName);
+
+        /** @var ReceiverMailSenderPropertiesGetReplyToNameEvent $event */
+        $event = $this->eventDispatcher->dispatch(
+            new ReceiverMailSenderPropertiesGetReplyToNameEvent($senderName, $this)
+        );
+        return $event->getReplyToName();
     }
 }
