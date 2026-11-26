@@ -11,6 +11,11 @@ $changeSettings = [
         'cacheHash' => [
             'enforceValidation' => false,
         ],
+        // Acceptance tests submit the same form more often than the IP rate limiter allows (10 per 5 minutes)
+        'defaultTypoScript_setup.' => [
+            'powermail/Configuration/TypoScript/Main/' =>
+                'plugin.tx_powermail.settings.setup.spamshield.methods.8.indication = 0',
+        ],
     ],
     'DB' => [
         'Connections' => [

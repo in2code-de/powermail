@@ -79,7 +79,7 @@ Feature: ShortFormAjax
     Then I should see "Daniel_Boxhammer25@fake-yahoo-10000.com"
     Then I should not see "Error, this text is only viewable if AJAX"
 
-    And I press "Next"
+    And I press "Submit"
     And I wait "a few" seconds
 
     Then I should see "Thx, your values:"
