@@ -21,6 +21,7 @@ use In2code\Powermail\Domain\Service\Mail\SendSenderMailPreflight;
 use In2code\Powermail\Domain\Service\RequestTokenService;
 use In2code\Powermail\Domain\Service\RequestTokenStatus;
 use In2code\Powermail\Domain\Service\UploadService;
+use In2code\Powermail\Domain\Validator\CaptchaValidator;
 use In2code\Powermail\Events\CheckIfMailIsAllowedToSaveEvent;
 use In2code\Powermail\Events\FormControllerConfirmationActionEvent;
 use In2code\Powermail\Events\FormControllerCreateActionAfterMailDbSavedEvent;
@@ -56,8 +57,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewInterface;
 use TYPO3\CMS\Extbase\Annotation as ExtbaseAnnotation;
 use TYPO3\CMS\Extbase\Configuration\Exception\InvalidConfigurationTypeException;
+use TYPO3\CMS\Extbase\Error\Error;
 use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Extbase\Mvc\Exception\NoSuchArgumentException;
+use TYPO3\CMS\Extbase\Mvc\ExtbaseRequestParameters;
 use TYPO3\CMS\Extbase\Mvc\RequestInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Extbase\Persistence\Exception\InvalidQueryException;
@@ -95,6 +98,17 @@ class FormController extends AbstractController
     {
         parent::initializeAction();
         $this->contentObject = $this->request->getAttribute('currentContentObject');
+    }
+
+    public function initializeFormAction(): void
+    {
+        if ($this->isFormRenderedAfterFailedValidation()) {
+            // keep valid files (a file input cannot be refilled), but never without a solved captcha
+            if ($this->hasCaptchaError() === false) {
+                $this->uploadService->uploadAllFiles();
+            }
+            $this->removeFileValuesFromOriginalRequest();
+        }
     }
 
     /**
@@ -600,6 +614,44 @@ class FormController extends AbstractController
     {
         $response = new ForwardResponse('form');
         return $response->withArgumentsValidationResult($this->arguments->validate());
+    }
+
+    protected function isFormRenderedAfterFailedValidation(): bool
+    {
+        /** @var ExtbaseRequestParameters $extbaseRequestParameters */
+        $extbaseRequestParameters = $this->request->getAttribute('extbase');
+        return $extbaseRequestParameters->getOriginalRequest() !== null
+            && $extbaseRequestParameters->getOriginalRequestMappingResults()->hasErrors();
+    }
+
+    protected function hasCaptchaError(): bool
+    {
+        /** @var ExtbaseRequestParameters $extbaseRequestParameters */
+        $extbaseRequestParameters = $this->request->getAttribute('extbase');
+        $errors = array_merge(
+            ...array_values($extbaseRequestParameters->getOriginalRequestMappingResults()->getFlattenedErrors())
+        );
+        $captchaErrors = array_filter(
+            $errors,
+            static fn (Error $error): bool => $error->getMessage() === CaptchaValidator::ERROR_LABEL
+        );
+        return $captchaErrors !== [];
+    }
+
+    // f:form.hidden prefers the submitted (array) value over its value argument after a failed validation
+    protected function removeFileValuesFromOriginalRequest(): void
+    {
+        /** @var ExtbaseRequestParameters $extbaseRequestParameters */
+        $extbaseRequestParameters = clone $this->request->getAttribute('extbase');
+        $originalRequest = $extbaseRequestParameters->getOriginalRequest();
+        if ($originalRequest !== null) {
+            $extbaseRequestParameters->setOriginalRequest(
+                $originalRequest->withArguments(
+                    $this->uploadService->removeFileValuesFromArguments($originalRequest->getArguments())
+                )
+            );
+            $this->request = $this->request->withAttribute('extbase', $extbaseRequestParameters);
+        }
     }
 
     /**

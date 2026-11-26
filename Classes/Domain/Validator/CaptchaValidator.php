@@ -20,6 +20,8 @@ use TYPO3\CMS\Extbase\Validation\Exception\InvalidValidationOptionsException;
  */
 class CaptchaValidator extends AbstractValidator
 {
+    public const ERROR_LABEL = 'captcha';
+
     /**
      * Captcha Session clean (only if mail is out)
      */
@@ -52,7 +54,7 @@ class CaptchaValidator extends AbstractValidator
                      */
                     if ($answer->getUid() === null) {
                         if (!$this->validCodePreflight($answer->getValue(), $answer->getField())) {
-                            $this->setErrorAndMessage($answer->getField(), 'captcha');
+                            $this->setErrorAndMessage($answer->getField(), self::ERROR_LABEL);
                         }
                     }
                 }
@@ -60,7 +62,7 @@ class CaptchaValidator extends AbstractValidator
 
             // if no captcha arguments given (maybe deleted from DOM)
             if (!$this->hasCaptchaArgument()) {
-                $this->addError('captcha', 1580681526);
+                $this->addError(self::ERROR_LABEL, 1580681526);
                 $this->setValidState(false);
             }
         }

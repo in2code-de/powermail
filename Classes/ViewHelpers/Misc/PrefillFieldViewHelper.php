@@ -3,9 +3,11 @@
 declare(strict_types=1);
 namespace In2code\Powermail\ViewHelpers\Misc;
 
+use In2code\Powermail\Domain\Model\Answer;
 use In2code\Powermail\Domain\Model\Field;
 use In2code\Powermail\Domain\Model\Mail;
 use In2code\Powermail\Domain\Service\ConfigurationService;
+use In2code\Powermail\Domain\Service\UploadService;
 use In2code\Powermail\Events\PrefillFieldViewHelperEvent;
 use In2code\Powermail\Utility\ConfigurationUtility;
 use In2code\Powermail\Utility\FrontendUtility;
@@ -41,11 +43,21 @@ class PrefillFieldViewHelper extends AbstractViewHelper
 
     protected string $marker = '';
 
+    protected UploadService $uploadService;
+
     /**
      * Constructor
      */
     public function __construct(private readonly EventDispatcherInterface $eventDispatcher)
     {
+    }
+
+    /**
+     * @todo Move UploadService to the constructor in powermail v15 (breaking change, add upgrade instructions)
+     */
+    public function injectUploadService(UploadService $uploadService): void
+    {
+        $this->uploadService = $uploadService;
     }
 
     public function initializeArguments(): void
@@ -103,6 +115,7 @@ class PrefillFieldViewHelper extends AbstractViewHelper
         $value = $this->getFromMail($value);
         $value = $this->getFromMarker($value);
         $value = $this->getFromRawMarker($value);
+        $value = $this->getFromUploadedFiles($value);
         $value = $this->getFromFrontendUser($value);
         $value = $this->getFromPrefillValue($value);
         $value = $this->getFromTypoScriptContentObject($value);
@@ -155,6 +168,20 @@ class PrefillFieldViewHelper extends AbstractViewHelper
     {
         if (empty($value) && isset($this->variables[$this->getMarker()])) {
             return $this->variables[$this->getMarker()];
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param string|array<mixed> $value
+     * @return string|array<mixed>
+     */
+    protected function getFromUploadedFiles($value)
+    {
+        $field = $this->getField();
+        if (empty($value) && $field->dataTypeFromFieldType($field->getType()) === Answer::VALUE_TYPE_UPLOAD) {
+            $value = $this->uploadService->getUploadedFileNamesByMarker($this->getMarker());
         }
 
         return $value;

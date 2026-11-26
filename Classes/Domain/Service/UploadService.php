@@ -115,6 +115,34 @@ class UploadService implements SingletonInterface
     }
 
     /**
+     * @return list<string>
+     */
+    public function getUploadedFileNamesByMarker(string $marker): array
+    {
+        $uploadedFileNames = [];
+        foreach ($this->getFiles() as $file) {
+            if ($file->getMarker() === $marker && $file->isUploaded()) {
+                $uploadedFileNames[] = $file->getNewName();
+            }
+        }
+
+        return $uploadedFileNames;
+    }
+
+    /**
+     * @param array<string, mixed> $arguments
+     * @return array<string, mixed>
+     */
+    public function removeFileValuesFromArguments(array $arguments): array
+    {
+        foreach ($this->getFiles() as $file) {
+            unset($arguments['field'][$file->getMarker()]);
+        }
+
+        return $arguments;
+    }
+
+    /**
      * @param string $fileExtensions allowed file extensions as commaseparated list
      */
     public function isFileExtensionAllowed(File $file, string $fileExtensions = ''): bool
