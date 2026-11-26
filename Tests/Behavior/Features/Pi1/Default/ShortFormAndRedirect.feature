@@ -35,5 +35,5 @@ Feature: ShortFormAndRedirect
     When I fill in "tx_powermail_pi1[field][email]" with "Tuana.Koehler20@fake-yahoo.com"
     And I press "Submit"
     Then I should see "Are these values correct?"
-    And I press "Next"
+    And I press "Submit"
     Then I should see "Welcome to powermail Testparcour"

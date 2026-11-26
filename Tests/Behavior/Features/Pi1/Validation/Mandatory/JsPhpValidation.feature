@@ -126,7 +126,7 @@ Feature: JsPhpValidation
     Then I should see "green"
     Then I should see "red"
     Then I should see "DEU"
-    And I press "Next"
+    And I press "Submit"
 
     Then I should see "Thx, your values:"
     Then I should see "Daniel"
